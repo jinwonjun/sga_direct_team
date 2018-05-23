@@ -89,10 +89,11 @@ void UIButton::SetTexture(string normal, string mouseOver, string selected)
 	m_size.y = info.Height;
 }
 
-void UIButton::SetText(LPD3DXFONT font, LPCTSTR text)
+void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text)
 {
 	UIText * pText = new UIText(font, m_pSprite);
 	this->AddChild(pText);
 	pText->m_text = text;
 	pText->m_size = m_size;
 }
+

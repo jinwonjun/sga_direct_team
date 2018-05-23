@@ -18,8 +18,6 @@ public:
 	void Update();
 	void UpdateMoving();
 	void SetMovingTarget(D3DXVECTOR3* pPos,D3DXVECTOR3* pRot, bool* pIsJumping);
-
-	void SetMovingTarget(KEYBOARD_STATE * pKeyState) { m_pKeyState = pKeyState; }
-
+	void SetMovingTarget(KEYBOARD_STATE * pKeyState) { m_pKeyState = pKeyState;}
 };
 

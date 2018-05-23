@@ -7,7 +7,6 @@ protected:
 	D3DXVECTOR3		m_deltaPos;
 	D3DXVECTOR3		m_deltaRot;
 	D3DXVECTOR3		m_forward;
-
 	KEYBOARD_STATE  m_keyState;
 
 	bool			m_isMoving;
@@ -31,6 +30,7 @@ protected:
 
 public:
 
+
 	virtual ~IUnitObject();
 
 
@@ -42,5 +42,7 @@ public:
 	//실제 위치 적용시켜줄 함수
 	void ApplyTargetPosition(D3DXVECTOR3 & targetPos);
 	void UpdatePosition();
+
+	D3DXVECTOR3 GetForward() { return m_forward; }
 };
 

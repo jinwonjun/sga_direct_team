@@ -33,6 +33,6 @@ public:
 	virtual void Render() override;
 
 	void SetTexture(string normal, string mouseOver, string selected);
-	void SetText(LPD3DXFONT font, LPCTSTR text);
+	void SetText(LPD3DXFONT font, LPCWSTR text);
 };
 

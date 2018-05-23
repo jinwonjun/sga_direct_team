@@ -23,11 +23,10 @@ void CubemanParts::Init(D3DXMATRIXA16* pMat, vector<vector<int>> &vecUV)
 	{
 		for (int i = 0; i < vecVertex.size(); i++)
 		{
-			D3DXVec3TransformCoord(&vecVertex[i],
-				&vecVertex[i], pMat);
+			D3DXVec3TransformCoord(&vecVertex[i],&vecVertex[i], pMat);
 		}
 	}
-	D3DXCreateTextureFromFile(g_pDevice, _T("resources/textures/batman.png"), &tex);
+	D3DXCreateTextureFromFile(g_pDevice, _T("resources/textures/ironman.png"), &tex);
 	//SetPCVertex(m_vecPCVertex, vecVertex);
 	SetPTVertex(m_vecPTVertex, vecVertex, vecUV);
 }
@@ -53,6 +52,8 @@ void CubemanParts::Update()
 		m_rotXSpeed *= -1;
 		m_rotXAngle = D3DX_PI / 4.0f;
 	}
+
+	//행렬 연산 시작 부분
 	D3DXMatrixRotationX(&matR, m_rotXAngle);
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 
@@ -99,8 +100,6 @@ void CubemanParts::Render()
 
 	////추가부분
 	//g_pDevice->SetTexture(0, NULL);
-
-
 
 	g_pDevice->SetTexture(0, tex);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
@@ -200,3 +199,4 @@ void CubemanParts::MakeUVList(vector<D3DXVECTOR2>& out,vector<vector<int>>& uv)
 		out.push_back(D3DXVECTOR2(uv[i][6] / 64.0f, uv[i][7] / 32.0f));
 	}
 }
+

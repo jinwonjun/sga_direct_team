@@ -61,9 +61,7 @@ void SampleUI::Init()
 		UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON2);
 		m_pRootUI->AddChild(pButton);
 		pButton->SetPosition(&D3DXVECTOR3(135, 400, 0));
-		pButton->SetTexture("resources/ui/btn-med-up.png.png",
-			"resources/ui/btn-med-over.png.png",
-			"resources/ui/btn-med-down.png.png");
+		pButton->SetTexture("resources/ui/btn-med-up.png.png","resources/ui/btn-med-over.png.png","resources/ui/btn-med-down.png.png");
 		//버튼자체에 이름 넣기
 		pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Button2"));
 	}

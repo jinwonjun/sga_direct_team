@@ -35,6 +35,8 @@ void Application::Update()
 	g_pTimeManager->Update();
 	g_pKeyboardManager->Update();
 	g_pSceneManager->Update();
+
+	//카메라 업데이트를 여기서 돌림
 	g_pCamera->Update();
 }
 

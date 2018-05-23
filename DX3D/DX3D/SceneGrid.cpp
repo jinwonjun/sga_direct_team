@@ -22,9 +22,12 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pGrid);
 	SAFE_RELEASE(m_pCubeman);
 	SAFE_RELEASE(m_pHexagon);
-	
+	SAFE_RELEASE(m_pWalls);
+	SAFE_RELEASE(m_pActionCube);
 
 	SAFE_RELEASE(m_pFrustum);
+
+
 	BaseObject::Release();
 }
 
@@ -77,7 +80,7 @@ void SceneGrid::Update()
 	//SAFE_UPDATE(pCube_head);
 
 	SAFE_UPDATE(m_pCubeman);
-	SAFE_UPDATE(m_pActionCube);
+	//SAFE_UPDATE(m_pActionCube);
 
 	SAFE_UPDATE(m_pFrustum);
 }
@@ -102,7 +105,7 @@ void SceneGrid::Render()
 	//그리드 그리기
 	SAFE_RENDER(m_pGrid);
 	//pGrid->Render();
-	//SAFE_RENDER(m_pCubeman);
+	SAFE_RENDER(m_pCubeman);
 	//조명에 따른 벽 그려보기
 	//SAFE_RENDER(m_pWalls);
 
@@ -110,7 +113,7 @@ void SceneGrid::Render()
 
 	//SAFE_RENDER(m_pActionCube);
 
-	SAFE_RENDER(m_pFrustum);
+	//SAFE_RENDER(m_pFrustum);
 
 }
 

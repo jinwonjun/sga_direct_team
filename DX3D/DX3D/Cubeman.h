@@ -1,20 +1,15 @@
 #pragma once
 #include "IDisplayObject.h"
+#include "IUnitObject.h"
 
 #include "ObjMap.h"
 
 class CubemanParts;
-class Enemyman;
 
-
-
-class Cubeman :
-	public IDisplayObject
+class Cubeman :public IUnitObject
 {
 private :
 	CubemanParts* m_pRootParts;
-
-	Enemyman * Enemy_pRootParts;
 
 	//조명 달기 예제
 	//조명 스위치 용도
@@ -51,10 +46,6 @@ public:
 	void CreateAllParts();
 	void CreateParts(CubemanParts* &pParts, IDisplayObject* pParent,D3DXVECTOR3 pos, D3DXVECTOR3 scale, D3DXVECTOR3 trans,vector<vector<int>> &vecUV);
 
-	//적을 똑같이 그려보자
-	void EnemyCreatParts();
-	void CreateParts_Enemy(Enemyman* &pParts, IDisplayObject* pParent, D3DXVECTOR3 pos, D3DXVECTOR3 scale, D3DXVECTOR3 trans, vector<vector<int>> &vecUV);
-
 	vector<vector<int>> uvBody = {
 		{ 32, 32, 32, 20, 40, 20, 40, 32 },	// 후
 		{ 20, 32, 20, 20, 28, 20, 28, 32 },	// 전
@@ -65,12 +56,20 @@ public:
 	};
 
 	vector<vector<int>> uvHead = {
-		{ 24, 16, 24, 8, 32, 8, 32, 16 },	// 후
-		{ 8, 16, 8, 8, 16, 8, 16, 16 },		// 전
-		{ 16, 16, 16, 8, 24, 8, 24, 16 },	// 좌
-		{ 0, 16, 0, 8, 8, 8, 8, 16 },		// 우
-		{ 8, 8, 8, 0, 16, 0, 16, 8 },		// 상
-		{ 16, 0, 16, 8, 24, 8, 24, 0 }		// 하
+		//{ 24, 16, 24, 8, 32, 8, 32, 16 },	// 후
+		//{ 8, 16, 8, 8, 16, 8, 16, 16 },		// 전
+		//{ 16, 16, 16, 8, 24, 8, 24, 16 },	// 좌
+		//{ 0, 16, 0, 8, 8, 8, 8, 16 },		// 우
+		//{ 8, 8, 8, 0, 16, 0, 16, 8 },		// 상
+		//{ 16, 0, 16, 8, 24, 8, 24, 0 }		// 하
+
+	//아이언맨 용도
+	{ 24+32, 16 + 32, 24 + 32, 8 + 32, 32 + 32, 8 + 32, 32 + 32, 16 + 32 },	// 후
+	{ 8 + 32, 16 + 32, 8 + 32, 8 + 32, 16 + 32, 8 + 32, 16 + 32, 16 + 32 },	// 전
+	{ 16 + 32, 16 + 32, 16 + 32, 8 + 32, 24 + 32, 8 + 32, 24 + 32, 16 + 32 },// 좌
+	{ 0 + 32, 16 + 32, 0 + 32, 8 + 32, 8 + 32, 8 + 32, 8 + 32, 16 + 32 },	// 우
+	{ 8 + 32, 8 + 32, 8 + 32, 0 + 32, 16 + 32, 0 + 32, 16 + 32, 8 + 32 },	// 상
+	{ 16 + 32, 0 + 32, 16 + 32, 8 + 32, 24 + 32, 8 + 32, 24 + 32, 0 + 32 }	// 하
 	};
 
 	vector<vector<int>> uvLArm = {

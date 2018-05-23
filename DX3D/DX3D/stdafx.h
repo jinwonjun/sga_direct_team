@@ -40,7 +40,6 @@ using std::to_string;
 extern HWND g_hWnd;
 
 #include "BaseObject.h"
-
 #include "Application.h"
 #include "GlobalDefinition.h"
 
@@ -48,8 +47,6 @@ extern HWND g_hWnd;
 //조명 헤더 추가하기
 #include "D3DUtility.h"
 #include "DeviceManager.h"
-
-
 #include "Camera.h"
 //
 #include "Cube.h"
@@ -58,14 +55,11 @@ extern HWND g_hWnd;
 #include "Cubeman_Right_leg.h"
 #include "Cubeman_Left_arm.h"
 #include "Cubeman_Right_arm.h"
-
 #include "Grid.h"
 #include "KeyboardManager.h"
-
 #include "IMap.h"
 #include "IUnitObject.h"
 #include "IAction.h"
-
 #include "Debug.h"
 
 //----매니져 류들 --------------------
