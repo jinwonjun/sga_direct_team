@@ -122,7 +122,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			currPoint.y = HIWORD(lParam);
 
 			m_rotY += (currPoint.x - m_ptPrevMouse.x) / 500.0f;
-			m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
+			//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
 
 			//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
 			//{
@@ -139,7 +139,9 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//커서 초기화
 			if ((currPoint.x <= 0 || currPoint.x >= WINSIZEX-250) || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250))
 			{
-				SetCursorPos(WINSIZEX / 2, WINSIZEY / 2);
+				SetCursorPos(WINSIZEX / 2-100, WINSIZEY / 2);//780 445
+				m_rotY += D3DX_PI / 2;
+				//m_rotX += D3DX_PI / 2;
 			}
 		//}
 	}
