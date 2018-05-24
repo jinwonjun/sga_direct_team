@@ -93,7 +93,9 @@ void Camera::Update()
 
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	printf("ÀÌÀüxÁÂÇ¥ : %d, ÀÌÀüyÁÂÇ¥ : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
+	//printf("ÀÌÀüxÁÂÇ¥ : %d, ÀÌÀüyÁÂÇ¥ : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
+
+	//ShowCursor(false);
 
 	switch (message)
 	{
@@ -121,7 +123,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			currPoint.x = LOWORD(lParam);
 			currPoint.y = HIWORD(lParam);
 
-			m_rotY += (currPoint.x - m_ptPrevMouse.x) / 500.0f;
+			m_rotY += (currPoint.x - m_ptPrevMouse.x) / 300.0f;
 			//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
 
 			//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
@@ -132,16 +134,22 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//{
 			//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
 			//}
-
+			printf("ÀÌÀü ÁÂÇ¥ : ( %d, %d )\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
 			m_ptPrevMouse = currPoint;
-			printf("ÇöÀçxÁÂÇ¥ : %d, ÇöÀçyÁÂÇ¥ : %d\n", currPoint.x, currPoint.y);
+			printf("ÇöÀç ÁÂÇ¥ : ( %d, %d )\n", currPoint.x, currPoint.y);
 			printf("xÈ¸Àü : %f, yÈ¸Àü : %f\n", m_rotX, m_rotY);
 			//Ä¿¼­ ÃÊ±âÈ­
-			if ((currPoint.x <= 0 || currPoint.x >= WINSIZEX-250) || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250))
+			// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
+			if ((currPoint.x >= 1230))
 			{
-				SetCursorPos(WINSIZEX / 2-100, WINSIZEY / 2);//780 445
+				SetCursorPos(WINSIZEX / 2, currPoint.y);//780 445
 				m_rotY += D3DX_PI / 2;
 				//m_rotX += D3DX_PI / 2;
+			}
+			else if (currPoint.x <= 300)
+			{
+				SetCursorPos(WINSIZEX / 2, currPoint.y);//780 445
+				m_rotY -= D3DX_PI/2;
 			}
 		//}
 	}

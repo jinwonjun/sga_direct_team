@@ -75,5 +75,5 @@ extern HWND g_hWnd;
 #include "ObjManager.h"
 #include "FontManager.h"
 
-#define WINSIZEX 1760
+#define WINSIZEX 1560
 #define WINSIZEY 990
