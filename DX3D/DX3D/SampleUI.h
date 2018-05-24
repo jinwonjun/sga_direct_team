@@ -7,11 +7,12 @@ class IUIObject;
 class SampleUI :public IDisplayObject, public IUIButtonDelegate
 {
 private:
+	std::wstring temp;
 	LPD3DXSPRITE m_pSprite;
 	IUIObject * m_pRootUI;
 
-	//LPDIRECT3DTEXTURE9 m_pTex;
-	//D3DXIMAGE_INFO m_imageInfo;
+	LPDIRECT3DTEXTURE9 m_pTex;
+	D3DXIMAGE_INFO m_imageInfo;
 
 public:
 	SampleUI();
@@ -24,5 +25,13 @@ public:
 
 	// IUIButtonDelegate을(를) 통해 상속됨
 	virtual void OnClick(UIButton * pSender) override;
-};
+	wstring s2ws(const string& s);
+	int restBullet;
+	bool spaceOn;
+	int contorller;
 
+	int MaxHp;
+	int CurrHp;
+	float PercentOfHp;
+
+};

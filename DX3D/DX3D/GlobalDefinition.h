@@ -27,6 +27,9 @@ public:\
 
 #define METHOD_WNDPROC(method) void method(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
+#define WINSIZEX 1760
+#define WINSIZEY 990
+
 enum SCENE_INDEX {
 	SCENE_GRID,
 	SCENE_OBJMAP,
