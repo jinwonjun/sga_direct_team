@@ -14,6 +14,7 @@ Application::~Application()
 void Application::Init()
 {
 	g_pDeviceManager->Init();
+	g_pMouse->SetHandle(g_hWnd);
 	g_pCamera->Init();
 	g_pSceneManager->Init();
 	
@@ -23,6 +24,8 @@ void Application::Destroy()
 {
 	g_pSceneManager->Destroy();
 	g_pObjMgr->Destroy();
+	g_pMouse->Delete();
+	g_pKeyboard->Delete();
 	g_pTextureManager->Destroy();
 	g_pFontMgr->Destroy();
 	Debug->Destroy();
@@ -34,6 +37,8 @@ void Application::Update()
 	Debug->InitText();
 	g_pTimeManager->Update();
 	g_pKeyboardManager->Update();
+	g_pMouse->Update();
+	g_pKeyboard->Update();
 	g_pSceneManager->Update();
 
 	//카메라 업데이트를 여기서 돌림
@@ -63,4 +68,5 @@ void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	g_pSceneManager->WndProc(hWnd, message, wParam, lParam);
 	g_pCamera->WndProc(hWnd, message, wParam, lParam);
+	g_pMouse->InputProc(message, wParam, lParam);
 }

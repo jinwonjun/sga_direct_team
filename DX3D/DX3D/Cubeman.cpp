@@ -232,22 +232,22 @@ void Cubeman::CreateAllParts()
 	//±âº» Ä³¸¯ÅÍ ¼ÂÆÃ
 	CubemanParts* pParts;
 	//¸öÅë
-	m_pRootParts = new CubemanParts();
+	m_pRootParts = new CubemanParts(¸ö);
 	CreateParts(m_pRootParts, this, D3DXVECTOR3(0.0f, 3.0f, 0.0f),D3DXVECTOR3(1.0f, 1.0f, 0.5f), D3DXVECTOR3(0, 0, 0), uvBody);
 	//¸Ó¸®
-	pParts = new CubemanParts();
+	pParts = new CubemanParts(¸Ó¸®);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(0.0f, 1.6f, 0.0f),D3DXVECTOR3(0.8f, 0.8f, 0.8f), D3DXVECTOR3(0, 0, 0), uvHead);
 	//¿ÞÆÈ
-	pParts = new CubemanParts(0.1f);
+	pParts = new CubemanParts(¿ÞÆÈ, 0.1f);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(-1.5f, 1.0f, 0.0f),D3DXVECTOR3(0.5f, 1.0f, 0.5f), D3DXVECTOR3(0, -1.0f, 0), uvLArm);
 	//¿À¸¥ÆÈ
-	pParts = new CubemanParts(-0.1f);
+	pParts = new CubemanParts(¿À¸¥ÆÈ, -0.1f);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(1.5f, 1.0f, 0.0f),D3DXVECTOR3(0.5f, 1.0f, 0.5f), D3DXVECTOR3(0, -1.0f, 0), uvRArm);
 	//¿Þ´Ù¸®
-	pParts = new CubemanParts(-0.1f);
+	pParts = new CubemanParts(¿Þ´Ù¸®, -0.1f);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(-0.5f, -1.0f, 0.0f),D3DXVECTOR3(0.5f, 1.0f, 0.5f), D3DXVECTOR3(0, -1.0f, 0), uvLLeg);
 	//¿À¸¥´Ù¸®
-	pParts = new CubemanParts(0.1f);
+	pParts = new CubemanParts(¿À¸¥´Ù¸®, 0.1f);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(0.5f, -1.0f, 0.0f),D3DXVECTOR3(0.5f, 1.0f, 0.5f), D3DXVECTOR3(0, -1.0f, 0), uvRLeg);
 }
 

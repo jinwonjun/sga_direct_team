@@ -39,6 +39,9 @@ using std::to_string;
 
 extern HWND g_hWnd;
 
+#include "Mouse.h"
+#include "Keyboard.h"
+
 #include "BaseObject.h"
 #include "Application.h"
 #include "GlobalDefinition.h"
