@@ -21,6 +21,5 @@ public:
 	void RemoveFromTagList(WORD _tag, IDisplayObject* _pObj);
 	IDisplayObject* FindObjectByTag(WORD _tag);
 	list<IDisplayObject*> FindObjectsByTag(WORD _tag);
-
 };
 

@@ -2,7 +2,7 @@
 
 #define g_pCamera Camera::GetInstance()
 
-class Camera
+class Camera 
 {
 	SINGLETON(Camera)
 private:
@@ -13,13 +13,17 @@ private:
 	D3DXMATRIXA16	m_matProj;
 	float			m_basePosY;
 	float			m_distance;
-	float			m_rotX;
-	float			m_rotY;
+	//float			m_rotX;
+	//float			m_rotY;
 	bool			m_isLbuttonDown;
 	POINT			m_ptPrevMouse;
-	D3DXVECTOR3*	m_pTarget;
+	D3DXVECTOR3 *	m_pTarget;
 
 public:
+
+	float			m_rotX;
+	float			m_rotY;
+
 	void Init();
 	void Update();
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
