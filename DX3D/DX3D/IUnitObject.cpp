@@ -39,25 +39,44 @@ void IUnitObject::SetDestination(const D3DXVECTOR3 & pos)
 
 void IUnitObject::UpdateKeyboardState()
 {
-	//점프가 false일때만 쓰도록 하자
+	////점프가 false일때만 쓰도록 하자
+	//if (m_isJumping == false) m_isJumping = m_keyState.bJump;
+	//m_deltaPos.z = m_keyState.deltaPos.z;
+	//m_deltaRot.y = m_keyState.deltaRot.y;
+
+	////이동이 없으면 그냥 막아주기
+	//if (m_deltaPos.z == 0 && m_deltaRot.y == 0) return;
+
+	//D3DXMATRIXA16 matRY;
+	////변화량이 있을 때만 회전값을 얻어서 회전시키기
+	//D3DXMatrixRotationY(&matRY, m_deltaRot.y * m_rotationSpeed);
+	//D3DXVec3TransformNormal(&m_forward, &m_forward, &matRY);
+	////델타 포즈는 정면방향 확인 용도
+	////이동 값을 destPos로 주었기 때문에 약간의 버그가 있을 수 있음!
+	//m_destPos = (D3DXVECTOR3(m_pos + m_forward * m_deltaPos.z * m_moveSpeed * m_currMoveSpeedRate));
+
+	//m_finalDestPos = m_destPos;
+	////앞뒤로 누르면 값이 변화없음
+	//m_vecAStarIndex.clear();
 	if (m_isJumping == false) m_isJumping = m_keyState.bJump;
 	m_deltaPos.z = m_keyState.deltaPos.z;
 	m_deltaRot.y = m_keyState.deltaRot.y;
+	m_deltaPos.x = m_keyState.deltaPos.x;
 
-	//이동이 없으면 그냥 막아주기
-	if (m_deltaPos.z == 0 && m_deltaRot.y == 0) return;
+	//이동이 없으면 막아줌
+	if (m_deltaPos.z == 0 && m_deltaRot.y == 0 && m_deltaPos.x == 0)return;
 
+	//포워드 
 	D3DXMATRIXA16 matRY;
-	//변화량이 있을 때만 회전값을 얻어서 회전시키기
 	D3DXMatrixRotationY(&matRY, m_deltaRot.y * m_rotationSpeed);
 	D3DXVec3TransformNormal(&m_forward, &m_forward, &matRY);
-	//델타 포즈는 정면방향 확인 용도
-	//이동 값을 destPos로 주었기 때문에 약간의 버그가 있을 수 있음!
-	m_destPos = (D3DXVECTOR3(m_pos + m_forward * m_deltaPos.z * m_moveSpeed * m_currMoveSpeedRate));
 
-	m_finalDestPos = m_destPos;
-	//앞뒤로 누르면 값이 변화없음
-	m_vecAStarIndex.clear();
+	//포워드 기준 레프트
+	D3DXMATRIXA16 matLeft;
+	D3DXMatrixRotationY(&matLeft, D3DX_PI / 2);
+	D3DXVec3TransformNormal(&m_left, &m_forward, &matLeft);
+
+	m_destPos = (D3DXVECTOR3(m_pos + m_forward * m_deltaPos.z * m_moveSpeed * m_currMoveSpeedRate));
 }
 
 void IUnitObject::UpdatePositionToDestination()
@@ -211,8 +230,10 @@ void IUnitObject::ApplyTargetPosition(D3DXVECTOR3 & targetPos)
 
 void IUnitObject::UpdatePosition()
 {
-	m_rot += m_deltaRot * m_rotationSpeed;
+	//m_rot += m_deltaRot * m_rotationSpeed;
 
+	m_rot.x = g_pCamera->m_rotX;
+	m_rot.y = g_pCamera->m_rotY;
 	//방식을 알았다!!!!
 	//m_rot.y = g_pCamera->m_rotY;
 
@@ -228,7 +249,9 @@ void IUnitObject::UpdatePosition()
 	if (m_isJumping == true)
 	{
 		m_currMoveSpeedRate = 0.7f;
-		targetPos = m_pos + m_forward * m_deltaPos.z* m_moveSpeed * m_currMoveSpeedRate;
+		//targetPos = m_pos + m_forward * m_deltaPos.z* m_moveSpeed * m_currMoveSpeedRate;
+
+		targetPos = m_pos + m_forward * m_deltaPos.z * m_moveSpeed * m_currMoveSpeedRate+ m_left * m_deltaPos.x * m_moveSpeed * m_currMoveSpeedRate;
 
 		targetPos.y += m_jumpPower - m_currGravity;
 		m_currGravity += m_gravity;
@@ -262,7 +285,8 @@ void IUnitObject::UpdatePosition()
 	}
 	else //m_isJumping == false
 	{
-		targetPos = m_pos + m_forward * m_deltaPos.z* m_moveSpeed * m_currMoveSpeedRate;
+		//targetPos = m_pos + m_forward * m_deltaPos.z* m_moveSpeed * m_currMoveSpeedRate;
+		targetPos = m_pos + m_forward * m_deltaPos.z * m_moveSpeed * m_currMoveSpeedRate + m_left * m_deltaPos.x * m_moveSpeed * m_currMoveSpeedRate;
 
 		if (g_pCurrentMap != NULL)
 		{

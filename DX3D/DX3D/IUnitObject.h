@@ -9,6 +9,8 @@ protected:
 	D3DXVECTOR3		m_forward;
 	KEYBOARD_STATE  m_keyState;
 
+	D3DXVECTOR3		m_left;
+
 	bool			m_isMoving;
 	float			m_moveSpeed;
 	float			m_currMoveSpeedRate;

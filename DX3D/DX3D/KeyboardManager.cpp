@@ -31,23 +31,25 @@ delta 값이 0 이 아니면 이동 및 회전 적용하기
 
 void KeyboardManager::UpdateMoving()
 {
-	if (m_pKeyState == NULL)
-		return;
+	if (m_pKeyState == NULL)return;
 
 	//if (m_pTargetPos == NULL || m_pTargetRot == NULL)
 	//   return;
 
 	if (GetKeyState('A') & 0x8000)
 	{
-		m_pKeyState->deltaRot.y = -1;
+		//m_pKeyState->deltaRot.y = -1;
+		m_pKeyState->deltaPos.x = -1;
 	}
 	else if (GetKeyState('D') & 0x8000)
 	{
-		m_pKeyState->deltaRot.y = 1;
+		//m_pKeyState->deltaRot.y = 1;
+		m_pKeyState->deltaPos.x = 1;
 	}
 	else
 	{
-		m_pKeyState->deltaRot.y = 0;
+		//m_pKeyState->deltaRot.y = 0;
+		m_pKeyState->deltaPos.x = 0;
 	}
 
 	if (GetKeyState('W') & 0x8000)
