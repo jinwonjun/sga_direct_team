@@ -19,6 +19,15 @@ private:
 	POINT			m_ptPrevMouse;
 	D3DXVECTOR3 *	m_pTarget;
 
+	//마우스 카메라 회전
+	POINT			mCenter;
+	RECT			mRc;
+	float			mSensX;
+	float			mSensY;
+	float			mLimitX;
+	float			mLimitY;
+	int				sensLevel;
+
 public:
 
 	float			m_rotX;
