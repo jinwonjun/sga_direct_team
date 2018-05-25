@@ -14,6 +14,11 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTex;
 	D3DXIMAGE_INFO m_imageInfo;
 
+
+	LPD3DXSPRITE m_pSprite_;
+	LPDIRECT3DTEXTURE9 m_pTex_;
+	D3DXIMAGE_INFO m_imageInfo_;
+
 public:
 	SampleUI();
 	~SampleUI();

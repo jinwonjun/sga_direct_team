@@ -18,6 +18,7 @@ enum
 SampleUI::SampleUI()
 {
 	m_pSprite = NULL;
+	m_pSprite_ = NULL;
 	m_pRootUI = NULL;
 }
 
@@ -25,6 +26,7 @@ SampleUI::SampleUI()
 SampleUI::~SampleUI()
 {
 	SAFE_RELEASE(m_pSprite);
+	SAFE_RELEASE(m_pSprite_);
 	//SAFE_RELEASE(m_pRootUI);
 	//SAFE_RELEASE(pbutt)
 	m_pRootUI->ReleaseAll();
@@ -33,6 +35,7 @@ SampleUI::~SampleUI()
 void SampleUI::Init()
 {
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
+	D3DXCreateSprite(g_pDevice, &m_pSprite_);
 	restBullet = 30;
 	spaceOn = false;
 	contorller = 0;
@@ -43,7 +46,7 @@ void SampleUI::Init()
 
 	{
 		UIImage * pImage = new UIImage(m_pSprite);
-		pImage->SetTexture("resources/ui/panel-info.png.png");
+		//pImage->SetTexture("resources/ui/panel-info.png.png");
 		m_pRootUI = pImage;
 	}
 
@@ -177,6 +180,23 @@ void SampleUI::Init()
 		&m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/Cross_Aim_sm.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&m_imageInfo_,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&m_pTex_);   //LPDIRECT3DTEXTURE9 *ppTexture
 }
 
 void SampleUI::Update()
@@ -297,6 +317,19 @@ void SampleUI::Render()
 	D3DXMatrixTranslation(&matT, clientRect.right - m_imageInfo.Width, 0, 0);
 	matWorld = matR * matT;
 
+	RECT rc_; // 회전중점, 위치이동 따로따로 있따.
+	SetRect(&rc_, 0, 0, m_imageInfo_.Width, m_imageInfo_.Height);
+	//D3DXSPRITE_ALPHABLEND
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld);
+	m_pSprite->Draw(
+		m_pTex_,
+		&rc_,
+		&D3DXVECTOR3(580, -500, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
 
 
 	RECT rc; // 회전중점, 위치이동 따로따로 있따.
@@ -315,7 +348,9 @@ void SampleUI::Render()
 
 
 
+
 	m_pSprite->End();
+
 }
 
 void SampleUI::OnClick(UIButton * pSender)

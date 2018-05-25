@@ -40,6 +40,8 @@ public:
 	//일단 큐브 머리
 	Cubeman_Head * pCube_head;
 
+	IDisplayObject *pObj;
+
 	TeachGrid * m_pGrid;
 
 	Cubeman * m_pCubeman;

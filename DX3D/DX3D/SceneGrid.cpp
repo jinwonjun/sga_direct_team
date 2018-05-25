@@ -3,7 +3,7 @@
 #include "TeachGrid.h"
 #include "Cubeman.h"
 #include "Walls.h"
-
+#include "SampleUI.h"
 #include "Cube.h"
 
 //월요일 수업 내용
@@ -27,7 +27,7 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pActionCube);
 	SAFE_RELEASE(pCube);
 	SAFE_RELEASE(m_pFrustum);
-
+	SAFE_RELEASE(pObj);
 
 	BaseObject::Release();
 }
@@ -42,6 +42,11 @@ void SceneGrid::Init()
 
 	//pGrid = new Grid;
 	//pGrid->Init();
+
+	pObj = new SampleUI;
+	pObj->Init();
+	AddSimpleDisplayObj(pObj);
+
 
 	m_pGrid = new TeachGrid;
 	m_pGrid->Init();
@@ -79,7 +84,7 @@ void SceneGrid::Update()
 {
 	SAFE_UPDATE(pCube);
 	//SAFE_UPDATE(pCube_head);
-
+	OnUpdateIScene();
 	SAFE_UPDATE(m_pCubeman);
 	//SAFE_UPDATE(m_pActionCube);
 
@@ -101,6 +106,8 @@ void SceneGrid::Render()
 	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, vecPTVertex.size() / 3, &vecPTVertex[0], sizeof(VERTEX_PT));
 	g_pDevice->SetTexture(0, NULL);
 
+
+	OnRenderIScene();
 	//큐브 그리기
 	pCube->Render();
 	//그리드 그리기
