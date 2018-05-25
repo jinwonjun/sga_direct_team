@@ -1,6 +1,10 @@
 aaa
 
+<<<<<<< HEAD
+jjjjjjj
+=======
 asdfjklajskl;dfjakl;sjf;
 asjdfkjakl;sdjfkl;jas
 dfjkalsdjfl;ajsdl;f
 ajskdlf;ja;sdfj
+>>>>>>> 9f220e818ecf3473ce6febf51299821577d970fe

@@ -188,8 +188,10 @@
     <ClInclude Include="IScene.h" />
     <ClInclude Include="IUIObject.h" />
     <ClInclude Include="IUnitObject.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="MapManager.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="ObjMap.h" />
@@ -251,8 +253,10 @@
     <ClCompile Include="IDisplayObject.cpp" />
     <ClCompile Include="IUIObject.cpp" />
     <ClCompile Include="IUnitObject.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="MapManager.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="ObjMap.cpp" />

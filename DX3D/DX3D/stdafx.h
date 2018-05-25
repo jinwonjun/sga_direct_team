@@ -39,6 +39,9 @@ using std::to_string;
 
 extern HWND g_hWnd;
 
+#include "Mouse.h"
+#include "Keyboard.h"
+
 #include "BaseObject.h"
 #include "Application.h"
 #include "GlobalDefinition.h"
@@ -72,5 +75,5 @@ extern HWND g_hWnd;
 #include "ObjManager.h"
 #include "FontManager.h"
 
-#define WINSIZEX 1760
+#define WINSIZEX 1560
 #define WINSIZEY 990

@@ -126,12 +126,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_MAXIMIZE,0, 0, WINSIZEX, WINSIZEY, nullptr, nullptr, hInstance, nullptr);
+ 
+   //RECT clientRect;
+   //SetRect(&clientRect, 0, 0, 600, 400); //원하는 클라이언트 크기를 저장한다.
 
-      CW_USEDEFAULT, 0, WINSIZEX, WINSIZEY, nullptr, nullptr, hInstance, nullptr);
+   //AdjustWindowRect(&clientRect, WS_OVERLAPPEDWINDOW, FALSE); //윈도우 크기를 계산
 
+   //MoveWindow(hWnd, 0, 0,clientRect.right - clientRect.left,clientRect.bottom - clientRect.top, TRUE);
       //CW_USEDEFAULT, 0, 1760, 990, nullptr, nullptr, hInstance, nullptr);
 
+   //AdjustWindowRect(0,,);
 
    //윈도우 핸들값 삽입하기
    g_hWnd = hWnd;

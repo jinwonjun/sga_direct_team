@@ -7,17 +7,18 @@ private:
 	//기존 버텍스 기준
 	//vector<VERTEX_PC> m_vecPCVertex;
 
-	vector <VERTEX_PT> m_vecPTVertex;
+	vector <VERTEX_PT>	m_vecPTVertex;
 	
 	//팔다리니까 X축만 관여하면 되겠지?
-	bool m_isMoving;
-	float m_rotXAngle;
-	float m_rotXSpeed;
+	bool				m_isMoving;
+	float				m_rotXAngle;
+	float				m_rotXSpeed;
+	int					m_partNum;
 
-	LPDIRECT3DTEXTURE9 tex;//텍스쳐 한번 씌워보자
+	LPDIRECT3DTEXTURE9	tex;//텍스쳐 한번 씌워보자
 
 public:
-	CubemanParts(float rotXSpeed = 0.0f);
+	CubemanParts(int partNum, float rotXSpeed = 0.0f);
 	~CubemanParts();
 
 	// IDisplayObject을(를) 통해 상속됨

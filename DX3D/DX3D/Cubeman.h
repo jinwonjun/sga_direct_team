@@ -15,22 +15,22 @@ private :
 	//조명 스위치 용도
 	bool m_isTurnedOnLight;
 
-	D3DXVECTOR3 m_deltaPos;
-	D3DXVECTOR3 m_deltaRot;
-	D3DXVECTOR3 m_forward;
+	D3DXVECTOR3		m_deltaPos;
+	D3DXVECTOR3		m_deltaRot;
+	D3DXVECTOR3		m_forward;
 
 	//큐브맨 클래스의 객체를 움직이면 그안에 놈들이 이 변수를 따라서 움직이게 하자.
-	bool m_isMoving;
-	float m_moveSpeed;
-	float m_currMoveSpeedRate;
-	float m_rotationSpeed;
+	bool			m_isMoving;
+	float			m_moveSpeed;
+	float			m_currMoveSpeedRate;
+	float			m_rotationSpeed;
 
-	bool m_isJumping;
-	float m_jumpPower;
-	float m_gravity;
-	float m_currGravity;
+	bool			m_isJumping;
+	float			m_jumpPower;
+	float			m_gravity;
+	float			m_currGravity;
 
-	float m_maxStepHeight;//평지 다닐때 높이차가 크게 되면 못가게 막아주는 변수
+	float			m_maxStepHeight;//평지 다닐때 높이차가 크게 되면 못가게 막아주는 변수
 
 
 public:
@@ -109,3 +109,7 @@ public:
 	};
 };
 
+enum CUBEMANPART
+{
+	몸, 머리, 왼팔, 오른팔, 왼다리, 오른다리
+};

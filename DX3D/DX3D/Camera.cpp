@@ -93,7 +93,10 @@ void Camera::Update()
 
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	printf("이전x좌표 : %d, 이전y좌표 : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
+	//printf("이전x좌표 : %d, 이전y좌표 : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
+
+	//커서 표시 할지 말지
+	//ShowCursor(false);
 
 	switch (message)
 	{
@@ -103,7 +106,6 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//case WM_LBUTTONDOWN:
 	//{
 	//	m_isLbuttonDown = true;
-	//	
 	//	m_ptPrevMouse.x = LOWORD(lParam);
 	//	m_ptPrevMouse.y = HIWORD(lParam);
 	//}
@@ -115,33 +117,37 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_MOUSEMOVE:
 	{
-		//if (m_isLbuttonDown == false)
+		POINT currPoint;
+		currPoint.x = LOWORD(lParam);
+		currPoint.y = HIWORD(lParam);
+
+		m_rotY += (currPoint.x - m_ptPrevMouse.x) / 300.0f;
+		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
+		//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
 		//{
-			POINT currPoint;
-			currPoint.x = LOWORD(lParam);
-			currPoint.y = HIWORD(lParam);
-
-			m_rotY += (currPoint.x - m_ptPrevMouse.x) / 500.0f;
-			m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
-
-			//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
-			//{
-			//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
-			//}
-			//if (m_rotX >= D3DX_PI * 0.3f - D3DX_16F_EPSILON)
-			//{
-			//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
-			//}
-
-			m_ptPrevMouse = currPoint;
-			printf("현재x좌표 : %d, 현재y좌표 : %d\n", currPoint.x, currPoint.y);
-			printf("x회전 : %f, y회전 : %f\n", m_rotX, m_rotY);
-			//커서 초기화
-			if ((currPoint.x <= 0 || currPoint.x >= WINSIZEX-250) || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250))
-			{
-				SetCursorPos(WINSIZEX / 2, WINSIZEY / 2);
-			}
+		//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
 		//}
+		//if (m_rotX >= D3DX_PI * 0.3f - D3DX_16F_EPSILON)
+		//{
+		//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
+		//}
+		printf("이전 좌표 : ( %d, %d )\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
+		m_ptPrevMouse = currPoint;
+		printf("현재 좌표 : ( %d, %d )\n", currPoint.x, currPoint.y);
+		printf("x회전 : %f, y회전 : %f\n", m_rotX, m_rotY);
+		//커서 초기화
+		// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
+		if ((currPoint.x >= 1230))
+		{
+			SetCursorPos(WINSIZEX / 2, currPoint.y);//780 445
+			m_rotY += D3DX_PI / 2;
+			//m_rotX += D3DX_PI / 2;
+		}
+		else if (currPoint.x <= 300)
+		{
+			SetCursorPos(WINSIZEX / 2, currPoint.y);//780 445
+			m_rotY -= D3DX_PI/2;
+		}
 	}
 	break;
 	case WM_MOUSEWHEEL:
