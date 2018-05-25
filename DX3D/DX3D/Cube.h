@@ -38,6 +38,9 @@ private:
 	Cubeman_Left_arm * m_pCube_Left_arm;
 	Cubeman_Right_arm * m_pCube_Right_arm;
 
+
+
+
 public:
 	Cube();
 	~Cube();
@@ -45,6 +48,9 @@ public:
 	D3DXMATRIX m_matWorld;//큐브 중심 월드 행렬
 	float RotY; //회전 크기
 	float RotX; //
+	bool			go_Left;
+	bool			go_Right;
+
 
 	void Init();
 	void Update();
