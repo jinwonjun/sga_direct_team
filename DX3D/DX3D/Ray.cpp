@@ -6,7 +6,6 @@ Ray::Ray() : m_pos(0,0,0), m_dir(0,0,1)
 {
 }
 
-
 Ray::~Ray()
 {
 }
@@ -66,20 +65,23 @@ bool Ray::CalcIntersectSphere(BoundingSphere * pSphere)
 	float qq = D3DXVec3Dot(&localPos, &localPos);
 	float rr = pSphere->radius * pSphere->radius;
 
-
 	//printf("%f\n", qv* qv - (qq - rr));
-	float caltemp = qv* qv - (qq - rr);
+	//float caltemp = qv* qv - (qq - rr);
 
 	//calculate.push_back(caltemp);
 	//printf("%d\n", calculate.size());
 
 	return qv* qv - (qq - rr) >= 0;
-
 }
 
 bool Ray::CalcIntersectTri(D3DXVECTOR3 * pStart, float * distance)
 {
 	return D3DXIntersectTri(pStart, pStart+1, pStart+2, &m_pos, & m_dir,NULL,NULL,distance);
+}
+
+bool Ray::CalcIntersectTri_dir(D3DXVECTOR3 * pStart, float * distance, D3DXVECTOR3 m_dir)
+{
+	return D3DXIntersectTri(pStart, pStart + 1, pStart + 2, &m_pos, &m_dir, NULL, NULL, distance);
 }
 
 /*

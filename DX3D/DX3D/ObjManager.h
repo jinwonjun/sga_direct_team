@@ -16,7 +16,6 @@ public:
 	void AddObject(BaseObject* pObj);
 	void RemoveObject(BaseObject* pObj);
 	void Destroy();
-
 	void AddToTagList(WORD _tag, IDisplayObject* _pObj);
 	void RemoveFromTagList(WORD _tag, IDisplayObject* _pObj);
 	IDisplayObject* FindObjectByTag(WORD _tag);

@@ -3,8 +3,7 @@
 
 
 Cube::Cube()
-	: RotY(0.0f)
-	, m_moveSpeed(0.1f),m_vPosition(0,1 + 0.7f * 2,0)
+	: RotY(0.0f), m_moveSpeed(0.1f),m_vPosition(0,1 + 0.7f * 2,0)
 {
 	m_basePosY = 1.0f;
 	m_isJumping = false;
@@ -22,6 +21,7 @@ Cube::~Cube()
 
 void Cube::Init()
 {
+	g_pObjMgr->AddToTagList(TAG_ENEMY1, this);
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&mT);
 	D3DXMatrixIdentity(&mR);
@@ -127,9 +127,10 @@ void Cube::Init()
 	m_vecVertex.push_back(VERTEX_PC(D3DXVECTOR3(1.0f, -1.0f, 1.0f), red));//7
 
 
+
 	//큐브 머리 부분
-	m_pCube_Head = new Cubeman_Head;
-	m_pCube_Head->Init();
+	//m_pCube_Head = new Cubeman_Head;
+	//m_pCube_Head->Init();
 	////큐브 다리 부분
 	//m_pCube_Left_leg = new Cubeman_Left_leg;
 	//m_pCube_Left_leg->Init();
@@ -198,9 +199,12 @@ void Cube::Update()
 		go_Left = false;
 	}
 
+	m_pos = m_vPosition;
+
 	D3DXMatrixTranslation(&mT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
 	m_matWorld =  mR * mT;
+
 
 	//큐브 이동을 몸통에서
 //m_pCube_Head->RotY = RotY;
@@ -236,7 +240,7 @@ void Cube::Render()
 	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size()/3, &m_vecVertex[0], sizeof(VERTEX_PC));
 
 	//머리그리기
-	m_pCube_Head->Render();
+//	m_pCube_Head->Render();
 //	m_pCube_Left_leg->Render();
 //	m_pCube_Right_leg->Render();
 //	m_pCube_Left_arm->Render();

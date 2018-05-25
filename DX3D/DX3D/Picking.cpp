@@ -79,8 +79,7 @@ void Picking::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			p->isPicked = false;
 			if (r.CalcIntersectSphere(p) == true)
 			{
-				intersectionDistance =
-					D3DXVec3Length(&(p->center - r.m_pos));
+				intersectionDistance =D3DXVec3Length(&(p->center - r.m_pos));
 				if (intersectionDistance < minDistance)
 				{
 					minDistance = intersectionDistance;

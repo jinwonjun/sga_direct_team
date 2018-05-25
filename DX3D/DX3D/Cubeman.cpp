@@ -3,6 +3,8 @@
 #include "CubemanParts.h"
 #include "Enemyman.h"
 
+#include "Ray.h"
+#include "Cube.h"
 Cubeman::Cubeman()
 {
 	m_pRootParts = NULL;
@@ -33,7 +35,6 @@ Cubeman::~Cubeman()
 void Cubeman::Init()
 {	
 	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
-
 	g_pCamera->SetTarget(&m_pos);
 	//printf("%f %f %f\n", &m_pos.x, &m_pos.y, &m_pos.z);
 	//g_pCamera->SetTarget(& D3DXVECTOR3(0, m_pos.y, 0));
@@ -55,6 +56,13 @@ void Cubeman::Update()
 	
 	IUnitObject::UpdatePosition();
 	IUnitObject::UpdateKeyboardState();
+	//static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition()
+	if (CalcPickedPosition(m_pos, (WORD)Mouse::Get()->GetPosition().x , (WORD)(Mouse::Get()->GetPosition().y)) == true)
+	{
+		//케릭터 pos 로 이동하게 하기
+		//static_cast<IUnitObject*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetDestination(pos);
+		int i = 0;
+	}
 
 	//조명 예제
 	if (GetAsyncKeyState('1') & 0x0001)
@@ -64,7 +72,6 @@ void Cubeman::Update()
 	if (m_isTurnedOnLight)
 	{
 		D3DXVECTOR3 pos = m_pos;
-
 		pos.y += 3.0f;
 		D3DXVECTOR3 dir = m_forward;
 		D3DXCOLOR c = BLUE;
@@ -80,7 +87,6 @@ void Cubeman::Update()
 	}
 	//bool 값에 따라서 0번으로 지시한 광원을 껐다 켰다 컨트롤 해보기
 	g_pDevice->LightEnable(10, m_isTurnedOnLight);
-
 	//각각의 파츠들이 움직이는지 아닌지 상태를 판단해서 인자값 넘겨줄거야
 	m_pRootParts->SetMovingState(IUnitObject::m_isMoving);
 	m_pRootParts->Update();
@@ -95,13 +101,46 @@ void Cubeman::Update()
 		IUnitObject::m_isMoving = true;
 		m_pos.x += 0.5f;
 	}
-
-	
 }
 
 void Cubeman::Render()
 {
 	m_pRootParts->Render();
+}
+
+bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
+{
+	Ray ray = Ray::RayAtWorldSpace(screenX, screenY);
+	float minDist = FLT_MAX;
+	float intersectionDist;
+	bool bIntersect = false;
+
+	vector<VERTEX_PC> temp;
+
+	D3DXVECTOR3 enemyPos = static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->GetPosition();
+	//printf("적 위치 : %f,%f,%f\n", enemyPos.x, enemyPos.y, enemyPos.z);
+
+	D3DXVECTOR3 temp2;
+	temp2 = static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
+
+	printf("%f %f %f\n", temp2.x, temp2.y, temp2.z);
+	
+	temp = g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex();
+
+	for (int i = 0; i < temp.size(); i += 3)
+	{
+		if (ray.CalcIntersectTri_dir(&temp[i].p, &intersectionDist, (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward())))
+		{
+			if (intersectionDist < minDist)
+			{
+				bIntersect = true;
+				minDist = intersectionDist;
+				vOut = ray.m_pos + ray.m_dir * intersectionDist;
+			}
+		}
+	}
+	
+	return bIntersect;
 }
 
 void Cubeman::UpdatePosition()
@@ -261,3 +300,4 @@ void Cubeman::CreateParts(CubemanParts* &pParts, IDisplayObject* pParent, D3DXVE
 	pParts->SetPosition(&pos);
 	pParent->AddChild(pParts);
 }
+

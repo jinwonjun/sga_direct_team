@@ -4,10 +4,11 @@
 #include "Cubeman.h"
 #include "Walls.h"
 
+#include "Cube.h"
+
 //월요일 수업 내용
 #include "Hexagon.h"
 #include "ActionCube.h"
-
 #include "Frustum.h"
 
 SceneGrid::SceneGrid()
@@ -24,7 +25,7 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pHexagon);
 	SAFE_RELEASE(m_pWalls);
 	SAFE_RELEASE(m_pActionCube);
-
+	SAFE_RELEASE(pCube);
 	SAFE_RELEASE(m_pFrustum);
 
 
@@ -33,8 +34,8 @@ void SceneGrid::Release()
 
 void SceneGrid::Init()
 {
-	//pCube = new Cube;
-	//pCube->Init();
+	pCube = new Cube;
+	pCube->Init();
 	////일단 파츠 구현
 	//pCube_head = new Cubeman_Head;
 	//pCube_head->Init();
@@ -62,21 +63,21 @@ void SceneGrid::Init()
 	m_pFrustum = new Frustum();
 	m_pFrustum->Init();
 
-	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0),D3DXVECTOR2(0, 1)));//7
-	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 1, 0),D3DXVECTOR2(0, 0)));//6
-	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 1, 0),D3DXVECTOR2(1, 0)));//5
+	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0), D3DXVECTOR2(0, 1)));//7
+	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 1, 0), D3DXVECTOR2(0, 0)));//6
+	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 1, 0), D3DXVECTOR2(1, 0)));//5
 
-	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0),D3DXVECTOR2(0, 1)));//7
-	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 1, 0),D3DXVECTOR2(1, 0)));//5
-	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 0, 0),D3DXVECTOR2(1, 1)));//4
+	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0), D3DXVECTOR2(0, 1)));//7
+	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 1, 0), D3DXVECTOR2(1, 0)));//5
+	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 0, 0), D3DXVECTOR2(1, 1)));//4
 
-	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
+																			  //D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
 	D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
 }
 
 void SceneGrid::Update()
 {
-	//SAFE_UPDATE(pCube);
+	SAFE_UPDATE(pCube);
 	//SAFE_UPDATE(pCube_head);
 
 	SAFE_UPDATE(m_pCubeman);
@@ -90,18 +91,18 @@ void SceneGrid::Render()
 	//그릴 도형의 타입, 도형의 갯수, 정점 정보의 시작 주소, 정점의 크기
 	//그라데이션 형식으로 그려짐.
 	//g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size() / 3,&m_vecVertex[0],sizeof(VERTEX_PC));
-	
-	//큐브 그리기
-	//pCube->Render();
+
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
 	g_pDevice->SetTransform(D3DTS_WORLD, &mat);
 	g_pDevice->SetFVF(VERTEX_PT::FVF);
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 	g_pDevice->SetTexture(0, tex);
-	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,vecPTVertex.size() / 3, &vecPTVertex[0], sizeof(VERTEX_PT));
+	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, vecPTVertex.size() / 3, &vecPTVertex[0], sizeof(VERTEX_PT));
 	g_pDevice->SetTexture(0, NULL);
 
+	//큐브 그리기
+	pCube->Render();
 	//그리드 그리기
 	SAFE_RENDER(m_pGrid);
 	//pGrid->Render();

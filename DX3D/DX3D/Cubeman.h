@@ -42,6 +42,8 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
+
+	bool CalcPickedPosition(D3DXVECTOR3 &vOut, WORD screenX, WORD screenY);
 	void UpdatePosition();
 	void CreateAllParts();
 	void CreateParts(CubemanParts* &pParts, IDisplayObject* pParent,D3DXVECTOR3 pos, D3DXVECTOR3 scale, D3DXVECTOR3 trans,vector<vector<int>> &vecUV);

@@ -6,7 +6,7 @@ Camera::Camera()
 	//m_distance = 5.0f;
 	m_distance = 0.5f;
 	m_basePosY = 10.0f;
-	m_eye = D3DXVECTOR3(0, m_basePosY , -m_distance);
+	m_eye = D3DXVECTOR3(0, m_basePosY, -m_distance);
 
 	m_lookAt = D3DXVECTOR3(0, 0, 0);
 	m_up = D3DXVECTOR3(0, 1, 0);
@@ -16,7 +16,7 @@ Camera::Camera()
 	m_pTarget = NULL;
 
 	mCenter = { 600,300 };
-	
+
 	mLimitX = 400.f;
 	mLimitY = 200.f;
 
@@ -25,9 +25,8 @@ Camera::Camera()
 
 	mSensX = 300.f;
 	mSensY = 100.f;
-	
-	sensLevel = 5;
 
+	sensLevel = 5;
 }
 
 Camera::~Camera()
@@ -64,7 +63,7 @@ void Camera::Update()
 
 	m_eye = D3DXVECTOR3(0, m_basePosY, -m_distance);
 	D3DXMATRIXA16 matRotX, matRotY, matRot;
-	
+
 	if (GetAsyncKeyState('O') & 0x0001)
 	{
 		if (sensLevel > 2)
@@ -72,7 +71,7 @@ void Camera::Update()
 			mSensX += mLimitX / 10.f;
 			mSensY += mLimitY / 10.f;
 			sensLevel--;
-		}		
+		}
 		else if (sensLevel = 2)
 		{
 			mSensX = 1000.f;
@@ -95,27 +94,9 @@ void Camera::Update()
 			sensLevel++;
 		}
 	}
-	
+
 	Debug->AddText("Mouse Sensitivity : " + to_string(sensLevel));
 	Debug->EndLine();
-	
-	//Debug->AddText(mSensX);
-	//Debug->EndLine();
-	
-	//키보드로 회전하기
-	//if (m_isLbuttonDown == false)
-	//{
-	//	m_rotX = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetRotation().x ;
-	//	m_rotY = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetRotation().y ;
-	//	D3DXMatrixRotationX(&matRotX, m_rotX);
-	//	D3DXMatrixRotationY(&matRotY, m_rotY);
-	//}
-	////true일때
-	//else
-	//{
-	//	D3DXMatrixRotationX(&matRotX, m_rotX);
-	//	D3DXMatrixRotationY(&matRotY, m_rotY);
-	//}
 	D3DXMatrixRotationX(&matRotX, m_rotX);
 	D3DXMatrixRotationY(&matRotY, m_rotY);
 	//마우스로 회전하기
@@ -138,9 +119,6 @@ void Camera::Update()
 		m_eye = *m_pTarget + m_eye;
 	}
 
-
-
-
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
 	g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
 }
@@ -156,7 +134,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		//이전 값 계속 받기
 		m_ptPrevMouse.x = LOWORD(lParam);
-		//m_ptPrevMouse.y = HIWORD(lParam);
+		m_ptPrevMouse.y = HIWORD(lParam);
 	//case WM_LBUTTONDOWN:
 	//{
 	//	m_isLbuttonDown = true;
@@ -171,15 +149,11 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_MOUSEMOVE:
 	{
-		//printf("%d, %d\n", center.x, center.y);
-
 		POINT currPoint;
 		currPoint.x = LOWORD(lParam);
 		currPoint.y = HIWORD(lParam);
 
-		m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
-		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
-
+		m_rotY += (currPoint.x - m_ptPrevMouse.x) / 300.0f;
 		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
 		//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
 		//{
@@ -189,18 +163,15 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		//{
 		//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
 		//}
-		printf("이전 좌표 : ( %d, %d )\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
 		m_ptPrevMouse = currPoint;
-		printf("현재 좌표 : ( %d, %d )\n", currPoint.x, currPoint.y);
-		printf("x회전 : %f, y회전 : %f\n", m_rotX, m_rotY);
 		//커서 초기화
 		// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
 		if ((currPoint.x >= mRc.right))
 		{
 			m_rotY += (mCenter.x - mRc.left) / mSensX;
 			SetCursorPos(mCenter.x, currPoint.y);//780 445
-			
-			//m_rotX += D3DX_PI / 2;
+
+												 //m_rotX += D3DX_PI / 2;
 		}
 		else if (currPoint.x <= mRc.left)
 		{

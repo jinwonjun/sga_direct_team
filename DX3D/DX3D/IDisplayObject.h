@@ -10,6 +10,8 @@ protected:
 	IDisplayObject*			m_pParent;
 	vector<IDisplayObject*> m_vecPChild;
 
+	vector<VERTEX_PC> m_vecVertex;
+
 public:
 	IDisplayObject();
 	virtual ~IDisplayObject();
@@ -20,9 +22,13 @@ public:
 	virtual void AddChild(IDisplayObject* pChild);
 	virtual void ReleaseAll();
 
+
 	D3DXVECTOR3		GetPosition() { return m_pos; }
 	void			SetPosition(D3DXVECTOR3* pos) { m_pos = *pos; }
 	D3DXVECTOR3		GetRotation() { return m_rot; }
 	D3DXMATRIXA16	GetWorldMatrix() { return m_matWorld; }
+
+	vector<VERTEX_PC> GetCubeVertex() { return m_vecVertex; }
+
 };
 
