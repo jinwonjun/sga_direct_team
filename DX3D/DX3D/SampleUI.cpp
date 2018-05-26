@@ -239,7 +239,8 @@ void SampleUI::Update()
 
 		UIButton * BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
 		m_pRootUI->AddChild(BulletNum);
-		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 3), 0));
+		//원래(WINSIZEY / 3)이었음
+		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
 		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 			"resources/ui/btn-med-over.png.png",
 			"resources/ui/btn-med-down.png.png");
@@ -337,15 +338,10 @@ void SampleUI::Render()
 	//D3DXSPRITE_ALPHABLEND
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(
-		m_pTex,
-		&rc,
-		&D3DXVECTOR3(m_imageInfo.Width / 4, -670, 0),
+	m_pSprite->Draw(m_pTex,&rc,&D3DXVECTOR3(m_imageInfo.Width / 4, -500, 0), &D3DXVECTOR3(0, 0, 0),WHITE);
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
-
+	//-670
 
 
 

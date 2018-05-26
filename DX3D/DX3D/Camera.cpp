@@ -153,7 +153,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		currPoint.x = LOWORD(lParam);
 		currPoint.y = HIWORD(lParam);
 
-		m_rotY += (currPoint.x - m_ptPrevMouse.x) / 300.0f;
+		m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
 		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
 		//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
 		//{
@@ -164,6 +164,9 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
 		//}
 		m_ptPrevMouse = currPoint;
+
+		
+
 		//커서 초기화
 		// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
 		if ((currPoint.x >= mRc.right))
@@ -178,6 +181,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			m_rotY -= (mCenter.x - mRc.left) / mSensX;
 			SetCursorPos(mCenter.x, currPoint.y);//780 445
 		}
+
 	}
 	break;
 	case WM_MOUSEWHEEL:

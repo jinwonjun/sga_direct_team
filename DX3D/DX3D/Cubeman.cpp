@@ -127,9 +127,9 @@ bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
 	
 	temp = g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex();
 
-	for (int i = 0; i < temp.size(); i += 3)
+	for (int i = 0; i < g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex().size(); i += 3)
 	{
-		if (ray.CalcIntersectTri_dir(&temp[i].p, &intersectionDist, (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward())))
+		if (ray.CalcIntersectTri_dir(&g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex()[i].p, &intersectionDist, (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward())))
 		{
 			if (intersectionDist < minDist)
 			{
