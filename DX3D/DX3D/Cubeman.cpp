@@ -74,6 +74,7 @@ void Cubeman::Update()
 	//조명 예제
 	if (GetAsyncKeyState('1') & 0x0001)
 	{
+
 		m_isTurnedOnLight = !m_isTurnedOnLight;
 	}
 	if (m_isTurnedOnLight)
@@ -313,10 +314,6 @@ void Cubeman::CreateAllParts()
 	//오른다리
 	pParts = new CubemanParts(오른다리, 0.1f);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(0.5f, -1.0f, 0.0f),D3DXVECTOR3(0.5f, 1.0f, 0.5f), D3DXVECTOR3(0, -1.0f, 0), uvRLeg);
-	//총몸
-	pParts = new CubemanParts(오른팔, 0.1f);
-	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(1.5f, 3.0f, 0.0f), D3DXVECTOR3(0.3f, 0.3f, 1.f), D3DXVECTOR3(0, -1, 0), uvBody);
-
 }
 
 void Cubeman::CreateParts(CubemanParts* &pParts, IDisplayObject* pParent, D3DXVECTOR3 pos, D3DXVECTOR3 scale, D3DXVECTOR3 trans, vector<vector<int>> &vecUV)
