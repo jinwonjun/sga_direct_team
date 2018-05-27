@@ -53,13 +53,20 @@ void CubemanParts::Update()
 		m_rotXSpeed *= -1;
 		m_rotXAngle = D3DX_PI / 4.0f;
 	}
-
+	if (m_rotXAngle > (-D3DX_PI / 4.0f) && m_rotXAngle < -D3DX_PI / 2.0f)
+	{
+		m_rotXAngle = 0.0f;
+	}
 	if (g_pMouse->ButtonPress(Mouse::INPUT_TYPE::LBUTTON))
 	{
 		if (m_partNum == 3)
 		{
 			m_rotXAngle = -D3DX_PI / 2.0f;
 		}
+	}
+	else if (!(g_pMouse->ButtonPress(Mouse::INPUT_TYPE::LBUTTON)) && m_isMoving == false)
+	{
+		m_rotXAngle = 0.0f;
 	}
 
 	//행렬 연산 시작 부분

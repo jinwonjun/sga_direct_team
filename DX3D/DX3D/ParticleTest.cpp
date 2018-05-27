@@ -63,7 +63,8 @@ void ParticleTest::Update()
 		ParticleTest::Init();
 	}
 
-	printf("벡터 사이즈 %d ,마지막 높이 : %f\n", m_vecAtt.size(),m_vecAtt[m_vecAtt.size() - 1]->_position.y);
+	
+	("벡터 사이즈 %d ,마지막 높이 : %f\n", m_vecAtt.size(),m_vecAtt[m_vecAtt.size() - 1]->_position.y);
 	//float angle = D3DX_PI/2;
 	//angle -= GetRandomFloat(0.01f, 0.03f);
 	//D3DXMatrixRotationY(&m_matWorld, angle);

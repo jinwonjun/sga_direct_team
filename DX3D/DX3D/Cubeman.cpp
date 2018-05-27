@@ -121,7 +121,7 @@ void Cubeman::Update()
 	m_vecVertex[1].c = red;
 	m_vecVertex[1].p = m_pos + temp;
 
-	Debug->AddText(m_pos + temp);
+	Debug->AddText((int)m_vecVertex.size());
 	Debug->EndLine();
 }
 
@@ -150,7 +150,7 @@ bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
 	bool bIntersect = false;
 
 	D3DXVECTOR3 enemyPos = static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->GetPosition();
-	printf("적 위치 : %f,%f,%f\n", enemyPos.x, enemyPos.y, enemyPos.z);
+	//printf("적 위치 : %f,%f,%f\n", enemyPos.x, enemyPos.y, enemyPos.z);
 
 	for (int i = 0; i < g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex().size(); i += 3)
 	{
@@ -313,6 +313,10 @@ void Cubeman::CreateAllParts()
 	//오른다리
 	pParts = new CubemanParts(오른다리, 0.1f);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(0.5f, -1.0f, 0.0f),D3DXVECTOR3(0.5f, 1.0f, 0.5f), D3DXVECTOR3(0, -1.0f, 0), uvRLeg);
+	//총몸
+	pParts = new CubemanParts(오른팔, 0.1f);
+	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(1.5f, 3.0f, 0.0f), D3DXVECTOR3(0.3f, 0.3f, 1.f), D3DXVECTOR3(0, -1, 0), uvBody);
+
 }
 
 void Cubeman::CreateParts(CubemanParts* &pParts, IDisplayObject* pParent, D3DXVECTOR3 pos, D3DXVECTOR3 scale, D3DXVECTOR3 trans, vector<vector<int>> &vecUV)

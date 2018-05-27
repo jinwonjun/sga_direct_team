@@ -266,6 +266,27 @@ void SampleUI::Init()
 		&m_imageInfo_Hp_Loss,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex_Hp_Loss);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
+	{
+		D3DXMATRIXA16 matS;
+		D3DXMatrixScaling(&matS, 1.f, 1.9f, 1);
+		D3DXMATRIXA16 matT;
+		D3DXMatrixTranslation(&matT, 150, 150, 0);
+		m_matWorld = matS * matT;
+
+		// 널 저주 하겠다.
+		UIButton * BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
+		m_pRootUI->AddChild(BulletNum);
+		//WINSIZEY / 3
+		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
+		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
+			"resources/ui/btn-med-over.png.png",
+			"resources/ui/btn-med-down.png.png");
+
+		temp = std::to_wstring(restBullet) + L" / 30";
+		BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+	}
 }
 
 void SampleUI::Update()
@@ -306,27 +327,7 @@ void SampleUI::Update()
 		restBullet = 0;
 	}
 
-	{
-		D3DXMATRIXA16 matS;
-		D3DXMatrixScaling(&matS, 1.f, 1.9f, 1);
-		D3DXMATRIXA16 matT;
-		D3DXMatrixTranslation(&matT, 150, 150, 0);
-		m_matWorld = matS * matT;
 
-		// 널 저주 하겠다.
-		UIButton * BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
-		m_pRootUI->AddChild(BulletNum);
-		//WINSIZEY / 3
-		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
-		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
-			"resources/ui/btn-med-over.png.png",
-			"resources/ui/btn-med-down.png.png");
-
-		temp = std::to_wstring(restBullet) + L" / 30";
-		BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
-
-
-	}
 
 	if (g_pKeyboard->KeyDown('G'))
 	{
@@ -382,7 +383,7 @@ void SampleUI::Render()
 {
 
 	g_pDevice->SetTexture(0, NULL); // 다른 색이 뭍어나와서 흰색이 주황색으로
-									//스프라이트는 비긴이랑 엔드 사이에서 그려준다.
+	//스프라이트는 비긴이랑 엔드 사이에서 그려준다.
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 

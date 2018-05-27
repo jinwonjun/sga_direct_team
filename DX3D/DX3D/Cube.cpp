@@ -231,7 +231,7 @@ void Cube::Update()
 void Cube::Render()
 {
 	////월드 매트릭스 설정해주기
-	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 
 	g_pDevice->SetFVF(VERTEX_PC::FVF);
 
@@ -240,6 +240,7 @@ void Cube::Render()
 	//g_pDevice->SetFVF(VERTEX_PC::FVF);
 	//그릴 도형의 타입, 도형의 갯수, 정점 정보의 시작 주소, 정점의 크기
 	//그라데이션 형식으로 그려짐.
+	g_pDevice->SetTexture(0, NULL);
 	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size()/3, &m_vecVertex[0], sizeof(VERTEX_PC));
 
 	//머리그리기

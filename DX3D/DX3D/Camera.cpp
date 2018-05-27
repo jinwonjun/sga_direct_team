@@ -106,7 +106,7 @@ void Camera::Update()
 
 	m_lookAt = D3DXVECTOR3(0, 0, 50.0f);
 
-	if (m_pTarget)
+	if (m_pTarget && !(g_pKeyboard->KeyPress('I')))
 	{
 		//static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
 		//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
@@ -116,6 +116,11 @@ void Camera::Update()
 		float distance = 10.0f;
 		temp = (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward()) * distance +  (*m_pTarget);
 		m_lookAt = D3DXVECTOR3(temp.x, temp.y+10, temp.z);
+		m_eye = *m_pTarget + m_eye;
+	}
+	else
+	{
+		m_lookAt = *m_pTarget;
 		m_eye = *m_pTarget + m_eye;
 	}
 
@@ -142,11 +147,11 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//	m_ptPrevMouse.y = HIWORD(lParam);
 	//}
 	//break;
-	case WM_LBUTTONUP:
-	{
-		//m_isLbuttonDown = false;
-	}
-	break;
+	//case WM_LBUTTONUP:
+	//{
+	//	m_isLbuttonDown = false;
+	//}
+	//break;
 	case WM_MOUSEMOVE:
 	{
 		POINT currPoint;
@@ -167,23 +172,18 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		//}
 		m_ptPrevMouse = currPoint;
 
-		
-
 		//커서 초기화
 		// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
 		if ((currPoint.x >= mRc.right))
 		{
 			m_rotY += (mCenter.x - mRc.left) / mSensX;
 			SetCursorPos(mCenter.x, currPoint.y);//780 445
-
-												 //m_rotX += D3DX_PI / 2;
 		}
 		else if (currPoint.x <= mRc.left)
 		{
 			m_rotY -= (mCenter.x - mRc.left) / mSensX;
 			SetCursorPos(mCenter.x, currPoint.y);//780 445
 		}
-
 	}
 	break;
 	case WM_MOUSEWHEEL:
