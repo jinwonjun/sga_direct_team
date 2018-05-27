@@ -278,11 +278,18 @@ void SampleUI::Update()
 		restBullet--;
 		spaceOn = false;
 	}
-	if (GetAsyncKeyState(VK_SPACE))
+	//if (GetAsyncKeyState(VK_SPACE))
+	//{
+	//	spaceOn = true;
+	//	contorller++;
+	//}
+	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		spaceOn = true;
 		contorller++;
 	}
+
+
 	//if (!GetAsyncKeyState(VK_SPACE))
 	else
 	{
@@ -413,12 +420,12 @@ void SampleUI::Render()
 	m_pSprite->Draw(
 		m_pTex_,
 		&rc_,
-		&D3DXVECTOR3(580, -500, 0),
+		&D3DXVECTOR3(583, -470, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
-	//-500
+	//580 -500
 	m_pSprite->SetTransform(&m_matWorld);
 	SAFE_RENDER(m_pRootUI);
 

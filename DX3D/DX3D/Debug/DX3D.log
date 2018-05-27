@@ -2,14 +2,14 @@
 d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(50): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(42): warning C4101: 'c_int' :참조되지 않은 지역 변수입니다.
 d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(276): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하십시오. 괄호를 사용하여 우선 순위를 명확하게 지정하십시오.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(310): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(404): warning C4244: '인수': 'unsigned long'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(477): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(507): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(519): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(535): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(518): warning C4101: 'Hp_Remain' :참조되지 않은 지역 변수입니다.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(460): warning C4101: 'Hp_Back' :참조되지 않은 지역 변수입니다.
-d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(490): warning C4101: 'Hp_Loss' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(317): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(411): warning C4244: '인수': 'unsigned long'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(484): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(514): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(526): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(542): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(525): warning C4101: 'Hp_Remain' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(467): warning C4101: 'Hp_Back' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(497): warning C4101: 'Hp_Loss' :참조되지 않은 지역 변수입니다.
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
