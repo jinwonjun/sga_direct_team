@@ -42,12 +42,15 @@ void SampleUI::Init()
 	char c_int[10];
 	MaxHp = 100;
 	CurrHp = 100;
-	PercentOfHp = CurrHp / MaxHp;
+
+
+	LifeLoss = 100;
 
 	{
 		UIImage * pImage = new UIImage(m_pSprite);
 		//pImage->SetTexture("resources/ui/panel-info.png.png");
 		m_pRootUI = pImage;
+		m_pRootUI_2 = pImage;
 	}
 
 	////텍스트 추가
@@ -104,6 +107,14 @@ void SampleUI::Init()
 	}
 	////버튼2
 	//{
+
+
+	//	D3DXMATRIXA16 matS;
+	//	D3DXMatrixScaling(&matS, 1.f, 1.5f, 1);
+	//	D3DXMATRIXA16 matT;
+	//	D3DXMatrixTranslation(&matT, 150, 150, 0);
+	//	m_matWorld = matS * matT;
+
 	//	UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON2);
 	//	m_pRootUI->AddChild(pButton);
 	//	pButton->SetPosition(&D3DXVECTOR3(135, 400, 0));
@@ -115,13 +126,20 @@ void SampleUI::Init()
 
 	////버튼3
 	//{
+
+
+
+
+
+
+
 	//	UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON3);
-	//	m_pRootUI->AddChild(pButton);
+	//	m_pRootUI_2->AddChild(pButton);
 	//	pButton->SetPosition(&D3DXVECTOR3(135, 260, 0));
 	//	pButton->SetTexture("resources/ui/btn-med-up.png.png",
 	//		"resources/ui/btn-med-over.png.png",
 	//		"resources/ui/btn-med-down.png.png");
-	//	pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Button3"));
+	//	pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Button3___"));
 	//}
 
 	//내가 만들어 본 것
@@ -156,11 +174,6 @@ void SampleUI::Init()
 	}
 
 
-	D3DXMATRIXA16 matS;
-	D3DXMatrixScaling(&matS, 1.f, 1.9f, 1);
-	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, 150, 150, 0);
-	m_matWorld = matS * matT;
 
 
 	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/Gun.png"), &m_pTex);
@@ -181,7 +194,8 @@ void SampleUI::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-
+					// 와 주석이 죄다 영어네
+					// 영어 잘한다고 자랑하냐??
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 		_T("resources/images/Cross_Aim_sm.png"),   //LPCTSTR pSrcFile,
@@ -197,6 +211,61 @@ void SampleUI::Init()
 		&m_imageInfo_,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex_);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
+
+					 // 체력 바탕
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/Ui_Back.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&m_imageInfo_Hp_Back,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&m_pTex_Hp_Back);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
+							// 체력 남은 양
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/Ui_RemainHp.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&m_imageInfo_Hp_Remain,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&m_pTex_Hp_Remain);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
+							  // 체력 잃은 양
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/Ui_LossHp.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&m_imageInfo_Hp_Loss,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&m_pTex_Hp_Loss);   //LPDIRECT3DTEXTURE9 *ppTexture
 }
 
 void SampleUI::Update()
@@ -209,23 +278,11 @@ void SampleUI::Update()
 		restBullet--;
 		spaceOn = false;
 	}
-	//총 쏘는 키 체크
-	if (g_pMouse->ButtonDown(Mouse::Get()->LBUTTON))
+	if (GetAsyncKeyState(VK_SPACE))
 	{
 		spaceOn = true;
 		contorller++;
 	}
-
-	//if (Keyboard::Get()->KeyPress(VK_SPACE))
-	//{
-	//	spaceOn = true;
-	//	contorller++;
-	//}
-	//if (GetAsyncKeyState(VK_SPACE))
-	//{
-	//	spaceOn = true;
-	//	contorller++;
-	//}
 	//if (!GetAsyncKeyState(VK_SPACE))
 	else
 	{
@@ -249,10 +306,10 @@ void SampleUI::Update()
 		D3DXMatrixTranslation(&matT, 150, 150, 0);
 		m_matWorld = matS * matT;
 
+		// 널 저주 하겠다.
 		UIButton * BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
 		m_pRootUI->AddChild(BulletNum);
-		//원래(WINSIZEY / 3)이었음
-		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
+		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 3), 0));
 		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 			"resources/ui/btn-med-over.png.png",
 			"resources/ui/btn-med-down.png.png");
@@ -262,6 +319,15 @@ void SampleUI::Update()
 
 
 	}
+
+
+
+	if (g_pKeyboard->KeyDown('G'))
+	{
+		CurrHp = CurrHp - 5;
+	}
+
+	PercentOfHp = (float)CurrHp / (float)MaxHp;
 
 	//==========================================
 	//==========================================
@@ -307,9 +373,11 @@ void SampleUI::Render()
 	g_pDevice->SetTexture(0, NULL); // 다른 색이 뭍어나와서 흰색이 주황색으로
 									//스프라이트는 비긴이랑 엔드 사이에서 그려준다.
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-	m_pSprite->SetTransform(&m_matWorld);
-	SAFE_RENDER(m_pRootUI);
-	m_pSprite->End();
+
+
+
+
+
 
 
 
@@ -323,14 +391,17 @@ void SampleUI::Render()
 	GetClientRect(g_hWnd, &clientRect);
 
 	D3DXMATRIXA16 matR, matT, matWorld;
+	D3DXMATRIXA16 matS;
 	static float fAngle = 0.0f;
+
 	//fAngle += 0.1f;
-	D3DXMatrixRotationZ(&matR, fAngle);
+	//D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, clientRect.right - m_imageInfo.Width, 0, 0);
-	matWorld = matR * matT;
+	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
+	matWorld = matT * matS;  // 젤 끝에서 시작점으로 이동하는것
 
-	RECT rc_; // 회전중점, 위치이동 따로따로 있따.
+	RECT rc_; // 회전중점, 위치이동 따로따로 있따.       에임
 	SetRect(&rc_, 0, 0, m_imageInfo_.Width, m_imageInfo_.Height);
 	//D3DXSPRITE_ALPHABLEND
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
@@ -344,17 +415,124 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 
+	m_pSprite->SetTransform(&m_matWorld);
+	SAFE_RENDER(m_pRootUI);
 
-	RECT rc; // 회전중점, 위치이동 따로따로 있따.
+	//	D3DXMATRIXA16 matR, matT, matWorld;
+	//	static float fAngle = 0.0f;
+
+	//fAngle += 0.1f;
+
+
+	RECT rc; // 회전중점, 위치이동 따로따로 있따.  총
 	SetRect(&rc, 0, 0, m_imageInfo.Width, m_imageInfo.Height);
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 1325, 0, 0);
+	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
+
+	matWorld = matS* matR * matT;
+
 	//D3DXSPRITE_ALPHABLEND
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(m_pTex,&rc,&D3DXVECTOR3(m_imageInfo.Width / 4, -500, 0), &D3DXVECTOR3(0, 0, 0),WHITE);
+	m_pSprite->Draw(
+		m_pTex,
+		&rc,
+		&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
-	//-670
+		&D3DXVECTOR3(-50, 650, 0),
+		WHITE);
 
+
+
+	m_pSprite->SetTransform(&matWorld);
+	SAFE_RENDER(m_pRootUI);
+
+
+
+	RECT Hp_Back; // 회전중점, 위치이동 따로따로 있따.  체력 바탕
+	SetRect(&rc, 0, 0, m_imageInfo_Hp_Back.Width, m_imageInfo_Hp_Back.Height);
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 250, 850, 0);
+	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
+
+	matWorld = matS* matR * matT;
+
+	//D3DXSPRITE_ALPHABLEND
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld);
+	m_pSprite->Draw(
+		m_pTex_Hp_Back,
+		&rc,
+		&D3DXVECTOR3(m_imageInfo_Hp_Back.Width / 2, m_imageInfo_Hp_Back.Height / 2, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+
+	m_pSprite->SetTransform(&matWorld);
+	SAFE_RENDER(m_pRootUI);
+
+
+
+
+
+	RECT Hp_Loss; // 회전중점, 위치이동 따로따로 있따.  체력 잃은 양
+	SetRect(&rc, 0, 0, m_imageInfo_Hp_Loss.Width, m_imageInfo_Hp_Loss.Height);
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 250, 850, 0);
+	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
+
+	matWorld = matS* matR * matT;
+
+	//D3DXSPRITE_ALPHABLEND
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld);
+	m_pSprite->Draw(
+		m_pTex_Hp_Loss,
+		&rc,
+		&D3DXVECTOR3(m_imageInfo_Hp_Loss.Width / 2, m_imageInfo_Hp_Loss.Height / 2, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+
+	m_pSprite->SetTransform(&matWorld);
+	SAFE_RENDER(m_pRootUI);
+
+
+
+	RECT Hp_Remain; // 회전중점, 위치이동 따로따로 있따.  체력 남은 양
+	SetRect(&rc, 0, 0, m_imageInfo_Hp_Remain.Width * PercentOfHp, m_imageInfo_Hp_Remain.Height);
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 250, 850, 0);
+	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
+
+	matWorld = matS* matR * matT;
+
+	//D3DXSPRITE_ALPHABLEND
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld);
+	m_pSprite->Draw(
+		m_pTex_Hp_Remain,
+		&rc,
+		&D3DXVECTOR3(m_imageInfo_Hp_Remain.Width / 2, m_imageInfo_Hp_Remain.Height / 2, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+
+	m_pSprite->SetTransform(&matWorld);
+	SAFE_RENDER(m_pRootUI);
 
 
 	m_pSprite->End();
