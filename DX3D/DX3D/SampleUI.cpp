@@ -309,7 +309,8 @@ void SampleUI::Update()
 		// 널 저주 하겠다.
 		UIButton * BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
 		m_pRootUI->AddChild(BulletNum);
-		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 3), 0));
+		//WINSIZEY / 3
+		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
 		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 			"resources/ui/btn-med-over.png.png",
 			"resources/ui/btn-med-down.png.png");
@@ -320,11 +321,14 @@ void SampleUI::Update()
 
 	}
 
-
-
 	if (g_pKeyboard->KeyDown('G'))
 	{
 		CurrHp = CurrHp - 5;
+		//컨트롤 막기
+		if (CurrHp < 0)
+		{
+			CurrHp = 0;
+		}
 	}
 
 	PercentOfHp = (float)CurrHp / (float)MaxHp;
@@ -414,7 +418,7 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
-
+	//-500
 	m_pSprite->SetTransform(&m_matWorld);
 	SAFE_RENDER(m_pRootUI);
 
@@ -429,9 +433,9 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 1325, 0, 0);
+	D3DXMatrixTranslation(&matT, 1325, -150, 0);
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
-
+	//1325 0  -> 1325 -150
 	matWorld = matS* matR * matT;
 
 	//D3DXSPRITE_ALPHABLEND
@@ -458,7 +462,8 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 250, 850, 0);
+	D3DXMatrixTranslation(&matT, 250, 750, 0);
+	//250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
 	matWorld = matS* matR * matT;
@@ -487,7 +492,8 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 250, 850, 0);
+	D3DXMatrixTranslation(&matT, 250, 750, 0);
+	////250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
 	matWorld = matS* matR * matT;
@@ -514,7 +520,8 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 250, 850, 0);
+	D3DXMatrixTranslation(&matT, 250, 750, 0);
+	//250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
 	matWorld = matS* matR * matT;
