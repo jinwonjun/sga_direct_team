@@ -154,7 +154,9 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		currPoint.y = HIWORD(lParam);
 
 		m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
-		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 500.0f;
+		//X회전 성분에 대한 수치값은 나중에 하자
+		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 1000.0f;
+
 		//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
 		//{
 		//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;

@@ -15,9 +15,9 @@ private :
 	//조명 스위치 용도
 	bool m_isTurnedOnLight;
 
-	D3DXVECTOR3		m_deltaPos;
-	D3DXVECTOR3		m_deltaRot;
-	D3DXVECTOR3		m_forward;
+	//D3DXVECTOR3		m_deltaPos;
+	//D3DXVECTOR3		m_deltaRot;
+	//D3DXVECTOR3		m_forward;
 
 	//큐브맨 클래스의 객체를 움직이면 그안에 놈들이 이 변수를 따라서 움직이게 하자.
 	bool			m_isMoving;

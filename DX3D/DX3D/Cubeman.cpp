@@ -44,6 +44,13 @@ void Cubeman::Init()
 
 
 	CreateAllParts();
+
+	//버텍스 벡터에 정면 벡터값이랑 값 넣어주기
+	D3DCOLOR red = D3DCOLOR_XRGB(255, 0, 0);
+	//시점
+	m_vecVertex.push_back(VERTEX_PC(m_pos, red));//0
+	//종점
+	m_vecVertex.push_back(VERTEX_PC(m_pos + m_forward * 100, red));//1
 }
 
 void Cubeman::Update()
@@ -57,7 +64,7 @@ void Cubeman::Update()
 	IUnitObject::UpdatePosition();
 	IUnitObject::UpdateKeyboardState();
 	//static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition()
-	if (CalcPickedPosition(m_pos, (WORD)Mouse::Get()->GetPosition().x , (WORD)(Mouse::Get()->GetPosition().y)) == true)
+	if (CalcPickedPosition(m_pos, (WORD)(g_pMouse->GetPosition().x) , (WORD)(g_pMouse->GetPosition().y)) == true)
 	{
 		//케릭터 pos 로 이동하게 하기
 		//static_cast<IUnitObject*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetDestination(pos);
@@ -101,11 +108,38 @@ void Cubeman::Update()
 		IUnitObject::m_isMoving = true;
 		m_pos.x += 0.5f;
 	}
+
+	//버텍스 벡터에 정면 벡터값이랑 값 넣어주기
+	D3DCOLOR red = D3DCOLOR_XRGB(255, 0, 0);
+	D3DXVECTOR3 temp;
+	temp = m_forward * 100;
+	//temp.y = 5.0f;
+
+	m_vecVertex[0].c = red;
+	m_vecVertex[0].p = m_pos;
+
+	m_vecVertex[1].c = red;
+	m_vecVertex[1].p = m_pos + temp;
+
+	Debug->AddText(m_pos + temp);
+	Debug->EndLine();
 }
 
 void Cubeman::Render()
 {
 	m_pRootParts->Render();
+
+	D3DXMatrixIdentity(&m_matWorld);
+	//정면 방향 벡터 그림 그려보기
+	////월드 매트릭스 설정해주기
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+	g_pDevice->SetFVF(VERTEX_PC::FVF);
+	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+	//그릴 도형의 타입, 도형의 갯수, 정점 정보의 시작 주소, 정점의 크기
+	//그라데이션 형식으로 그려짐.
+	g_pDevice->SetTexture(0, NULL);
+	g_pDevice->DrawPrimitiveUP(D3DPT_LINELIST, m_vecVertex.size() / 2, &m_vecVertex[0], sizeof(VERTEX_PC));
+
 }
 
 bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
@@ -115,21 +149,12 @@ bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
 	float intersectionDist;
 	bool bIntersect = false;
 
-	vector<VERTEX_PC> temp;
-
 	D3DXVECTOR3 enemyPos = static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->GetPosition();
-	//printf("적 위치 : %f,%f,%f\n", enemyPos.x, enemyPos.y, enemyPos.z);
-
-	D3DXVECTOR3 temp2;
-	temp2 = static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
-
-	printf("%f %f %f\n", temp2.x, temp2.y, temp2.z);
-	
-	temp = g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex();
+	printf("적 위치 : %f,%f,%f\n", enemyPos.x, enemyPos.y, enemyPos.z);
 
 	for (int i = 0; i < g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex().size(); i += 3)
 	{
-		if (ray.CalcIntersectTri_dir(&g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex()[i].p, &intersectionDist, (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward())))
+		if (ray.CalcIntersectTri_dir(&g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex()[i].p, &intersectionDist, m_forward,m_pos))
 		{
 			if (intersectionDist < minDist)
 			{

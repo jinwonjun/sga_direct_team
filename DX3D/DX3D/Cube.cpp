@@ -25,6 +25,7 @@ void Cube::Init()
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&mT);
 	D3DXMatrixIdentity(&mR);
+	D3DXMatrixIdentity(&mS);
 	//D3DXMatrixIdentity()
 
 	go_Right = true;
@@ -203,7 +204,9 @@ void Cube::Update()
 
 	D3DXMatrixTranslation(&mT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
-	m_matWorld =  mR * mT;
+	D3DXMatrixScaling(&mS, 2.0f, 10.0f, 2.0f);
+
+	m_matWorld =  mS* mR * mT;
 
 
 	//큐브 이동을 몸통에서

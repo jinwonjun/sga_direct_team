@@ -32,7 +32,7 @@ public:
 	virtual void OnClick(UIButton * pSender) override;
 	wstring s2ws(const string& s);
 	int restBullet;
-	bool spaceOn;
+	bool spaceOn;//스페이스바 한번만 눌리게 체크 하기
 	int contorller;
 
 	int MaxHp;

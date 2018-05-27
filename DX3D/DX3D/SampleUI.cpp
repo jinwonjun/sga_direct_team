@@ -209,11 +209,23 @@ void SampleUI::Update()
 		restBullet--;
 		spaceOn = false;
 	}
-	if (GetAsyncKeyState(VK_SPACE))
+	//ÃÑ ½î´Â Å° Ã¼Å©
+	if (g_pMouse->ButtonDown(Mouse::Get()->LBUTTON))
 	{
 		spaceOn = true;
 		contorller++;
 	}
+
+	//if (Keyboard::Get()->KeyPress(VK_SPACE))
+	//{
+	//	spaceOn = true;
+	//	contorller++;
+	//}
+	//if (GetAsyncKeyState(VK_SPACE))
+	//{
+	//	spaceOn = true;
+	//	contorller++;
+	//}
 	//if (!GetAsyncKeyState(VK_SPACE))
 	else
 	{
