@@ -19,7 +19,7 @@ Camera::Camera()
 
 	mLimitX = 400.f;
 	mLimitY = 200.f;
-
+	mRCCollCheck = false;
 	//마우스 이동 제한 할 렉트
 	mRc = { mCenter.x - (LONG)mLimitX, mCenter.y - (LONG)mLimitY, mCenter.x + (LONG)mLimitX, mCenter.y + (LONG)mLimitY };
 
@@ -105,8 +105,8 @@ void Camera::Update()
 	D3DXVec3TransformCoord(&m_eye, &m_eye, &matRot);
 
 	m_lookAt = D3DXVECTOR3(0, 0, 50.0f);
-
-	if (m_pTarget && !(g_pKeyboard->KeyPress('I')))
+	
+	if (m_pTarget && !(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
 		//static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
 		//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
@@ -115,7 +115,8 @@ void Camera::Update()
 		D3DXVECTOR3 temp;
 		float distance = 10.0f;
 		temp = (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward()) * distance +  (*m_pTarget);
-		m_lookAt = D3DXVECTOR3(temp.x, temp.y+10, temp.z);
+		
+		m_lookAt = D3DXVECTOR3(temp.x, temp.y + 10, temp.z);
 		m_eye = *m_pTarget + m_eye;
 	}
 	else
@@ -158,7 +159,12 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		currPoint.x = LOWORD(lParam);
 		currPoint.y = HIWORD(lParam);
 
-		m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
+		if (!mRCCollCheck)
+		{
+			m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
+		}
+		mRCCollCheck = false;
+
 		//X회전 성분에 대한 수치값은 나중에 하자
 		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 1000.0f;
 
@@ -176,13 +182,13 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
 		if ((currPoint.x >= mRc.right))
 		{
-			m_rotY += (mCenter.x - mRc.left) / mSensX;
 			SetCursorPos(mCenter.x, currPoint.y);//780 445
+			mRCCollCheck = true;
 		}
 		else if (currPoint.x <= mRc.left)
 		{
-			m_rotY -= (mCenter.x - mRc.left) / mSensX;
 			SetCursorPos(mCenter.x, currPoint.y);//780 445
+			mRCCollCheck = true;
 		}
 	}
 	break;

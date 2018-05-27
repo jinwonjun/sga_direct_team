@@ -231,7 +231,7 @@ void IUnitObject::ApplyTargetPosition(D3DXVECTOR3 & targetPos)
 void IUnitObject::UpdatePosition()
 {
 	//m_rot += m_deltaRot * m_rotationSpeed;
-	if (!(g_pKeyboard->KeyPress('I')))
+	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
 		m_rot.x = g_pCamera->m_rotX;
 		m_rot.y = g_pCamera->m_rotY;

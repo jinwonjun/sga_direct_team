@@ -26,6 +26,7 @@ private:
 	float			mSensY;
 	float			mLimitX;
 	float			mLimitY;
+	bool			mRCCollCheck;//마우스 충돌 체크 확인 변수
 	int				sensLevel;
 
 public:
