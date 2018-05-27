@@ -1,10 +1,28 @@
-﻿  Cubeman.cpp
-d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(156): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(300): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(303): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(306): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(309): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(312): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(315): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+﻿  CubemanParts.cpp
+d:\sga\pp\dx3d\dx3d\cubemanparts.cpp(25): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Cubeman.cpp
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(156): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(300): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(303): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(306): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(309): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(312): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(315): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(318): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\cubeman.cpp(321): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  SceneObjMap.cpp
+d:\sga\pp\dx3d\dx3d\sceneobjmap.cpp(23): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sceneobjmap.cpp(33): warning C4316: 'AseCharacter': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  SceneGrid.cpp
+d:\sga\pp\dx3d\dx3d\scenegrid.cpp(37): warning C4316: 'Cube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\scenegrid.cpp(46): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\scenegrid.cpp(54): warning C4316: 'Cubeman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\scenegrid.cpp(57): warning C4316: 'Walls': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\scenegrid.cpp(61): warning C4316: 'Hexagon': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\scenegrid.cpp(64): warning C4316: 'ActionCube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\scenegrid.cpp(68): warning C4316: 'Frustum': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  코드를 생성하고 있습니다...
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)

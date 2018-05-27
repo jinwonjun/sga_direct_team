@@ -314,6 +314,13 @@ void Cubeman::CreateAllParts()
 	//오른다리
 	pParts = new CubemanParts(오른다리, 0.1f);
 	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(0.5f, -1.0f, 0.0f),D3DXVECTOR3(0.5f, 1.0f, 0.5f), D3DXVECTOR3(0, -1.0f, 0), uvRLeg);
+	//총손잡이
+	pParts = new CubemanParts(무기, -0.1f);
+	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(1.5f, 1.0f, 0.0f), D3DXVECTOR3(0.2f, 0.2f, 0.1f), D3DXVECTOR3(0, -1.8f, .6f), uvBody);
+	//총구
+	pParts = new CubemanParts(무기, -0.1f);
+	CreateParts(pParts, m_pRootParts, D3DXVECTOR3(1.5f, 1.0f, 0.0f), D3DXVECTOR3(0.2f, 0.5f, 0.2f), D3DXVECTOR3(0, -2.1f, .8f), uvBody);
+
 }
 
 void Cubeman::CreateParts(CubemanParts* &pParts, IDisplayObject* pParent, D3DXVECTOR3 pos, D3DXVECTOR3 scale, D3DXVECTOR3 trans, vector<vector<int>> &vecUV)

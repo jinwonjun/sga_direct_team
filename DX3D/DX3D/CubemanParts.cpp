@@ -59,7 +59,7 @@ void CubemanParts::Update()
 	}
 	if (g_pMouse->ButtonPress(Mouse::INPUT_TYPE::LBUTTON))
 	{
-		if (m_partNum == 3)
+		if (m_partNum == ¿À¸¥ÆÈ || m_partNum == ¹«±â)
 		{
 			m_rotXAngle = -D3DX_PI / 2.0f;
 		}

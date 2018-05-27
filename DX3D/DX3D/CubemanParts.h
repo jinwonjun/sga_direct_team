@@ -41,3 +41,7 @@ public:
 	void MakeUVList(vector<D3DXVECTOR2> &out,vector<vector<int>> &uv);
 };
 
+enum CUBEMANPART
+{
+	¸ö, ¸Ó¸®, ¿ÞÆÈ, ¿À¸¥ÆÈ, ¿Þ´Ù¸®, ¿À¸¥´Ù¸®, ¹«±â
+};
