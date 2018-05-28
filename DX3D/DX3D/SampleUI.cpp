@@ -43,7 +43,7 @@ void SampleUI::Init()
 	MaxHp = 100;
 	CurrHp = 100;
 
-
+	
 	LifeLoss = 100;
 
 	{
@@ -275,8 +275,8 @@ void SampleUI::Init()
 		D3DXMatrixTranslation(&matT, 150, 150, 0);
 		m_matWorld = matS * matT;
 
+		BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
 		// 널 저주 하겠다.
-		UIButton * BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
 		m_pRootUI->AddChild(BulletNum);
 		//WINSIZEY / 3
 		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
@@ -309,9 +309,6 @@ void SampleUI::Update()
 		spaceOn = true;
 		contorller++;
 	}
-
-
-	//if (!GetAsyncKeyState(VK_SPACE))
 	else
 	{
 		contorller = 0;
@@ -328,6 +325,9 @@ void SampleUI::Update()
 	}
 
 
+	//총알 숫자가 줄어드는걸 하려면 업데이트에 이녀석들은 있어야 되는듯!
+	temp = std::to_wstring(restBullet) + L" / 30";
+	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
 
 	if (g_pKeyboard->KeyDown('G'))
 	{
@@ -409,7 +409,7 @@ void SampleUI::Render()
 	//fAngle += 0.1f;
 	//D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, clientRect.right - m_imageInfo.Width, 0, 0);
+	D3DXMatrixTranslation(&matT, (clientRect.right-m_imageInfo_.Width) /2, ((clientRect.bottom + m_imageInfo_.Height)) / 2, 0);
 	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
 	matWorld = matT * matS;  // 젤 끝에서 시작점으로 이동하는것
 
@@ -421,7 +421,7 @@ void SampleUI::Render()
 	m_pSprite->Draw(
 		m_pTex_,
 		&rc_,
-		&D3DXVECTOR3(583, -470, 0),
+		&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
@@ -441,7 +441,7 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 1325, -150, 0);
+	D3DXMatrixTranslation(&matT, ((clientRect.right - m_imageInfo.Width)*19)/20, clientRect.bottom/1.5, 0);
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 	//1325 0  -> 1325 -150
 	matWorld = matS* matR * matT;
@@ -455,7 +455,7 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(-50, 650, 0),
+		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 
 
@@ -470,7 +470,7 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 250, 750, 0);
+	D3DXMatrixTranslation(&matT, clientRect.right / 12, clientRect.bottom/1.2, 0);
 	//250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
@@ -482,7 +482,7 @@ void SampleUI::Render()
 	m_pSprite->Draw(
 		m_pTex_Hp_Back,
 		&rc,
-		&D3DXVECTOR3(m_imageInfo_Hp_Back.Width / 2, m_imageInfo_Hp_Back.Height / 2, 0),
+		&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
@@ -500,7 +500,7 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 250, 750, 0);
+	D3DXMatrixTranslation(&matT, clientRect.right / 11.4, clientRect.bottom / 1.192, 0);
 	////250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
@@ -512,7 +512,7 @@ void SampleUI::Render()
 	m_pSprite->Draw(
 		m_pTex_Hp_Loss,
 		&rc,
-		&D3DXVECTOR3(m_imageInfo_Hp_Loss.Width / 2, m_imageInfo_Hp_Loss.Height / 2, 0),
+		&D3DXVECTOR3(0,0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
@@ -528,7 +528,7 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 250, 750, 0);
+	D3DXMatrixTranslation(&matT, clientRect.right / 11.4, clientRect.bottom / 1.192, 0);
 	//250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
@@ -540,7 +540,7 @@ void SampleUI::Render()
 	m_pSprite->Draw(
 		m_pTex_Hp_Remain,
 		&rc,
-		&D3DXVECTOR3(m_imageInfo_Hp_Remain.Width / 2, m_imageInfo_Hp_Remain.Height / 2, 0),
+		&D3DXVECTOR3(0,0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
