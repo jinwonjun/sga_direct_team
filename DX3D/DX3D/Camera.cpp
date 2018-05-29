@@ -15,18 +15,18 @@ Camera::Camera()
 	m_isLbuttonDown = false;
 	m_pTarget = NULL;
 
-	mCenter = { 600,300 };
 
-	mLimitX = 400.f;
-	mLimitY = 200.f;
-	mRCCollCheck = false;
-	//마우스 이동 제한 할 렉트
-	mRc = { mCenter.x - (LONG)mLimitX, mCenter.y - (LONG)mLimitY, mCenter.x + (LONG)mLimitX, mCenter.y + (LONG)mLimitY };
 
-	mSensX = 300.f;
-	mSensY = 100.f;
+	//mLimitX = 400.f;
+	//mLimitY = 200.f;
+	//mRCCollCheck = false;
+	////마우스 이동 제한 할 렉트
+	//mRc = { mCenter.x - (LONG)mLimitX, mCenter.y - (LONG)mLimitY, mCenter.x + (LONG)mLimitX, mCenter.y + (LONG)mLimitY };
 
-	sensLevel = 5;
+	//mSensX = 300.f;
+	//mSensY = 100.f;
+
+	//sensLevel = 5;
 }
 
 Camera::~Camera()
@@ -43,10 +43,31 @@ void Camera::Init()
 	GetClientRect(g_hWnd, &rc);
 	D3DXMatrixPerspectiveFovLH(&m_matProj,D3DX_PI / 4.0f, rc.right / (float)rc.bottom , 1, 1000);
 	g_pDevice->SetTransform(D3DTS_PROJECTION, &m_matProj);
+
+
+
+	// 이거 이닛에서 하면 안되염? 생성자에서 하니까 클라이언트 렉트를 못하넹
+	RECT clientRect;
+	GetClientRect(g_hWnd, &clientRect);
+
+	mCenter = { clientRect.right / 2 , clientRect.bottom / 2 };
+
+	mLimitX = 400.f;
+	mLimitY = 200.f;
+	mRCCollCheck = false;
+	//마우스 이동 제한 할 렉트
+	mRc = { mCenter.x - (LONG)mLimitX, mCenter.y - (LONG)mLimitY, mCenter.x + (LONG)mLimitX, mCenter.y + (LONG)mLimitY };
+
+	mSensX = 300.f;
+	mSensY = 100.f;
+
+	sensLevel = 5;
+
 }
 
 void Camera::Update()
 {
+
 	//m_eye = D3DXVECTOR3(0 , m_basePosY  , -m_distance);
 	//D3DXMATRIXA16 matRotX, matRotY, matRot;
 	//D3DXMatrixRotationX(&matRotX, m_rotX);
@@ -162,19 +183,38 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		if (!mRCCollCheck)
 		{
 			m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
+
+			
 		}
 		mRCCollCheck = false;
 
 		//X회전 성분에 대한 수치값은 나중에 하자
-		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / 1000.0f;
+		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensX;
 
 		//if (m_rotX <= -D3DX_PI * 0.5f + D3DX_16F_EPSILON)
 		//{
 		//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
+		//	m_rotX = -m_rotX;
 		//}
 		//if (m_rotX >= D3DX_PI * 0.3f - D3DX_16F_EPSILON)
 		//{
 		//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
+		//	m_rotX = -m_rotX;
+		//}
+
+
+
+		//if ((currPoint.y >= mRc.bottom))
+		//{
+		//	SetCursorPos(currPoint.y, mCenter.y);//780 445
+		//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
+		//	mRCCollCheck = true;
+		//}
+		//else if (currPoint.y <= mRc.top)
+		//{
+		//	SetCursorPos(currPoint.y, mCenter.y);//780 445
+		//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
+		//	mRCCollCheck = true;
 		//}
 		m_ptPrevMouse = currPoint;
 
@@ -182,12 +222,12 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
 		if ((currPoint.x >= mRc.right))
 		{
-			SetCursorPos(mCenter.x, currPoint.y);//780 445
+			SetCursorPos(mCenter.x, mCenter.y);//780 445
 			mRCCollCheck = true;
 		}
 		else if (currPoint.x <= mRc.left)
 		{
-			SetCursorPos(mCenter.x, currPoint.y);//780 445
+			SetCursorPos(mCenter.x, mCenter.y);//780 445
 			mRCCollCheck = true;
 		}
 	}

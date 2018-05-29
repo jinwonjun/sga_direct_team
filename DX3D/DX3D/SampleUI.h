@@ -33,6 +33,10 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTex_Hp_Remain;
 	D3DXIMAGE_INFO m_imageInfo_Hp_Remain;
 
+
+	UIButton * BulletNum;
+
+
 	int LifeLoss;
 public:
 	SampleUI();

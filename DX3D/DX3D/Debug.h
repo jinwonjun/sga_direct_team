@@ -4,16 +4,20 @@
 
 class DebugManager
 {
-	SINGLETON(DebugManager);
+	SINGLETON(DebugManager)
 private:
-	LPD3DXFONT			m_pFont;
-	char				m_str[1024];
+	LPD3DXFONT	m_pFont;
+	CString		m_str;
+	CString		m_retainStr;
+	bool		m_bUseRetainStr;
 
+	void _AddText(CString& str);
 public:
 	void Destroy();
 	void InitText();
+	void AddText(CString& str);
+	void AddText(LPCTSTR str);
 	void AddText(string str);
-	void AddText(char* str);
 	void AddText(float str);
 	void AddText(double str);
 	void AddText(int str);
@@ -22,5 +26,7 @@ public:
 	void EndLine();
 	void Print();
 	void ShowMessageBox();
+	void InitRetainStr();
+	void UsingRetainStr(bool bUse = true) { m_bUseRetainStr = bUse; }
 };
 

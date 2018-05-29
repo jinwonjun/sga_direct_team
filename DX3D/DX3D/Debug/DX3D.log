@@ -1,4 +1,5 @@
 ﻿  stdafx.cpp
+<<<<<<< HEAD
 c:\portfolio\dx3d\dx3d\cubeman_head.h(8): warning C4584: 'Cubeman_Head': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
   c:\portfolio\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
   c:\portfolio\dx3d\dx3d\cube.h(10): note: 'Cube' 선언을 참조하십시오.
@@ -70,10 +71,86 @@ c:\portfolio\dx3d\dx3d\ray.cpp(79): warning C4800: 'BOOL': 'true' 또는 'false'
 c:\portfolio\dx3d\dx3d\ray.cpp(84): warning C4800: 'BOOL': 'true' 또는 'false'로 bool 값을 강제하고 있습니다(성능 경고).
   Picking.cpp
 c:\portfolio\dx3d\dx3d\picking.cpp(32): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+=======
+d:\sga_direct_team\dx3d\dx3d\cubeman_head.h(8): warning C4584: 'Cubeman_Head': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
+  d:\sga_direct_team\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
+  d:\sga_direct_team\dx3d\dx3d\cube.h(10): note: 'Cube' 선언을 참조하십시오.
+d:\sga_direct_team\dx3d\dx3d\cubeman_left_leg.h(5): warning C4584: 'Cubeman_Left_leg': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
+  d:\sga_direct_team\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
+  d:\sga_direct_team\dx3d\dx3d\cube.h(10): note: 'Cube' 선언을 참조하십시오.
+d:\sga_direct_team\dx3d\dx3d\cubeman_right_leg.h(6): warning C4584: 'Cubeman_Right_leg': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
+  d:\sga_direct_team\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
+  d:\sga_direct_team\dx3d\dx3d\cube.h(10): note: 'Cube' 선언을 참조하십시오.
+d:\sga_direct_team\dx3d\dx3d\cubeman_left_arm.h(5): warning C4584: 'Cubeman_Left_arm': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
+  d:\sga_direct_team\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
+  d:\sga_direct_team\dx3d\dx3d\cube.h(10): note: 'Cube' 선언을 참조하십시오.
+d:\sga_direct_team\dx3d\dx3d\cubeman_right_arm.h(5): warning C4584: 'Cubeman_Right_arm': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
+  d:\sga_direct_team\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
+  d:\sga_direct_team\dx3d\dx3d\cube.h(10): note: 'Cube' 선언을 참조하십시오.
+d:\sga_direct_team\dx3d\dx3d\stdafx.h(78): warning C4005: 'WINSIZEX': 매크로 재정의
+  d:\sga_direct_team\dx3d\dx3d\globaldefinition.h(30): note: 'WINSIZEX'의 이전 정의를 참조하십시오.
+  Walls.cpp
+  UIText.cpp
+d:\sga_direct_team\dx3d\dx3d\uitext.cpp(18): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  UIImage.cpp
+d:\sga_direct_team\dx3d\dx3d\uiimage.cpp(20): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\uiimage.cpp(34): warning C4244: '=': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\uiimage.cpp(35): warning C4244: '=': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  UIButton.cpp
+d:\sga_direct_team\dx3d\dx3d\uibutton.cpp(70): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\uibutton.cpp(88): warning C4244: '=': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\uibutton.cpp(89): warning C4244: '=': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\uibutton.cpp(94): warning C4316: 'UIText': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  TimeManager.cpp
+d:\sga_direct_team\dx3d\dx3d\timemanager.cpp(27): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  TextureManager.cpp
+  TeachGrid.cpp
+  SceneObjMap.cpp
+d:\sga_direct_team\dx3d\dx3d\sceneobjmap.cpp(23): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sceneobjmap.cpp(33): warning C4316: 'AseCharacter': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  SceneManager.cpp
+  SceneHeightmap.cpp
+d:\sga_direct_team\dx3d\dx3d\sceneheightmap.cpp(29): warning C4316: 'HeightMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sceneheightmap.cpp(40): warning C4316: 'AseCharacter': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sceneheightmap.cpp(43): warning C4316: 'Picking': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sceneheightmap.cpp(46): warning C4316: 'Frustum': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sceneheightmap.cpp(49): warning C4316: 'ParticleTest': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sceneheightmap.cpp(54): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  SceneGrid.cpp
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(37): warning C4316: 'Cube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(46): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(54): warning C4316: 'Cubeman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(57): warning C4316: 'Walls': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(61): warning C4316: 'Hexagon': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(64): warning C4316: 'ActionCube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(68): warning C4316: 'Frustum': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  SampleUI.cpp
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(50): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(278): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(42): warning C4101: 'c_int' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(297): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하십시오. 괄호를 사용하여 우선 순위를 명확하게 지정하십시오.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(412): warning C4244: '인수': 'unsigned long'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(444): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(444): warning C4244: '인수': 'unsigned long'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(473): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(473): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(503): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(527): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(531): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(526): warning C4101: 'Hp_Remain' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(468): warning C4101: 'Hp_Back' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(498): warning C4101: 'Hp_Loss' :참조되지 않은 지역 변수입니다.
+  Ray.cpp
+d:\sga_direct_team\dx3d\dx3d\ray.cpp(79): warning C4800: 'BOOL': 'true' 또는 'false'로 bool 값을 강제하고 있습니다(성능 경고).
+d:\sga_direct_team\dx3d\dx3d\ray.cpp(84): warning C4800: 'BOOL': 'true' 또는 'false'로 bool 값을 강제하고 있습니다(성능 경고).
+  Picking.cpp
+d:\sga_direct_team\dx3d\dx3d\picking.cpp(32): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
   ParticleTest.cpp
   ObjMap.cpp
   ObjManager.cpp
   ObjLoader.cpp
+<<<<<<< HEAD
 c:\portfolio\dx3d\dx3d\objloader.cpp(118): warning C4473: 'sscanf_s': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
   c:\portfolio\dx3d\dx3d\objloader.cpp(118): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 3개 필요하지만 2개가 제공되었습니다.
   c:\portfolio\dx3d\dx3d\objloader.cpp(118): note: 누락된 variadic 인수 3이(가) 서식 문자열 '%f'에 필요합니다.
@@ -87,10 +164,26 @@ c:\portfolio\dx3d\dx3d\objloader.cpp(219): warning C4101: 'z' :참조되지 않�
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
   MapManager.cpp
+=======
+d:\sga_direct_team\dx3d\dx3d\objloader.cpp(118): warning C4473: 'sscanf_s': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
+  d:\sga_direct_team\dx3d\dx3d\objloader.cpp(118): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 3개 필요하지만 2개가 제공되었습니다.
+  d:\sga_direct_team\dx3d\dx3d\objloader.cpp(118): note: 누락된 variadic 인수 3이(가) 서식 문자열 '%f'에 필요합니다.
+d:\sga_direct_team\dx3d\dx3d\objloader.cpp(116): warning C4101: 'z' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\objloader.cpp(283): warning C4267: '=': 'size_t'에서 'WORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\objloader.cpp(221): warning C4473: 'sscanf_s': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
+  d:\sga_direct_team\dx3d\dx3d\objloader.cpp(221): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 3개 필요하지만 2개가 제공되었습니다.
+  d:\sga_direct_team\dx3d\dx3d\objloader.cpp(221): note: 누락된 variadic 인수 3이(가) 서식 문자열 '%f'에 필요합니다.
+d:\sga_direct_team\dx3d\dx3d\objloader.cpp(219): warning C4101: 'z' :참조되지 않은 지역 변수입니다.
+  Mouse.cpp
+  MapManager.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
   KeyboardManager.cpp
   Keyboard.cpp
   IUnitObject.cpp
   IUIObject.cpp
+<<<<<<< HEAD
 c:\portfolio\dx3d\dx3d\iuiobject.cpp(47): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\portfolio\dx3d\dx3d\iuiobject.cpp(48): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\portfolio\dx3d\dx3d\iuiobject.cpp(49): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -100,11 +193,23 @@ c:\portfolio\dx3d\dx3d\iuiobject.cpp(85): warning C4244: '초기화 중': 'float
 c:\portfolio\dx3d\dx3d\iuiobject.cpp(86): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\portfolio\dx3d\dx3d\iuiobject.cpp(87): warning C4244: '초기화 중': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\portfolio\dx3d\dx3d\iuiobject.cpp(88): warning C4244: '초기화 중': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+=======
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(47): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(48): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(49): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(50): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(51): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(85): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(86): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(87): warning C4244: '초기화 중': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\iuiobject.cpp(88): warning C4244: '초기화 중': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
   IDisplayObject.cpp
   IActionObject.cpp
   IAction.cpp
   Hexagon.cpp
   HeightMap.cpp
+<<<<<<< HEAD
 c:\portfolio\dx3d\dx3d\heightmap.cpp(30): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 c:\portfolio\dx3d\dx3d\heightmap.cpp(32): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 c:\portfolio\dx3d\dx3d\heightmap.cpp(36): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -134,15 +239,51 @@ c:\portfolio\dx3d\dx3d\grid.cpp(77): warning C4244: '인수': 'int'에서 'FLOAT
 c:\portfolio\dx3d\dx3d\grid.cpp(78): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\portfolio\dx3d\dx3d\grid.cpp(81): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\portfolio\dx3d\dx3d\grid.cpp(82): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+=======
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(30): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(32): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(36): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(66): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(68): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(86): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(88): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(245): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(270): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(272): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(276): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(282): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heightmap.cpp(284): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Heap.cpp
+d:\sga_direct_team\dx3d\dx3d\heap.cpp(58): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\heap.cpp(64): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Grid.cpp
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(23): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(28): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(37): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(44): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(57): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(64): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(73): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(74): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(77): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(78): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(81): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\grid.cpp(82): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
   GlobalDefinition.cpp
   Frustum.cpp
   FontManager.cpp
   Enemyman.cpp
+<<<<<<< HEAD
 c:\portfolio\dx3d\dx3d\enemyman.cpp(24): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+=======
+d:\sga_direct_team\dx3d\dx3d\enemyman.cpp(24): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
   DX3D.cpp
   DrawingGroup.cpp
   DeviceManager.cpp
   Debug.cpp
+<<<<<<< HEAD
   코드를 생성하고 있습니다...
 c:\portfolio\dx3d\dx3d\devicemanager.cpp(76): warning C4715: 'DeviceManager::Init': 모든 제어 경로에서 값을 반환하지는 않습니다.
   컴파일하고 있습니다...
@@ -166,11 +307,37 @@ c:\portfolio\dx3d\dx3d\cubeman.cpp(312): warning C4316: 'CubemanParts': 힙에 �
 c:\portfolio\dx3d\dx3d\cubeman.cpp(315): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 c:\portfolio\dx3d\dx3d\cubeman.cpp(318): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 c:\portfolio\dx3d\dx3d\cubeman.cpp(321): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+=======
+  D3DUtility.cpp
+  코드를 생성하고 있습니다...
+d:\sga_direct_team\dx3d\dx3d\devicemanager.cpp(76): warning C4715: 'DeviceManager::Init': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
+  Cubeman_Right_leg.cpp
+  Cubeman_Right_arm.cpp
+d:\sga_direct_team\dx3d\dx3d\cubeman_right_arm.cpp(86): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+  Cubeman_Left_leg.cpp
+  Cubeman_Left_arm.cpp
+d:\sga_direct_team\dx3d\dx3d\cubeman_left_arm.cpp(85): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+  Cubeman_Head.cpp
+  CubemanParts.cpp
+d:\sga_direct_team\dx3d\dx3d\cubemanparts.cpp(25): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Cubeman.cpp
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(156): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(300): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(303): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(306): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(309): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(312): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(315): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(318): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\cubeman.cpp(321): warning C4316: 'CubemanParts': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
   Cube.cpp
   Camera.cpp
   BaseObject.cpp
   AStarNode.cpp
   AStar.cpp
+<<<<<<< HEAD
 c:\portfolio\dx3d\dx3d\astar.cpp(156): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 c:\portfolio\dx3d\dx3d\astar.cpp(170): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 c:\portfolio\dx3d\dx3d\astar.cpp(227): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
@@ -178,11 +345,21 @@ c:\portfolio\dx3d\dx3d\astar.cpp(227): warning C4018: '<': signed 또는 unsigne
   AseLoader.cpp
 c:\portfolio\dx3d\dx3d\aseloader.cpp(38): warning C4316: 'AseObject': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 c:\portfolio\dx3d\dx3d\aseloader.cpp(107): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+=======
+d:\sga_direct_team\dx3d\dx3d\astar.cpp(156): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\astar.cpp(170): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\astar.cpp(227): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  AseObject.cpp
+  AseLoader.cpp
+d:\sga_direct_team\dx3d\dx3d\aseloader.cpp(38): warning C4316: 'AseObject': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\aseloader.cpp(107): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
   AseCharacter.cpp
   Application.cpp
   ActionSequence.cpp
   ActionRepeat.cpp
   ActionMoveTo.cpp
+<<<<<<< HEAD
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
   ActionCube.cpp
@@ -190,3 +367,10 @@ c:\portfolio\dx3d\dx3d\actioncube.cpp(35): warning C4305: '인수': 'double'에�
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> C:\portfolio\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> C:\portfolio\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
+  ActionCube.cpp
+d:\sga_direct_team\dx3d\dx3d\actioncube.cpp(35): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+  코드를 생성하고 있습니다...
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> c807ba01339e57d4213db6ecc2cc99a5654bd8bc
