@@ -74,6 +74,7 @@ extern HWND g_hWnd;
 #include "SceneManager.h"
 #include "ObjManager.h"
 #include "FontManager.h"
+#include "SoundManager.h"
 
 #define WINSIZEX 1560
 #define WINSIZEY 990

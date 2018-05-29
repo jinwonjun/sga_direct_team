@@ -291,6 +291,9 @@
     <ClInclude Include="Mouse.h">
       <Filter>소스 파일\INPUT_CONTROL</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>소스 파일\MANAGER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -475,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
       <Filter>소스 파일\INPUT_CONTROL</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>소스 파일\MANAGER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
