@@ -291,6 +291,9 @@
     <ClInclude Include="Mouse.h">
       <Filter>소스 파일\INPUT_CONTROL</Filter>
     </ClInclude>
+    <ClInclude Include="VertexBlending.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -475,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
       <Filter>소스 파일\INPUT_CONTROL</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBlending.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

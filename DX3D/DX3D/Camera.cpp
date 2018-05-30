@@ -125,7 +125,7 @@ void Camera::Update()
 
 	D3DXVec3TransformCoord(&m_eye, &m_eye, &matRot);
 
-	m_lookAt = D3DXVECTOR3(0, 0, 50.0f);
+//m_lookAt = D3DXVECTOR3(0, 0, 50.0f);
 	
 	if (m_pTarget && !(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{

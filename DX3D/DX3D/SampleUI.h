@@ -9,6 +9,7 @@ class SampleUI :public IDisplayObject, public IUIButtonDelegate
 private:
 	std::wstring temp;
 	LPD3DXSPRITE m_pSprite;
+	
 	IUIObject * m_pRootUI;
 	IUIObject * m_pRootUI_2;
 
@@ -22,6 +23,8 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTex_;
 	D3DXIMAGE_INFO m_imageInfo_;
 
+	LPDIRECT3DTEXTURE9 m_pTex_IronMan_Head;
+	D3DXIMAGE_INFO m_imageInfo_IronMan_Head;
 
 	LPDIRECT3DTEXTURE9 m_pTex_Hp_Back;
 	D3DXIMAGE_INFO m_imageInfo_Hp_Back;
@@ -35,7 +38,12 @@ private:
 
 
 	UIButton * BulletNum;
+	UIButton * CharaName;
 
+	D3DXMATRIXA16			m_matWorld_2;
+	D3DXMATRIXA16			m_matWorld_1;
+
+	RECT clientRect;
 
 	int LifeLoss;
 public:

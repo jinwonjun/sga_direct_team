@@ -26,10 +26,13 @@ SampleUI::SampleUI()
 SampleUI::~SampleUI()
 {
 	SAFE_RELEASE(m_pSprite);
+	//SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pSprite_);
 	//SAFE_RELEASE(m_pRootUI);
 	//SAFE_RELEASE(pbutt)
+	
 	m_pRootUI->ReleaseAll();
+	m_pRootUI_2->ReleaseAll();
 }
 
 void SampleUI::Init()
@@ -42,7 +45,7 @@ void SampleUI::Init()
 	char c_int[10];
 	MaxHp = 100;
 	CurrHp = 100;
-
+	GetClientRect(g_hWnd, &clientRect);
 	
 	LifeLoss = 100;
 
@@ -50,8 +53,14 @@ void SampleUI::Init()
 		UIImage * pImage = new UIImage(m_pSprite);
 		//pImage->SetTexture("resources/ui/panel-info.png.png");
 		m_pRootUI = pImage;
+
+	}
+
+	{
+		UIImage * pImage = new UIImage(m_pSprite);
 		m_pRootUI_2 = pImage;
 	}
+
 
 	////텍스트 추가
 	//{
@@ -194,8 +203,8 @@ void SampleUI::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-					// 와 주석이 죄다 영어네
-					// 영어 잘한다고 자랑하냐??
+				
+
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 		_T("resources/images/Cross_Aim_sm.png"),   //LPCTSTR pSrcFile,
@@ -211,6 +220,22 @@ void SampleUI::Init()
 		&m_imageInfo_,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex_);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/ironMan_head.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&m_imageInfo_IronMan_Head,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&m_pTex_IronMan_Head);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
 
@@ -270,22 +295,45 @@ void SampleUI::Init()
 	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
 	{
 		D3DXMATRIXA16 matS;
-		D3DXMatrixScaling(&matS, 1.f, 1.9f, 1);
+		D3DXMatrixScaling(&matS, 1.f, 1.f, 1);
 		D3DXMATRIXA16 matT;
-		D3DXMatrixTranslation(&matT, 150, 150, 0);
-		m_matWorld = matS * matT;
+		D3DXMatrixTranslation(&matT, clientRect.right/1.25, clientRect.bottom/1.1 , 0);
+		m_matWorld_1 = matS * matT;
 
 		BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
-		// 널 저주 하겠다.
+
 		m_pRootUI->AddChild(BulletNum);
 		//WINSIZEY / 3
-		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
+		BulletNum->SetPosition(&D3DXVECTOR3(0, 0, 0));
 		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 			"resources/ui/btn-med-over.png.png",
 			"resources/ui/btn-med-down.png.png");
 
 		temp = std::to_wstring(restBullet) + L" / 30";
 		BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+	}
+
+
+	{
+		//왼쪽 UI
+		D3DXMATRIXA16 matS;
+		D3DXMatrixScaling(&matS, 1.3f, 1.f, 1);
+		D3DXMATRIXA16 matT;
+		D3DXMatrixTranslation(&matT, clientRect.right / 9.8, clientRect.bottom / 1.18, 0);
+		m_matWorld_2 = matS * matT;
+
+		CharaName = new UIButton(this, m_pSprite, UITAG_BUTTON4);
+
+		m_pRootUI_2->AddChild(CharaName);
+		//WINSIZEY / 3
+		CharaName->SetPosition(&D3DXVECTOR3(0, 0, 0));
+		CharaName->SetTexture("resources/ui/btn-med-up.png.png",
+			"resources/ui/btn-med-over.png.png",
+			"resources/ui/btn-med-down.png.png");
+
+		CharaName->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("IronMan"));
+		//temp = L" IronMan";
+	//	CharaName->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
 	}
 }
 
@@ -327,7 +375,7 @@ void SampleUI::Update()
 
 	//총알 숫자가 줄어드는걸 하려면 업데이트에 이녀석들은 있어야 되는듯!
 	temp = std::to_wstring(restBullet) + L" / 30";
-	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+	//BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
 
 	if (g_pKeyboard->KeyDown('G'))
 	{
@@ -387,23 +435,21 @@ void SampleUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-	RECT clientRect;
-	GetClientRect(g_hWnd, &clientRect);
-
 	D3DXMATRIXA16 matR, matT, matWorld;
 	D3DXMATRIXA16 matS;
+
+
+
+
+
+
+
+
+
+
+	//D3DXMATRIXA16 matR, matT, matWorld;
+	//D3DXMATRIXA16 matS;
+
 	static float fAngle = 0.0f;
 
 	//fAngle += 0.1f;
@@ -412,6 +458,10 @@ void SampleUI::Render()
 	D3DXMatrixTranslation(&matT, (clientRect.right-m_imageInfo_.Width) /2, ((clientRect.bottom + m_imageInfo_.Height)) / 2, 0);
 	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
 	matWorld = matT * matS;  // 젤 끝에서 시작점으로 이동하는것
+
+
+	
+
 
 	RECT rc_; // 회전중점, 위치이동 따로따로 있따.       에임
 	SetRect(&rc_, 0, 0, m_imageInfo_.Width, m_imageInfo_.Height);
@@ -427,8 +477,17 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 	//580 -500
+
+
+	m_matWorld = m_matWorld_1;
 	m_pSprite->SetTransform(&m_matWorld);
 	SAFE_RENDER(m_pRootUI);
+
+
+
+	m_matWorld = m_matWorld_2;
+	m_pSprite->SetTransform(&m_matWorld);
+	SAFE_RENDER(m_pRootUI_2);
 
 	//	D3DXMATRIXA16 matR, matT, matWorld;
 	//	static float fAngle = 0.0f;
@@ -441,8 +500,8 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, ((clientRect.right - m_imageInfo.Width)*19)/20, clientRect.bottom/1.5, 0);
-	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
+	D3DXMatrixTranslation(&matT, ((clientRect.right - m_imageInfo.Width)*18.5)/20, clientRect.bottom/1.2, 0);
+	D3DXMatrixScaling(&matS, 1.2f, 0.5f, 1);
 	//1325 0  -> 1325 -150
 	matWorld = matS* matR * matT;
 
@@ -461,8 +520,34 @@ void SampleUI::Render()
 
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
+//	SAFE_RENDER(m_pRootUI);
 
+
+
+	RECT ironMan_head; // 회전중점, 위치이동 따로따로 있따.  체력 바탕
+	SetRect(&rc, 0, 0, m_imageInfo_IronMan_Head.Width, m_imageInfo_IronMan_Head.Height);
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, clientRect.right / 45, clientRect.bottom / 1.2, 0);
+	//250, 850, 0
+	D3DXMatrixScaling(&matS, 0.5f, 0.5f, 1);
+
+	matWorld = matS* matR * matT;
+
+	//D3DXSPRITE_ALPHABLEND
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld);
+	m_pSprite->Draw(
+		m_pTex_IronMan_Head,
+		&rc,
+		&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+
+	m_pSprite->SetTransform(&matWorld);
 
 
 	RECT Hp_Back; // 회전중점, 위치이동 따로따로 있따.  체력 바탕
@@ -470,7 +555,7 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, clientRect.right / 12, clientRect.bottom/1.2, 0);
+	D3DXMatrixTranslation(&matT, clientRect.right / 11, clientRect.bottom/1.1, 0);
 	//250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
@@ -489,7 +574,7 @@ void SampleUI::Render()
 		WHITE);
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
+//	SAFE_RENDER(m_pRootUI);
 
 
 
@@ -500,7 +585,7 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, clientRect.right / 11.4, clientRect.bottom / 1.192, 0);
+	D3DXMatrixTranslation(&matT, clientRect.right / 10.5, clientRect.bottom / 1.095, 0);
 	////250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
@@ -519,7 +604,7 @@ void SampleUI::Render()
 		WHITE);
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
+//	SAFE_RENDER(m_pRootUI);
 
 
 
@@ -528,7 +613,7 @@ void SampleUI::Render()
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, clientRect.right / 11.4, clientRect.bottom / 1.192, 0);
+	D3DXMatrixTranslation(&matT, clientRect.right / 10.5, clientRect.bottom / 1.095, 0);
 	//250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
@@ -547,7 +632,7 @@ void SampleUI::Render()
 		WHITE);
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
+	//SAFE_RENDER(m_pRootUI);
 
 
 	m_pSprite->End();
@@ -560,20 +645,17 @@ void SampleUI::OnClick(UIButton * pSender)
 	{
 		UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
 		pText->m_text = _T("Button1 pushed");
-
 	}
 	else if (pSender->m_uiTag == UITAG_BUTTON2)
 	{
 		UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
 		pText->m_text = _T("Button2 pushed");
-
 	}
 
 	else if (pSender->m_uiTag == UITAG_BUTTON3)
 	{
 		UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
 		pText->m_text = _T("Button3 pushed");
-
 	}
 
 }
