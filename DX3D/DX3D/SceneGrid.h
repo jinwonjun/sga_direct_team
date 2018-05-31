@@ -13,6 +13,8 @@ class DrawingGroup;
 
 class Frustum;
 
+class SkyBox;
+
 class SceneGrid : public IScene
 {
 	//각 정점의 칼라값까지 넣어줄 수도 있는 기능을 한다.
@@ -55,6 +57,8 @@ public:
 	ObjLoader * ob;
 
 	Frustum * m_pFrustum;
+
+	SkyBox * m_pSky;
 
 };
 

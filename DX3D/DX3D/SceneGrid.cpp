@@ -11,9 +11,15 @@
 #include "ActionCube.h"
 #include "Frustum.h"
 
+#include"SkyBox.h"
+
 SceneGrid::SceneGrid()
 {
 	m_pCubeman = NULL;
+
+	m_pSky = new SkyBox(L"resources\\skybox\\vanilla_sky_frost_up.jpg", L"resources\\skybox\\vanilla_sky_frost_dn.jpg",
+		L"resources\\skybox\\vanilla_sky_frost_lf.jpg", L"resources\\skybox\\vanilla_sky_frost_rt.jpg",
+		L"resources\\skybox\\vanilla_sky_frost_ft.jpg", L"resources\\skybox\\vanilla_sky_frost_bk.jpg");
 }
 
 
@@ -28,6 +34,8 @@ void SceneGrid::Release()
 	SAFE_RELEASE(pCube);
 	SAFE_RELEASE(m_pFrustum);
 	SAFE_RELEASE(pObj);
+
+	m_pSky->~SkyBox();
 
 	BaseObject::Release();
 }
@@ -76,8 +84,10 @@ void SceneGrid::Init()
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 1, 0), D3DXVECTOR2(1, 0)));//5
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 0, 0), D3DXVECTOR2(1, 1)));//4
 
-																			  //D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
+	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
 	D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
+
+	
 }
 
 void SceneGrid::Update()
@@ -108,6 +118,9 @@ void SceneGrid::Render()
 
 
 	OnRenderIScene();
+	//스카이박스!!!
+	m_pSky->Render();
+
 	//큐브 그리기
 	pCube->Render();
 	//그리드 그리기
@@ -122,7 +135,6 @@ void SceneGrid::Render()
 	//SAFE_RENDER(m_pActionCube);
 
 	//SAFE_RENDER(m_pFrustum);
-
 }
 
 void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

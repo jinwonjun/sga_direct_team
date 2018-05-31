@@ -88,6 +88,9 @@
     <Filter Include="소스 파일\INPUT_CONTROL">
       <UniqueIdentifier>{a5ed6fed-653d-415b-b7cd-cca4e2c00ba8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\SCENE_CONTROL\SKYBOX">
+      <UniqueIdentifier>{4b782984-9b5d-46a7-9882-bbe92336b63b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -294,6 +297,9 @@
     <ClInclude Include="VertexBlending.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>소스 파일\SCENE_CONTROL\SKYBOX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -481,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="VertexBlending.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>소스 파일\SCENE_CONTROL\SKYBOX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

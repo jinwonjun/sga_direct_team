@@ -64,11 +64,12 @@ void Cubeman::Update()
 	IUnitObject::UpdatePosition();
 	IUnitObject::UpdateKeyboardState();
 	//static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition()
+
+	//마우스로 충돌 됬을 때!
 	if ((CalcPickedPosition(m_pos, (WORD)(g_pMouse->GetPosition().x) , (WORD)(g_pMouse->GetPosition().y)) == true) && g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
-		//케릭터 pos 로 이동하게 하기
-		//static_cast<IUnitObject*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetDestination(pos);
-		int i = 0;
+		static_cast <Cube *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->m_vPosition.z += 1.5f;
+		//구체를 넣고 렌더를 하지말자
 	}
 
 	//조명 예제
@@ -142,7 +143,6 @@ void Cubeman::Render()
 	//그라데이션 형식으로 그려짐.
 	g_pDevice->SetTexture(0, NULL);
 	g_pDevice->DrawPrimitiveUP(D3DPT_LINELIST, m_vecVertex.size() / 2, &m_vecVertex[0], sizeof(VERTEX_PC));
-
 }
 
 bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
@@ -186,15 +186,16 @@ bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
 	BoundingSphere* temp = static_cast <Cube *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->GetSphere();
 
 	temp->isPicked = false;
-		if (r.CalcIntersectSphere(temp) == true)
+	if (r.CalcIntersectSphere(temp) == true)
+	{
+		intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+		//제일 앞 부분의 거리만 충돌 체크 표시
+		if (intersectionDistance < minDistance)
 		{
-			intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
-			if (intersectionDistance < minDistance)
-			{
-				minDistance = intersectionDistance;
-				sphere = temp;
-			}
+			minDistance = intersectionDistance;
+			sphere = temp;
 		}
+	}
 	
 	if (sphere != NULL)
 	{

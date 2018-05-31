@@ -6,9 +6,11 @@ class Camera
 {
 	SINGLETON(Camera)
 private:
-	D3DXVECTOR3		m_eye;
-	D3DXVECTOR3		m_lookAt;
-	D3DXVECTOR3		m_up;
+
+
+	//D3DXVECTOR3		m_eye;
+	//D3DXVECTOR3		m_lookAt;
+	//D3DXVECTOR3		m_up;
 	D3DXMATRIXA16	m_matView;
 	D3DXMATRIXA16	m_matProj;
 	float			m_basePosY;
@@ -33,7 +35,9 @@ public:
 
 	float			m_rotX;
 	float			m_rotY;
-
+	D3DXVECTOR3		m_eye;
+	D3DXVECTOR3		m_lookAt;
+	D3DXVECTOR3		m_up;
 	void Init();
 	void Update();
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

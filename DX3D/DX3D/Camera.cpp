@@ -186,7 +186,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		if (!mRCCollCheck)
 		{
 			m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
-			//m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
+			m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
 			//m_distance -= m_rotX;
 		}
 		mRCCollCheck = false;
