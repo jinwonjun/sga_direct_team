@@ -41,16 +41,22 @@ public:
 	vector<int>		m_vecIndex;
 	D3DXVECTOR3 m_vPosition;//큐브 몸통 중심점 좌표
 	D3DXMATRIX m_matWorld;//큐브 중심 월드 행렬
+
+	//구만들기
+	BoundingSphere * pSphere;
+	LPD3DXMESH m_pSphere;
+
 	float RotY; //회전 크기
 	float RotX; //
 	bool			go_Left;
 	bool			go_Right;
-
 
 	void Init();
 	void Update();
 	void Render();
 
 	//Vector3* GetPosition() { return &m_vPosition; }
+
+	BoundingSphere * GetSphere() { return pSphere; }
 };
 

@@ -64,7 +64,7 @@ void Cubeman::Update()
 	IUnitObject::UpdatePosition();
 	IUnitObject::UpdateKeyboardState();
 	//static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition()
-	if (CalcPickedPosition(m_pos, (WORD)(g_pMouse->GetPosition().x) , (WORD)(g_pMouse->GetPosition().y)) == true)
+	if ((CalcPickedPosition(m_pos, (WORD)(g_pMouse->GetPosition().x) , (WORD)(g_pMouse->GetPosition().y)) == true) && g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		//케릭터 pos 로 이동하게 하기
 		//static_cast<IUnitObject*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetDestination(pos);
@@ -117,6 +117,7 @@ void Cubeman::Update()
 	
 	temp1 = m_pos;
 	temp1.y = 5.0f;
+
 	m_vecVertex[0].c = red;
 	m_vecVertex[0].p = temp1;
 	
@@ -146,27 +147,62 @@ void Cubeman::Render()
 
 bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
 {
-	Ray ray = Ray::RayAtWorldSpace(screenX, screenY);
-	float minDist = FLT_MAX;
-	float intersectionDist;
+	//Ray ray = Ray::RayAtWorldSpace(screenX, screenY);
+	//float minDist = FLT_MAX;
+	//float intersectionDist;
 	bool bIntersect = false;
 
-	D3DXVECTOR3 enemyPos = static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->GetPosition();
-	//printf("적 위치 : %f,%f,%f\n", enemyPos.x, enemyPos.y, enemyPos.z);
+	//D3DXVECTOR3 enemyPos = static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->GetPosition();
+	////printf("적 위치 : %f,%f,%f\n", enemyPos.x, enemyPos.y, enemyPos.z);
 
-	for (int i = 0; i < g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex().size(); i += 3)
-	{
-		if (ray.CalcIntersectTri_dir(&g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex()[i].p, &intersectionDist, m_forward,m_pos))
+	//Debug->AddText("X 값" +to_string(m_forward.x)+ "Y 값" + to_string(m_forward.y) + "Z 값" + to_string(m_forward.z));
+	//Debug->EndLine();
+
+	//for (int i = 0; i < g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex().size(); i += 3)
+	//{
+	//	if (ray.CalcIntersectTri_dir(&g_pObjMgr->FindObjectByTag(TAG_ENEMY1)->GetCubeVertex()[i].p, &intersectionDist, &m_forward,&m_pos))
+	//	{
+	//		if (intersectionDist < minDist)
+	//		{
+	//			bIntersect = true;
+	//			minDist = intersectionDist;
+	//			vOut = ray.m_pos + ray.m_dir * intersectionDist;
+	//		}
+	//	}
+	//}
+
+	//여기부터 구체 충돌 체크부분!!
+	Ray r = Ray::RayAtWorldSpace(screenX, screenY);
+
+	//for (auto p : m_vecBoundary)
+	//{
+	//	//p->isPicked = r.CalcIntersectSphere(p);
+	//}
+	BoundingSphere* sphere = NULL;
+	float minDistance = FLT_MAX;
+	float intersectionDistance;
+
+	//몹 객체의 스피어 정보
+	BoundingSphere* temp = static_cast <Cube *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->GetSphere();
+
+	temp->isPicked = false;
+		if (r.CalcIntersectSphere(temp) == true)
 		{
-			if (intersectionDist < minDist)
+			intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+			if (intersectionDistance < minDistance)
 			{
-				bIntersect = true;
-				minDist = intersectionDist;
-				vOut = ray.m_pos + ray.m_dir * intersectionDist;
+				minDistance = intersectionDistance;
+				sphere = temp;
 			}
 		}
-	}
 	
+	if (sphere != NULL)
+	{
+		sphere->isPicked = true;
+		bIntersect = true;
+	}
+
+
 	return bIntersect;
 }
 

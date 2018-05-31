@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Ray.h"
 
-
 Ray::Ray() : m_pos(0,0,0), m_dir(0,0,1)
 {
 }
@@ -17,6 +16,7 @@ Ray Ray::RayAtViewSpace(int x, int y)
 
 	D3DXMATRIXA16 matProj;
 	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+
 
 	Ray ray;
 	ray.m_dir.x = ((x * 2.0f) / vp.Width - 1.0f) / matProj._11;
@@ -79,9 +79,19 @@ bool Ray::CalcIntersectTri(D3DXVECTOR3 * pStart, float * distance)
 	return D3DXIntersectTri(pStart, pStart+1, pStart+2, &m_pos, & m_dir,NULL,NULL,distance);
 }
 
-bool Ray::CalcIntersectTri_dir(D3DXVECTOR3 * pStart, float * distance, D3DXVECTOR3 m_dir, D3DXVECTOR3 m_pos)
+bool Ray::CalcIntersectTri_dir(D3DXVECTOR3 * pStart, float * distance, D3DXVECTOR3 *m_dir, D3DXVECTOR3 *m_pos)
 {
-	return D3DXIntersectTri(pStart, pStart + 1, pStart + 2, &m_pos, &m_dir, NULL, NULL, distance);
+	//D3DXVECTOR3 dir_temp = *m_dir;
+	//Debug->AddText("D_X 값" + to_string(dir_temp.x) + "Y 값" + to_string(dir_temp.y) + "Z 값" + to_string(dir_temp.z));
+	//Debug->EndLine();
+	//Debug->EndLine();
+
+	//D3DXVECTOR3 pos_temp = *m_pos;
+	//Debug->AddText("P_X 값" + to_string(pos_temp.x) + "Y 값" + to_string(pos_temp.y) + "Z 값" + to_string(pos_temp.z));
+	//Debug->EndLine();
+	//Debug->EndLine();
+
+	return D3DXIntersectTri(pStart, pStart + 1, pStart + 2, m_pos, m_dir, NULL, NULL, distance);
 }
 
 /*

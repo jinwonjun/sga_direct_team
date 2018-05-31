@@ -11,6 +11,7 @@ Cube::Cube()
 	m_gravity = 0.025f;
 	m_currGravity = 0.0f;
 	m_moveSpeedRate = 1.0f;
+
 }
 
 
@@ -144,7 +145,12 @@ void Cube::Init()
 	//
 	//m_pCube_Right_arm = new Cubeman_Right_arm;
 	//m_pCube_Right_arm->Init();
+	//구그리기
+	float radius = 5.0f;
+	D3DXCreateSphere(g_pDevice, radius, 10, 10, &m_pSphere, NULL);
+	BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(m_vPosition.x + 5, m_vPosition.y + 5, m_vPosition.z + 5), radius);
 
+	pSphere = s;
 }
 
 void Cube::Update()
@@ -201,6 +207,7 @@ void Cube::Update()
 	}
 
 	m_pos = m_vPosition;
+	pSphere->center = m_vPosition;
 
 	D3DXMatrixTranslation(&mT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
@@ -230,13 +237,24 @@ void Cube::Update()
 
 void Cube::Render()
 {
+	if (pSphere->isPicked == true)
+	{
+		g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
+	}
+	else
+	{
+		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+	}
+	D3DXMATRIXA16 mat;
+	D3DXMatrixTranslation(&mat, pSphere->center.x, pSphere->center.y, pSphere->center.z);
+	g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+	g_pDevice->SetTexture(0, NULL);
+	m_pSphere->DrawSubset(0);
+
 	////월드 매트릭스 설정해주기
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
-
 	g_pDevice->SetFVF(VERTEX_PC::FVF);
-
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
-
 	//g_pDevice->SetFVF(VERTEX_PC::FVF);
 	//그릴 도형의 타입, 도형의 갯수, 정점 정보의 시작 주소, 정점의 크기
 	//그라데이션 형식으로 그려짐.

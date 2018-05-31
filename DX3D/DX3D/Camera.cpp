@@ -67,7 +67,6 @@ void Camera::Init()
 
 void Camera::Update()
 {
-
 	//m_eye = D3DXVECTOR3(0 , m_basePosY  , -m_distance);
 	//D3DXMATRIXA16 matRotX, matRotY, matRot;
 	//D3DXMatrixRotationX(&matRotX, m_rotX);
@@ -136,7 +135,11 @@ void Camera::Update()
 		D3DXVECTOR3 temp;
 		float distance = 10.0f;
 		temp = (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward()) * distance +  (*m_pTarget);
-		
+	
+		//forword의 성분은 y가 0이다!
+		D3DXVECTOR3 temp2 = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();//정면 벡터 받아오고
+		//d3dxvec3rotat
+		// temp.y + 10
 		m_lookAt = D3DXVECTOR3(temp.x, temp.y + 10, temp.z);
 		m_eye = *m_pTarget + m_eye;
 	}
@@ -148,10 +151,6 @@ void Camera::Update()
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
 	g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
-
-	//회전 값찍어보기
-	Debug->AddText(m_rotX);
-	Debug->EndLine();
 }
 
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -187,7 +186,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		if (!mRCCollCheck)
 		{
 			m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
-			m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
+			//m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
 			//m_distance -= m_rotX;
 		}
 		mRCCollCheck = false;

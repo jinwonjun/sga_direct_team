@@ -13,6 +13,7 @@ public:
 
 	bool CalcIntersectSphere(BoundingSphere* pSphere);
 	bool CalcIntersectTri(D3DXVECTOR3* pStart, float *distance);
-	bool Ray::CalcIntersectTri_dir(D3DXVECTOR3 * pStart, float * distance, D3DXVECTOR3 m_dir, D3DXVECTOR3 m_pos);
+	bool Ray::CalcIntersectTri_dir(D3DXVECTOR3 * pStart, float * distance, D3DXVECTOR3 * m_dir, D3DXVECTOR3 * m_pos);
+
 };
 
