@@ -124,8 +124,10 @@ void Cubeman::Update()
 	m_vecVertex[0].c = red;
 	m_vecVertex[0].p = temp1;
 	
+	Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
+	temp2 = r.m_dir * 110 + temp1;
 	m_vecVertex[1].c = red;
-	m_vecVertex[1].p = temp1 + temp2;
+	m_vecVertex[1].p = temp2;
 
 	Debug->AddText((int)m_vecVertex.size());
 	Debug->EndLine();
@@ -204,7 +206,6 @@ bool Cubeman::CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY)
 		sphere->isPicked = true;
 		bIntersect = true;
 	}
-
 
 	return bIntersect;
 }

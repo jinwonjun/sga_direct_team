@@ -152,11 +152,16 @@ void Camera::Update()
 		m_lookAt = *m_pTarget + m_lookAt;
 		m_eye = *m_pTarget + m_eye;
 	}
-	else
+	else if(m_pTarget && (g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
 		m_lookAt = *m_pTarget;
 		m_eye = *m_pTarget + m_eye;
 	}
+	else
+	{
+		m_pTarget == NULL;
+	}
+
 
 	//위로 올리는중 땅에 닿으면
 	if (m_eye.y <= D3DX_16F_EPSILON)
@@ -217,7 +222,7 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//printf("이전x좌표 : %d, 이전y좌표 : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
 
 	//커서 표시 할지 말지
-	ShowCursor(true);
+	ShowCursor(false);
 
 	POINT currPoint;
 

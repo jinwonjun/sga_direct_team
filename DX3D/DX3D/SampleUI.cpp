@@ -287,6 +287,9 @@ void SampleUI::Init()
 		temp = std::to_wstring(restBullet) + L" / 30";
 		BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
 	}
+
+	GetClientRect(g_hWnd, &clientRect);
+
 }
 
 void SampleUI::Update()
@@ -383,21 +386,7 @@ void SampleUI::Render()
 	//스프라이트는 비긴이랑 엔드 사이에서 그려준다.
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	RECT clientRect;
-	GetClientRect(g_hWnd, &clientRect);
+	
 
 	D3DXMATRIXA16 matR, matT, matWorld;
 	D3DXMATRIXA16 matS;
@@ -406,9 +395,12 @@ void SampleUI::Render()
 	//fAngle += 0.1f;
 	//D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, (clientRect.right-m_imageInfo_.Width) /2, ((clientRect.bottom + m_imageInfo_.Height)) / 2, 0);
+	D3DXMatrixTranslation(&matT, (clientRect.right - m_imageInfo_.Width) / 2, ((clientRect.bottom + m_imageInfo_.Height)) / 2, 0);
+
+
+
 	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
-	matWorld = matT * matS;  // 젤 끝에서 시작점으로 이동하는것
+	matWorld = matS * matT;  // 젤 끝에서 시작점으로 이동하는것
 
 	RECT rc_; // 회전중점, 위치이동 따로따로 있따.       에임
 	SetRect(&rc_, 0, 0, m_imageInfo_.Width, m_imageInfo_.Height);
@@ -458,7 +450,7 @@ void SampleUI::Render()
 
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
+	//SAFE_RENDER(m_pRootUI);
 
 
 
@@ -486,7 +478,7 @@ void SampleUI::Render()
 		WHITE);
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
+	//SAFE_RENDER(m_pRootUI);
 
 
 
@@ -516,7 +508,7 @@ void SampleUI::Render()
 		WHITE);
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
+	//SAFE_RENDER(m_pRootUI);
 
 
 
@@ -544,8 +536,7 @@ void SampleUI::Render()
 		WHITE);
 
 	m_pSprite->SetTransform(&matWorld);
-	SAFE_RENDER(m_pRootUI);
-
+	//SAFE_RENDER(m_pRootUI);
 
 	m_pSprite->End();
 }
@@ -584,7 +575,4 @@ wstring SampleUI::s2ws(const string & s)
 	delete[] buf;
 
 	return r;
-
-
-
 }

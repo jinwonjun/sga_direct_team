@@ -38,6 +38,10 @@ private:
 
 
 	int LifeLoss;
+
+	RECT clientRect;
+	float tempX;
+	float tempY;
 public:
 	SampleUI();
 	~SampleUI();
