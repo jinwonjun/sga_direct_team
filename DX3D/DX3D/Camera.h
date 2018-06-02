@@ -2,7 +2,7 @@
 
 #define g_pCamera Camera::GetInstance()
 
-class Camera 
+class Camera
 {
 	SINGLETON(Camera)
 private:
@@ -28,9 +28,14 @@ private:
 	float			mSensY;
 	float			mLimitX;
 	float			mLimitY;
+	float			mLimitDistance;
 	bool			mRCCollCheck;//마우스 충돌 체크 확인 변수
 	int				sensLevel;
+	float			deltaRotY;
 
+	//초기 카메라 조작
+	bool			isStart;
+	bool			isColl;
 public:
 
 	float			m_rotX;
@@ -42,5 +47,6 @@ public:
 	void Update();
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	void SetTarget(D3DXVECTOR3* pTarget) { m_pTarget = pTarget; }
+	POINT GetMCenter() { return mCenter; }//중앙좌표 가져오기
 };
 

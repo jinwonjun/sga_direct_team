@@ -146,7 +146,7 @@ void Cube::Init()
 	//m_pCube_Right_arm = new Cubeman_Right_arm;
 	//m_pCube_Right_arm->Init();
 	//구그리기
-	float radius = 5.0f;
+	float radius = 3.0f;
 	D3DXCreateSphere(g_pDevice, radius, 10, 10, &m_pSphere, NULL);
 	BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(m_vPosition.x + 5, m_vPosition.y + 5, m_vPosition.z + 5), radius);
 
@@ -207,7 +207,8 @@ void Cube::Update()
 	}
 
 	m_pos = m_vPosition;
-	pSphere->center = m_vPosition;
+	m_pos.y = m_vPosition.y + 10.0f;
+	pSphere->center = m_pos;
 
 	D3DXMatrixTranslation(&mT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 

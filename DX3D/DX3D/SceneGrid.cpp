@@ -116,8 +116,6 @@ void SceneGrid::Render()
 	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, vecPTVertex.size() / 3, &vecPTVertex[0], sizeof(VERTEX_PT));
 	g_pDevice->SetTexture(0, NULL);
 
-
-	OnRenderIScene();
 	//스카이박스!!!
 	m_pSky->Render();
 
@@ -135,6 +133,8 @@ void SceneGrid::Render()
 	//SAFE_RENDER(m_pActionCube);
 
 	//SAFE_RENDER(m_pFrustum);
+	//IScene상속 받는 애들 전부 렌더하기
+	OnRenderIScene();
 }
 
 void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

@@ -66,9 +66,11 @@ void Cubeman::Update()
 	//static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition()
 
 	//마우스로 충돌 됬을 때!
-	if ((CalcPickedPosition(m_pos, (WORD)(g_pMouse->GetPosition().x) , (WORD)(g_pMouse->GetPosition().y)) == true) && g_pMouse->ButtonDown(Mouse::LBUTTON))
+	//(WORD)(g_pMouse->GetPosition().x) , (WORD)(g_pMouse->GetPosition().y)
+	if ((CalcPickedPosition(m_pos, g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y) == true) && g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		static_cast <Cube *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->m_vPosition.z += 1.5f;
+
 		//구체를 넣고 렌더를 하지말자
 	}
 

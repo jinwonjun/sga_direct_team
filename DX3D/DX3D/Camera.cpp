@@ -4,7 +4,7 @@
 Camera::Camera()
 {
 	//m_distance = 5.0f;
-	m_distance = 0.5f;
+	mLimitDistance = m_distance = 25.f;
 	m_basePosY = 10.0f;
 	m_eye = D3DXVECTOR3(0, m_basePosY, -m_distance);
 
@@ -15,7 +15,8 @@ Camera::Camera()
 	m_isLbuttonDown = false;
 	m_pTarget = NULL;
 
-
+	deltaRotY = 0.f;
+	isStart = true;
 
 	//mLimitX = 400.f;
 	//mLimitY = 200.f;
@@ -49,7 +50,6 @@ void Camera::Init()
 	// 이거 이닛에서 하면 안되염? 생성자에서 하니까 클라이언트 렉트를 못하넹
 	RECT clientRect;
 	GetClientRect(g_hWnd, &clientRect);
-
 	mCenter = { clientRect.right / 2 , clientRect.bottom / 2 };
 
 	mLimitX = 100.f;
@@ -62,6 +62,8 @@ void Camera::Init()
 	mSensY = 50.f;
 
 	sensLevel = 5;
+
+	isColl = false;
 }
 
 void Camera::Update()
@@ -120,6 +122,11 @@ void Camera::Update()
 
 	Debug->AddText("Mouse Sensitivity : " + to_string(sensLevel));
 	Debug->EndLine();
+
+
+
+
+
 	D3DXMatrixRotationX(&matRotX, m_rotX);
 	D3DXMatrixRotationY(&matRotY, m_rotY);
 	//마우스로 회전하기
@@ -151,12 +158,51 @@ void Camera::Update()
 		m_eye = *m_pTarget + m_eye;
 	}
 
-	//땅에 닿으면
-	if (m_eye.y <= 0.f)
+	//위로 올리는중 땅에 닿으면
+	if (m_eye.y <= D3DX_16F_EPSILON)
 	{
-		m_distance -= 0.5f;
-		m_eye.y = 0.f;
+		if (deltaRotY < D3DX_16F_EPSILON)
+		{
+			m_distance -= 0.5f;
+			m_eye.y = 0.f;
+			isColl = true;
+		}
 	}
+
+	//땅에 닿았고 아래로 내리는중
+	if (isColl && (deltaRotY >= 0))
+	{
+		if (m_distance <= mLimitDistance)
+		{
+			m_distance += 0.5f;
+			m_eye.y = 0.f;
+		}
+		else
+		{
+			m_distance = mLimitDistance;
+		}
+
+		if (m_eye.y > 0.f)
+			isColl = false;
+
+	}
+
+	Debug->AddText("m_distance = ");
+	Debug->AddText(m_distance);
+	Debug->EndLine();
+
+	Debug->AddText("deltaRotY = ");
+	Debug->AddText(deltaRotY);
+	Debug->EndLine();
+
+	Debug->AddText("m_eye = ");
+	Debug->AddText(m_eye.x);
+	Debug->AddText(", ");
+	Debug->AddText(m_eye.y);
+	Debug->AddText(", ");
+	Debug->AddText(m_eye.z);
+	Debug->EndLine();
+
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
 	g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
@@ -171,15 +217,16 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//printf("이전x좌표 : %d, 이전y좌표 : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
 
 	//커서 표시 할지 말지
-	//ShowCursor(false);
+	ShowCursor(true);
 
 	POINT currPoint;
 
 	switch (message)
 	{
 		//이전 값 계속 받기
-		m_ptPrevMouse.x = LOWORD(lParam);
-		m_ptPrevMouse.y = HIWORD(lParam);
+		//m_ptPrevMouse.x = LOWORD(lParam);
+		//m_ptPrevMouse.y = HIWORD(lParam);
+
 		//case WM_LBUTTONDOWN:
 		//{
 		//	m_isLbuttonDown = true;
@@ -192,110 +239,118 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		//	m_isLbuttonDown = false;
 		//}
 		//break;
-		case WM_MOUSEMOVE:
+	case WM_MOUSEMOVE:
+	{
+		currPoint.x = LOWORD(lParam);
+		currPoint.y = HIWORD(lParam);
+
+		//시작시 땅보는거 조정
+		if (isStart)
 		{
+			//m_ptPrevMouse.x = LOWORD(lParam);
+			//m_ptPrevMouse.y = HIWORD(lParam);
 
-			currPoint.x = LOWORD(lParam);
-			currPoint.y = HIWORD(lParam);
-
-			if (!mRCCollCheck)
-			{
-				m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
-
-				//X회전 성분에 대한 수치값은 나중에 하자
-				m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
-
-			}
-			mRCCollCheck = false;
-
-			if (m_rotX <= -D3DX_PI * 0.4f + D3DX_16F_EPSILON)
-			{
-				m_rotX = -D3DX_PI * 0.4f + D3DX_16F_EPSILON;
-				//m_rotX = -m_rotX;
-			}
-			else if (m_rotX >= D3DX_PI * 0.4f - D3DX_16F_EPSILON)
-			{
-				m_rotX = D3DX_PI * 0.4f - D3DX_16F_EPSILON;
-				//m_rotX = -m_rotX;
-			}
-
-			m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
-			//m_distance -= m_rotX;
-
-			//X회전 성분에 대한 수치값은 나중에 하자
-		
-			//if (m_rotX <= -D3DX_PI * 0.3f + D3DX_16F_EPSILON)
-			//{
-			//	m_rotX = -D3DX_PI * 0.3f + D3DX_16F_EPSILON;
-			//	// = -m_rotX;
-			//}
-			////if (m_rotX <= -0.5f)
-			////{
-			////	m_rotX = -0.5f;
-			////}
-			//if (m_rotX >= D3DX_PI * 0.3f - D3DX_16F_EPSILON)
-			//{
-			//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
-			//	//m_rotX = -m_rotX;
-			//}
-			//if ((currPoint.y >= mRc.bottom))
-			//{
-			//	SetCursorPos(currPoint.y, mCenter.y);//780 445
-			//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
-			//	mRCCollCheck = true;
-			//}
-			//else if (currPoint.y <= mRc.top)
-			//{
-			//	SetCursorPos(currPoint.y, mCenter.y);//780 445
-			//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
-			//	mRCCollCheck = true;
-			//}
-		
-			//커서 초기화
 			m_ptPrevMouse = currPoint;
 
-			if ((currPoint.y >= mRc.bottom))
-			{
-				SetCursorPos(currPoint.y, mCenter.y);//780 445
-													 //m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
-				mRCCollCheck = true;
-			}
-			else if (currPoint.y <= mRc.top)
-			{
-				SetCursorPos(currPoint.y, mCenter.y);//780 445
-													 //m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
-				mRCCollCheck = true;
-			}
-			// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
-			if ((currPoint.x >= mRc.right))
-			{
-				SetCursorPos(mCenter.x, mCenter.y);//780 445
-				mRCCollCheck = true;
-			}
-			else if (currPoint.x <= mRc.left)
-			{
-				SetCursorPos(mCenter.x, mCenter.y);//780 445
-				mRCCollCheck = true;
-			}
-			if (currPoint.y <= mRc.top)
-			{
-				SetCursorPos(mCenter.x, mCenter.y);//780 445
-				mRCCollCheck = true;
-			}
-			else if (currPoint.y >= mRc.bottom)
-			{
-				SetCursorPos(mCenter.x, mCenter.y);//780 445
-				mRCCollCheck = true;
-			}
-			break;
+			isStart = false;
 		}
-		case WM_MOUSEWHEEL:
+
+
+
+		if (!mRCCollCheck)
 		{
-			m_distance -= GET_WHEEL_DELTA_WPARAM(wParam) / 50.0f;
-			if (m_distance <= 0.5f) m_distance = 0.5f;
-			if (m_distance >= 100) m_distance = 100;
-			break;
+			float prevRotX = m_rotX;
+
+			m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
+
+			//X회전 성분에 대한 수치값은 나중에 하자
+			m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
+
+			deltaRotY = m_rotX - prevRotX;
 		}
+
+
+		mRCCollCheck = false;
+
+		if (m_rotX <= -D3DX_PI * 0.4f + D3DX_16F_EPSILON)
+		{
+			m_rotX = -D3DX_PI * 0.4f + D3DX_16F_EPSILON;
+			//m_rotX = -m_rotX;
+		}
+		else if (m_rotX >= D3DX_PI * 0.4f - D3DX_16F_EPSILON)
+		{
+			m_rotX = D3DX_PI * 0.4f - D3DX_16F_EPSILON;
+			//m_rotX = -m_rotX;
+		}
+
+		//m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
+		//m_distance -= m_rotX;
+
+		//X회전 성분에 대한 수치값은 나중에 하자
+
+		//if (m_rotX <= -D3DX_PI * 0.3f + D3DX_16F_EPSILON)
+		//{
+		//	m_rotX = -D3DX_PI * 0.3f + D3DX_16F_EPSILON;
+		//	// = -m_rotX;
+		//}
+		////if (m_rotX <= -0.5f)
+		////{
+		////	m_rotX = -0.5f;
+		////}
+		//if (m_rotX >= D3DX_PI * 0.3f - D3DX_16F_EPSILON)
+		//{
+		//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
+		//	//m_rotX = -m_rotX;
+		//}
+		//if ((currPoint.y >= mRc.bottom))
+		//{
+		//	SetCursorPos(currPoint.y, mCenter.y);//780 445
+		//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
+		//	mRCCollCheck = true;
+		//}
+		//else if (currPoint.y <= mRc.top)
+		//{
+		//	SetCursorPos(currPoint.y, mCenter.y);//780 445
+		//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
+		//	mRCCollCheck = true;
+		//}
+
+		//커서 초기화
+		m_ptPrevMouse = currPoint;
+
+
+		// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
+
+		//마우스 이동 제한 렉트
+		if ((currPoint.x >= mRc.right))
+		{
+			SetCursorPos(mCenter.x, mCenter.y);//780 445
+			mRCCollCheck = true;
+		}
+		else if (currPoint.x <= mRc.left)
+		{
+			SetCursorPos(mCenter.x, mCenter.y);//780 445
+			mRCCollCheck = true;
+		}
+		if (currPoint.y <= mRc.top)
+		{
+			SetCursorPos(mCenter.x, mCenter.y);//780 445
+			mRCCollCheck = true;
+		}
+		else if (currPoint.y >= mRc.bottom)
+		{
+			SetCursorPos(mCenter.x, mCenter.y);//780 445
+			mRCCollCheck = true;
+		}
+		break;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		m_distance -= GET_WHEEL_DELTA_WPARAM(wParam) / 50.0f;
+		if (m_distance <= 0.5f) m_distance = 0.5f;
+		if (m_distance >= 100) m_distance = 100;
+		break;
+	}
 	}
 }
 
