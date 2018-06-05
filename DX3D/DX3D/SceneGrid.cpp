@@ -12,6 +12,7 @@
 #include "Frustum.h"
 
 #include"SkyBox.h"
+#include "HeightMap.h"
 
 SceneGrid::SceneGrid()
 {
@@ -35,7 +36,9 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pFrustum);
 	SAFE_RELEASE(pObj);
 
+	SAFE_RELEASE(m_pHeightMap);
 	m_pSky->~SkyBox();
+	
 
 	BaseObject::Release();
 }
@@ -87,7 +90,34 @@ void SceneGrid::Init()
 	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
 	D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
 
+
+	//헤이트맵 올리기
+	D3DXMATRIXA16 matS ,matT, matWorld;
+	//D3DXMatrixScaling(&matS, 0.2f, 0.03f, 0.2f);
+	D3DXMatrixScaling(&matS, 1.0f, 0.1f, 1.0f);
+	D3DXMatrixIdentity(&matT);
+
 	
+//	matWorld = matS * matT;
+
+
+
+	//높이맵 호출 부분
+	m_pHeightMap = new HeightMap; 
+	AddSimpleDisplayObj(m_pHeightMap);
+	m_pHeightMap->SetDimension(257);
+	m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
+	//m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
+	//m_pHeightMap->Load("resources/heightmap/data/heightmap.r16", &matS);
+	m_pHeightMap->Init();
+
+	D3DMATERIAL9 mtl = DXUtil::WHITE_MTRL;
+	m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
+	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
+
+	g_pMapManager->AddMap("heightMap", m_pHeightMap);
+	g_pMapManager->SetCurrentMap("heightMap");
+
 }
 
 void SceneGrid::Update()
@@ -134,9 +164,12 @@ void SceneGrid::Render()
 
 	//SAFE_RENDER(m_pFrustum);
 	//IScene상속 받는 애들 전부 렌더하기
+	SAFE_RENDER(m_pHeightMap);
+
 	OnRenderIScene();
 }
 
 void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	SAFE_WNDPROC(m_pHeightMap);
 }

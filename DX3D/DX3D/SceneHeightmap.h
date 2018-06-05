@@ -5,7 +5,6 @@ class HeightMap;
 class AseCharacter;
 class Picking;
 
-
 class AStar;
 
 class Frustum;

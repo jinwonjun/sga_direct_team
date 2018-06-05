@@ -1,4 +1,11 @@
-﻿  Scene_UI.cpp
-d:\sga_direct_team\dx3d\dx3d\scene_ui.cpp(18): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+﻿  SceneGrid.cpp
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(48): warning C4316: 'Cube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(57): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(65): warning C4316: 'Cubeman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(68): warning C4316: 'Walls': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(72): warning C4316: 'Hexagon': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(75): warning C4316: 'ActionCube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(79): warning C4316: 'Frustum': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(106): warning C4316: 'HeightMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)

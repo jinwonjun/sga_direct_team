@@ -16,7 +16,6 @@ HeightMap::~HeightMap()
 	SAFE_RELEASE(m_pMesh);
 	SAFE_RELEASE(m_pMtlTex);
 	SAFE_RELEASE(m_pAStar);
-
 }
 
 void HeightMap::Load(const char * fullPath, D3DXMATRIXA16 * pMat)
@@ -157,16 +156,18 @@ void HeightMap::Render()
 {
 	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	//안개를 적용 시키자!!!!
-	g_pDevice->SetRenderState(D3DRS_FOGENABLE, true);
-	g_pDevice->SetRenderState(D3DRS_FOGCOLOR, 0xffbbbbbb);
-	g_pDevice->SetRenderState(D3DRS_FOGDENSITY, FtoDw(0.1f));//강도 0~1f 
-	//안개 적용 최소 거리
-	g_pDevice->SetRenderState(D3DRS_FOGSTART, FtoDw(20.0f));
-	//안개 최대치로 적용되는거리
-	g_pDevice->SetRenderState(D3DRS_FOGEND, FtoDw(40.0f));
-	g_pDevice->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);
+	//g_pDevice->SetRenderState(D3DRS_FOGENABLE, true);
+	//g_pDevice->SetRenderState(D3DRS_FOGCOLOR, 0xffbbbbbb);
+	//g_pDevice->SetRenderState(D3DRS_FOGDENSITY, FtoDw(0.1f));//강도 0~1f 
+	////안개 적용 최소 거리
+	//g_pDevice->SetRenderState(D3DRS_FOGSTART, FtoDw(20.0f));
+	////안개 최대치로 적용되는거리
+	//g_pDevice->SetRenderState(D3DRS_FOGEND, FtoDw(40.0f));
+	//g_pDevice->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);
 
-	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+
+
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	g_pDevice->SetMaterial(&m_pMtlTex->GetMaterial());
 	g_pDevice->SetTexture(0, m_pMtlTex->GetTexture());
@@ -184,13 +185,12 @@ void HeightMap::Render()
 
 	//컬링 안하고 그리고
 	g_pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
-		m_vecObstacleVertex.size() / 3, &m_vecObstacleVertex[0],sizeof(D3DXVECTOR3));
+	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,m_vecObstacleVertex.size() / 3, &m_vecObstacleVertex[0],sizeof(D3DXVECTOR3));
 
 	//컬링 원상복구
 	g_pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	//랜더 끝나면 꺼주기
-	g_pDevice->SetRenderState(D3DRS_FOGENABLE, false);
+	//g_pDevice->SetRenderState(D3DRS_FOGENABLE, false);
 }
 
 bool HeightMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)

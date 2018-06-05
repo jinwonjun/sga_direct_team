@@ -45,8 +45,6 @@ void Camera::Init()
 	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DX_PI / 4.0f, rc.right / (float)rc.bottom, 1, 1000);
 	g_pDevice->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
-
-
 	// 이거 이닛에서 하면 안되염? 생성자에서 하니까 클라이언트 렉트를 못하넹
 	RECT clientRect;
 	GetClientRect(g_hWnd, &clientRect);
@@ -68,7 +66,6 @@ void Camera::Init()
 
 void Camera::Update()
 {
-
 	//m_eye = D3DXVECTOR3(0 , m_basePosY  , -m_distance);
 	//D3DXMATRIXA16 matRotX, matRotY, matRot;
 	//D3DXMatrixRotationX(&matRotX, m_rotX);
@@ -119,13 +116,8 @@ void Camera::Update()
 		}
 	}
 
-
 	Debug->AddText("Mouse Sensitivity : " + to_string(sensLevel));
 	Debug->EndLine();
-
-
-
-
 
 	D3DXMatrixRotationX(&matRotX, m_rotX);
 	D3DXMatrixRotationY(&matRotY, m_rotY);
@@ -260,20 +252,16 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			isStart = false;
 		}
 
-
-
 		if (!mRCCollCheck)
 		{
 			float prevRotX = m_rotX;
 
 			m_rotY += (currPoint.x - m_ptPrevMouse.x) / mSensX;
-
 			//X회전 성분에 대한 수치값은 나중에 하자
 			m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
 
 			deltaRotY = m_rotX - prevRotX;
 		}
-
 
 		mRCCollCheck = false;
 

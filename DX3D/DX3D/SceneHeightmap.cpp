@@ -27,15 +27,19 @@ SceneHeightmap::~SceneHeightmap()
 void SceneHeightmap::Init()
 {
 	D3DXMATRIXA16 matS;
-	D3DXMatrixScaling(&matS, 0.2f, 0.03f, 0.2f);
+	//D3DXMatrixScaling(&matS, 0.2f, 0.03f, 0.2f);
+	D3DXMatrixScaling(&matS, 0.5f, 0.004f, 0.5f);
+	//D3DXMatrixScaling(&matS, 3.0f, 0.005f, 3.0f);
+
 
 	m_pHeightMap = new HeightMap; AddSimpleDisplayObj(m_pHeightMap);
 	m_pHeightMap->SetDimension(257);
-	m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
+	//m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
+	m_pHeightMap->Load("resources/heightmap/data/heightmap.r16", &matS);
 	m_pHeightMap->Init();
 	D3DMATERIAL9 mtl = DXUtil::WHITE_MTRL;
-	m_pHeightMap->SetMtlTex(mtl,
-		g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
+	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
+	m_pHeightMap->SetMtlTex(mtl,g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
 
 	g_pMapManager->AddMap("heightmap", m_pHeightMap);
 	g_pMapManager->SetCurrentMap("heightmap");
