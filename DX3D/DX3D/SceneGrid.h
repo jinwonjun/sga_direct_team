@@ -17,6 +17,8 @@ class SkyBox;
 
 class HeightMap;
 
+class EnemyManager;
+
 class SceneGrid : public IScene
 {
 	//각 정점의 칼라값까지 넣어줄 수도 있는 기능을 한다.
@@ -37,6 +39,8 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
+
+	void BoundingCheck();
 
 	//큐브 동적 생성
 	Cube * pCube;
@@ -63,5 +67,7 @@ public:
 	SkyBox * m_pSky;
 
 	HeightMap *		m_pHeightMap;
+
+	EnemyManager * m_pEm;
 };
 

@@ -13,7 +13,8 @@
 
 #include"SkyBox.h"
 #include "HeightMap.h"
-
+#include "EnemyManager.h"
+#include "Enemy.h"
 SceneGrid::SceneGrid()
 {
 	m_pCubeman = NULL;
@@ -38,8 +39,7 @@ void SceneGrid::Release()
 
 	SAFE_RELEASE(m_pHeightMap);
 	m_pSky->~SkyBox();
-	
-
+	SAFE_RELEASE(m_pEm);
 	BaseObject::Release();
 }
 
@@ -78,6 +78,9 @@ void SceneGrid::Init()
 
 	m_pFrustum = new Frustum();
 	m_pFrustum->Init();
+
+	m_pEm = new EnemyManager();
+	m_pEm->Init();
 
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0), D3DXVECTOR2(0, 1)));//7
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 1, 0), D3DXVECTOR2(0, 0)));//6
@@ -129,6 +132,8 @@ void SceneGrid::Update()
 	//SAFE_UPDATE(m_pActionCube);
 
 	SAFE_UPDATE(m_pFrustum);
+	SAFE_UPDATE(m_pEm);
+	BoundingCheck();
 }
 
 void SceneGrid::Render()
@@ -165,11 +170,31 @@ void SceneGrid::Render()
 	//SAFE_RENDER(m_pFrustum);
 	//IScene상속 받는 애들 전부 렌더하기
 	SAFE_RENDER(m_pHeightMap);
-
+	SAFE_RENDER(m_pEm);
 	OnRenderIScene();
 }
 
 void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	SAFE_WNDPROC(m_pHeightMap);
+}
+
+void SceneGrid::BoundingCheck()
+{
+
+	Cubeman* PlayerObj = static_cast <Cubeman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
+	EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+
+	for (auto p : EnemyObj->GetEnemyList())
+	{
+		BoundingBox* pEnemyBox = p->GetBoundingBox();
+		if (PlayerObj->GetBoundingBox()->IsIntersected(*pEnemyBox))
+		{
+			p->SetDestPos(PlayerObj->GetPosition());
+		}
+		else
+		{
+			p->MoveStop();
+		}
+	}
 }

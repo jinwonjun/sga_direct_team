@@ -306,6 +306,15 @@
     <ClInclude Include="VertexBlending.h">
       <Filter>소스 파일\%28E%29MAP_EFFECT</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingBox.h">
+      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -499,6 +508,15 @@
     </ClCompile>
     <ClCompile Include="VertexBlending.cpp">
       <Filter>소스 파일\%28E%29MAP_EFFECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingBox.cpp">
+      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

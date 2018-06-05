@@ -159,6 +159,7 @@
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStarNode.h" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cubeman.h" />
@@ -173,7 +174,9 @@
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="DrawingGroup.h" />
     <ClInclude Include="DX3D.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemyman.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="GlobalDefinition.h" />
@@ -229,6 +232,7 @@
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Cubeman.cpp" />
@@ -243,7 +247,9 @@
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="DrawingGroup.cpp" />
     <ClCompile Include="DX3D.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemyman.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GlobalDefinition.cpp" />

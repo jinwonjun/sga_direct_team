@@ -5,6 +5,7 @@
 
 #include "Ray.h"
 #include "Cube.h"
+#include "BoundingBox.h"
 Cubeman::Cubeman()
 {
 	m_pRootParts = NULL;
@@ -28,6 +29,7 @@ Cubeman::Cubeman()
 
 Cubeman::~Cubeman()
 {
+	SAFE_RELEASE(m_pBox);
 	//요놈도 idisplayobject 상속받을예정
 	m_pRootParts->ReleaseAll();
 }
@@ -51,10 +53,15 @@ void Cubeman::Init()
 	m_vecVertex.push_back(VERTEX_PC(m_pos, red));//0
 	//종점
 	m_vecVertex.push_back(VERTEX_PC(m_pos + m_forward * 100, red));//1
+
+	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
 }
 
 void Cubeman::Update()
 {
+	m_pBox->Update();
+	m_pBox->SetPosition(&m_pos);
+
 	//UpdatePosition();
 	//디버그 코드 예제
 	//Debug->AddText(m_pos);
@@ -135,6 +142,7 @@ void Cubeman::Update()
 
 void Cubeman::Render()
 {
+	//m_pBox->Render();
 	m_pRootParts->Render();
 
 	D3DXMatrixIdentity(&m_matWorld);

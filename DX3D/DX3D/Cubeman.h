@@ -5,7 +5,7 @@
 #include "ObjMap.h"
 
 class CubemanParts;
-
+class BoundingBox;
 class Cubeman :public IUnitObject
 {
 private :
@@ -32,7 +32,7 @@ private :
 
 	float			m_maxStepHeight;//평지 다닐때 높이차가 크게 되면 못가게 막아주는 변수
 
-
+	BoundingBox*	m_pBox;
 public:
 	Cubeman();
 	~Cubeman();
@@ -109,5 +109,6 @@ public:
 		{ 8, 20, 8, 16, 4, 16, 4, 20 },		// 상
 		{ 12, 16, 12, 20, 8, 20, 8, 16 }	// 하
 	};
+	BoundingBox* GetBoundingBox() { return m_pBox; }
 };
 
