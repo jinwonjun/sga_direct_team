@@ -32,6 +32,8 @@ private :
 
 	BoundingSphere*			m_pBounidngSphere;
 	LPD3DXMESH				m_pSphere;
+
+	int					m_HP;
 public:
 	Enemy(D3DXVECTOR3& pos);
 	virtual ~Enemy();
@@ -48,6 +50,7 @@ public:
 	void UpdatePosition();
 	void SetDestPos(D3DXVECTOR3& pos);
 	void MoveStop();
+	void MinusHP() { m_HP--; }
 
 	BoundingBox*	GetBoundingBox() { return m_pBox; }
 	BoundingSphere*	GetSphere() { return m_pBounidngSphere; }

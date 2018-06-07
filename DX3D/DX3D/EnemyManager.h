@@ -7,7 +7,7 @@ class EnemyManager : public IDisplayObject
 private:
 	friend class Enemy;
 
-	list<Enemy*> m_listEnemy;
+	vector<Enemy*> m_vecEnemy;
 public:
 	EnemyManager();
 	~EnemyManager();
@@ -19,8 +19,6 @@ public:
 
 	void AddEnemy(D3DXVECTOR3& pos);
 
-	list<Enemy*> GetEnemyList() { return m_listEnemy; }
-
-	void RemoveEnemy(Enemy* enemy) { m_listEnemy.remove(enemy); }
+	vector<Enemy*> GetVecEnemy() { return m_vecEnemy; }
 };
 

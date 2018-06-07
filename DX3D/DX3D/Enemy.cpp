@@ -17,6 +17,8 @@ Enemy::Enemy(D3DXVECTOR3& pos)
 	m_forward.x = 1;
 
 	m_moving = false;
+
+	m_HP = 2;
 }
 
 
@@ -32,7 +34,7 @@ void Enemy::Init()
 {
 	InitVertex();
 	m_pBox = new BoundingBox(D3DXVECTOR3(22.0f, 15.0f, 22.0f)); m_pBox->Init();
-	float radius = 1.2f;
+	float radius = 1.4f;
 	D3DXCreateSphere(g_pDevice, radius, 10, 10, &m_pSphere, NULL);
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x + 5, m_pos.y + 5, m_pos.z + 5), radius);
 }

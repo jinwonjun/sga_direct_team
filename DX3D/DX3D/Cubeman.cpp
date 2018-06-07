@@ -6,6 +6,8 @@
 #include "Ray.h"
 #include "Cube.h"
 #include "BoundingBox.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
 Cubeman::Cubeman()
 {
 	m_pRootParts = NULL;
@@ -74,11 +76,41 @@ void Cubeman::Update()
 
 	//마우스로 충돌 됬을 때!
 	//(WORD)(g_pMouse->GetPosition().x) , (WORD)(g_pMouse->GetPosition().y)
+	/*
 	if ((CalcPickedPosition(m_pos, g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y) == true) && g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		static_cast <Cube *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY1))->m_vPosition.z += 1.5f;
 
 		//구체를 넣고 렌더를 하지말자
+	}
+	*/
+	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
+	{
+		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
+		BoundingSphere* sphere = NULL;
+		float minDistance = FLT_MAX;
+		float intersectionDistance;
+		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+		BoundingSphere* temp = NULL;
+		for (auto p : em->GetVecEnemy())
+		{
+			temp = p->GetSphere();
+			if (r.CalcIntersectSphere(temp) == true)
+			{
+				intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+				if (intersectionDistance < minDistance)
+				{
+					minDistance = intersectionDistance;
+					sphere = temp;
+				}
+			}
+
+			if (sphere != NULL)
+			{
+				p->MinusHP();
+				break;
+			}
+		}
 	}
 
 	//조명 예제

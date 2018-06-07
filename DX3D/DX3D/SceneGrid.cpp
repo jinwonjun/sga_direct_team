@@ -185,7 +185,7 @@ void SceneGrid::BoundingCheck()
 	Cubeman* PlayerObj = static_cast <Cubeman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
 	EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
 
-	for (auto p : EnemyObj->GetEnemyList())
+	for (auto p : EnemyObj->GetVecEnemy())
 	{
 		BoundingBox* pEnemyBox = p->GetBoundingBox();
 		if (PlayerObj->GetBoundingBox()->IsIntersected(*pEnemyBox))
