@@ -4,6 +4,9 @@
 #include "BoundingBox.h"
 
 class BoundingBox;
+class ObjLoader;
+class DrawingGroup;
+
 class Enemy : public IDisplayObject
 {
 private :
@@ -32,6 +35,8 @@ private :
 
 	BoundingSphere*			m_pBounidngSphere;
 	LPD3DXMESH				m_pSphere;
+
+	vector<DrawingGroup * > m_vecDrawingGroup;
 
 	int					m_HP;
 public:

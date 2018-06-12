@@ -17,10 +17,6 @@
 #include "Enemy.h"
 
 
-//obj파일 불러오기
-#include "DrawingGroup.h"
-#include "ObjLoader.h"
-
 SceneGrid::SceneGrid()
 {
 	m_pCubeman = NULL;
@@ -47,11 +43,6 @@ void SceneGrid::Release()
 	m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
 
-	//obj로드 객체 전부 삭제
-	for (auto p : m_vecDrawingGroup)
-	{
-		SAFE_RELEASE(p);
-	}
 
 	BaseObject::Release();
 }
@@ -108,7 +99,7 @@ void SceneGrid::Init()
 
 
 	//헤이트맵 올리기
-	D3DXMATRIXA16 matS ,matT, matWorld;
+	D3DXMATRIXA16 matS ,matT, matRX,matRY,matWorld;
 	//D3DXMatrixScaling(&matS, 0.2f, 0.03f, 0.2f);
 	D3DXMatrixScaling(&matS, 1.0f, 0.1f, 1.0f);
 	D3DXMatrixIdentity(&matT);
@@ -126,13 +117,6 @@ void SceneGrid::Init()
 	m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
 	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
 	
-	D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
-	D3DXMatrixTranslation(&matT, 0, 10, 0);
-	matWorld = matS * matT;
-	//obj객체 로드 부분
-	ObjLoader loader;
-	loader.Load("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
-
 
 	//상태맵 저장하기
 	g_pMapManager->AddMap("heightMap", m_pHeightMap);
@@ -172,13 +156,6 @@ void SceneGrid::Render()
 
 	//스카이박스!!!
 	m_pSky->Render();
-
-
-	//obj객체 그리기
-	for (auto p : m_vecDrawingGroup)
-	{
-		SAFE_RENDER(p);
-	}
 
 	//큐브 그리기
 	//pCube->Render();

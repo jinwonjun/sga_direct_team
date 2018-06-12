@@ -39,6 +39,7 @@ void DrawingGroup::Render()
 	//g_pDevice->SetTexture(0, m_MtlTex->pTexture);
 	//g_pDevice->SetMaterial(&m_MtlTex->material);
 	//텍스쳐만 등록하기
+
 	g_pDevice->SetTexture(0,g_pTextureManager->GetTexture("resources/obj/SCV.png"));
 	g_pDevice->SetFVF(VERTEX_PNT::FVF);
 	g_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VERTEX_PNT));

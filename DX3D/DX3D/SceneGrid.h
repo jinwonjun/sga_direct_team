@@ -8,9 +8,6 @@ class Walls;
 class Hexagon;
 class ActionCube;
 
-class ObjLoader;
-class DrawingGroup;
-
 class Frustum;
 
 class SkyBox;
@@ -28,8 +25,6 @@ class SceneGrid : public IScene
 	
 	vector<VERTEX_PT> vecPTVertex;
 	LPDIRECT3DTEXTURE9 tex;
-
-	vector<DrawingGroup * > m_vecDrawingGroup;
 
 public:
 	SceneGrid();
@@ -61,8 +56,6 @@ public:
 	Hexagon * m_pHexagon;
 
 	ActionCube* m_pActionCube;
-
-	ObjLoader * ob;
 
 	Frustum * m_pFrustum;
 

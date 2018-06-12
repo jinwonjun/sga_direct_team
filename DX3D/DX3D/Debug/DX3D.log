@@ -1,13 +1,4 @@
-﻿  SceneGrid.cpp
-d:\sga_direct_team\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(61): warning C4316: 'Cube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(70): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(78): warning C4316: 'Cubeman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(81): warning C4316: 'Walls': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(85): warning C4316: 'Hexagon': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(88): warning C4316: 'ActionCube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(92): warning C4316: 'Frustum': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(95): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(117): warning C4316: 'HeightMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+﻿  Enemy.cpp
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(47): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)

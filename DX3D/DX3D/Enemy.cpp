@@ -4,6 +4,11 @@
 #include "AStarNode.h"
 #include "BoundingBox.h"
 
+
+//obj파일 불러오기
+#include "DrawingGroup.h"
+#include "ObjLoader.h"
+
 Enemy::Enemy(D3DXVECTOR3& pos)
 {
 	m_pVB = NULL;
@@ -28,6 +33,12 @@ Enemy::~Enemy()
 
 	SAFE_RELEASE(m_pVB);
 	SAFE_RELEASE(m_pIB);
+
+	//obj로드 객체 전부 삭제
+	for (auto p : m_vecDrawingGroup)
+	{
+		SAFE_RELEASE(p);
+	}
 }
 
 void Enemy::Init()
@@ -37,6 +48,15 @@ void Enemy::Init()
 	float radius = 1.4f;
 	D3DXCreateSphere(g_pDevice, radius, 10, 10, &m_pSphere, NULL);
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x + 5, m_pos.y + 5, m_pos.z + 5), radius);
+
+	D3DXMATRIXA16 matS, matT, matRX, matRY;
+	D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
+	D3DXMatrixRotationX(&matRX, D3DX_PI * 3 / 2);
+	D3DXMatrixRotationY(&matRY, D3DX_PI);
+	m_matWorld = matS * matRX * matRY;
+	//obj객체 로드 부분
+	ObjLoader loader;
+	loader.Load("resources/obj", "SCV.obj", &m_matWorld, m_vecDrawingGroup);
 }
 
 void Enemy::Update()
@@ -57,8 +77,14 @@ void Enemy::Render()
 	g_pDevice->SetFVF(VERTEX_PC::FVF);
 	g_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VERTEX_PC));
 	g_pDevice->SetIndices(m_pIB);
-	g_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0,
-		m_VBDesc.Size, 0, m_IBDesc.Size / 3);
+	g_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0,m_VBDesc.Size, 0, m_IBDesc.Size / 3);
+
+
+	//obj객체 그리기
+	for (auto p : m_vecDrawingGroup)
+	{
+		SAFE_RENDER(p);
+	}
 }
 
 void Enemy::InitVertex()
