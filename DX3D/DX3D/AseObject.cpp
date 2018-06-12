@@ -61,6 +61,23 @@ void AseObject::Render()
 	{
 		p->Render();
 	}
+
+	/*D3DVERTEXELEMENT9 vertexDecl[MAX_FVF_DECL_SIZE] = { 0 };
+	D3DXDeclaratorFromFVF(VERTEX_PNT::FVF, vertexDecl);
+
+	D3DVERTEXELEMENT9 elements[] =
+	{
+		{ 0,0,D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION,0 },
+		{ 0,12,D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,0 },
+		{ 0,24,D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD,0 },
+		D3DDECL_END()
+	};
+	LPDIRECT3DVERTEXDECLARATION9 pDecl = NULL;
+	DX::GetDevice->CreateVertexDeclaration(vertexDecl, &pDecl);
+	DX::GetDevice->SetVertexDeclaration(pDecl);*/
+
+	//UINT numPasses=0; ~~
+
 }
 
 void AseObject::AddChild(AseObject * pChild)

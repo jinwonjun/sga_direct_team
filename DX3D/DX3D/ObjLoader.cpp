@@ -6,7 +6,6 @@ ObjLoader::ObjLoader()
 {
 }
 
-
 ObjLoader::~ObjLoader()
 {
 }
@@ -97,9 +96,10 @@ void ObjLoader::Load(const char * filePath,const char * fileName, D3DXMATRIXA16 
 
 			DrawingGroup * pGroup = new DrawingGroup;
 			pGroup->SetVertexBuffer(vecPNT);
-			pGroup->SetMtlTex(m_mapMtlTex[mtlName]);
 			//참조를 두 군데에서 하기 때문에 레퍼런스 추가 함수 호출하기
-			m_mapMtlTex[mtlName]->AddRef();
+			//mtl파일 없으면 밑에 두 줄 주석처리하기
+			//pGroup->SetMtlTex(m_mapMtlTex[mtlName]);
+			//m_mapMtlTex[mtlName]->AddRef();
 			vecGroup.push_back(pGroup);
 			//그룹을 만들었으면 지워주기
 			vecPNT.clear();
@@ -115,7 +115,8 @@ void ObjLoader::Load(const char * filePath,const char * fileName, D3DXMATRIXA16 
 		{
 			float x, y, z;
 			fin.getline(szToken, 128);
-			sscanf_s(szToken, "%f %f *%f", &x, &y);//형식 지정자 앞에 * 붙이면, 값을 받지 않겠다 라는 의미!
+			//sscanf_s(szToken, "%f %f *%f", &x, &y);//형식 지정자 앞에 * 붙이면, 값을 받지 않겠다 라는 의미!
+			sscanf_s(szToken, "%f %f", &x, &y);//형식 지정자 앞에 * 붙이면, 값을 받지 않겠다 라는 의미!
 			vecT.push_back(D3DXVECTOR2(x, y));
 		}
 		else if (CompareStr(szToken, "vn"))

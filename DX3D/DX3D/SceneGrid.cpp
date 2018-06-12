@@ -15,6 +15,12 @@
 #include "HeightMap.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
+
+
+//obj파일 불러오기
+#include "DrawingGroup.h"
+#include "ObjLoader.h"
+
 SceneGrid::SceneGrid()
 {
 	m_pCubeman = NULL;
@@ -40,6 +46,13 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pHeightMap);
 	m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
+
+	//obj로드 객체 전부 삭제
+	for (auto p : m_vecDrawingGroup)
+	{
+		SAFE_RELEASE(p);
+	}
+
 	BaseObject::Release();
 }
 
@@ -100,11 +113,6 @@ void SceneGrid::Init()
 	D3DXMatrixScaling(&matS, 1.0f, 0.1f, 1.0f);
 	D3DXMatrixIdentity(&matT);
 
-	
-//	matWorld = matS * matT;
-
-
-
 	//높이맵 호출 부분
 	m_pHeightMap = new HeightMap; 
 	AddSimpleDisplayObj(m_pHeightMap);
@@ -117,10 +125,18 @@ void SceneGrid::Init()
 	D3DMATERIAL9 mtl = DXUtil::WHITE_MTRL;
 	m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
 	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
+	
+	D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
+	D3DXMatrixTranslation(&matT, 0, 10, 0);
+	matWorld = matS * matT;
+	//obj객체 로드 부분
+	ObjLoader loader;
+	loader.Load("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
 
+
+	//상태맵 저장하기
 	g_pMapManager->AddMap("heightMap", m_pHeightMap);
 	g_pMapManager->SetCurrentMap("heightMap");
-
 }
 
 void SceneGrid::Update()
@@ -133,7 +149,10 @@ void SceneGrid::Update()
 
 	SAFE_UPDATE(m_pFrustum);
 	SAFE_UPDATE(m_pEm);
+
 	BoundingCheck();
+
+
 }
 
 void SceneGrid::Render()
@@ -154,8 +173,15 @@ void SceneGrid::Render()
 	//스카이박스!!!
 	m_pSky->Render();
 
+
+	//obj객체 그리기
+	for (auto p : m_vecDrawingGroup)
+	{
+		SAFE_RENDER(p);
+	}
+
 	//큐브 그리기
-	pCube->Render();
+	//pCube->Render();
 	//그리드 그리기
 	SAFE_RENDER(m_pGrid);
 	//pGrid->Render();
@@ -168,9 +194,13 @@ void SceneGrid::Render()
 	//SAFE_RENDER(m_pActionCube);
 
 	//SAFE_RENDER(m_pFrustum);
+
 	//IScene상속 받는 애들 전부 렌더하기
 	SAFE_RENDER(m_pHeightMap);
 	SAFE_RENDER(m_pEm);
+
+
+
 	OnRenderIScene();
 }
 

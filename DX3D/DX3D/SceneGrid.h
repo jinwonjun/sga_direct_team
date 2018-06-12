@@ -29,6 +29,8 @@ class SceneGrid : public IScene
 	vector<VERTEX_PT> vecPTVertex;
 	LPDIRECT3DTEXTURE9 tex;
 
+	vector<DrawingGroup * > m_vecDrawingGroup;
+
 public:
 	SceneGrid();
 	//~SceneGrid();

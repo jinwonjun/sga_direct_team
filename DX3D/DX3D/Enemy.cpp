@@ -18,7 +18,7 @@ Enemy::Enemy(D3DXVECTOR3& pos)
 
 	m_moving = false;
 
-	m_HP = 2;
+	m_HP = 1;
 }
 
 

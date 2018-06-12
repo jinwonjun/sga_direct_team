@@ -2,6 +2,7 @@
 #include "ObjMap.h"
 #include "DrawingGroup.h"
 #include "ObjLoader.h"
+
 ObjMap::ObjMap()
 {
 	m_rayOffsetY = 4;
@@ -21,7 +22,8 @@ void ObjMap::Init()
 	D3DXMATRIXA16 matRX, matRY, matS, matWorld;
 	D3DXMatrixRotationX(&matRX, -D3DX_PI / 2.0f);
 	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
-	D3DXMatrixScaling(&matS, 0.04f, 0.04f, 0.04f);
+	//D3DXMatrixScaling(&matS, 0.04f, 0.04f, 0.04f);
+	D3DXMatrixScaling(&matS, 3.0f, 3.0f, 3.0f);
 	matWorld = matS * matRX * matRY;
 
 	ObjLoader loader;
@@ -31,8 +33,12 @@ void ObjMap::Init()
 	//m_pMeshMap = loader.LoadMesh("resources/obj", "Map.obj", &matWorld, m_vecMtlTex);
 
 
-	loader.Load("resources/cs_italy", "cs_italy.obj", &matWorld, m_vecDrawingGroup);
-	m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &matWorld, m_vecMtlTex);
+	//loader.Load("resources/cs_italy", "cs_italy.obj", &matWorld, m_vecDrawingGroup);
+	//m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &matWorld, m_vecMtlTex);
+
+	loader.Load("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
+	//m_pMeshMap = loader.LoadMesh("resources/obj", "UED_SCV_V1.obj", &matWorld, m_vecMtlTex);
+	
 	//for (int i = 0 ; i < loader.m_mapMtlTex.size(); i++)
 	//{
 	//	m_vecMtlTex[i]->id = loader.m_mapMtlTex;
@@ -56,11 +62,10 @@ void ObjMap::Render()
 {
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
-
 	//렌더링 함수 
-	//RenderDrawingGroup();
+	RenderDrawingGroup();
 	//매쉬 함수
-	RenderMesh();
+	//RenderMesh();
 
 	//D3DXCreateSphere(g_pDevice,1.5,);
 

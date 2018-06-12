@@ -64,12 +64,6 @@ void Cubeman::Update()
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
 
-	//UpdatePosition();
-	//디버그 코드 예제
-	//Debug->AddText(m_pos);
-	//Debug->EndLine();//찍고 나서 줄바꿈
-	//printf("%f %f %f\n", m_pos.x, m_pos.y, m_pos.z);
-	
 	IUnitObject::UpdatePosition();
 	IUnitObject::UpdateKeyboardState();
 	//static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition()
@@ -104,7 +98,6 @@ void Cubeman::Update()
 					sphere = temp;
 				}
 			}
-
 			if (sphere != NULL)
 			{
 				p->MinusHP();

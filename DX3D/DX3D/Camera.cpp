@@ -192,21 +192,12 @@ void Camera::Update()
 	Debug->AddText(deltaRotY);
 	Debug->EndLine();
 
-	Debug->AddText("m_eye = ");
-	Debug->AddText(m_eye.x);
-	Debug->AddText(", ");
-	Debug->AddText(m_eye.y);
-	Debug->AddText(", ");
-	Debug->AddText(m_eye.z);
+	Debug->AddText("m_eye = " + to_string(m_eye.x)+ ", " + to_string(m_eye.y) + ", " + to_string(m_eye.z));
 	Debug->EndLine();
 
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
 	g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
-
-	//회전 값찍어보기
-	Debug->AddText(m_rotX);
-	Debug->EndLine();
 }
 
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
