@@ -7,14 +7,12 @@ class Cubeman;
 class Walls;
 class Hexagon;
 class ActionCube;
-
 class Frustum;
-
 class SkyBox;
-
 class HeightMap;
-
 class EnemyManager;
+
+class SkinnedMesh;
 
 class SceneGrid : public IScene
 {
@@ -64,5 +62,9 @@ public:
 	HeightMap *		m_pHeightMap;
 
 	EnemyManager * m_pEm;
+
+
+	SkinnedMesh * m_pSkinnedMesh;
+
 };
 

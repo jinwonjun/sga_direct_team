@@ -94,6 +94,9 @@
     <Filter Include="소스 파일\SCENE_CONTROL\UI_TEST_MAP">
       <UniqueIdentifier>{dfcb2b1c-7356-4354-adef-22fb72db25c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\%28R%29X_READ">
+      <UniqueIdentifier>{f4a24fb6-dc09-4644-864d-1697820932d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -315,6 +318,12 @@
     <ClInclude Include="BoundingBox.h">
       <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
     </ClInclude>
+    <ClInclude Include="AllocateHierarchy.h">
+      <Filter>소스 파일\%28R%29X_READ</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedMesh.h">
+      <Filter>소스 파일\%28R%29X_READ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -517,6 +526,12 @@
     </ClCompile>
     <ClCompile Include="BoundingBox.cpp">
       <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+    </ClCompile>
+    <ClCompile Include="AllocateHierarchy.cpp">
+      <Filter>소스 파일\%28R%29X_READ</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMesh.cpp">
+      <Filter>소스 파일\%28R%29X_READ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

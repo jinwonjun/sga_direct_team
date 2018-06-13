@@ -36,6 +36,9 @@ void SkinnedMesh::Init()
 	//Load(ASSET_PATH + _T("zealot/"), _T("zealot.X"));
 	CString path = "resources/zealot/";
 	CString filename = "zealot.X";
+	//test
+	//CString path = "resources/val/";
+	//CString filename = "walkGirl.X";
 	Load(path, filename);
 }
 
@@ -271,7 +274,13 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 	if (m_bWireFrame) g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	D3DXMatrixIdentity(&m_matWorld);
+	//size
 	D3DXMatrixScaling(&m_matWorld, 5, 5, 5);
+	//D3DXMatrixScaling(&m_matWorld, 0.05f, 0.05f, 0.05f);
+	//D3DXMATRIXA16 matR , matT;
+	//D3DXMatrixRotationX(&matR,D3DX_PI);
+	//D3DXMatrixTranslation(&matT, 0, 10, 0);
+	//m_matWorld = m_matWorld * matR * matT;
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 
 	for (size_t i = 0; i < pMeshContainerEx->vecMtlTex.size(); ++i)

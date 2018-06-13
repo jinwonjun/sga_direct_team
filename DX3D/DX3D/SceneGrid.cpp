@@ -16,6 +16,8 @@
 #include "EnemyManager.h"
 #include "Enemy.h"
 
+//맵에 스킨매쉬 올려보기
+#include "SkinnedMesh.h"
 
 SceneGrid::SceneGrid()
 {
@@ -43,6 +45,7 @@ void SceneGrid::Release()
 	m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
 
+	//m_pSkinnedMesh->~SkinnedMesh();
 
 	BaseObject::Release();
 }
@@ -117,6 +120,10 @@ void SceneGrid::Init()
 	m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
 	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
 	
+
+	//m_pSkinnedMesh = new SkinnedMesh;
+	//m_pSkinnedMesh->Init();
+	//AddSimpleDisplayObj(m_pSkinnedMesh);
 
 	//상태맵 저장하기
 	g_pMapManager->AddMap("heightMap", m_pHeightMap);
