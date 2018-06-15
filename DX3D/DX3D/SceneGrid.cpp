@@ -45,13 +45,20 @@ void SceneGrid::Release()
 	m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
 
-	//m_pSkinnedMesh->~SkinnedMesh();
+	m_pSkinnedMesh->~SkinnedMesh();
 
 	BaseObject::Release();
 }
 
 void SceneGrid::Init()
 {
+	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
+	D3DXVec3Normalize(&dir, &dir);
+	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &WHITE);
+	g_pDevice->SetLight(0, &light);
+	g_pDevice->LightEnable(0, true);
+	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+
 	pCube = new Cube;
 	pCube->Init();
 	////일단 파츠 구현
@@ -100,15 +107,19 @@ void SceneGrid::Init()
 	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
 	D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
 
+	//매쉬 캐릭터 올리기
+	m_pSkinnedMesh = new SkinnedMesh;
+	m_pSkinnedMesh->Init();
+	AddSimpleDisplayObj(m_pSkinnedMesh);
 
 	//헤이트맵 올리기
-	D3DXMATRIXA16 matS ,matT, matRX,matRY,matWorld;
+	D3DXMATRIXA16 matS, matT, matRX, matRY, matWorld;
 	//D3DXMatrixScaling(&matS, 0.2f, 0.03f, 0.2f);
 	D3DXMatrixScaling(&matS, 1.0f, 0.1f, 1.0f);
 	D3DXMatrixIdentity(&matT);
 
 	//높이맵 호출 부분
-	m_pHeightMap = new HeightMap; 
+	m_pHeightMap = new HeightMap;
 	AddSimpleDisplayObj(m_pHeightMap);
 	m_pHeightMap->SetDimension(257);
 	m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
@@ -119,12 +130,6 @@ void SceneGrid::Init()
 	D3DMATERIAL9 mtl = DXUtil::WHITE_MTRL;
 	m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
 	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
-	
-
-	//m_pSkinnedMesh = new SkinnedMesh;
-	//m_pSkinnedMesh->Init();
-	//AddSimpleDisplayObj(m_pSkinnedMesh);
-
 	//상태맵 저장하기
 	g_pMapManager->AddMap("heightMap", m_pHeightMap);
 	g_pMapManager->SetCurrentMap("heightMap");
@@ -133,17 +138,18 @@ void SceneGrid::Init()
 void SceneGrid::Update()
 {
 	SAFE_UPDATE(pCube);
-	//SAFE_UPDATE(pCube_head);
-	OnUpdateIScene();
+
 	SAFE_UPDATE(m_pCubeman);
 	//SAFE_UPDATE(m_pActionCube);
 
 	SAFE_UPDATE(m_pFrustum);
+
 	SAFE_UPDATE(m_pEm);
 
 	BoundingCheck();
 
-
+	//SAFE_UPDATE(pCube_head);
+	OnUpdateIScene();
 }
 
 void SceneGrid::Render()
@@ -182,7 +188,6 @@ void SceneGrid::Render()
 	//IScene상속 받는 애들 전부 렌더하기
 	SAFE_RENDER(m_pHeightMap);
 	SAFE_RENDER(m_pEm);
-
 
 
 	OnRenderIScene();

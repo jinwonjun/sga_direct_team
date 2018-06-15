@@ -2,6 +2,8 @@
 #include "SkinnedMesh.h"
 #include "AllocateHierarchy.h"
 
+#define SCALE 0.05f
+
 SkinnedMesh::SkinnedMesh()
 {
 	//m_Brot.y = ;
@@ -32,14 +34,13 @@ void SkinnedMesh::Init()
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 
 	D3DXCreateSphere(g_pDevice, 0.01f, 10, 10, &m_pSphereMesh, NULL);
-	
+
 	//Load(ASSET_PATH + _T("zealot/"), _T("zealot.X"));
+	//CString path = "resources/xFile/";
 	CString path = "resources/zealot/";
-	CString filename = "zealot.X";
-	//test
-	//CString path = "resources/val/";
-	//CString filename = "walkGirl.X";
+	CString filename = "ironman.X";
 	Load(path, filename);
+	D3DXMatrixIdentity(&m_matWorld);
 }
 
 void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
@@ -48,10 +49,9 @@ void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
 
 	CString fullPath(path);
 	fullPath.Append(filename);
-	
-	D3DXLoadMeshHierarchyFromX(fullPath, D3DXMESH_MANAGED, g_pDevice,
-		&alloc, NULL, &m_pRootFrame, &m_pAnimController);
-	
+
+	D3DXLoadMeshHierarchyFromX(fullPath, D3DXMESH_MANAGED, g_pDevice,&alloc, NULL, &m_pRootFrame, &m_pAnimController);
+
 	SetupBoneMatrixPointers(m_pRootFrame);
 }
 
@@ -104,7 +104,8 @@ void SkinnedMesh::Update()
 	Debug->AddText(_T(" / "));
 	Debug->AddText((int)m_pAnimController->GetMaxNumAnimationSets());
 	Debug->EndLine();
-	
+	D3DXMATRIXA16 matR;
+
 	if (Keyboard::Get()->KeyDown('1'))
 	{
 		if (m_animIndex < m_pAnimController->GetMaxNumAnimationSets() - 1)
@@ -116,7 +117,7 @@ void SkinnedMesh::Update()
 	{
 		if (m_animIndex > 0)
 			m_animIndex--;
-		
+
 		SetAnimationIndex(m_animIndex, true);
 	}
 	else if (Keyboard::Get()->KeyDown(VK_F1))
@@ -132,11 +133,35 @@ void SkinnedMesh::Update()
 		m_bWireFrame = !m_bWireFrame;
 	}
 
-	IUnitObject::UpdateKeyboardState();
-	IUnitObject::UpdatePositionToDestination();
 
+	//IUnitObject::UpdateKeyboardState();
+	//IUnitObject::UpdatePositionToDestination();
+
+
+	//m_rot += m_deltaRot * m_rotationSpeed;
+	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
+	{
+		m_rot.x = g_pCamera->m_rotX;
+		m_rot.y = g_pCamera->m_rotY;
+	}
+	else
+		m_rot += m_deltaRot * m_rotationSpeed;
+	//방식을 알았다!!!!
+	//m_rot.y = g_pCamera->m_rotY;
+
+	D3DXMATRIXA16 matRotY;
+	D3DXMatrixRotationY(&matRotY, m_rot.y);
+	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRotY);
+
+	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+	
+	D3DXMatrixRotationY(&matR, D3DX_PI);
+
+	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
+
+	m_matWorld = matS * matRotY* matR * matT;
 }
 
 
@@ -145,7 +170,7 @@ void SkinnedMesh::UpdateAnim()
 	float fDeltaTime = g_pTimeManager->GetDeltaTime();
 	// AdvanceTime 함수가 호출된 간격으로 Anim 키프레임 계산
 	m_pAnimController->AdvanceTime(fDeltaTime, NULL);
-	
+
 	if (m_fPassedBlendTime <= m_fBlendTime)
 	{
 		m_fPassedBlendTime += fDeltaTime;
@@ -197,7 +222,7 @@ void SkinnedMesh::Render()
 	m_numMesh = 0;
 	Debug->AddText(_T("=====DrawFrame====="));
 	Debug->EndLine();
-	if ( m_bDrawFrame)DrawFrame(m_pRootFrame);
+	if (m_bDrawFrame)DrawFrame(m_pRootFrame);
 	Debug->EndLine();
 	Debug->AddText(_T("numFrame = "));
 	Debug->AddText(m_numFrame);
@@ -205,7 +230,7 @@ void SkinnedMesh::Render()
 	Debug->AddText(_T("numMesh = "));
 	Debug->AddText(m_numMesh);
 	Debug->EndLine();
-	if ( m_bDrawSkeleton)DrawSkeleton(m_pRootFrame, NULL);	
+	if (m_bDrawSkeleton)DrawSkeleton(m_pRootFrame, NULL);
 }
 
 // Desc: Called to render a frame in the hierarchy
@@ -220,7 +245,7 @@ void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 		Debug->AddText(_T("NULL"));
 	else
 		Debug->AddText(pFrame->Name);
-	
+
 
 	LPD3DXMESHCONTAINER pMeshContainer = pFrame->pMeshContainer;
 	while (pMeshContainer != NULL)
@@ -246,7 +271,7 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 {
 	if (pFrame->pMeshContainer->pSkinInfo == NULL)
 		return;
-	
+
 	FRAME_EX* pFrameEx = (FRAME_EX*)pFrame;
 	MESHCONTAINER_EX* pMeshContainerEx = (MESHCONTAINER_EX*)pFrameEx->pMeshContainer;
 	DWORD numBones = pMeshContainerEx->pSkinInfo->GetNumBones();
@@ -270,17 +295,13 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 	pMeshContainerEx->pWorkMesh->UnlockVertexBuffer();
 	pMeshContainerEx->pOrigMesh->UnlockVertexBuffer();
 
-	//g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
-	if (m_bWireFrame) g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 
-	D3DXMatrixIdentity(&m_matWorld);
-	//size
-	D3DXMatrixScaling(&m_matWorld, 5, 5, 5);
-	//D3DXMatrixScaling(&m_matWorld, 0.05f, 0.05f, 0.05f);
-	//D3DXMATRIXA16 matR , matT;
-	//D3DXMatrixRotationX(&matR,D3DX_PI);
-	//D3DXMatrixTranslation(&matT, 0, 10, 0);
-	//m_matWorld = m_matWorld * matR * matT;
+	if (m_bWireFrame)
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+
+	//D3DXMatrixIdentity(&m_matWorld);
+	//D3DXMatrixScaling(&m_matWorld, 5.0f, 5.0f, 5.0f);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 
 	for (size_t i = 0; i < pMeshContainerEx->vecMtlTex.size(); ++i)
@@ -289,7 +310,7 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 		g_pDevice->SetTexture(0, pMeshContainerEx->vecMtlTex[i]->GetTexture());
 		pMeshContainerEx->pWorkMesh->DrawSubset(i);
 	}
-	
+
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
 
@@ -300,7 +321,7 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 
 	g_pDevice->SetTransform(D3DTS_WORLD, &(pFrameEx->CombinedTM));
 	//g_pDevice->SetTransform(D3DTS_WORLD, &(pFrameEx->CombinedTM * m_matWorld));
-	
+
 	g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 	g_pDevice->SetTexture(0, NULL);
 	m_pSphereMesh->DrawSubset(0);
@@ -321,7 +342,7 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 
 		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
 		g_pDevice->DrawPrimitiveUP(D3DPT_LINELIST, 1, &line[0], sizeof(VERTEX_PC));
-		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+		g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 	}
 
 	if (pFrame->pFrameSibling != NULL)
@@ -340,9 +361,11 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 {
 	LPD3DXANIMATIONSET pNextAnimSet = NULL;
 	m_pAnimController->GetAnimationSet(nIndex, &pNextAnimSet);
-
+	//isBlend = false;
 	if (isBlend)
 	{
+		m_fPassedBlendTime = 0.0f;
+
 		LPD3DXANIMATIONSET pPrevAnimSet = NULL;
 
 		m_pAnimController->GetTrackAnimationSet(0, &pPrevAnimSet);
@@ -351,7 +374,7 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 		D3DXTRACK_DESC trackDesc;
 		m_pAnimController->GetTrackDesc(0, &trackDesc);
 		m_pAnimController->SetTrackDesc(1, &trackDesc);
-		
+
 		m_pAnimController->SetTrackWeight(0, 0.0f);
 		m_pAnimController->SetTrackWeight(1, 1.0f);
 
@@ -362,6 +385,6 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 
 	m_pAnimController->SetTrackAnimationSet(0, pNextAnimSet);
 	m_pAnimController->ResetTime();
-	
+
 	SAFE_RELEASE(pNextAnimSet);
 }

@@ -8,7 +8,7 @@
 STDMETHODIMP AllocateHierarchy::CreateFrame(THIS_ LPCSTR Name, LPD3DXFRAME *ppNewFrame)
 {
 	FRAME_EX* pFrameEx = new FRAME_EX;
-	
+
 	// TODO : 이름을 잘 저장해주세요. 물론 해제도.
 	if (Name != NULL)
 	{
@@ -28,8 +28,8 @@ STDMETHODIMP AllocateHierarchy::CreateFrame(THIS_ LPCSTR Name, LPD3DXFRAME *ppNe
 	pFrameEx->pFrameSibling = NULL;
 
 	*ppNewFrame = pFrameEx;
-	
-	
+
+
 
 	return S_OK;
 }
@@ -66,13 +66,13 @@ STDMETHODIMP AllocateHierarchy::CreateMeshContainer(
 
 	pMeshContainerEx = new MESHCONTAINER_EX;
 	memset(pMeshContainerEx, 0, sizeof(MESHCONTAINER_EX));
-	
+
 	if (Name != NULL)
 	{
 		pMeshContainerEx->Name = new char[strlen(Name) + 1];
 		strcpy_s(pMeshContainerEx->Name, (strlen(Name) + 1), Name);
 	}
-	
+
 	// if no normals are in the mesh, add them
 	if ((pMesh->GetFVF() & D3DFVF_NORMAL) == false)
 	{
@@ -117,7 +117,7 @@ STDMETHODIMP AllocateHierarchy::CreateMeshContainer(
 	}
 
 	*ppNewMeshContainer = pMeshContainerEx;
-	
+
 	return S_OK;
 }
 
