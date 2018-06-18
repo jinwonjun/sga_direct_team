@@ -110,20 +110,39 @@ void SkinnedMesh::Update()
 	IUnitObject::UpdateKeyboardState();
 	IUnitObject::UpdatePosition();
 
-	if (Keyboard::Get()->KeyDown('1'))
-	{
-		if (m_animIndex < m_pAnimController->GetMaxNumAnimationSets() - 1)
-			m_animIndex++;
+	//인덱스4 = 기본상태 , 3 = 점프, 2 = 뒷무빙, 1 = 앞 뛰기 0 = 레이저 쏘기
 
-		SetAnimationIndex(m_animIndex, true);
-	}
-	else if (Keyboard::Get()->KeyDown('2'))
+	//if (Keyboard::Get()->KeyDown('1'))//1
+	//{
+	//	if (m_animIndex < m_pAnimController->GetMaxNumAnimationSets() - 1)
+	//		m_animIndex++;
+
+	//	SetAnimationIndex(m_animIndex, true);
+	//}
+	//방향키 가라치기, 휴면상태, idle 만들기
+
+	//SetAnimationIndex(4, true);
+
+	if (Keyboard::Get()->KeyPress('W'))
 	{
-		if (m_animIndex > 0)
+		SetAnimationIndex(1, true);
+	}
+	else if (Keyboard::Get()->KeyDown('S'))
+	{
+		SetAnimationIndex(2, true);
+	}
+	else if (Keyboard::Get()->KeyDown(VK_SPACE))
+	{
+		SetAnimationIndex(3, true);
+	}
+	else if (Keyboard::Get()->KeyDown('2') || Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
+	{
+		if (m_animIndex > 0)//0
 			m_animIndex--;
 
 		SetAnimationIndex(m_animIndex, true);
 	}
+	
 	else if (Keyboard::Get()->KeyDown(VK_F1))
 	{
 		m_bDrawFrame = !m_bDrawFrame;
@@ -136,7 +155,6 @@ void SkinnedMesh::Update()
 	{
 		m_bWireFrame = !m_bWireFrame;
 	}
-
 
 
 
