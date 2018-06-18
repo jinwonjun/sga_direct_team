@@ -64,8 +64,8 @@ void Cubeman::Update()
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
 
-	IUnitObject::UpdatePosition();
-	IUnitObject::UpdateKeyboardState();
+	//IUnitObject::UpdatePosition();
+	//IUnitObject::UpdateKeyboardState();
 	//static_cast <IUnitObject * >(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition()
 
 	//마우스로 충돌 됬을 때!
@@ -160,9 +160,6 @@ void Cubeman::Update()
 	temp2 = r.m_dir * 110 + temp1;
 	m_vecVertex[1].c = red;
 	m_vecVertex[1].p = temp2;
-
-	Debug->AddText((int)m_vecVertex.size());
-	Debug->EndLine();
 }
 
 void Cubeman::Render()

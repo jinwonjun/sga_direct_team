@@ -37,9 +37,9 @@ void SkinnedMesh::Init()
 
 	//Load(ASSET_PATH + _T("zealot/"), _T("zealot.X"));
 	//CString path = "resources/xFile/";
-	CString path = "resources/zealot/";
-	CString filename = "ironman.X";
-	Load(path, filename);
+	//CString path = "resources/zealot/";
+	//CString filename = "ironman.X";
+	//Load(path, filename);
 	D3DXMatrixIdentity(&m_matWorld);
 }
 
@@ -102,9 +102,13 @@ void SkinnedMesh::Update()
 	Debug->AddText(_T("Anim Index = "));
 	Debug->AddText((int)m_animIndex + 1);
 	Debug->AddText(_T(" / "));
+	if(m_pAnimController != NULL)
 	Debug->AddText((int)m_pAnimController->GetMaxNumAnimationSets());
 	Debug->EndLine();
 	D3DXMATRIXA16 matR;
+
+	IUnitObject::UpdateKeyboardState();
+	IUnitObject::UpdatePosition();
 
 	if (Keyboard::Get()->KeyDown('1'))
 	{
@@ -134,11 +138,10 @@ void SkinnedMesh::Update()
 	}
 
 
-	//IUnitObject::UpdateKeyboardState();
-	//IUnitObject::UpdatePositionToDestination();
 
 
-	//m_rot += m_deltaRot * m_rotationSpeed;
+
+	//모션 돌리기
 	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
 		m_rot.x = g_pCamera->m_rotX;
@@ -146,8 +149,7 @@ void SkinnedMesh::Update()
 	}
 	else
 		m_rot += m_deltaRot * m_rotationSpeed;
-	//방식을 알았다!!!!
-	//m_rot.y = g_pCamera->m_rotY;
+
 
 	D3DXMATRIXA16 matRotY;
 	D3DXMatrixRotationY(&matRotY, m_rot.y);

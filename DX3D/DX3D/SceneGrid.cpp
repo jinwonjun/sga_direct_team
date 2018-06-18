@@ -110,7 +110,11 @@ void SceneGrid::Init()
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
 	m_pSkinnedMesh->Init();
+	CString path = "resources/zealot/";
+	CString filename = "combine_test.X";
+	m_pSkinnedMesh->Load(path, filename);
 	AddSimpleDisplayObj(m_pSkinnedMesh);
+
 
 	//헤이트맵 올리기
 	D3DXMATRIXA16 matS, matT, matRX, matRY, matWorld;
@@ -186,7 +190,7 @@ void SceneGrid::Render()
 	//SAFE_RENDER(m_pFrustum);
 
 	//IScene상속 받는 애들 전부 렌더하기
-	SAFE_RENDER(m_pHeightMap);
+	//SAFE_RENDER(m_pHeightMap);
 	SAFE_RENDER(m_pEm);
 
 
@@ -195,7 +199,7 @@ void SceneGrid::Render()
 
 void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	SAFE_WNDPROC(m_pHeightMap);
+	//SAFE_WNDPROC(m_pHeightMap);
 }
 
 void SceneGrid::BoundingCheck()
