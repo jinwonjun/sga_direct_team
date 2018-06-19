@@ -20,6 +20,7 @@ protected:
 
 	D3DXMATRIXA16				matT, matS, matR;
 
+
 public:
 	SkinnedMesh();
 	virtual ~SkinnedMesh();

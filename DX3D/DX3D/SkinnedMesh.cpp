@@ -119,28 +119,29 @@ void SkinnedMesh::Update()
 
 	//	SetAnimationIndex(m_animIndex, true);
 	//}
-	//방향키 가라치기, 휴면상태, idle 만들기
 
-	//SetAnimationIndex(4, true);
+
+	//방향키 가라치기, 휴면상태, idle 만들기
 
 	if (Keyboard::Get()->KeyPress('W'))
 	{
+		//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
 		SetAnimationIndex(1, true);
 	}
-	else if (Keyboard::Get()->KeyDown('S'))
+	else if (Keyboard::Get()->KeyPress('S'))
 	{
 		SetAnimationIndex(2, true);
 	}
-	else if (Keyboard::Get()->KeyDown(VK_SPACE))
+	else if (Keyboard::Get()->KeyPress(VK_SPACE))
 	{
 		SetAnimationIndex(3, true);
 	}
-	else if (Keyboard::Get()->KeyDown('2') || Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
+	//Keyboard::Get()->KeyDown('2') ||
+	else if ( Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
 	{
-		if (m_animIndex > 0)//0
-			m_animIndex--;
-
-		SetAnimationIndex(m_animIndex, true);
+		//if (m_animIndex > 0)//0
+			//m_animIndex--;
+		SetAnimationIndex(0, true);
 	}
 	
 	else if (Keyboard::Get()->KeyDown(VK_F1))
@@ -154,6 +155,10 @@ void SkinnedMesh::Update()
 	else if (Keyboard::Get()->KeyDown(VK_F3))
 	{
 		m_bWireFrame = !m_bWireFrame;
+	}
+	else//idle상태 만들기
+	{
+		SetAnimationIndex(4, true);
 	}
 
 
@@ -182,6 +187,22 @@ void SkinnedMesh::Update()
 	UpdateFrameMatrices(m_pRootFrame, NULL);
 
 	m_matWorld = matS * matRotY* matR * matT;
+
+
+	D3DXTRACK_DESC track;
+	m_pAnimController->GetTrackDesc(0, &track);
+	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
+	m_pAnimController->GetAnimationSet(0, &pCurrAnimSet);
+	pCurrAnimSet->GetPeriod(); //전체 시간
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->AddText(pCurrAnimSet->GetPeriod());
+	Debug->EndLine();
+	pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
+	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
+	Debug->EndLine();
+	Debug->EndLine();
+	pCurrAnimSet->Release();
 }
 
 
@@ -381,6 +402,9 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 {
 	LPD3DXANIMATIONSET pNextAnimSet = NULL;
 	m_pAnimController->GetAnimationSet(nIndex, &pNextAnimSet);
+
+	//트랙 자체의 속도를 빠르게하는 기능
+	//m_pAnimController->SetTrackSpeed(0, 5.f);
 	//isBlend = false;
 	if (isBlend)
 	{
