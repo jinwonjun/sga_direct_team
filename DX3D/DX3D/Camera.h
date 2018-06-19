@@ -36,6 +36,9 @@ private:
 	//초기 카메라 조작
 	bool			isStart;
 	bool			isColl;
+
+	//마우스 커서
+	bool			UIopen;
 public:
 
 	float			m_rotX;

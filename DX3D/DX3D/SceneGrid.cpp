@@ -19,6 +19,10 @@
 //맵에 스킨매쉬 올려보기
 #include "SkinnedMesh.h"
 
+//인벤토리 넣어보기
+
+#include "Inventory.h"
+
 SceneGrid::SceneGrid()
 {
 	m_pCubeman = NULL;
@@ -44,7 +48,8 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pHeightMap);
 	m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
-
+	
+	SAFE_RELEASE(m_Inventory);
 	m_pSkinnedMesh->~SkinnedMesh();
 
 	BaseObject::Release();
@@ -95,6 +100,12 @@ void SceneGrid::Init()
 
 	m_pEm = new EnemyManager();
 	m_pEm->Init();
+
+	// 인벤토리
+	m_Inventory = new Inventory;
+	m_Inventory->Init();
+	AddSimpleDisplayObj(m_Inventory);
+
 
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0), D3DXVECTOR2(0, 1)));//7
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 1, 0), D3DXVECTOR2(0, 0)));//6

@@ -63,6 +63,8 @@ public:
 
 	EnemyManager * m_pEm;
 
+	IDisplayObject *m_Inventory;
+	// 이거 바꿀수 있을까?
 
 	SkinnedMesh * m_pSkinnedMesh;
 
