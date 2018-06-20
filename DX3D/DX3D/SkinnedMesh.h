@@ -1,6 +1,6 @@
 #pragma once
 #include "IUnitObject.h"
-
+class BoundingBox;
 class SkinnedMesh : public IUnitObject
 {
 protected:
@@ -21,6 +21,7 @@ protected:
 	D3DXMATRIXA16				matT, matS, matR;
 
 
+	BoundingBox*	m_pBox;
 public:
 	SkinnedMesh();
 	virtual ~SkinnedMesh();
@@ -42,8 +43,10 @@ private:
 	void DrawMeshContainer(LPD3DXFRAME pFrame);
 	void DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
 
+	void Shoot();
 public:
 	void SetAnimationIndex(int nIndex, bool isBlend);
+	BoundingBox* GetBoundingBox() { return m_pBox; }
 };
 
 // OnInit

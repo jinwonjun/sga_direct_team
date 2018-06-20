@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "SkinnedMesh.h"
 #include "AllocateHierarchy.h"
-
+#include "BoundingBox.h"
+#include "Ray.h"
+#include "EnemyManager.h"
+#include "Enemy.h"
 #define SCALE 0.05f
 
 SkinnedMesh::SkinnedMesh()
@@ -21,6 +24,7 @@ SkinnedMesh::SkinnedMesh()
 
 SkinnedMesh::~SkinnedMesh()
 {
+	SAFE_RELEASE(m_pBox);
 	SAFE_RELEASE(m_pSphereMesh);
 	AllocateHierarchy alloc;
 	D3DXFrameDestroy(m_pRootFrame, &alloc);
@@ -30,6 +34,7 @@ SkinnedMesh::~SkinnedMesh()
 
 void SkinnedMesh::Init()
 {
+	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
 	g_pCamera->SetTarget(&m_pos);
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 
@@ -41,6 +46,8 @@ void SkinnedMesh::Init()
 	//CString filename = "ironman.X";
 	//Load(path, filename);
 	D3DXMatrixIdentity(&m_matWorld);
+
+	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
 }
 
 void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
@@ -99,6 +106,9 @@ void SkinnedMesh::SetupBoneMatrixPointersOnMesh(LPD3DXMESHCONTAINER pMeshContain
 
 void SkinnedMesh::Update()
 {
+	m_pBox->Update();
+	m_pBox->SetPosition(&m_pos);
+
 	Debug->AddText(_T("Anim Index = "));
 	Debug->AddText((int)m_animIndex + 1);
 	Debug->AddText(_T(" / "));
@@ -203,6 +213,8 @@ void SkinnedMesh::Update()
 	Debug->EndLine();
 	Debug->EndLine();
 	pCurrAnimSet->Release();
+
+	Shoot();
 }
 
 
@@ -394,6 +406,37 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	if (pFrame->pFrameFirstChild != NULL)
 	{
 		DrawSkeleton(pFrame->pFrameFirstChild, pFrame);
+	}
+}
+
+void SkinnedMesh::Shoot()
+{
+	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
+	{
+		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
+		BoundingSphere* sphere = NULL;
+		float minDistance = FLT_MAX;
+		float intersectionDistance;
+		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+		BoundingSphere* temp = NULL;
+		for (auto p : em->GetVecEnemy())
+		{
+			temp = p->GetSphere();
+			if (r.CalcIntersectSphere(temp) == true)
+			{
+				intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+				if (intersectionDistance < minDistance)
+				{
+					minDistance = intersectionDistance;
+					sphere = temp;
+				}
+			}
+			if (sphere != NULL)
+			{
+				p->MinusHP();
+				break;
+			}
+		}
 	}
 }
 

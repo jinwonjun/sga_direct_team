@@ -42,8 +42,6 @@ void EnemyManager::Render(void)
 		if (e->m_HP <= 0) continue;
 		e->Render();
 	}
-
-	Debug->AddText((int)m_vecEnemy[0]->m_HP);
 }
 
 void EnemyManager::AddEnemy(D3DXVECTOR3 & pos)

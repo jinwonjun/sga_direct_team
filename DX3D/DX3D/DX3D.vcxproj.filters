@@ -183,9 +183,6 @@
     <ClInclude Include="Hexagon.h">
       <Filter>소스 파일\POLYGON_exmaple</Filter>
     </ClInclude>
-    <ClInclude Include="Enemyman.h">
-      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
-    </ClInclude>
     <ClInclude Include="DrawingGroup.h">
       <Filter>소스 파일\%28R%29Obj_READ</Filter>
     </ClInclude>
@@ -329,6 +326,9 @@
     </ClInclude>
     <ClInclude Include="ItemImage.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemyman.h">
+      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

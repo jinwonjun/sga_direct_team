@@ -37,7 +37,7 @@ void SceneGrid::Release()
 {
 	SAFE_RELEASE(tex);
 	SAFE_RELEASE(m_pGrid);
-	SAFE_RELEASE(m_pCubeman);
+	//SAFE_RELEASE(m_pCubeman);
 	SAFE_RELEASE(m_pHexagon);
 	SAFE_RELEASE(m_pWalls);
 	SAFE_RELEASE(m_pActionCube);
@@ -81,8 +81,8 @@ void SceneGrid::Init()
 	m_pGrid = new TeachGrid;
 	m_pGrid->Init();
 
-	m_pCubeman = new Cubeman();
-	m_pCubeman->Init();
+	//m_pCubeman = new Cubeman();
+	//m_pCubeman->Init();
 
 	m_pWalls = new Walls();
 	m_pWalls->Init();
@@ -190,7 +190,7 @@ void SceneGrid::Render()
 	//그리드 그리기
 	SAFE_RENDER(m_pGrid);
 	//pGrid->Render();
-	SAFE_RENDER(m_pCubeman);
+	//SAFE_RENDER(m_pCubeman);
 	//조명에 따른 벽 그려보기
 	//SAFE_RENDER(m_pWalls);
 
@@ -216,7 +216,7 @@ void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void SceneGrid::BoundingCheck()
 {
 
-	Cubeman* PlayerObj = static_cast <Cubeman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
+	SkinnedMesh* PlayerObj = static_cast <SkinnedMesh *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
 	EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
 
 	for (auto p : EnemyObj->GetVecEnemy())

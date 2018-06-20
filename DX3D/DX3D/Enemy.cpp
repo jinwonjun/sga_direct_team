@@ -15,11 +15,11 @@ Enemy::Enemy(D3DXVECTOR3& pos)
 	m_pIB = NULL;
 
 	m_destPos = m_pos = pos;
-	m_moveSpeed = 0.2f;
-	m_rotationSpeed = 1.0f;
+	m_moveSpeed = 0.1f;
+	m_rotationSpeed = 0.1f;
 	m_maxStepHeight = 2.0f;
 
-	m_forward.x = 1;
+	m_forward = D3DXVECTOR3(0, 0, 1);
 
 	m_moving = false;
 
@@ -45,9 +45,9 @@ void Enemy::Init()
 {
 	InitVertex();
 	m_pBox = new BoundingBox(D3DXVECTOR3(22.0f, 15.0f, 22.0f)); m_pBox->Init();
-	float radius = 1.4f;
+	float radius = 1.0f;
 	D3DXCreateSphere(g_pDevice, radius, 10, 10, &m_pSphere, NULL);
-	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x + 5, m_pos.y + 5, m_pos.z + 5), radius);
+	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), radius);
 
 	D3DXMATRIXA16 matS, matT, matRX, matRY;
 	D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
@@ -77,7 +77,7 @@ void Enemy::Render()
 	g_pDevice->SetFVF(VERTEX_PC::FVF);
 	g_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VERTEX_PC));
 	g_pDevice->SetIndices(m_pIB);
-	g_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0,m_VBDesc.Size, 0, m_IBDesc.Size / 3);
+	//g_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0,m_VBDesc.Size, 0, m_IBDesc.Size / 3);
 
 
 	//obj객체 그리기
@@ -146,7 +146,7 @@ void Enemy::UpdatePosition()
 	D3DXMATRIXA16 matS;
 	D3DXMatrixScaling(&matS, 3.0f, 4.0f, 3.0f);
 
-	D3DXMATRIXA16 matT;
+	D3DXMATRIXA16 matT, matR;
 	float	height = 0;
 	bool isIntersected = true;
 
@@ -166,11 +166,6 @@ void Enemy::UpdatePosition()
 		m_pos = targetPos;
 	}
 
-	m_pos.y = height;
-	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	m_matWorld = matS * matT;
-
-
 	if (m_destPos != m_pos)
 	{
 		m_moving = true;
@@ -185,8 +180,43 @@ void Enemy::UpdatePosition()
 		D3DXVECTOR3 forward = D3DXVECTOR3(m_destPos.x - m_pos.x, 0, m_destPos.z - m_pos.z);
 		D3DXVECTOR3 forwardNormalized = forward;
 		D3DXVec3Normalize(&forwardNormalized, &forwardNormalized);
+
+		D3DXMATRIXA16 matRotY;
+		D3DXMatrixRotationY(&matRotY, m_rot.y);
+		//정면 방향 벡터 가져오자
+		D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRotY);
+
+		float dot;		//내적의 값
+		float radian;	//내적의 값을 역코사인 해서 구한 최종 각도
+		dot = D3DXVec3Dot(&m_forward, &forwardNormalized);
+		radian = (float)acos(dot);
+
+		D3DXVECTOR3 rightDir;	//우향벡터
+		D3DXVec3Cross(&rightDir, &m_forward, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+
+		//우향벡터와 바라보는 벡터의 내적이 0보다 크면 왼쪽
+		D3DXVECTOR3 rotY;
+		if (D3DXVec3Dot(&rightDir, &forwardNormalized) > 0)
+		{
+			//왼쪽
+			rotY.y = 1.0f;
+		}
+		else
+		{
+			//오른쪽
+			rotY.y = -1.0f;
+		}
+
 		m_forward = forwardNormalized;
-		pos = m_pos + forwardNormalized * 0.1f;
+
+		D3DXMATRIXA16 matR;
+		m_rot += rotY * m_rotationSpeed;
+		D3DXMatrixRotationY(&matR, m_rot.y);
+
+		m_pos.y = height + 5.0f;
+		pos = m_pos + forwardNormalized * m_moveSpeed;
+		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+		m_matWorld = matS * matR * matT;
 		SetPosition(&pos);
 	}
 

@@ -38,7 +38,7 @@ Cubeman::~Cubeman()
 
 void Cubeman::Init()
 {	
-	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
+	//g_pObjMgr->AddToTagList(TAG_PLAYER, this);
 	g_pCamera->SetTarget(&m_pos);
 	//printf("%f %f %f\n", &m_pos.x, &m_pos.y, &m_pos.z);
 	//g_pCamera->SetTarget(& D3DXVECTOR3(0, m_pos.y, 0));
