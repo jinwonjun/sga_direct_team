@@ -330,6 +330,9 @@
     <ClInclude Include="Enemyman.h">
       <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
     </ClInclude>
+    <ClInclude Include="BloodParticle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -543,6 +546,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ItemImage.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodParticle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
