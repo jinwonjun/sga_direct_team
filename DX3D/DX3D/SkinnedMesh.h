@@ -47,6 +47,8 @@ private:
 public:
 	void SetAnimationIndex(int nIndex, bool isBlend);
 	BoundingBox* GetBoundingBox() { return m_pBox; }
+
+	D3DXVECTOR3 BloodCalPos;
 };
 
 // OnInit

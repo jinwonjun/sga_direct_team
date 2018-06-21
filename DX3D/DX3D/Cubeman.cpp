@@ -86,11 +86,16 @@ void Cubeman::Update()
 		float intersectionDistance;
 		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
 		BoundingSphere* temp = NULL;
+
+		//해보자!
+		D3DXVECTOR3 BloodPoint;
+
 		for (auto p : em->GetVecEnemy())
 		{
 			temp = p->GetSphere();
 			if (r.CalcIntersectSphere(temp) == true)
 			{
+				//printf("위치 : x : %f y : %f z : %f \n", r.m_pos.x, r.m_pos.y, r.m_pos.z);
 				intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
 				if (intersectionDistance < minDistance)
 				{

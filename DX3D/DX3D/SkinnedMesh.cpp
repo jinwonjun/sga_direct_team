@@ -5,6 +5,11 @@
 #include "Ray.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
+
+//원준이가 끄적거린!
+#include "Cubeman.h"
+
+
 #define SCALE 0.05f
 
 SkinnedMesh::SkinnedMesh()
@@ -48,6 +53,9 @@ void SkinnedMesh::Init()
 	D3DXMatrixIdentity(&m_matWorld);
 
 	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
+
+	//위치 초기화
+	BloodCalPos = D3DXVECTOR3(0, 0, 0);
 }
 
 void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
@@ -411,6 +419,10 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 
 void SkinnedMesh::Shoot()
 {
+	Debug->AddText("캐릭터 위치 : ");
+	Debug->AddText(static_cast <Cubeman *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
+	Debug->EndLine();
+	Debug->EndLine();
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
@@ -425,11 +437,17 @@ void SkinnedMesh::Shoot()
 			if (r.CalcIntersectSphere(temp) == true)
 			{
 				intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+				//printf("거리 : %f\n", intersectionDistance);
+				//최소거리
 				if (intersectionDistance < minDistance)
 				{
 					minDistance = intersectionDistance;
 					sphere = temp;
 				}
+				//파티클 거리 구하기
+				D3DXVECTOR3 TempPos = static_cast <SkinnedMesh *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
+				D3DXVECTOR3 TempDir = static_cast <SkinnedMesh *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
+				BloodCalPos = TempDir * intersectionDistance + TempPos;
 			}
 			if (sphere != NULL)
 			{
@@ -438,6 +456,15 @@ void SkinnedMesh::Shoot()
 			}
 		}
 	}
+	Debug->AddText("테스트 위치 : ");
+	Debug->AddText(BloodCalPos);
+	Debug->EndLine();
+	Debug->EndLine();
+
+	Debug->AddText("정면방향 :");
+	Debug->AddText(static_cast <SkinnedMesh *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
+	Debug->EndLine();
+	Debug->EndLine();
 }
 
 

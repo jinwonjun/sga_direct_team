@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "BloodParticle.h"
 
+#include "SkinnedMesh.h"
 
 BloodParticle::BloodParticle()
 {
@@ -57,7 +58,6 @@ void BloodParticle::Init()
 		VERTEX_PC::FVF, D3DPOOL_DEFAULT, &m_pVB, 0);
 
 	t = 0.f;
-
 }
 
 void BloodParticle::Update()
@@ -109,10 +109,19 @@ void BloodParticle::Render()
 	{
 		D3DXMATRIXA16 mat, matS, matT;
 		D3DXMatrixScaling(&matS, Scales[i], Scales[i], Scales[i]);
+
+		//²ôÀû
+		D3DXMatrixScaling(&matS, 3.0f, 3.0f, 3.0f);
+		
 		D3DXMatrixTranslation(&mat, p->_position.x, p->_position.y, p->_position.z);
 
+		//²ôÀû
+		//p->_position = (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
+		D3DXVECTOR3 TempPosByHit = static_cast <SkinnedMesh*> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->BloodCalPos;
+		D3DXMatrixTranslation(&matT, TempPosByHit.x, TempPosByHit.y, TempPosByHit.z );
+
 		//½ÃÀÛÀ§Ä¡ ÀÌµ¿
-		D3DXMatrixTranslation(&matT, 2, 5, 0);
+		//D3DXMatrixTranslation(&matT, 2, 5, 0);
 		mat = matS * matT * mat;
 		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
 		m_pMesh->DrawSubset(0);

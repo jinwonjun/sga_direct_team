@@ -241,9 +241,13 @@ void IUnitObject::UpdatePosition()
 	//방식을 알았다!!!!
 	//m_rot.y = g_pCamera->m_rotY;
 
-	D3DXMATRIXA16 matRotY;
+	D3DXMATRIXA16 matRotY, matRotX, matRot;
 	D3DXMatrixRotationY(&matRotY, m_rot.y);
-	D3DXVec3TransformNormal(&m_forward,&D3DXVECTOR3(0, 0, 1), &matRotY);
+
+
+	matRot = matRotY * matRotX;
+	
+	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRotY);
 
 	D3DXVECTOR3 targetPos;
 	float basePosY = 0;
@@ -317,7 +321,9 @@ void IUnitObject::UpdatePosition()
 	D3DXMATRIXA16 matT;
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixRotationY(&matRotY, m_rot.y + m_baseRotY);
-	m_matWorld = matRotY * matT;
+
+	m_matWorld =  matRotY * matT;
+
 
 	if (D3DXVec3LengthSq(&m_deltaRot) > D3DX_16F_EPSILON ||D3DXVec3LengthSq(&m_deltaPos) > D3DX_16F_EPSILON)
 		m_isMoving = true;
