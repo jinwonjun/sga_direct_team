@@ -211,8 +211,10 @@ void SkinnedMesh::Update()
 	pCurrAnimSet->GetPeriod(); //전체 시간
 	Debug->EndLine();
 	Debug->EndLine();
+	Debug->AddText("전체 시간 : ");
 	Debug->AddText(pCurrAnimSet->GetPeriod());
 	Debug->EndLine();
+	Debug->AddText("현재 시간 : ");
 	pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
 	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
 	Debug->EndLine();
@@ -416,13 +418,35 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 
 void SkinnedMesh::Shoot()
 {
-	Debug->AddText("캐릭터 위치 : ");
-	Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
-	Debug->EndLine();
-	Debug->EndLine();
-	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
+	//Debug->AddText("캐릭터 위치 : ");
+	//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
+	//Debug->EndLine();
+	//Debug->EndLine();
+	//g_pMouse->ButtonDown(Mouse::LBUTTON)
+	if (true)
 	{
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
+
+		Debug->AddText("캐릭터 위치 : ");
+		Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
+		Debug->EndLine();
+		Debug->EndLine();
+
+		Debug->AddText("캐릭터 방향 : ");
+		Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
+		Debug->EndLine();
+		Debug->EndLine();
+
+		Debug->AddText("레이 위치 : ");
+		Debug->AddText(r.m_pos);
+		Debug->EndLine();
+		Debug->EndLine();
+
+		Debug->AddText("레이 방향 : ");
+		Debug->AddText(r.m_dir);
+		Debug->EndLine();
+		Debug->EndLine();
+
 		BoundingSphere* sphere = NULL;
 		float minDistance = FLT_MAX;
 		float intersectionDistance;
@@ -458,11 +482,6 @@ void SkinnedMesh::Shoot()
 	}
 	Debug->AddText("힛트계산 위치 : ");
 	Debug->AddText(BloodCalPos);
-	Debug->EndLine();
-	Debug->EndLine();
-
-	Debug->AddText("정면방향 :");
-	Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
 	Debug->EndLine();
 	Debug->EndLine();
 }
