@@ -243,11 +243,11 @@ void IUnitObject::UpdatePosition()
 
 	D3DXMATRIXA16 matRotY, matRotX, matRot;
 	D3DXMatrixRotationY(&matRotY, m_rot.y);
-
+	D3DXMatrixRotationX(&matRotX, m_rot.x);
 
 	matRot = matRotY * matRotX;
 	
-	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRotY);
+	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
 
 	D3DXVECTOR3 targetPos;
 	float basePosY = 0;

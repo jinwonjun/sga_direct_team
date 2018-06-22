@@ -118,6 +118,12 @@ void BloodParticle::Render()
 		//끄적
 		//p->_position = (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
 		D3DXVECTOR3 TempPosByHit = static_cast <SkinnedMesh*> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->BloodCalPos;
+
+		//Debug->AddText("생성 위치 : ");
+		//Debug->AddText(TempPosByHit);
+		//Debug->EndLine();
+		//Debug->EndLine();
+
 		D3DXMatrixTranslation(&matT, TempPosByHit.x, TempPosByHit.y, TempPosByHit.z );
 
 		//시작위치 이동

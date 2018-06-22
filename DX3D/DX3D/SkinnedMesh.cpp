@@ -179,9 +179,6 @@ void SkinnedMesh::Update()
 		SetAnimationIndex(4, true);
 	}
 
-
-
-
 	//모션 돌리기
 	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
@@ -192,21 +189,21 @@ void SkinnedMesh::Update()
 		m_rot += m_deltaRot * m_rotationSpeed;
 
 
-	D3DXMATRIXA16 matRotY;
+	D3DXMATRIXA16 matRotY, matRotX, matRot;
 	D3DXMatrixRotationY(&matRotY, m_rot.y);
-	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRotY);
+	D3DXMatrixRotationX(&matRotX, m_rot.x);
+	matRot = matRotY * matRotX;
 
+	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	
 	D3DXMatrixRotationY(&matR, D3DX_PI);
-
 	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+	m_matWorld = matS * matRotY* matR * matT;
+	
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
 
-	m_matWorld = matS * matRotY* matR * matT;
-
-
+	
 	D3DXTRACK_DESC track;
 	m_pAnimController->GetTrackDesc(0, &track);
 	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
@@ -420,7 +417,7 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 void SkinnedMesh::Shoot()
 {
 	Debug->AddText("캐릭터 위치 : ");
-	Debug->AddText(static_cast <Cubeman *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
+	Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
 	Debug->EndLine();
 	Debug->EndLine();
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
@@ -445,8 +442,8 @@ void SkinnedMesh::Shoot()
 					sphere = temp;
 				}
 				//파티클 거리 구하기
-				D3DXVECTOR3 TempPos = static_cast <SkinnedMesh *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
-				D3DXVECTOR3 TempDir = static_cast <SkinnedMesh *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
+				D3DXVECTOR3 TempPos = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
+				D3DXVECTOR3 TempDir = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
 				BloodCalPos = TempDir * intersectionDistance + TempPos;
 			}
 			if (sphere != NULL)
@@ -456,13 +453,13 @@ void SkinnedMesh::Shoot()
 			}
 		}
 	}
-	Debug->AddText("테스트 위치 : ");
+	Debug->AddText("힛트계산 위치 : ");
 	Debug->AddText(BloodCalPos);
 	Debug->EndLine();
 	Debug->EndLine();
 
 	Debug->AddText("정면방향 :");
-	Debug->AddText(static_cast <SkinnedMesh *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
+	Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
 	Debug->EndLine();
 	Debug->EndLine();
 }
