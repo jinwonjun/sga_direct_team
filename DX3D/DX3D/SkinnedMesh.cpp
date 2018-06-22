@@ -444,7 +444,10 @@ void SkinnedMesh::Shoot()
 				//파티클 거리 구하기
 				D3DXVECTOR3 TempPos = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
 				D3DXVECTOR3 TempDir = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
-				BloodCalPos = TempDir * intersectionDistance + TempPos;
+				//거리 보정 위치값 찾기
+				BloodCalPos = TempDir * (intersectionDistance) * 3 / 5 + TempPos;
+				//BloodCalPos = TempDir * minDistance + TempPos;
+
 			}
 			if (sphere != NULL)
 			{

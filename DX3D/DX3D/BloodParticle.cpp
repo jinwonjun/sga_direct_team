@@ -111,7 +111,7 @@ void BloodParticle::Render()
 		D3DXMatrixScaling(&matS, Scales[i], Scales[i], Scales[i]);
 
 		//끄적
-		D3DXMatrixScaling(&matS, 3.0f, 3.0f, 3.0f);
+		D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
 		
 		D3DXMatrixTranslation(&mat, p->_position.x, p->_position.y, p->_position.z);
 
@@ -123,8 +123,8 @@ void BloodParticle::Render()
 		//Debug->AddText(TempPosByHit);
 		//Debug->EndLine();
 		//Debug->EndLine();
-
-		D3DXMatrixTranslation(&matT, TempPosByHit.x, TempPosByHit.y, TempPosByHit.z );
+		//값 보정
+		D3DXMatrixTranslation(&matT, TempPosByHit.x, TempPosByHit.y + 10.0f, TempPosByHit.z );
 
 		//시작위치 이동
 		//D3DXMatrixTranslation(&matT, 2, 5, 0);
