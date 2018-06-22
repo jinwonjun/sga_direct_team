@@ -58,7 +58,7 @@ void BloodManager::Fire()
 		if (p->GetFire() == false)
 		{
 			D3DXVECTOR3 tempPos =  static_cast<SkinnedMesh*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->BloodCalPos;
-			tempPos = D3DXVECTOR3(tempPos.x, tempPos.y + 10, tempPos.z);
+			tempPos = D3DXVECTOR3(tempPos.x, tempPos.y , tempPos.z);
 			p->SetFire(true);
 			p->SetPos(tempPos);
 			break;

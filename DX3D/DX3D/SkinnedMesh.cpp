@@ -427,25 +427,25 @@ void SkinnedMesh::Shoot()
 	{
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
-		Debug->AddText("캐릭터 위치 : ");
-		Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
-		Debug->EndLine();
-		Debug->EndLine();
+		//Debug->AddText("캐릭터 위치 : ");
+		//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
+		//Debug->EndLine();
+		//Debug->EndLine();
 
-		Debug->AddText("캐릭터 방향 : ");
-		Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
-		Debug->EndLine();
-		Debug->EndLine();
+		//Debug->AddText("캐릭터 방향 : ");
+		//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
+		//Debug->EndLine();
+		//Debug->EndLine();
 
-		Debug->AddText("레이 위치 : ");
-		Debug->AddText(r.m_pos);
-		Debug->EndLine();
-		Debug->EndLine();
+		//Debug->AddText("레이 위치 : ");
+		//Debug->AddText(r.m_pos);
+		//Debug->EndLine();
+		//Debug->EndLine();
 
-		Debug->AddText("레이 방향 : ");
-		Debug->AddText(r.m_dir);
-		Debug->EndLine();
-		Debug->EndLine();
+		//Debug->AddText("레이 방향 : ");
+		//Debug->AddText(r.m_dir);
+		//Debug->EndLine();
+		//Debug->EndLine();
 
 		BoundingSphere* sphere = NULL;
 		float minDistance = FLT_MAX;
@@ -469,9 +469,7 @@ void SkinnedMesh::Shoot()
 				D3DXVECTOR3 TempPos = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
 				D3DXVECTOR3 TempDir = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
 				//거리 보정 위치값 찾기
-				BloodCalPos = TempDir * (intersectionDistance) * 3 / 5 + TempPos;
-				//BloodCalPos = TempDir * minDistance + TempPos;
-
+				BloodCalPos = r.m_dir * minDistance + r.m_pos;
 			}
 			if (sphere != NULL)
 			{
