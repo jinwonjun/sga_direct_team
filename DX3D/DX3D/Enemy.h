@@ -1,13 +1,13 @@
 #pragma once
 
-#include "IDisplayObject.h"
+#include "IUnitObject.h"
 #include "BoundingBox.h"
 
 class BoundingBox;
 class ObjLoader;
 class DrawingGroup;
 
-class Enemy : public IDisplayObject
+class Enemy : public IUnitObject
 {
 private :
 	friend class EnemyManager;
@@ -18,18 +18,6 @@ private :
 	LPDIRECT3DINDEXBUFFER9	m_pIB;
 	D3DVERTEXBUFFER_DESC	m_VBDesc;
 	D3DINDEXBUFFER_DESC		m_IBDesc;
-
-	D3DXVECTOR3				m_forward;
-	
-	float					m_moveSpeed;
-	float					m_rotationSpeed;
-	float					m_maxStepHeight;
-
-	D3DXVECTOR3				m_destPos;
-	D3DXVECTOR3				m_finalDestPos;
-	vector<int>				m_vecAStarIndex;
-
-	bool					m_moving;
 
 	BoundingBox*			m_pBox;
 

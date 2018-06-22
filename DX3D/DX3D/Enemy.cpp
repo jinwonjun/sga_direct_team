@@ -21,7 +21,7 @@ Enemy::Enemy(D3DXVECTOR3& pos)
 
 	m_forward = D3DXVECTOR3(0, 0, 1);
 
-	m_moving = false;
+	m_isMoving = false;
 
 	m_HP = 1;
 }
@@ -168,13 +168,13 @@ void Enemy::UpdatePosition()
 
 	if (m_destPos != m_pos)
 	{
-		m_moving = true;
+		m_isMoving = true;
 	}
 	else
 	{
-		m_moving = false;
+		m_isMoving = false;
 	}
-	if (m_moving)
+	if (m_isMoving)
 	{
 		D3DXVECTOR3 pos;
 		D3DXVECTOR3 forward = D3DXVECTOR3(m_destPos.x - m_pos.x, 0, m_destPos.z - m_pos.z);
@@ -232,7 +232,7 @@ void Enemy::UpdatePosition()
 
 void Enemy::SetDestPos(D3DXVECTOR3 & pos)
 {
-	if (m_moving)
+	if (m_isMoving)
 	{
 		if (m_destPos != pos)
 		{
