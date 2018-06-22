@@ -423,7 +423,7 @@ void SkinnedMesh::Shoot()
 	//Debug->EndLine();
 	//Debug->EndLine();
 	//g_pMouse->ButtonDown(Mouse::LBUTTON)
-	if (true)
+	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
@@ -476,6 +476,7 @@ void SkinnedMesh::Shoot()
 			if (sphere != NULL)
 			{
 				p->MinusHP();
+				static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
 				break;
 			}
 		}

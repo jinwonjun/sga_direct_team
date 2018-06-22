@@ -42,7 +42,8 @@ enum TAG_DISPLAYOBJECT {
 	TAG_PLAYER,
 	TAG_ENEMY1,
 	TAG_ENEMY,
-	TAG_INVEN
+	TAG_INVEN,
+	TAG_PARTICLE
 };
 
 struct KEYBOARD_STATE
@@ -182,6 +183,14 @@ struct BoundingSphere
 		radius(_radius), isPicked(false) {}
 };
 //RHW의 역수라는 의미랜다 W값에 의해서 같은 차원이냐 아니냐를 구분하는데 행렬 계산 할때 w 1주고서 계산한다
+
+struct Particle
+{
+	D3DXVECTOR3 _position;	//구체 중점
+	float		_expand;	//확장도
+	float		_angle;		//시작 위치 영향 주는 각도
+};
+
 struct VERTEX_RHWC
 {
 	D3DXVECTOR4 p;

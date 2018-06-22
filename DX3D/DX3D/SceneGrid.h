@@ -11,7 +11,7 @@ class Frustum;
 class SkyBox;
 class HeightMap;
 class EnemyManager;
-class BloodParticle;
+
 class SkinnedMesh;
 
 class SceneGrid : public IScene
@@ -68,6 +68,6 @@ public:
 
 	SkinnedMesh * m_pSkinnedMesh;
 
-	BloodParticle * m_pBloodParticle;
+	BloodManager * m_pBloodMgr;
 };
 

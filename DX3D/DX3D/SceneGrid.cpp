@@ -21,8 +21,6 @@
 
 //¿Œ∫•≈‰∏Æ ≥÷æÓ∫∏±‚
 #include "Inventory.h"
-//«˜»Á ∆ƒ∆º≈¨
-#include "BloodParticle.h"	
 
 SceneGrid::SceneGrid()
 {
@@ -53,7 +51,7 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_Inventory);
 	m_pSkinnedMesh->~SkinnedMesh();
 
-	SAFE_RELEASE(m_pBloodParticle);
+	SAFE_RELEASE(m_pBloodMgr);
 	BaseObject::Release();
 }
 
@@ -104,9 +102,9 @@ void SceneGrid::Init()
 	m_pEm->Init();
 
 	//«˜»Á
-	m_pBloodParticle = new BloodParticle();
-	m_pBloodParticle->Init();
-	AddSimpleDisplayObj(m_pBloodParticle);
+	m_pBloodMgr = new BloodManager();
+	m_pBloodMgr->Init();
+	AddSimpleDisplayObj(m_pBloodMgr);
 
 	// ¿Œ∫•≈‰∏Æ
 	m_Inventory = new Inventory;
