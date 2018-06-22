@@ -52,8 +52,8 @@ void Enemy::Init()
 	D3DXMATRIXA16 matS, matT, matRX, matRY;
 	D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
 	D3DXMatrixRotationX(&matRX, D3DX_PI * 3 / 2);
-	D3DXMatrixRotationY(&matRY, D3DX_PI);
-	m_matWorld = matS * matRX * matRY;
+	//D3DXMatrixRotationY(&matRY, D3DX_PI);
+	m_matWorld = matS * matRX;// *matRY;
 	//obj按眉 肺靛 何盒
 	ObjLoader loader;
 	loader.Load("resources/obj", "SCV.obj", &m_matWorld, m_vecDrawingGroup);
@@ -198,19 +198,26 @@ void Enemy::UpdatePosition()
 		D3DXVECTOR3 rotY;
 		if (D3DXVec3Dot(&rightDir, &forwardNormalized) > 0)
 		{
-			//哭率
-			rotY.y = 1.0f;
+			//哭率			
+			rotY.y = -radian;
 		}
 		else
 		{
 			//坷弗率
-			rotY.y = -1.0f;
+			rotY.y = radian;
 		}
 
-		m_forward = forwardNormalized;
-
 		D3DXMATRIXA16 matR;
+		//if (m_rot.y < radian)
+		//{
+		//	m_forward = forwardNormalized;
 		m_rot += rotY * m_rotationSpeed;
+		//}
+		//else if (m_rot.y >= radian)
+		//{
+		//	m_rot.y = radian;
+		//}
+		//m_rot.y = radian;
 		D3DXMatrixRotationY(&matR, m_rot.y);
 
 		m_pos.y = height + 5.0f;
