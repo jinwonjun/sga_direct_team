@@ -98,6 +98,23 @@ void Ironman::Update()
 	AnimationModify();
 
 	Shoot();
+
+	D3DXTRACK_DESC track;
+	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
+	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
+	m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
+	pCurrAnimSet->GetPeriod(); //전체 시간
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->AddText("전체 시간 : ");
+	Debug->AddText(pCurrAnimSet->GetPeriod());
+	Debug->EndLine();
+	Debug->AddText("현재 시간 : ");
+	pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
+	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
+	Debug->EndLine();
+	Debug->EndLine();
+	pCurrAnimSet->Release();
 }
 
 void Ironman::Render()

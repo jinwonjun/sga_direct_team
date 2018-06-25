@@ -395,7 +395,7 @@ void SampleUI::Render()
 	//fAngle += 0.1f;
 	//D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, (clientRect.right - m_imageInfo_.Width) / 2, ((clientRect.bottom + m_imageInfo_.Height)) / 2, 0);
+	D3DXMatrixTranslation(&matT, (clientRect.right  / 2) -15, ((clientRect.bottom / 2) -15), 0);
 
 
 

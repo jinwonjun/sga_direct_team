@@ -157,25 +157,6 @@ void SkinnedMesh::Update()
 	
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
-	
-	////키보드랑 포지션 컨트롤 부분이 여기 아니면 안되는 문제가 있는데 이유를 모르겠음...
-
-	D3DXTRACK_DESC track;
-	m_pAnimController->GetTrackDesc(0, &track);
-	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
-	m_pAnimController->GetAnimationSet(0, &pCurrAnimSet);
-	pCurrAnimSet->GetPeriod(); //전체 시간
-	Debug->EndLine();
-	Debug->EndLine();
-	Debug->AddText("전체 시간 : ");
-	Debug->AddText(pCurrAnimSet->GetPeriod());
-	Debug->EndLine();
-	Debug->AddText("현재 시간 : ");
-	pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
-	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
-	Debug->EndLine();
-	Debug->EndLine();
-	pCurrAnimSet->Release();
 }
 
 

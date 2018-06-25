@@ -42,6 +42,7 @@ private:
 
 public:
 	void SetAnimationIndex(int nIndex, bool isBlend);
+	LPD3DXANIMATIONCONTROLLER GetAnimationController() {return m_pAnimController;}
 	
 	int status;
 };
