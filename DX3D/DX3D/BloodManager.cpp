@@ -2,6 +2,7 @@
 #include "BloodManager.h"
 #include "BloodParticle.h"
 #include "SkinnedMesh.h"
+#include "Ironman.h"
 
 BloodManager::BloodManager()
 {
@@ -57,7 +58,7 @@ void BloodManager::Fire()
 		//활성화중이 아닌 파티클을 만나면
 		if (p->GetFire() == false)
 		{
-			D3DXVECTOR3 tempPos =  static_cast<SkinnedMesh*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->BloodCalPos;
+			D3DXVECTOR3 tempPos =  static_cast<Ironman*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->BloodCalPos;
 			tempPos = D3DXVECTOR3(tempPos.x, tempPos.y , tempPos.z);
 			p->SetFire(true);
 			p->SetPos(tempPos);

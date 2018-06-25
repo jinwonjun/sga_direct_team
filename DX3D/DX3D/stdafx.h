@@ -78,3 +78,4 @@ extern HWND g_hWnd;
 
 #define WINSIZEX 1560
 #define WINSIZEY 990
+

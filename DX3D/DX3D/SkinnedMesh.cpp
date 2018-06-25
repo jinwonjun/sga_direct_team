@@ -1,16 +1,8 @@
 #include "stdafx.h"
 #include "SkinnedMesh.h"
 #include "AllocateHierarchy.h"
-#include "BoundingBox.h"
-#include "Ray.h"
-#include "EnemyManager.h"
-#include "Enemy.h"
 
-//원준이가 끄적거린!
-#include "Cubeman.h"
-
-
-#define SCALE 0.05f
+#include"Ironman.h"
 
 SkinnedMesh::SkinnedMesh()
 {
@@ -25,11 +17,12 @@ SkinnedMesh::SkinnedMesh()
 	m_bWireFrame = false;
 	m_bDrawFrame = true;
 	m_bDrawSkeleton = false;
+
+	status = 4;
 }
 
 SkinnedMesh::~SkinnedMesh()
 {
-	SAFE_RELEASE(m_pBox);
 	SAFE_RELEASE(m_pSphereMesh);
 	AllocateHierarchy alloc;
 	D3DXFrameDestroy(m_pRootFrame, &alloc);
@@ -39,7 +32,6 @@ SkinnedMesh::~SkinnedMesh()
 
 void SkinnedMesh::Init()
 {
-	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
 	g_pCamera->SetTarget(&m_pos);
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 
@@ -51,11 +43,6 @@ void SkinnedMesh::Init()
 	//CString filename = "ironman.X";
 	//Load(path, filename);
 	D3DXMatrixIdentity(&m_matWorld);
-
-	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
-
-	//위치 초기화
-	BloodCalPos = D3DXVECTOR3(0, 0, 0);
 }
 
 void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
@@ -114,19 +101,14 @@ void SkinnedMesh::SetupBoneMatrixPointersOnMesh(LPD3DXMESHCONTAINER pMeshContain
 
 void SkinnedMesh::Update()
 {
-	m_pBox->Update();
-	m_pBox->SetPosition(&m_pos);
-
 	Debug->AddText(_T("Anim Index = "));
 	Debug->AddText((int)m_animIndex + 1);
 	Debug->AddText(_T(" / "));
 	if(m_pAnimController != NULL)
 	Debug->AddText((int)m_pAnimController->GetMaxNumAnimationSets());
 	Debug->EndLine();
-	D3DXMATRIXA16 matR;
 
-	IUnitObject::UpdateKeyboardState();
-	IUnitObject::UpdatePosition();
+	SetAnimationIndex(status, true);
 
 	//인덱스4 = 기본상태 , 3 = 점프, 2 = 뒷무빙, 1 = 앞 뛰기 0 = 레이저 쏘기
 
@@ -138,73 +120,56 @@ void SkinnedMesh::Update()
 	//	SetAnimationIndex(m_animIndex, true);
 	//}
 
-
 	//방향키 가라치기, 휴면상태, idle 만들기
 
-	if (Keyboard::Get()->KeyPress('W'))
-	{
-		//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
-		SetAnimationIndex(1, true);
-	}
-	else if (Keyboard::Get()->KeyPress('S'))
-	{
-		SetAnimationIndex(2, true);
-	}
-	else if (Keyboard::Get()->KeyPress(VK_SPACE))
-	{
-		SetAnimationIndex(3, true);
-	}
-	//Keyboard::Get()->KeyDown('2') ||
-	else if ( Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
-	{
-		//if (m_animIndex > 0)//0
-			//m_animIndex--;
-		SetAnimationIndex(0, true);
-	}
-	
-	else if (Keyboard::Get()->KeyDown(VK_F1))
-	{
-		m_bDrawFrame = !m_bDrawFrame;
-	}
-	else if (Keyboard::Get()->KeyDown(VK_F2))
-	{
-		m_bDrawSkeleton = !m_bDrawSkeleton;
-	}
-	else if (Keyboard::Get()->KeyDown(VK_F3))
-	{
-		m_bWireFrame = !m_bWireFrame;
-	}
-	else//idle상태 만들기
-	{
-		SetAnimationIndex(4, true);
-
-	}
-
-	//모션 돌리기
-	//if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
+	//if (Keyboard::Get()->KeyPress('W'))
 	//{
-	//	m_rot.x = g_pCamera->m_rotX;
-	//	m_rot.y = g_pCamera->m_rotY;
+	//	//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
+	//	SetAnimationIndex(1, true);
 	//}
-	//else
-	//	m_rot += m_deltaRot * m_rotationSpeed;
+	//else if (Keyboard::Get()->KeyPress('S'))
+	//{
+	//	SetAnimationIndex(2, true);
+	//}
+	//else if (Keyboard::Get()->KeyPress(VK_SPACE))
+	//{
+	//	SetAnimationIndex(3, true);
+	//}
+	////Keyboard::Get()->KeyDown('2') ||
+	//else if ( Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
+	//{
+	//	//if (m_animIndex > 0)//0
+	//		//m_animIndex--;
+	//	SetAnimationIndex(0, true);
+	//}
+	
+	//else if (Keyboard::Get()->KeyDown(VK_F1))
+	//{
+	//	m_bDrawFrame = !m_bDrawFrame;
+	//}
+	//else if (Keyboard::Get()->KeyDown(VK_F2))
+	//{
+	//	m_bDrawSkeleton = !m_bDrawSkeleton;
+	//}
+	//else if (Keyboard::Get()->KeyDown(VK_F3))
+	//{
+	//	m_bWireFrame = !m_bWireFrame;
+	//}
+	//else//idle상태 만들기
+	//{
+	//	SetAnimationIndex(4, true);
 
-
-	D3DXMATRIXA16 matRotY, matRotX, matRot;
-	D3DXMatrixRotationY(&matRotY, m_rot.y);
-	D3DXMatrixRotationX(&matRotX, m_rot.x);
-	matRot = matRotY * matRotX;
-
-	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
-	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixRotationY(&matR, D3DX_PI);
-	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
-	m_matWorld = matS * matRotY* matR * matT;
+	//}
+	//아이언맨의 계산된 월드 행렬을 가져오자
+	m_matWorld = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->ApplyMatWorld;
 	
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
-
 	
+	////키보드랑 포지션 컨트롤 부분이 여기 아니면 안되는 문제가 있는데 이유를 모르겠음...
+	IUnitObject::UpdateKeyboardState();
+	IUnitObject::UpdatePosition();
+
 	D3DXTRACK_DESC track;
 	m_pAnimController->GetTrackDesc(0, &track);
 	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
@@ -221,8 +186,6 @@ void SkinnedMesh::Update()
 	Debug->EndLine();
 	Debug->EndLine();
 	pCurrAnimSet->Release();
-
-	Shoot();
 }
 
 
@@ -416,48 +379,6 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 		DrawSkeleton(pFrame->pFrameFirstChild, pFrame);
 	}
 }
-
-void SkinnedMesh::Shoot()
-{
-	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
-	{
-		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
-
-		BoundingSphere* sphere = NULL;
-		float minDistance = FLT_MAX;
-		float intersectionDistance;
-		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
-		BoundingSphere* temp = NULL;
-		for (auto p : em->GetVecEnemy())
-		{
-			temp = p->GetSphere();
-			if (r.CalcIntersectSphere(temp) == true)
-			{
-				intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
-				//printf("거리 : %f\n", intersectionDistance);
-				//최소거리
-				if (intersectionDistance < minDistance)
-				{
-					minDistance = intersectionDistance;
-					sphere = temp;
-				}
-				//거리 보정 위치값 찾기
-				BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
-			}
-			if (sphere != NULL)
-			{
-				p->MinusHP();
-				static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
-				break;
-			}
-		}
-	}
-	Debug->AddText("힛트계산 위치 : ");
-	Debug->AddText(BloodCalPos);
-	Debug->EndLine();
-	Debug->EndLine();
-}
-
 
 void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 {

@@ -12,7 +12,7 @@ class SkyBox;
 class HeightMap;
 class EnemyManager;
 
-class SkinnedMesh;
+class Ironman;
 
 class SceneGrid : public IScene
 {
@@ -66,7 +66,7 @@ public:
 	IDisplayObject *m_Inventory;
 	// 이거 바꿀수 있을까?
 
-	SkinnedMesh * m_pSkinnedMesh;
+	Ironman * m_pCharacter;
 
 	BloodManager * m_pBloodMgr;
 };

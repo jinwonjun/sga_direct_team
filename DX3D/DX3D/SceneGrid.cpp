@@ -17,7 +17,7 @@
 #include "Enemy.h"
 
 //맵에 스킨매쉬 올려보기
-#include "SkinnedMesh.h"
+#include "ironman.h"
 
 //인벤토리 넣어보기
 #include "Inventory.h"
@@ -49,7 +49,7 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pEm);
 	
 	SAFE_RELEASE(m_Inventory);
-	m_pSkinnedMesh->~SkinnedMesh();
+	m_pCharacter->~Ironman();
 
 	SAFE_RELEASE(m_pBloodMgr);
 	BaseObject::Release();
@@ -124,12 +124,9 @@ void SceneGrid::Init()
 	D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
 
 	//매쉬 캐릭터 올리기
-	m_pSkinnedMesh = new SkinnedMesh;
-	m_pSkinnedMesh->Init();
-	CString path = "resources/zealot/";
-	CString filename = "combine_test.X";
-	m_pSkinnedMesh->Load(path, filename);
-	AddSimpleDisplayObj(m_pSkinnedMesh);
+	m_pCharacter = new Ironman;
+	m_pCharacter->Init();
+	AddSimpleDisplayObj(m_pCharacter);
 
 
 	//헤이트맵 올리기
@@ -221,7 +218,7 @@ void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void SceneGrid::BoundingCheck()
 {
 
-	SkinnedMesh* PlayerObj = static_cast <SkinnedMesh *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
+	Ironman* PlayerObj = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
 	EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
 
 	for (auto p : EnemyObj->GetVecEnemy())
