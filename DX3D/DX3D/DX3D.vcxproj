@@ -192,6 +192,7 @@
     <ClInclude Include="IDisplayObject.h" />
     <ClInclude Include="IMap.h" />
     <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Ironman.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ItemImage.h" />
     <ClInclude Include="IUIObject.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="IActionObject.cpp" />
     <ClCompile Include="IDisplayObject.cpp" />
     <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Ironman.cpp" />
     <ClCompile Include="ItemImage.cpp" />
     <ClCompile Include="IUIObject.cpp" />
     <ClCompile Include="IUnitObject.cpp" />

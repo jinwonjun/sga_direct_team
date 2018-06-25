@@ -19,12 +19,6 @@
     <Filter Include="소스 파일\LightControl">
       <UniqueIdentifier>{35bb9e38-6441-4c24-ac60-75f7c70bd3aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\TEACH_GRID">
-      <UniqueIdentifier>{861544b8-844a-4b16-a009-0229f718d746}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\TEACH_ACTION_CUBE">
-      <UniqueIdentifier>{6940656f-c12a-4869-97f9-dcce63f4581a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\POLYGON_exmaple">
       <UniqueIdentifier>{1ff1fdc9-d800-4844-bb05-b5aba35c3784}</UniqueIdentifier>
     </Filter>
@@ -39,12 +33,6 @@
     </Filter>
     <Filter Include="소스 파일\MANAGER">
       <UniqueIdentifier>{a00d9923-3bb0-4dec-bf5f-59fce00411ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\TEACH_CUBE_MAN">
-      <UniqueIdentifier>{4844938f-e29d-4348-aba2-8bc80bc6ecd5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE">
-      <UniqueIdentifier>{f54047b0-2c7a-4fea-b967-4cfb821410ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\SELF_HW">
       <UniqueIdentifier>{f1db5e78-0416-4139-920c-7122dba01e38}</UniqueIdentifier>
@@ -69,9 +57,6 @@
     </Filter>
     <Filter Include="소스 파일\SCENE_CONTROL\GRID_MAP">
       <UniqueIdentifier>{b1652ebd-00c4-424d-808a-1b3d30d52fb1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\TEACH_GRID\Walls_example">
-      <UniqueIdentifier>{61f055af-4426-4cb5-9b5e-195418438af3}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\ALGORITHM">
       <UniqueIdentifier>{ac320e76-f291-4022-8c54-d3fc93780087}</UniqueIdentifier>
@@ -99,6 +84,39 @@
     </Filter>
     <Filter Include="소스 파일\%28E%29PARTICLE">
       <UniqueIdentifier>{bb69395a-43d7-498a-823d-fbae808a7746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\TEACH">
+      <UniqueIdentifier>{38d951be-6abc-4ba9-a3b3-bf60fc492715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\TEACH\TEACH_ACTION_CUBE">
+      <UniqueIdentifier>{6940656f-c12a-4869-97f9-dcce63f4581a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\TEACH\TEACH_CUBE_MAN">
+      <UniqueIdentifier>{4844938f-e29d-4348-aba2-8bc80bc6ecd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\TEACH\TEACH_GRID">
+      <UniqueIdentifier>{861544b8-844a-4b16-a009-0229f718d746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\TEACH\TEACH_GRID\Walls_example">
+      <UniqueIdentifier>{61f055af-4426-4cb5-9b5e-195418438af3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\CHARACTER&amp;MOB">
+      <UniqueIdentifier>{13f8af23-4e3d-4bc9-b182-dbe28b1b1369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE">
+      <UniqueIdentifier>{f54047b0-2c7a-4fea-b967-4cfb821410ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\CHARACTER&amp;MOB\IRONMAN">
+      <UniqueIdentifier>{c0ff0c67-db17-4f7a-861c-08169e6720da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\UI_CLASS\UI_EXAMPLE">
+      <UniqueIdentifier>{ba37517d-9cb5-4616-96e8-a923875192de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\UI_CLASS\INVEN">
+      <UniqueIdentifier>{d493c5c7-6dba-4bc9-8c1e-870d1d80ea72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\UI_CLASS\ITEM">
+      <UniqueIdentifier>{89a1edd6-d485-4213-93d4-6e25a11b025a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,10 +163,10 @@
       <Filter>소스 파일\SELF_HW\Cube_Man_Self_HW</Filter>
     </ClInclude>
     <ClInclude Include="Cubeman.h">
-      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClInclude>
     <ClInclude Include="CubemanParts.h">
-      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>소스 파일\Camera</Filter>
@@ -160,28 +178,28 @@
       <Filter>소스 파일\Debug_UI</Filter>
     </ClInclude>
     <ClInclude Include="Walls.h">
-      <Filter>소스 파일\TEACH_GRID\Walls_example</Filter>
+      <Filter>소스 파일\TEACH\TEACH_GRID\Walls_example</Filter>
     </ClInclude>
     <ClInclude Include="TeachGrid.h">
-      <Filter>소스 파일\TEACH_GRID</Filter>
+      <Filter>소스 파일\TEACH\TEACH_GRID</Filter>
     </ClInclude>
     <ClInclude Include="ActionCube.h">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClInclude>
     <ClInclude Include="ActionMoveTo.h">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClInclude>
     <ClInclude Include="ActionRepeat.h">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClInclude>
     <ClInclude Include="ActionSequence.h">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClInclude>
     <ClInclude Include="IAction.h">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClInclude>
     <ClInclude Include="IActionObject.h">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClInclude>
     <ClInclude Include="Hexagon.h">
       <Filter>소스 파일\POLYGON_exmaple</Filter>
@@ -246,9 +264,6 @@
     <ClInclude Include="ObjManager.h">
       <Filter>소스 파일\MANAGER</Filter>
     </ClInclude>
-    <ClInclude Include="SampleUI.h">
-      <Filter>소스 파일\UI_CLASS</Filter>
-    </ClInclude>
     <ClInclude Include="SceneGrid.h">
       <Filter>소스 파일\SCENE_CONTROL\GRID_MAP</Filter>
     </ClInclude>
@@ -266,15 +281,6 @@
     </ClInclude>
     <ClInclude Include="IUIObject.h">
       <Filter>소스 파일\INTERFACE</Filter>
-    </ClInclude>
-    <ClInclude Include="UIImage.h">
-      <Filter>소스 파일\UI_CLASS</Filter>
-    </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>소스 파일\UI_CLASS</Filter>
-    </ClInclude>
-    <ClInclude Include="UIText.h">
-      <Filter>소스 파일\UI_CLASS</Filter>
     </ClInclude>
     <ClInclude Include="FontManager.h">
       <Filter>소스 파일\MANAGER</Filter>
@@ -310,13 +316,13 @@
       <Filter>소스 파일\%28E%29MAP_EFFECT</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+      <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
-      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+      <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClInclude>
     <ClInclude Include="BoundingBox.h">
-      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClInclude>
     <ClInclude Include="AllocateHierarchy.h">
       <Filter>소스 파일\%28R%29X_READ</Filter>
@@ -324,20 +330,35 @@
     <ClInclude Include="SkinnedMesh.h">
       <Filter>소스 파일\%28R%29X_READ</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemImage.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Enemyman.h">
-      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClInclude>
     <ClInclude Include="BloodManager.h">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
     <ClInclude Include="BloodParticle.h">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleUI.h">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClInclude>
+    <ClInclude Include="UIImage.h">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemImage.h">
+      <Filter>소스 파일\UI_CLASS\ITEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Ironman.h">
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,10 +396,10 @@
       <Filter>소스 파일\SELF_HW\Cube_Man_Self_HW</Filter>
     </ClCompile>
     <ClCompile Include="Cubeman.cpp">
-      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClCompile>
     <ClCompile Include="CubemanParts.cpp">
-      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일\Camera</Filter>
@@ -390,34 +411,34 @@
       <Filter>소스 파일\Debug_UI</Filter>
     </ClCompile>
     <ClCompile Include="Walls.cpp">
-      <Filter>소스 파일\TEACH_GRID\Walls_example</Filter>
+      <Filter>소스 파일\TEACH\TEACH_GRID\Walls_example</Filter>
     </ClCompile>
     <ClCompile Include="TeachGrid.cpp">
-      <Filter>소스 파일\TEACH_GRID</Filter>
+      <Filter>소스 파일\TEACH\TEACH_GRID</Filter>
     </ClCompile>
     <ClCompile Include="ActionCube.cpp">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClCompile>
     <ClCompile Include="ActionMoveTo.cpp">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClCompile>
     <ClCompile Include="ActionRepeat.cpp">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClCompile>
     <ClCompile Include="ActionSequence.cpp">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClCompile>
     <ClCompile Include="IAction.cpp">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClCompile>
     <ClCompile Include="IActionObject.cpp">
-      <Filter>소스 파일\TEACH_ACTION_CUBE</Filter>
+      <Filter>소스 파일\TEACH\TEACH_ACTION_CUBE</Filter>
     </ClCompile>
     <ClCompile Include="Hexagon.cpp">
       <Filter>소스 파일\POLYGON_exmaple</Filter>
     </ClCompile>
     <ClCompile Include="Enemyman.cpp">
-      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+      <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClCompile>
     <ClCompile Include="DrawingGroup.cpp">
       <Filter>소스 파일\%28R%29Obj_READ</Filter>
@@ -470,9 +491,6 @@
     <ClCompile Include="ObjManager.cpp">
       <Filter>소스 파일\MANAGER</Filter>
     </ClCompile>
-    <ClCompile Include="SampleUI.cpp">
-      <Filter>소스 파일\UI_CLASS</Filter>
-    </ClCompile>
     <ClCompile Include="SceneGrid.cpp">
       <Filter>소스 파일\SCENE_CONTROL\GRID_MAP</Filter>
     </ClCompile>
@@ -490,15 +508,6 @@
     </ClCompile>
     <ClCompile Include="IUIObject.cpp">
       <Filter>소스 파일\INTERFACE</Filter>
-    </ClCompile>
-    <ClCompile Include="UIImage.cpp">
-      <Filter>소스 파일\UI_CLASS</Filter>
-    </ClCompile>
-    <ClCompile Include="UIText.cpp">
-      <Filter>소스 파일\UI_CLASS</Filter>
-    </ClCompile>
-    <ClCompile Include="UIButton.cpp">
-      <Filter>소스 파일\UI_CLASS</Filter>
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>소스 파일\MANAGER</Filter>
@@ -534,13 +543,13 @@
       <Filter>소스 파일\%28E%29MAP_EFFECT</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+      <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
-      <Filter>소스 파일\TEACH_CUBE_MAN\ENEMYControl_ERASE</Filter>
+      <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClCompile>
     <ClCompile Include="BoundingBox.cpp">
-      <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClCompile>
     <ClCompile Include="AllocateHierarchy.cpp">
       <Filter>소스 파일\%28R%29X_READ</Filter>
@@ -548,17 +557,32 @@
     <ClCompile Include="SkinnedMesh.cpp">
       <Filter>소스 파일\%28R%29X_READ</Filter>
     </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemImage.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="BloodManager.cpp">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
     <ClCompile Include="BloodParticle.cpp">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleUI.cpp">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClCompile>
+    <ClCompile Include="UIImage.cpp">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemImage.cpp">
+      <Filter>소스 파일\UI_CLASS\ITEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Ironman.cpp">
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
