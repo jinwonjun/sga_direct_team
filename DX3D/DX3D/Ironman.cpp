@@ -36,6 +36,8 @@ Ironman::~Ironman()
 void Ironman::Init()
 {
 	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
+	g_pCamera->SetTarget(&m_pos);
+	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
 	m_pSkinnedMesh->Init();
@@ -59,7 +61,8 @@ void Ironman::Init()
 void Ironman::Update()
 {
 	//키보드랑 포지션 컨트롤 부분이 여기 아니면 안되는 문제가 있는데 이유를 모르겠음...
-	
+	IUnitObject::UpdateKeyboardState();
+	IUnitObject::UpdatePosition();
 
 	SAFE_UPDATE(m_pSkinnedMesh);
 
@@ -104,6 +107,14 @@ void Ironman::Render()
 
 void Ironman::Shoot()
 {
+	Debug->AddText("화면좌표 x : ");
+	Debug->AddText(g_pCamera->GetMCenter().x);
+	Debug->AddText("  y : ");
+	Debug->AddText(g_pCamera->GetMCenter().y);
+	Debug->EndLine();
+	Debug->EndLine();
+
+
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
@@ -127,7 +138,7 @@ void Ironman::Shoot()
 					sphere = temp;
 				}
 				//거리 보정 위치값 찾기
-				BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+				BloodCalPos = r.m_dir * (intersectionDistance - temp->radius) + r.m_pos;
 			}
 			if (sphere != NULL)
 			{

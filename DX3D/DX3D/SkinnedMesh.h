@@ -1,7 +1,7 @@
 #pragma once
-#include "IUnitObject.h"
 
-class SkinnedMesh : public IUnitObject
+//: public IUnitObject
+class SkinnedMesh 
 {
 protected:
 	LPD3DXFRAME					m_pRootFrame;
@@ -18,14 +18,15 @@ protected:
 	int							m_numFrame;
 	int							m_numMesh;
 
+	D3DXMATRIXA16 m_matWorld;
+
 public:
 	SkinnedMesh();
 	virtual ~SkinnedMesh();
 
-	// IUnitObject을(를) 통해 상속됨
-	virtual void Init() override;
-	virtual void Update() override;
-	virtual void Render() override;
+	void Init();
+	void Update();
+	void Render();
 
 	void Load(LPCTSTR path, LPCTSTR filename);
 private:

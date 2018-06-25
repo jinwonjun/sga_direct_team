@@ -7,7 +7,7 @@
 SkinnedMesh::SkinnedMesh()
 {
 	//m_Brot.y = ;
-	m_baseRotY = D3DX_PI;
+	//m_baseRotY = D3DX_PI;
 
 	m_pRootFrame = NULL;
 	m_pAnimController = NULL;
@@ -32,16 +32,8 @@ SkinnedMesh::~SkinnedMesh()
 
 void SkinnedMesh::Init()
 {
-	g_pCamera->SetTarget(&m_pos);
-	g_pKeyboardManager->SetMovingTarget(&m_keyState);
-
 	D3DXCreateSphere(g_pDevice, 0.01f, 10, 10, &m_pSphereMesh, NULL);
 
-	//Load(ASSET_PATH + _T("zealot/"), _T("zealot.X"));
-	//CString path = "resources/xFile/";
-	//CString path = "resources/zealot/";
-	//CString filename = "ironman.X";
-	//Load(path, filename);
 	D3DXMatrixIdentity(&m_matWorld);
 }
 
@@ -167,8 +159,6 @@ void SkinnedMesh::Update()
 	UpdateFrameMatrices(m_pRootFrame, NULL);
 	
 	////키보드랑 포지션 컨트롤 부분이 여기 아니면 안되는 문제가 있는데 이유를 모르겠음...
-	IUnitObject::UpdateKeyboardState();
-	IUnitObject::UpdatePosition();
 
 	D3DXTRACK_DESC track;
 	m_pAnimController->GetTrackDesc(0, &track);

@@ -1,11 +1,11 @@
 #pragma once
-#include "SkinnedMesh.h"
+#include "IUnitObject.h"
 
 class SkinnedMesh;
 class BoundingBox;
 
 class Ironman :
-	public SkinnedMesh
+	public IUnitObject
 {
 public:
 	Ironman();
