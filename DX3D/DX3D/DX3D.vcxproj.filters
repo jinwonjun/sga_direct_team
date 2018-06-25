@@ -97,6 +97,9 @@
     <Filter Include="소스 파일\%28R%29X_READ">
       <UniqueIdentifier>{f4a24fb6-dc09-4644-864d-1697820932d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\%28E%29PARTICLE">
+      <UniqueIdentifier>{bb69395a-43d7-498a-823d-fbae808a7746}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -330,11 +333,11 @@
     <ClInclude Include="Enemyman.h">
       <Filter>소스 파일\TEACH_CUBE_MAN</Filter>
     </ClInclude>
-    <ClInclude Include="BloodParticle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="BloodManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodParticle.h">
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -551,11 +554,11 @@
     <ClCompile Include="ItemImage.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BloodParticle.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="BloodManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodParticle.cpp">
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

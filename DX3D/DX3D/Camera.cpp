@@ -197,7 +197,7 @@ void Camera::Update()
 	else
 
 	{
-		ShowCursor(false);
+		ShowCursor(true);
 	}
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);

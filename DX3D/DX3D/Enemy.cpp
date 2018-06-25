@@ -23,7 +23,7 @@ Enemy::Enemy(D3DXVECTOR3& pos)
 
 	m_isMoving = false;
 
-	m_HP = 1;
+	m_HP = 10;
 }
 
 
@@ -45,9 +45,9 @@ void Enemy::Init()
 {
 	InitVertex();
 	m_pBox = new BoundingBox(D3DXVECTOR3(22.0f, 15.0f, 22.0f)); m_pBox->Init();
-	float radius = 1.0f;
-	D3DXCreateSphere(g_pDevice, radius, 10, 10, &m_pSphere, NULL);
-	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), radius);
+	m_radius = 1.0f;
+	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphere, NULL);
+	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
 	D3DXMATRIXA16 matS, matT, matRX, matRY;
 	D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
@@ -73,12 +73,13 @@ void Enemy::Render()
 
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	g_pDevice->SetTexture(0, NULL);
+	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_pSphere->DrawSubset(0);
 	g_pDevice->SetFVF(VERTEX_PC::FVF);
 	g_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VERTEX_PC));
 	g_pDevice->SetIndices(m_pIB);
 	//g_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0,m_VBDesc.Size, 0, m_IBDesc.Size / 3);
-
+	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
 	//obj°´Ã¼ ±×¸®±â
 	for (auto p : m_vecDrawingGroup)
@@ -144,7 +145,7 @@ void Enemy::UpdatePosition()
 {
 	D3DXVECTOR3 targetPos;
 	D3DXMATRIXA16 matS;
-	D3DXMatrixScaling(&matS, 3.0f, 4.0f, 3.0f);
+	D3DXMatrixScaling(&matS, m_radius, m_radius, m_radius);
 
 	D3DXMATRIXA16 matT, matR;
 	float	height = 0;
@@ -174,6 +175,7 @@ void Enemy::UpdatePosition()
 	{
 		m_isMoving = false;
 	}
+
 	if (m_isMoving)
 	{
 		D3DXVECTOR3 pos;
@@ -224,7 +226,7 @@ void Enemy::UpdatePosition()
 		pos = m_pos + forwardNormalized * m_moveSpeed;
 		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 		m_matWorld = matS * matR * matT;
-		SetPosition(&pos);
+		//SetPosition(&pos);
 	}
 
 

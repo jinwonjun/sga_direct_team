@@ -177,16 +177,17 @@ void SkinnedMesh::Update()
 	else//idle상태 만들기
 	{
 		SetAnimationIndex(4, true);
+
 	}
 
 	//모션 돌리기
-	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
-	{
-		m_rot.x = g_pCamera->m_rotX;
-		m_rot.y = g_pCamera->m_rotY;
-	}
-	else
-		m_rot += m_deltaRot * m_rotationSpeed;
+	//if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
+	//{
+	//	m_rot.x = g_pCamera->m_rotX;
+	//	m_rot.y = g_pCamera->m_rotY;
+	//}
+	//else
+	//	m_rot += m_deltaRot * m_rotationSpeed;
 
 
 	D3DXMATRIXA16 matRotY, matRotX, matRot;
@@ -418,34 +419,9 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 
 void SkinnedMesh::Shoot()
 {
-	//Debug->AddText("캐릭터 위치 : ");
-	//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
-	//Debug->EndLine();
-	//Debug->EndLine();
-	//g_pMouse->ButtonDown(Mouse::LBUTTON)
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
-
-		//Debug->AddText("캐릭터 위치 : ");
-		//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition());
-		//Debug->EndLine();
-		//Debug->EndLine();
-
-		//Debug->AddText("캐릭터 방향 : ");
-		//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
-		//Debug->EndLine();
-		//Debug->EndLine();
-
-		//Debug->AddText("레이 위치 : ");
-		//Debug->AddText(r.m_pos);
-		//Debug->EndLine();
-		//Debug->EndLine();
-
-		//Debug->AddText("레이 방향 : ");
-		//Debug->AddText(r.m_dir);
-		//Debug->EndLine();
-		//Debug->EndLine();
 
 		BoundingSphere* sphere = NULL;
 		float minDistance = FLT_MAX;
@@ -465,11 +441,8 @@ void SkinnedMesh::Shoot()
 					minDistance = intersectionDistance;
 					sphere = temp;
 				}
-				//파티클 거리 구하기
-				D3DXVECTOR3 TempPos = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetPosition();
-				D3DXVECTOR3 TempDir = static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
 				//거리 보정 위치값 찾기
-				BloodCalPos = r.m_dir * minDistance + r.m_pos;
+				BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 			}
 			if (sphere != NULL)
 			{

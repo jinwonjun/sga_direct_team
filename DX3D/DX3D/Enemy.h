@@ -27,6 +27,7 @@ private :
 	vector<DrawingGroup * > m_vecDrawingGroup;
 
 	int					m_HP;
+	float				m_radius;
 public:
 	Enemy(D3DXVECTOR3& pos);
 	virtual ~Enemy();
