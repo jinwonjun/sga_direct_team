@@ -56,6 +56,9 @@ void Ironman::Init()
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
+
+	//시작위치 조정
+	m_pos.y = 10;
 }
 
 void Ironman::Update()

@@ -5,8 +5,9 @@ Camera::Camera()
 {
 	//m_distance = 5.0f;
 	mLimitDistance = m_distance = 25.f;
+	m_basePosX = 10.0f;
 	m_basePosY = 10.0f;
-	m_eye = D3DXVECTOR3(0, m_basePosY, -m_distance);
+	m_eye = D3DXVECTOR3(m_basePosX, m_basePosY, -m_distance);
 
 	m_lookAt = D3DXVECTOR3(0, 0, 0);
 	m_up = D3DXVECTOR3(0, 1, 0);
@@ -56,10 +57,14 @@ void Camera::Init()
 	//마우스 이동 제한 할 렉트
 	mRc = { mCenter.x - (LONG)mLimitX, mCenter.y - (LONG)mLimitY, mCenter.x + (LONG)mLimitX, mCenter.y + (LONG)mLimitY };
 
-	mSensX = 100.f;
-	mSensY = 50.f;
+	mSensStepX = 100.f;
+	mSensStepY = 50.f;
 
 	sensLevel = 5;
+
+	mSensX = mSensStepX * 6;
+	mSensY = mSensStepY * 6;
+
 
 	isColl = false;
 }
@@ -80,40 +85,40 @@ void Camera::Update()
 	//D3DXMatrixLookAtLH(&m_matView,&m_eye, &m_lookAt, &m_up);
 	//g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
 
-	m_eye = D3DXVECTOR3(0, m_basePosY, -m_distance);
+	m_eye = D3DXVECTOR3(m_basePosX, m_basePosY, -m_distance);
 	m_lookAt = D3DXVECTOR3(0, m_basePosY, m_distance);
 
 	D3DXMATRIXA16 matRotX, matRotY, matRot;
 
 	if (GetAsyncKeyState('O') & 0x0001)
 	{
-		if (sensLevel > 2)
+		if (sensLevel > 1)
 		{
-			mSensX += mLimitX / 10.f;
-			mSensY += mLimitY / 10.f;
+			mSensX += mSensStepX;
+			mSensY += mSensStepY;
 			sensLevel--;
 		}
-		else if (sensLevel = 2)
-		{
-			mSensX = 1000.f;
-			mSensY = 200.f;
-			sensLevel--;
-		}
+		//else if (sensLevel = 2)
+		//{
+		//	mSensX = 1000.f;
+		//	mSensY = 200.f;
+		//	sensLevel--;
+		//}
 	}
 	else if (GetAsyncKeyState('P') & 0x0001)
 	{
-		if (sensLevel < 9)
+		if (sensLevel < 10)
 		{
-			mSensX -= mLimitX / 10.f;
-			mSensY -= mLimitY / 10.f;
+			mSensX -= mSensStepX;
+			mSensY -= mSensStepY;
 			sensLevel++;
 		}
-		else if (sensLevel == 9)
-		{
-			mSensX = 50.f;
-			mSensY = 10.f;
-			sensLevel++;
-		}
+		//else if (sensLevel == 9)
+		//{
+		//	mSensX = 50.f;
+		//	mSensY = 10.f;
+		//	sensLevel++;
+		//}
 	}
 
 	Debug->AddText("Mouse Sensitivity : " + to_string(sensLevel));
@@ -154,35 +159,35 @@ void Camera::Update()
 		m_pTarget == NULL;
 	}
 
+	//------- 벽에 충돌하는건 나중에 하자
+	////위로 올리는중 땅에 닿으면
+	//if (m_eye.y <= D3DX_16F_EPSILON)
+	//{
+	//	if (deltaRotY < D3DX_16F_EPSILON)
+	//	{
+	//		m_distance -= 0.5f;
+	//		m_eye.y = 0.f;
+	//		isColl = true;
+	//	}
+	//}
 
-	//위로 올리는중 땅에 닿으면
-	if (m_eye.y <= D3DX_16F_EPSILON)
-	{
-		if (deltaRotY < D3DX_16F_EPSILON)
-		{
-			m_distance -= 0.5f;
-			m_eye.y = 0.f;
-			isColl = true;
-		}
-	}
+	////땅에 닿았고 아래로 내리는중
+	//if (isColl && (deltaRotY >= 0))
+	//{
+	//	if (m_distance <= mLimitDistance)
+	//	{
+	//		m_distance += 0.5f;
+	//		m_eye.y = 0.f;
+	//	}
+	//	else
+	//	{
+	//		m_distance = mLimitDistance;
+	//	}
 
-	//땅에 닿았고 아래로 내리는중
-	if (isColl && (deltaRotY >= 0))
-	{
-		if (m_distance <= mLimitDistance)
-		{
-			m_distance += 0.5f;
-			m_eye.y = 0.f;
-		}
-		else
-		{
-			m_distance = mLimitDistance;
-		}
+	//	if (m_eye.y > 0.f)
+	//		isColl = false;
 
-		if (m_eye.y > 0.f)
-			isColl = false;
-
-	}
+	//}
 
 
 	if (g_pKeyboard->KeyDown('I'))
@@ -197,7 +202,7 @@ void Camera::Update()
 	else
 
 	{
-		ShowCursor(true);
+		ShowCursor(false);
 	}
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
