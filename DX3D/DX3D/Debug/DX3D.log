@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  SkinnedMesh.cpp
   SceneGrid.cpp
 d:\sga_direct_team\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
@@ -20,3 +21,9 @@ d:\sga_direct_team\dx3d\dx3d\ironman.cpp(48): warning C4316: 'BoundingBox': 힙�
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
+﻿  Camera.cpp
+d:\sga\pp\dx3d\dx3d\camera.cpp(159): warning C4553: '==': 의미 없는 연산자입니다. '='을(를) 사용하려고 했습니까?
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> e3ffa1e7e57e428163f2187197e4249949ba77f6

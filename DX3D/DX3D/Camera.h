@@ -13,6 +13,7 @@ private:
 	//D3DXVECTOR3		m_up;
 	D3DXMATRIXA16	m_matView;
 	D3DXMATRIXA16	m_matProj;
+	float			m_basePosX;
 	float			m_basePosY;
 	float			m_distance;
 	//float			m_rotX;
@@ -24,13 +25,15 @@ private:
 	//마우스 카메라 회전
 	POINT			mCenter;
 	RECT			mRc;
-	float			mSensX;
+	float			mSensX;			//X 민감도, 클수록 느려짐
 	float			mSensY;
-	float			mLimitX;
+	float			mSensStepX;		//민감도 조절 단위
+	float			mSensStepY;
+	float			mLimitX;		//마우스 제한 렉트 X
 	float			mLimitY;
 	float			mLimitDistance;
-	bool			mRCCollCheck;//마우스 충돌 체크 확인 변수
-	int				sensLevel;
+	bool			mRCCollCheck;	//마우스 충돌 체크 확인 변수
+	int				sensLevel;		//민감도 레벨
 	float			deltaRotY;
 
 	//초기 카메라 조작

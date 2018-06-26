@@ -56,7 +56,12 @@ void Ironman::Init()
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
 
+<<<<<<< HEAD
 	keyPress = false;
+=======
+	//시작위치 조정
+	m_pos.y = 10;
+>>>>>>> e3ffa1e7e57e428163f2187197e4249949ba77f6
 }
 
 void Ironman::Update()
