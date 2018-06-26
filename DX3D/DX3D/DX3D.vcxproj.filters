@@ -333,9 +333,6 @@
     <ClInclude Include="Enemyman.h">
       <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClInclude>
-    <ClInclude Include="BloodManager.h">
-      <Filter>소스 파일\%28E%29PARTICLE</Filter>
-    </ClInclude>
     <ClInclude Include="BloodParticle.h">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
@@ -559,9 +556,6 @@
     </ClCompile>
     <ClCompile Include="SkinnedMesh.cpp">
       <Filter>소스 파일\%28R%29X_READ</Filter>
-    </ClCompile>
-    <ClCompile Include="BloodManager.cpp">
-      <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
     <ClCompile Include="BloodParticle.cpp">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
