@@ -222,3 +222,15 @@ inline RECT RectMakeCenter(int x, int y, int width, int height)
 
 	return rc;
 }
+
+
+inline POINT RectCenter(RECT a)
+{
+
+	POINT answer;
+
+	answer.x = a.left + ((a.right - a.left) / 2);
+	answer.y = a.top + ((a.bottom - a.top) / 2);
+
+	return answer;
+}

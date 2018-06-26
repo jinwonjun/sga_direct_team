@@ -76,6 +76,20 @@ extern HWND g_hWnd;
 #include "FontManager.h"
 #include "BloodManager.h"
 
-#define WINSIZEX 1560
-#define WINSIZEY 990
+//#define WINSIZEX 1560
+//#define WINSIZEY 990
 
+//
+//#define WINSIZEX 960
+//#define WINSIZEY 540
+//
+#define WINSIZEX 1600
+#define WINSIZEY 900
+
+//#define WINSIZEX 1920
+//#define WINSIZEY 1080
+
+
+
+#define OriginX 1584
+#define OriginY 841
