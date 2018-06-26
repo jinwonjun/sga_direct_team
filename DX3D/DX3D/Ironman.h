@@ -35,5 +35,7 @@ public:
 
 	//애니메이션 테스트용 변수 아직 못함
 	bool keyPress;
+
+	void AnimationModify();//X파일 위치 및 스케일 조정부분.
 };
 

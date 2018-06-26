@@ -100,8 +100,9 @@ void SkinnedMesh::Update()
 	Debug->EndLine();
 
 	//X파일 위치 및 스케일 조정부분.
-	AnimationModify();
+	m_matWorld = static_cast <Ironman *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->ApplyMatWorld;
 	
+		
 	SetAnimationIndex(status, true);
 
 	UpdateAnim();
@@ -335,37 +336,6 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 	m_pAnimController->ResetTime();
 
 	SAFE_RELEASE(pNextAnimSet);
-}
-
-void SkinnedMesh::AnimationModify()
-{
-	//조건 값을 어떻게 걸어야하지???
-	if (g_pObjMgr->FindObjectByTag(TAG_PLAYER))
-	{
-		//아이언맨의 계산된 월드 행렬을 가져오자
-		D3DXMATRIXA16 matRotY, matT, matR, matS;
-		//, matRotX, matRot, m_matWorld;
-
-		D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
-		//D3DXMatrixRotationX(&matRotX, m_rot.x);
-		//matRot = matRotY * matRotX;
-		//D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
-		D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
-		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-		D3DXMatrixRotationY(&matR, D3DX_PI);
-		float SCALE = 0.05f;
-		D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
-
-		m_matWorld = matS * matRotY* matR * matT;
-	}
-	else if (g_pObjMgr->FindObjectByTag(TAG_ENEMY))
-	{
-		/*D3DXMATRIXA16 matRotY, matT, matR, matS;
-		float SCALE = 3.00f;
-		D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
-		m_matWorld = matS * matRotY* matR * matT;*/
-	}
-
 }
 
 

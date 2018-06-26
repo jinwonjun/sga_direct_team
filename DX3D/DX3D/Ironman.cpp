@@ -75,6 +75,7 @@ void Ironman::Update()
 	IUnitObject::UpdateKeyboardState();
 	IUnitObject::UpdatePosition();
 
+	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
 
 	D3DXTRACK_DESC track;
@@ -177,5 +178,25 @@ void Ironman::Shoot()
 	Debug->AddText(BloodCalPos);
 	Debug->EndLine();
 	Debug->EndLine();
+}
+
+void Ironman::AnimationModify()
+{
+	//아이언맨의 계산된 월드 행렬을 가져오자
+	D3DXMATRIXA16 matRotY, matT, matR, matS;
+	//, matRotX, matRot, m_matWorld;
+
+	D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
+	//D3DXMatrixRotationX(&matRotX, m_rot.x);
+	//matRot = matRotY * matRotX;
+	//D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+	D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
+	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixRotationY(&matR, D3DX_PI);
+	
+	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+
+	m_matWorld = matS * matRotY* matR * matT;
+	ApplyMatWorld = m_matWorld;
 }
 

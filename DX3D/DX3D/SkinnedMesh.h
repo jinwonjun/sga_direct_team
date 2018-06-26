@@ -46,7 +46,6 @@ public:
 	int status;
 
 
-	void AnimationModify();//X파일 위치 및 스케일 조정부분.
 
 };
 
