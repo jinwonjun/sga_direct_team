@@ -49,7 +49,8 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pEm);
 	
 	SAFE_RELEASE(m_Inventory);
-	m_pCharacter->~Ironman();
+	
+	SAFE_RELEASE(m_pCharacter);
 
 	SAFE_RELEASE(m_pBloodMgr);
 	BaseObject::Release();

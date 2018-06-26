@@ -1,29 +1,6 @@
-<<<<<<< HEAD
-﻿  SkinnedMesh.cpp
-  SceneGrid.cpp
-d:\sga_direct_team\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(67): warning C4316: 'Cube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(76): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(87): warning C4316: 'Walls': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(91): warning C4316: 'Hexagon': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(94): warning C4316: 'ActionCube': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(98): warning C4316: 'Frustum': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(101): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(105): warning C4316: 'BloodManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(110): warning C4316: 'Inventory': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(127): warning C4316: 'Ironman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(139): warning C4316: 'HeightMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  Ironman.cpp
-d:\sga_direct_team\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
-d:\sga_direct_team\dx3d\dx3d\ironman.cpp(42): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\ironman.cpp(48): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  BloodManager.cpp
+﻿  Application.cpp
+  AllocateHierarchy.cpp
+d:\sga_direct_team\dx3d\dx3d\allocatehierarchy.cpp(10): warning C4316: 'FRAME_EX': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
-=======
-﻿  Camera.cpp
-d:\sga\pp\dx3d\dx3d\camera.cpp(159): warning C4553: '==': 의미 없는 연산자입니다. '='을(를) 사용하려고 했습니까?
-  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
-  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
->>>>>>> e3ffa1e7e57e428163f2187197e4249949ba77f6

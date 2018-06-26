@@ -1,6 +1,6 @@
 #pragma once
 
-class SkinnedMesh 
+class SkinnedMesh
 {
 protected:
 	LPD3DXFRAME					m_pRootFrame;

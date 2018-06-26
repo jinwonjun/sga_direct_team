@@ -23,7 +23,10 @@ void Application::Init()
 void Application::Destroy()
 {
 	g_pSceneManager->Destroy();
-	g_pObjMgr->Destroy();
+
+	//디바이스 매니져와 텍스쳐 매니져에서 지우는 텍스쳐를 
+	//g_pObjMgr->Destroy();
+	
 	g_pMouse->Delete();
 	g_pKeyboard->Delete();
 	g_pTextureManager->Destroy();
