@@ -14,6 +14,16 @@ protected:
 
 	AStar * m_pAStar;
 
+	//매쉬 포인터 변수랑 값 저장할 벡터
+	LPD3DXMESH m_pMeshMap;
+	vector<MTLTEX * > m_vecMtlTex;
+
+	vector<D3DXVECTOR3>	m_surfaceVertices;
+
+	CString			m_filepath;
+	CString			m_mapFilename;
+	CString			m_surfaceFilename;
+
 	IMap() { m_pAStar = NULL; }
 
 public:
@@ -29,5 +39,9 @@ public:
 	const D3DXVECTOR3& GetSize() { return m_size; }
 
 	AStar * GetAstar() { return m_pAStar; }//맵에다가 노드를 먼저 깔아보자
+
+	void SetFilename(LPCTSTR filepath, LPCTSTR mapFilename, LPCTSTR surfaceFilename) {
+		m_filepath = filepath; m_mapFilename = mapFilename; m_surfaceFilename = surfaceFilename;
+	}
 
 };

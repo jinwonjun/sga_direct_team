@@ -11,20 +11,31 @@ ObjMap::ObjMap()
 
 ObjMap::~ObjMap()
 {
+	//for (auto p : m_vecDrawingGroup)
+	//{
+	//	SAFE_RELEASE(p);
+	//}
 	for (auto p : m_vecDrawingGroup)
-	{
 		SAFE_RELEASE(p);
-	}
+	SAFE_RELEASE(m_pMeshMap);
+	for (auto p : m_vecMtlTex)
+		SAFE_DELETE(p);
 }
 
 void ObjMap::Init()
 {
-	D3DXMATRIXA16 matRX, matRY, matS, matWorld;
-	D3DXMatrixRotationX(&matRX, -D3DX_PI / 2.0f);
+	//D3DXMATRIXA16 matRX, matRY, matS, matWorld;
+	//D3DXMatrixRotationX(&matRX, -D3DX_PI / 2.0f);
+	//D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	////D3DXMatrixScaling(&matS, 0.04f, 0.04f, 0.04f);
+	//D3DXMatrixScaling(&matS, 3.0f, 3.0f, 3.0f);
+	//matWorld = matS * matRX * matRY;
+
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 0.2f, 0.2f, 0.2f);
 	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
-	//D3DXMatrixScaling(&matS, 0.04f, 0.04f, 0.04f);
-	D3DXMatrixScaling(&matS, 3.0f, 3.0f, 3.0f);
-	matWorld = matS * matRX * matRY;
+	D3DXMatrixTranslation(&matT, 0, -250, 0);
+	localMatrix = matS * matRY * matT;
 
 	ObjLoader loader;
 	//Map_surface <- z높이 측정하는 용도로 쓰임!
@@ -32,21 +43,13 @@ void ObjMap::Init()
 	//loader.LoadSurface("resources/obj/Map_surface.obj", &matWorld, m_vecVertex);
 	//m_pMeshMap = loader.LoadMesh("resources/obj", "Map.obj", &matWorld, m_vecMtlTex);
 
+	//loader.Load("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecDrawingGroup);
+	m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
+	//m_pMeshMap = loader.CreateSurface()
 
-	//loader.Load("resources/cs_italy", "cs_italy.obj", &matWorld, m_vecDrawingGroup);
-	//m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &matWorld, m_vecMtlTex);
+	//loader.LoadNoneMtl("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
 
-	loader.Load("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
 	//m_pMeshMap = loader.LoadMesh("resources/obj", "UED_SCV_V1.obj", &matWorld, m_vecMtlTex);
-	
-	//for (int i = 0 ; i < loader.m_mapMtlTex.size(); i++)
-	//{
-	//	m_vecMtlTex[i]->id = loader.m_mapMtlTex;
-	//	m_vecMtlTex[i]->material = loader.m_mapMtlTex[i]->;
-	//	m_vecMtlTex[i]->pTexture = loader.m_mapMtlTex[i]->id;
-	//}
-
-	
 
 	//OBJ맵 적용하기
 	g_pMapManager->AddMap("ObjMap", this);
@@ -63,9 +66,9 @@ void ObjMap::Render()
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	//렌더링 함수 
-	RenderDrawingGroup();
+	//RenderDrawingGroup();
 	//매쉬 함수
-	//RenderMesh();
+	RenderMesh();
 
 	//D3DXCreateSphere(g_pDevice,1.5,);
 
@@ -111,6 +114,8 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 	//}
 	//return false;
 
+	//원본 코드 있던 자리
+	/*
 	D3DXVECTOR3 rayPos(pos.x, pos.y + m_rayOffsetY, pos.z);
 	D3DXVECTOR3 rayDir(0, -1, 0);
 	float distance;
@@ -125,6 +130,32 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 		}
 	}
 	return false;
+	*/
+
+	D3DXVECTOR3 rayPos(pos.x, pos.y + m_rayOffsetY, pos.z);
+	D3DXVECTOR3 rayDir(0, -1, 0);
+	float distance;
+	float tmpHeight;
+	float highest = -99999;
+	for (size_t i = 0; i < m_surfaceVertices.size(); i += 3)
+	{
+		if (D3DXIntersectTri(&m_surfaceVertices[i], &m_surfaceVertices[i + 1], &m_surfaceVertices[i + 2],
+			&rayPos, &rayDir, NULL, NULL, &distance))
+		{
+			tmpHeight = rayPos.y - distance;
+
+			if (tmpHeight > highest + FLT_EPSILON)
+			{
+				highest = tmpHeight;
+				height = tmpHeight;
+			}
+		}
+	}
+
+	if (highest == -99999)
+		return false;
+	else
+		return true;
 }
 
 void ObjMap::RenderMesh()
@@ -139,8 +170,28 @@ void ObjMap::RenderMesh()
 
 void ObjMap::RenderDrawingGroup()
 {
+	//for (auto p : m_vecDrawingGroup)
+	//{
+	//	SAFE_RENDER(p);
+	//}
+
 	for (auto p : m_vecDrawingGroup)
 	{
-		SAFE_RENDER(p);
+		//p->Render();
 	}
+	static int nSubSet = 0;
+
+	if (GetAsyncKeyState(VK_F1) & 0x0001)
+	{
+		--nSubSet;
+		if (nSubSet < 0) nSubSet = 0;
+	}
+	else if (GetAsyncKeyState(VK_F2) & 0x0001)
+	{
+		++nSubSet;
+		if (nSubSet > m_vecDrawingGroup.size() - 1) nSubSet = m_vecDrawingGroup.size() - 1;
+	}
+
+
+	m_vecDrawingGroup[nSubSet]->Render();
 }

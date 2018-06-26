@@ -2,12 +2,134 @@
 #include "ObjLoader.h"
 #include "DrawingGroup.h"
 
+const int TOKEN_SIZE = 128;
+
 ObjLoader::ObjLoader()
 {
 }
 
 ObjLoader::~ObjLoader()
 {
+}
+
+void ObjLoader::Load(const char * filePath, const char * fileName, D3DXMATRIXA16 * pMat, OUT vector<DrawingGroup*>& vecGroup)
+{
+	vector<D3DXVECTOR3> vecP;
+	vector<D3DXVECTOR3> vecN;
+	vector<D3DXVECTOR2> vecT;
+	vector<VERTEX_PNT> vecPNT;
+	//string mtlName;
+	//char szToken[TOKEN_SIZE];
+
+	//m_filePath = filePath;
+
+	//std::ifstream fin;
+	//fin.open(m_filePath + fileName);
+
+	string mtlName;
+
+	char szToken[128];
+	ifstream fin;//이 변수로 파일을 읽을거야
+
+	m_filePath = filePath;
+	string fullPath = m_filePath + "/" + fileName;
+
+	fin.open(fullPath);
+
+	if (fin.is_open() == false)
+		assert(false && "fin.is_open() == false");
+
+	while (fin.eof() == false)
+	{
+		fin >> szToken;
+
+		if (CompareStr(szToken, "mtllib"))
+		{
+			fin >> szToken;
+			LoadMtlLib(m_filePath + szToken);
+		}
+		else if (CompareStr(szToken, "g"))
+		{
+			if (vecPNT.empty()) continue;
+
+			DrawingGroup* pGroup = new DrawingGroup;
+			pGroup->SetVertexBuffer(vecPNT);
+			pGroup->SetMtlTex(m_mapMtlTex[mtlName]);
+			vecGroup.push_back(pGroup);
+
+			vecPNT.clear();
+		}
+		else if (CompareStr(szToken, "v"))
+		{
+			float x, y, z;
+			fin.getline(szToken, TOKEN_SIZE);
+			sscanf_s(szToken, "%f %f %f", &x, &y, &z);
+			vecP.push_back(D3DXVECTOR3(x, y, z));
+		}
+		else if (CompareStr(szToken, "vt"))
+		{
+			float x, y;
+			fin.getline(szToken, TOKEN_SIZE);
+			sscanf_s(szToken, "%f %f *%f", &x, &y);
+			vecT.push_back(D3DXVECTOR2(x, y));
+		}
+		else if (CompareStr(szToken, "vn"))
+		{
+			float x, y, z;
+			fin.getline(szToken, TOKEN_SIZE);
+			sscanf_s(szToken, "%f %f %f", &x, &y, &z);
+			vecN.push_back(D3DXVECTOR3(x, y, z));
+		}
+		else if (CompareStr(szToken, "usemtl"))
+		{
+			fin >> szToken;
+			mtlName = szToken;
+		}
+		else if (CompareStr(szToken, "f"))
+		{
+			int aIndex[3][3];
+			fin.getline(szToken, TOKEN_SIZE);
+
+			sscanf_s(szToken, "%d/%d/%d %d/%d/%d %d/%d/%d",
+				&aIndex[0][0], &aIndex[0][1], &aIndex[0][2],
+				&aIndex[1][0], &aIndex[1][1], &aIndex[1][2],
+				&aIndex[2][0], &aIndex[2][1], &aIndex[2][2]);
+
+			for (int i = 0; i < 3; ++i)
+			{
+				VERTEX_PNT pnt;
+				pnt.p = vecP[aIndex[i][0] - 1];
+				pnt.t = vecT[aIndex[i][1] - 1];
+				pnt.n = vecN[aIndex[i][2] - 1];
+
+				if (pMat)
+				{
+					D3DXVec3TransformCoord(&pnt.p, &pnt.p, pMat);
+					D3DXVec3TransformNormal(&pnt.n, &pnt.n, pMat);
+				}
+				vecPNT.push_back(pnt);
+			}
+		}
+	}
+
+	m_mapMtlTex.clear();
+	fin.close();
+}
+
+void ObjLoader::CreateSurface(OUT vector<D3DXVECTOR3>& vecVertex)
+{
+	vecVertex.reserve(vecPNT.size() / 3);
+	for (size_t i = 0; i < vecPNT.size(); i += 3)
+	{
+		D3DXVECTOR3 normal;
+		DXUtil::ComputeNormal(&normal, &vecPNT[i].p, &vecPNT[i + 1].p, &vecPNT[i + 2].p);
+		if (D3DXVec3Dot(&normal, &D3DXVECTOR3(0, 1, 0)) > 0.4f)
+		{
+			vecVertex.push_back(vecPNT[i].p);
+			vecVertex.push_back(vecPNT[i + 1].p);
+			vecVertex.push_back(vecPNT[i + 2].p);
+		}
+	}
 }
 
 void ObjLoader::LoadSurface(const char * fullPath, D3DXMATRIXA16 * pMat, OUT vector<D3DXVECTOR3>& vecVertex)
@@ -56,7 +178,7 @@ void ObjLoader::LoadSurface(const char * fullPath, D3DXMATRIXA16 * pMat, OUT vec
 	fin.close();
 }
 
-void ObjLoader::Load(const char * filePath,const char * fileName, D3DXMATRIXA16 * pMat, OUT vector<DrawingGroup * >& vecGroup)
+void ObjLoader::LoadNoneMtl(const char * filePath,const char * fileName, D3DXMATRIXA16 * pMat, OUT vector<DrawingGroup * >& vecGroup)
 {
 	vector<D3DXVECTOR3> vecP;
 	vector<D3DXVECTOR3> vecN;
@@ -237,15 +359,18 @@ LPD3DXMESH ObjLoader::LoadMesh(const char * filePath, const char * fileName, D3D
 		}
 		else if (CompareStr(szToken, "f"))
 		{
-			int aIndex[3][3];
-			fin.getline(szToken, 128);
+			int aIndex[4][3];
+			memset(&aIndex, 0, sizeof(int) * 4 * 3);
+			fin.getline(szToken, TOKEN_SIZE);
 
-			sscanf_s(szToken, "%d/%d/%d %d/%d/%d %d/%d/%d", &aIndex[0][0], &aIndex[0][1], &aIndex[0][2],
+			sscanf_s(szToken, "%d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
+				&aIndex[0][0], &aIndex[0][1], &aIndex[0][2],
 				&aIndex[1][0], &aIndex[1][1], &aIndex[1][2],
-				&aIndex[2][0], &aIndex[2][1], &aIndex[2][2]);
-			for (int i = 0; i < 3; i++)
+				&aIndex[2][0], &aIndex[2][1], &aIndex[2][2],
+				&aIndex[3][0], &aIndex[3][1], &aIndex[3][2]);
+
+			for (int i = 0; i < 3; ++i)
 			{
-				//면 하나 만들고
 				VERTEX_PNT pnt;
 				pnt.p = vecP[aIndex[i][0] - 1];
 				pnt.t = vecT[aIndex[i][1] - 1];
@@ -258,8 +383,28 @@ LPD3DXMESH ObjLoader::LoadMesh(const char * filePath, const char * fileName, D3D
 				}
 				vecPNT.push_back(pnt);
 			}
-			//속성 ID값 부여하기
-			vecAttBuf.push_back(m_mapMtlTex[mtlName]->id);
+			vecAttBuf.push_back(m_mapMtlTex[mtlName]->id);	//추가
+
+			if (aIndex[3][0] > 0)
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					if (i == 1) continue;
+					VERTEX_PNT pnt;
+					pnt.p = vecP[aIndex[i][0] - 1];
+					pnt.t = vecT[aIndex[i][1] - 1];
+					pnt.n = vecN[aIndex[i][2] - 1];
+
+					if (pMat)
+					{
+						D3DXVec3TransformCoord(&pnt.p, &pnt.p, pMat);
+						D3DXVec3TransformNormal(&pnt.n, &pnt.n, pMat);
+					}
+					vecPNT.push_back(pnt);
+				}
+				vecAttBuf.push_back(m_mapMtlTex[mtlName]->id);	//추가
+			}
+
 		}
 	}//end of Fileread
 

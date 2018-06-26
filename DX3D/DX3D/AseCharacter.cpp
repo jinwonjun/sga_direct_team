@@ -43,9 +43,9 @@ void AseCharacter::Init()
 
 void AseCharacter::Update()
 {
-	//IUnitObject::UpdatePosition();
+	IUnitObject::UpdatePosition();
 	IUnitObject::UpdateKeyboardState();
-	IUnitObject::UpdatePositionToDestination();
+	//IUnitObject::UpdatePositionToDestination();
 
 	if (m_isMoving == true)
 	{

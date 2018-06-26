@@ -55,7 +55,6 @@ void Ironman::Init()
 	//위치 초기화
 	BloodCalPos = D3DXVECTOR3(0, 0, 0);
 
-	D3DXMatrixIdentity(&ApplyMatWorld);
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
@@ -197,6 +196,5 @@ void Ironman::AnimationModify()
 	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
 
 	m_matWorld = matS * matRotY* matR * matT;
-	ApplyMatWorld = m_matWorld;
 }
 

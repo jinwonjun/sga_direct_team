@@ -64,8 +64,9 @@ void SceneGrid::Init()
 	g_pDevice->LightEnable(0, true);
 	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 
-	pCube = new Cube;
-	pCube->Init();
+	//pCube = new Cube;
+	//pCube->Init();
+
 	////일단 파츠 구현
 	//pCube_head = new Cubeman_Head;
 	//pCube_head->Init();
@@ -84,19 +85,19 @@ void SceneGrid::Init()
 	//m_pCubeman = new Cubeman();
 	//m_pCubeman->Init();
 
-	m_pWalls = new Walls();
-	m_pWalls->Init();
+	/*m_pWalls = new Walls();
+	m_pWalls->Init();*/
 
 
-	m_pHexagon = new Hexagon();
-	m_pHexagon->Init();
+	//m_pHexagon = new Hexagon();
+	//m_pHexagon->Init();
 
-	m_pActionCube = new ActionCube();
-	m_pActionCube->Init();
+	//m_pActionCube = new ActionCube();
+	//m_pActionCube->Init();
 
 
-	m_pFrustum = new Frustum();
-	m_pFrustum->Init();
+	//m_pFrustum = new Frustum();
+	//m_pFrustum->Init();
 
 	m_pEm = new EnemyManager();
 	m_pEm->Init();
@@ -145,16 +146,17 @@ void SceneGrid::Init()
 	//상태맵 저장하기
 	g_pMapManager->AddMap("heightMap", m_pHeightMap);
 	g_pMapManager->SetCurrentMap("heightMap");
+
+	//Init_cs_italy();
 }
 
 void SceneGrid::Update()
 {
-	SAFE_UPDATE(pCube);
-
-	SAFE_UPDATE(m_pCubeman);
+	//SAFE_UPDATE(pCube);
+	//SAFE_UPDATE(m_pCubeman);
 	//SAFE_UPDATE(m_pActionCube);
+	//SAFE_UPDATE(m_pFrustum);
 
-	SAFE_UPDATE(m_pFrustum);
 
 	SAFE_UPDATE(m_pEm);
 
@@ -186,7 +188,7 @@ void SceneGrid::Render()
 	//pCube->Render();
 	//그리드 그리기
 	SAFE_RENDER(m_pGrid);
-	//pGrid->Render();
+
 	//SAFE_RENDER(m_pCubeman);
 	//조명에 따른 벽 그려보기
 	//SAFE_RENDER(m_pWalls);
@@ -228,4 +230,24 @@ void SceneGrid::BoundingCheck()
 			p->MoveStop();
 		}
 	}
+}
+
+void SceneGrid::Init_cs_italy()
+{
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 0.2f, 0.2f, 0.2f);
+	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	D3DXMatrixTranslation(&matT, 0, -250, 0);
+	localMatrix = matS * matRY * matT;
+
+	ObjMap* pMap = new ObjMap(); 
+	AddSimpleDisplayObj((pMap));
+	//pMap->SetLocalMatrix(&localMatrix);
+	//pMap->SetLocalMatrix(localMatrix);
+	//pMap->SetFilename(ASSET_PATH + _T("Models/cs_italy/"), _T("cs_italy.obj"), NULL);
+	//pMap->SetFilename(_T("resources/cs_italy/"), _T("cs_italy.obj"), NULL);
+	
+	pMap->Init();
+	//pMap->SetName(_T("map"));
+	//Objects::SetCurrentMap(_T("map"));
 }

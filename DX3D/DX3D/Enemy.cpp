@@ -56,7 +56,7 @@ void Enemy::Init()
 	m_matWorld = matS * matRX;// *matRY;
 	//obj객체 로드 부분
 	ObjLoader loader;
-	loader.Load("resources/obj", "SCV.obj", &m_matWorld, m_vecDrawingGroup);
+	loader.LoadNoneMtl("resources/obj", "SCV.obj", &m_matWorld, m_vecDrawingGroup);
 }
 
 void Enemy::Update()
