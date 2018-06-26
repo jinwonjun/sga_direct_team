@@ -32,6 +32,7 @@ public:
 	virtual bool CalcPickedPosition(D3DXVECTOR3 &vOut,WORD screenX, WORD screenY) = 0;
 
 	const vector<D3DXVECTOR3>& GetVertex() { return m_vecVertex; }
+
 	void SetDimension(size_t dimension)
 	{
 		m_dimension = dimension; m_numTile = m_dimension - 1;

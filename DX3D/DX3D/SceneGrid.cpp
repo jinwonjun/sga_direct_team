@@ -57,12 +57,12 @@ void SceneGrid::Release()
 
 void SceneGrid::Init()
 {
-	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
-	D3DXVec3Normalize(&dir, &dir);
-	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &WHITE);
-	g_pDevice->SetLight(0, &light);
-	g_pDevice->LightEnable(0, true);
-	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+	//D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
+	//D3DXVec3Normalize(&dir, &dir);
+	//D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &WHITE);
+	//g_pDevice->SetLight(0, &light);
+	//g_pDevice->LightEnable(0, true);
+	//g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 
 	//pCube = new Cube;
 	//pCube->Init();
@@ -117,7 +117,7 @@ void SceneGrid::Init()
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(1, 0, 0), D3DXVECTOR2(1, 1)));//4
 
 	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
-	D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
+	//D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
 
 	//매쉬 캐릭터 올리기
 	m_pCharacter = new Ironman;
@@ -126,28 +126,39 @@ void SceneGrid::Init()
 
 
 	//헤이트맵 올리기
-	D3DXMATRIXA16 matS, matT, matRX, matRY, matWorld;
-	//D3DXMatrixScaling(&matS, 0.2f, 0.03f, 0.2f);
-	D3DXMatrixScaling(&matS, 1.0f, 0.1f, 1.0f);
-	D3DXMatrixIdentity(&matT);
+	//D3DXMATRIXA16 matS, matT, matRX, matRY, matWorld;
+	////D3DXMatrixScaling(&matS, 0.2f, 0.03f, 0.2f);
+	//D3DXMatrixScaling(&matS, 1.0f, 0.1f, 1.0f);
+	//D3DXMatrixIdentity(&matT);
 
-	//높이맵 호출 부분
-	m_pHeightMap = new HeightMap;
-	AddSimpleDisplayObj(m_pHeightMap);
-	m_pHeightMap->SetDimension(257);
-	m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
+	////높이맵 호출 부분
+	//m_pHeightMap = new HeightMap;
+	//AddSimpleDisplayObj(m_pHeightMap);
+	//m_pHeightMap->SetDimension(257);
 	//m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
-	//m_pHeightMap->Load("resources/heightmap/data/heightmap.r16", &matS);
-	m_pHeightMap->Init();
+	////m_pHeightMap->Load("resources/heightmap/HeightMap.raw", &matS);
+	////m_pHeightMap->Load("resources/heightmap/data/heightmap.r16", &matS);
+	//m_pHeightMap->Init();
 
-	D3DMATERIAL9 mtl = DXUtil::WHITE_MTRL;
-	m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
-	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
-	//상태맵 저장하기
-	g_pMapManager->AddMap("heightMap", m_pHeightMap);
-	g_pMapManager->SetCurrentMap("heightMap");
+	//D3DMATERIAL9 mtl = DXUtil::WHITE_MTRL;
+	//m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/terrain.jpg"));
+	////m_pHeightMap->SetMtlTex(mtl, g_pTextureManager->GetTexture("resources/heightmap/data/colormap.bmp"));
+	////상태맵 저장하기
+	//g_pMapManager->AddMap("heightMap", m_pHeightMap);
+	//g_pMapManager->SetCurrentMap("heightMap");
 
-	//Init_cs_italy();
+	Init_cs_italy();
+
+	//조명!
+	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
+	D3DXVec3Normalize(&dir, &dir);
+	//씬 비추는 조명 설정하기
+	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &WHITE);
+	g_pDevice->SetLight(0, &light);
+	g_pDevice->LightEnable(0, true);
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+	//왜곡 줄이기, 맵이 밝아지는 효과가 생기네?!
+	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 }
 
 void SceneGrid::Update()
@@ -172,14 +183,15 @@ void SceneGrid::Render()
 	//그라데이션 형식으로 그려짐.
 	//g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size() / 3,&m_vecVertex[0],sizeof(VERTEX_PC));
 
-	D3DXMATRIXA16 mat;
-	D3DXMatrixIdentity(&mat);
-	g_pDevice->SetTransform(D3DTS_WORLD, &mat);
-	g_pDevice->SetFVF(VERTEX_PT::FVF);
-	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
-	g_pDevice->SetTexture(0, tex);
-	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, vecPTVertex.size() / 3, &vecPTVertex[0], sizeof(VERTEX_PT));
-	g_pDevice->SetTexture(0, NULL);
+	//기본 렌더 셋팅인데 이것때문에 이상하게 그려지는거 같음
+	//D3DXMATRIXA16 mat;
+	//D3DXMatrixIdentity(&mat);
+	//g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+	//g_pDevice->SetFVF(VERTEX_PT::FVF);
+	//g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+	//g_pDevice->SetTexture(0, tex);
+	//g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, vecPTVertex.size() / 3, &vecPTVertex[0], sizeof(VERTEX_PT));
+	//g_pDevice->SetTexture(0, NULL);
 
 	//스카이박스!!!
 	m_pSky->Render();
@@ -234,20 +246,21 @@ void SceneGrid::BoundingCheck()
 
 void SceneGrid::Init_cs_italy()
 {
-	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
-	D3DXMatrixScaling(&matS, 0.2f, 0.2f, 0.2f);
-	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
-	D3DXMatrixTranslation(&matT, 0, -250, 0);
-	localMatrix = matS * matRY * matT;
+	//D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	//D3DXMatrixScaling(&matS, 0.2f, 0.2f, 0.2f);
+	//D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	//D3DXMatrixTranslation(&matT, 0, -250, 0);
+	//localMatrix = matS * matRY * matT;
 
 	ObjMap* pMap = new ObjMap(); 
+	pMap->Init();
 	AddSimpleDisplayObj((pMap));
 	//pMap->SetLocalMatrix(&localMatrix);
 	//pMap->SetLocalMatrix(localMatrix);
 	//pMap->SetFilename(ASSET_PATH + _T("Models/cs_italy/"), _T("cs_italy.obj"), NULL);
 	//pMap->SetFilename(_T("resources/cs_italy/"), _T("cs_italy.obj"), NULL);
 	
-	pMap->Init();
+	//pMap->Init();
 	//pMap->SetName(_T("map"));
 	//Objects::SetCurrentMap(_T("map"));
 }

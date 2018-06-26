@@ -45,6 +45,9 @@ void ObjMap::Init()
 
 	//loader.Load("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecDrawingGroup);
 	m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
+	//loader.CreateSurface(m_surfaceVertices);
+	loader.CreateSurface(m_vecVertex);
+
 	//m_pMeshMap = loader.CreateSurface()
 
 	//loader.LoadNoneMtl("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
@@ -137,9 +140,23 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 	float distance;
 	float tmpHeight;
 	float highest = -99999;
-	for (size_t i = 0; i < m_surfaceVertices.size(); i += 3)
+	//for (size_t i = 0; i < m_surfaceVertices.size(); i += 3)
+	//{
+	//	if (D3DXIntersectTri(&m_surfaceVertices[i], &m_surfaceVertices[i + 1], &m_surfaceVertices[i + 2],
+	//		&rayPos, &rayDir, NULL, NULL, &distance))
+	//	{
+	//		tmpHeight = rayPos.y - distance;
+
+	//		if (tmpHeight > highest + FLT_EPSILON)
+	//		{
+	//			highest = tmpHeight;
+	//			height = tmpHeight;
+	//		}
+	//	}
+	//}
+	for (size_t i = 0; i < m_vecVertex.size(); i += 3)
 	{
-		if (D3DXIntersectTri(&m_surfaceVertices[i], &m_surfaceVertices[i + 1], &m_surfaceVertices[i + 2],
+		if (D3DXIntersectTri(&m_vecVertex[i], &m_vecVertex[i + 1], &m_vecVertex[i + 2],
 			&rayPos, &rayDir, NULL, NULL, &distance))
 		{
 			tmpHeight = rayPos.y - distance;

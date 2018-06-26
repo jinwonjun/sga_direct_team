@@ -295,7 +295,7 @@ LPD3DXMESH ObjLoader::LoadMesh(const char * filePath, const char * fileName, D3D
 	vector<D3DXVECTOR3> vecP;
 	vector<D3DXVECTOR3> vecN;
 	vector<D3DXVECTOR2> vecT;
-	vector<VERTEX_PNT> vecPNT;
+	//vector<VERTEX_PNT> vecPNT;
 	vector<DWORD> vecAttBuf;//어트리뷰트 정보를 담아줄거임
 	//머테리얼이름
 	string mtlName;

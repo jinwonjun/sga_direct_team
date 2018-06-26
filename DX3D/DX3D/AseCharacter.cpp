@@ -24,11 +24,13 @@ AseCharacter::~AseCharacter()
 	//m_pCurrObj->ReleaseAll();
 	m_pStandObj->ReleaseAll();
 	m_pRunObj->ReleaseAll();
+	//SAFE_RELEASE(m_pStandObj);
+	//SAFE_RELEASE(m_pRunObj);
 }
 
 void AseCharacter::Init()
 {
-	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
+	//g_pObjMgr->AddToTagList(TAG_PLAYER, this);
 	g_pCamera->SetTarget(&m_pos);
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 

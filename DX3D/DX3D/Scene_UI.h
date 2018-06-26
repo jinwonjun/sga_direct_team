@@ -1,6 +1,9 @@
 #pragma once
 #include "IScene.h"
 
+class ObjMap;
+class Ironman;
+
 class Scene_UI : public IScene
 {
 public:
@@ -15,5 +18,7 @@ public:
 
 
 	IDisplayObject *pObj;
+	ObjMap * m_pObjMAp;
+	Ironman * m_pCharacter;
 };
 

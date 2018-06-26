@@ -16,6 +16,7 @@ SceneObjMap::~SceneObjMap()
 {
 	OnDestructIScene();
 	//SAFE_RELEASE(m_pObjMAp);
+	//SAFE_RELEASE(m_pAseCharacter);
 }
 
 void SceneObjMap::Init()
@@ -37,12 +38,10 @@ void SceneObjMap::Init()
 
 	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
 	D3DXVec3Normalize(&dir, & dir);
-
 	//씬 비추는 조명 설정하기
 	D3DLIGHT9 light = DXUtil::InitDirectional(&dir,  & WHITE);
 	g_pDevice->SetLight(0, &light);
 	g_pDevice->LightEnable(0, true);
-
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	//왜곡 줄이기, 맵이 밝아지는 효과가 생기네?!
 	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
