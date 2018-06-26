@@ -146,11 +146,10 @@ STDMETHODIMP AllocateHierarchy::DestroyMeshContainer(THIS_ LPD3DXMESHCONTAINER p
 	SAFE_RELEASE(pMeshContainerEx->pWorkMesh);
 
 	//텍스쳐 사이즈 조심하기
-	//for (auto p : pMeshContainerEx->vecMtlTex)
-	//{
-	//	SAFE_RELEASE(p);
-	//}
-	//pMeshContainerEx->vecMtlTex;
+	for (int i = 0 ; i <  pMeshContainerEx->vecMtlTex.size();  i++)
+	{
+		SAFE_RELEASE(pMeshContainerEx->vecMtlTex[i]);
+	}
 
 	SAFE_DELETE_ARRAY(pMeshContainerEx->ppBoneMatrixPtrs);
 	SAFE_DELETE_ARRAY(pMeshContainerEx->pBoneOffsetMatrices);

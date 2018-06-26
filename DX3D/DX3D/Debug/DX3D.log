@@ -1,6 +1,7 @@
 ﻿  Application.cpp
   AllocateHierarchy.cpp
 d:\sga_direct_team\dx3d\dx3d\allocatehierarchy.cpp(10): warning C4316: 'FRAME_EX': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\allocatehierarchy.cpp(149): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
