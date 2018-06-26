@@ -160,6 +160,7 @@
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStarNode.h" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="BloodEffect.h" />
     <ClInclude Include="BloodManager.h" />
     <ClInclude Include="BloodParticle.h" />
     <ClInclude Include="BoundingBox.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="BloodEffect.cpp" />
     <ClCompile Include="BloodManager.cpp" />
     <ClCompile Include="BloodParticle.cpp" />
     <ClCompile Include="BoundingBox.cpp" />

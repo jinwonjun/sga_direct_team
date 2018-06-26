@@ -51,8 +51,9 @@ void Camera::Init()
 	GetClientRect(g_hWnd, &clientRect);
 	mCenter = { clientRect.right / 2 , clientRect.bottom / 2 };
 
-	mLimitX = 100.f;
-	mLimitY = 100.f;
+	//현재 화면보다 살짝 작게
+	mLimitX = clientRect.right / 2 - 10;
+	mLimitY = clientRect.bottom / 2 - 10;
 	mRCCollCheck = false;
 	//마우스 이동 제한 할 렉트
 	mRc = { mCenter.x - (LONG)mLimitX, mCenter.y - (LONG)mLimitY, mCenter.x + (LONG)mLimitX, mCenter.y + (LONG)mLimitY };
@@ -202,7 +203,7 @@ void Camera::Update()
 	else
 
 	{
-		ShowCursor(false);
+		ShowCursor(true);
 	}
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);

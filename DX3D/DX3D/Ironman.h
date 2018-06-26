@@ -3,6 +3,7 @@
 
 class SkinnedMesh;
 class BoundingBox;
+class BloodEffect;
 
 class Ironman :
 	public IUnitObject
@@ -23,6 +24,8 @@ public:
 	SkinnedMesh * m_pSkinnedMesh;
 
 	BoundingBox* GetBoundingBox() { return m_pBox; }
+
+	BloodEffect* m_pBlood;
 
 	D3DXVECTOR3 BloodCalPos;
 

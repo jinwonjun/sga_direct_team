@@ -55,14 +55,15 @@ void BloodParticle::Init()
 
 	playTime = 0.f;
 	fire = false;
-	tempPos = D3DXVECTOR3(0, 0, 0);
+	firePos = D3DXVECTOR3(0, 0, 0);
+	fireDir = D3DXVECTOR3(0, 0, 0);
 }
 
 void BloodParticle::Update()
 {
 	if (fire) //피격했을때 활성화 온
 	{
-		playTime += 0.01f;
+		playTime += 0.02f;
 
 		for (size_t i = 0; i < m_vecAtt.size(); i++)
 		{
@@ -72,10 +73,19 @@ void BloodParticle::Update()
 			//m_vecAtt[i]->_position.z = m_vecAtt[i]->_position.y * 10.f * sinf(m_vecAtt[i]->_angle);
 			//m_vecAtt[i]->_color.a -= 0.001f;
 
-			m_vecAtt[i]->_position.x = playTime * cosf(m_vecAtt[i]->_angle);
 			//경사도 * time * (time + 확장도)
-			m_vecAtt[i]->_position.y = -8.f * playTime * (playTime + m_vecAtt[i]->_expand);
-			m_vecAtt[i]->_position.z = playTime * sinf(m_vecAtt[i]->_angle);
+			m_vecAtt[i]->_position.y = -8.f * playTime * (playTime - m_vecAtt[i]->_expand);
+
+			if (i < 20)
+			{
+				m_vecAtt[i]->_position.x = 2 * playTime * cosf(m_vecAtt[i]->_angle);
+				m_vecAtt[i]->_position.z = 2 * playTime * sinf(m_vecAtt[i]->_angle);
+			}
+			else
+			{
+				m_vecAtt[i]->_position.x = playTime * cosf(m_vecAtt[i]->_angle);
+				m_vecAtt[i]->_position.z = playTime * sinf(m_vecAtt[i]->_angle);
+			}
 		}
 
 		VERTEX_PC* v;
@@ -90,7 +100,7 @@ void BloodParticle::Update()
 		m_pVB->Unlock();
 
 		//시간지났을떄 처리
-		if (playTime > .8f)
+		if (playTime > 1.6f)
 		{
 			playTime = 0.f;
 			fire = false;
@@ -115,12 +125,14 @@ void BloodParticle::Render()
 			D3DXMatrixScaling(&matS, Scales[i], Scales[i], Scales[i]);
 
 			//눈에 잘보이게 테스트용
-			D3DXMatrixScaling(&matS, 10, 10, 10);
+			float tempS = 3.f;
+			D3DXMatrixScaling(&matS, tempS, tempS, tempS);
 
 			D3DXMatrixTranslation(&mat, p->_position.x, p->_position.y, p->_position.z);
 
 			//시작위치 이동
-			D3DXMatrixTranslation(&matT, tempPos.x, tempPos.y, tempPos.z);
+			float tempPower = 5.f;
+			D3DXMatrixTranslation(&matT, firePos.x + tempPower * playTime * fireDir.x, firePos.y + tempPower * playTime * fireDir.y, firePos.z + tempPower * playTime * fireDir.z);
 			mat = matS * matT * mat;
 			g_pDevice->SetTransform(D3DTS_WORLD, &mat);
 			m_pMesh->DrawSubset(0);
