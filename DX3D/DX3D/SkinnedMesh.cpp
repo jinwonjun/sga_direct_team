@@ -100,9 +100,9 @@ void SkinnedMesh::Update()
 	Debug->EndLine();
 
 	//X파일 위치 및 스케일 조정부분.
-	m_matWorld = static_cast <Ironman *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->ApplyMatWorld;
+
+	SetWorldMatrix( &(static_cast <Ironman *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->ApplyMatWorld));
 	
-		
 	SetAnimationIndex(status, true);
 
 	UpdateAnim();

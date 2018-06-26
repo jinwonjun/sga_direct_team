@@ -44,9 +44,8 @@ public:
 	LPD3DXANIMATIONCONTROLLER GetAnimationController() {return m_pAnimController;}
 	
 	int status;
-
-
-
+	//m_matWorld값을 이 함수를 통해서 바꿔주자.
+	void SetWorldMatrix(D3DXMATRIXA16* matW) { m_matWorld = *matW; }
 };
 
 // OnInit

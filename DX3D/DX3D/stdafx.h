@@ -38,13 +38,11 @@ using std::to_string;
 
 
 extern HWND g_hWnd;
-
+#include "BaseObject.h"
+#include "GlobalDefinition.h"
 #include "Mouse.h"
 #include "Keyboard.h"
-
-#include "BaseObject.h"
 #include "Application.h"
-#include "GlobalDefinition.h"
 
 
 //조명 헤더 추가하기
@@ -75,6 +73,20 @@ extern HWND g_hWnd;
 #include "ObjManager.h"
 #include "FontManager.h"
 
-#define WINSIZEX 1560
-#define WINSIZEY 990
+//#define WINSIZEX 1560
+//#define WINSIZEY 990
 
+//
+//#define WINSIZEX 960
+//#define WINSIZEY 540
+//
+#define WINSIZEX 1600
+#define WINSIZEY 900
+
+//#define WINSIZEX 1920
+//#define WINSIZEY 1080
+
+
+
+#define OriginX 1584
+#define OriginY 841
