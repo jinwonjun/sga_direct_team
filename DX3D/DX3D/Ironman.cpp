@@ -7,7 +7,7 @@
 #include "Ray.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
-
+#include "BloodEffect.h"
 
 #define SCALE 0.05f
 
@@ -31,7 +31,7 @@ Ironman::Ironman()
 Ironman::~Ironman()
 {
 	SAFE_RELEASE(m_pBox);
-	
+	SAFE_RELEASE(m_pBlood);
 
 	m_pSkinnedMesh->~SkinnedMesh();
 }
@@ -49,6 +49,8 @@ void Ironman::Init()
 	m_pSkinnedMesh->Load(path, filename);
 
 	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
+
+	m_pBlood = new BloodEffect(); m_pBlood->Init();
 
 	//위치 초기화
 	BloodCalPos = D3DXVECTOR3(0, 0, 0);
@@ -121,6 +123,9 @@ void Ironman::Update()
 
 	Shoot();
 
+	//혈흔
+	SAFE_UPDATE(m_pBlood);
+
 	//해제하기
 	pCurrAnimSet->Release();
 }
@@ -128,6 +133,7 @@ void Ironman::Update()
 void Ironman::Render()
 {
 	SAFE_RENDER(m_pSkinnedMesh);
+	SAFE_RENDER(m_pBlood);
 }
 
 void Ironman::Shoot()
@@ -160,7 +166,9 @@ void Ironman::Shoot()
 			if (sphere != NULL)
 			{
 				p->MinusHP();
-				static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
+				m_pBlood->Fire(BloodCalPos, -m_forward);
+
+				//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
 				break;
 			}
 		}

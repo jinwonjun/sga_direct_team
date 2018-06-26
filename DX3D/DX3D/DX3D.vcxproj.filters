@@ -333,9 +333,6 @@
     <ClInclude Include="Enemyman.h">
       <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClInclude>
-    <ClInclude Include="BloodManager.h">
-      <Filter>소스 파일\%28E%29PARTICLE</Filter>
-    </ClInclude>
     <ClInclude Include="BloodParticle.h">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
@@ -359,6 +356,9 @@
     </ClInclude>
     <ClInclude Include="Ironman.h">
       <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodEffect.h">
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -557,9 +557,6 @@
     <ClCompile Include="SkinnedMesh.cpp">
       <Filter>소스 파일\%28R%29X_READ</Filter>
     </ClCompile>
-    <ClCompile Include="BloodManager.cpp">
-      <Filter>소스 파일\%28E%29PARTICLE</Filter>
-    </ClCompile>
     <ClCompile Include="BloodParticle.cpp">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
@@ -583,6 +580,9 @@
     </ClCompile>
     <ClCompile Include="Ironman.cpp">
       <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodEffect.cpp">
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

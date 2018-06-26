@@ -11,7 +11,6 @@ class Frustum;
 class SkyBox;
 class HeightMap;
 class EnemyManager;
-
 class Ironman;
 
 class SceneGrid : public IScene
@@ -68,6 +67,6 @@ public:
 
 	Ironman * m_pCharacter;
 
-	BloodManager * m_pBloodMgr;
+	
 };
 
