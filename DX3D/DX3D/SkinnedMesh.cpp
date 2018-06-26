@@ -18,7 +18,6 @@ SkinnedMesh::SkinnedMesh()
 	m_bDrawFrame = true;
 	m_bDrawSkeleton = false;
 
-	status = 4;
 }
 
 SkinnedMesh::~SkinnedMesh()
@@ -100,61 +99,11 @@ void SkinnedMesh::Update()
 	Debug->AddText((int)m_pAnimController->GetMaxNumAnimationSets());
 	Debug->EndLine();
 
+	//X파일 위치 및 스케일 조정부분.
+	AnimationModify();
+	
 	SetAnimationIndex(status, true);
 
-	//인덱스4 = 기본상태 , 3 = 점프, 2 = 뒷무빙, 1 = 앞 뛰기 0 = 레이저 쏘기
-
-	//if (Keyboard::Get()->KeyDown('1'))//1
-	//{
-	//	if (m_animIndex < m_pAnimController->GetMaxNumAnimationSets() - 1)
-	//		m_animIndex++;
-
-	//	SetAnimationIndex(m_animIndex, true);
-	//}
-
-	//방향키 가라치기, 휴면상태, idle 만들기
-
-	//if (Keyboard::Get()->KeyPress('W'))
-	//{
-	//	//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
-	//	SetAnimationIndex(1, true);
-	//}
-	//else if (Keyboard::Get()->KeyPress('S'))
-	//{
-	//	SetAnimationIndex(2, true);
-	//}
-	//else if (Keyboard::Get()->KeyPress(VK_SPACE))
-	//{
-	//	SetAnimationIndex(3, true);
-	//}
-	////Keyboard::Get()->KeyDown('2') ||
-	//else if ( Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
-	//{
-	//	//if (m_animIndex > 0)//0
-	//		//m_animIndex--;
-	//	SetAnimationIndex(0, true);
-	//}
-	
-	//else if (Keyboard::Get()->KeyDown(VK_F1))
-	//{
-	//	m_bDrawFrame = !m_bDrawFrame;
-	//}
-	//else if (Keyboard::Get()->KeyDown(VK_F2))
-	//{
-	//	m_bDrawSkeleton = !m_bDrawSkeleton;
-	//}
-	//else if (Keyboard::Get()->KeyDown(VK_F3))
-	//{
-	//	m_bWireFrame = !m_bWireFrame;
-	//}
-	//else//idle상태 만들기
-	//{
-	//	SetAnimationIndex(4, true);
-
-	//}
-	//아이언맨의 계산된 월드 행렬을 가져오자
-	m_matWorld = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->ApplyMatWorld;
-	
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
 }
@@ -291,6 +240,8 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 	pMeshContainerEx->pOrigMesh->UnlockVertexBuffer();
 
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+	//왜곡 줄이기, 맵이 밝아지는 효과가 생기네?!
+	//g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 
 	if (m_bWireFrame)
 		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
@@ -357,7 +308,7 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 	m_pAnimController->GetAnimationSet(nIndex, &pNextAnimSet);
 
 	//트랙 자체의 속도를 빠르게하는 기능
-	//m_pAnimController->SetTrackSpeed(0, 5.f);
+	//m_pAnimController->SetTrackSpeed(0, 0.05f);
 	//isBlend = false;
 	if (isBlend)
 	{
@@ -385,3 +336,88 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 
 	SAFE_RELEASE(pNextAnimSet);
 }
+
+void SkinnedMesh::AnimationModify()
+{
+	//조건 값을 어떻게 걸어야하지???
+	if (g_pObjMgr->FindObjectByTag(TAG_PLAYER))
+	{
+		//아이언맨의 계산된 월드 행렬을 가져오자
+		D3DXMATRIXA16 matRotY, matT, matR, matS;
+		//, matRotX, matRot, m_matWorld;
+
+		D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
+		//D3DXMatrixRotationX(&matRotX, m_rot.x);
+		//matRot = matRotY * matRotX;
+		//D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+		D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
+		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+		D3DXMatrixRotationY(&matR, D3DX_PI);
+		float SCALE = 0.05f;
+		D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+
+		m_matWorld = matS * matRotY* matR * matT;
+	}
+	else if (g_pObjMgr->FindObjectByTag(TAG_ENEMY))
+	{
+		/*D3DXMATRIXA16 matRotY, matT, matR, matS;
+		float SCALE = 3.00f;
+		D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+		m_matWorld = matS * matRotY* matR * matT;*/
+	}
+
+}
+
+
+
+//업데이트 부분 setAnimation 개량부분
+//인덱스4 = 기본상태 , 3 = 점프, 2 = 뒷무빙, 1 = 앞 뛰기 0 = 레이저 쏘기
+
+//if (Keyboard::Get()->KeyDown('1'))//1
+//{
+//	if (m_animIndex < m_pAnimController->GetMaxNumAnimationSets() - 1)
+//		m_animIndex++;
+
+//	SetAnimationIndex(m_animIndex, true);
+//}
+
+//방향키 가라치기, 휴면상태, idle 만들기
+
+//if (Keyboard::Get()->KeyPress('W'))
+//{
+//	//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
+//	SetAnimationIndex(1, true);
+//}
+//else if (Keyboard::Get()->KeyPress('S'))
+//{
+//	SetAnimationIndex(2, true);
+//}
+//else if (Keyboard::Get()->KeyPress(VK_SPACE))
+//{
+//	SetAnimationIndex(3, true);
+//}
+////Keyboard::Get()->KeyDown('2') ||
+//else if ( Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
+//{
+//	//if (m_animIndex > 0)//0
+//		//m_animIndex--;
+//	SetAnimationIndex(0, true);
+//}
+
+//else if (Keyboard::Get()->KeyDown(VK_F1))
+//{
+//	m_bDrawFrame = !m_bDrawFrame;
+//}
+//else if (Keyboard::Get()->KeyDown(VK_F2))
+//{
+//	m_bDrawSkeleton = !m_bDrawSkeleton;
+//}
+//else if (Keyboard::Get()->KeyDown(VK_F3))
+//{
+//	m_bWireFrame = !m_bWireFrame;
+//}
+//else//idle상태 만들기
+//{
+//	SetAnimationIndex(4, true);
+
+//}

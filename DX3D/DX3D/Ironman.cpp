@@ -51,11 +51,12 @@ void Ironman::Init()
 	BloodCalPos = D3DXVECTOR3(0, 0, 0);
 
 	D3DXMatrixIdentity(&ApplyMatWorld);
-
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
+
+	keyPress = false;
 }
 
 void Ironman::Update()
@@ -65,39 +66,6 @@ void Ironman::Update()
 	IUnitObject::UpdatePosition();
 
 	SAFE_UPDATE(m_pSkinnedMesh);
-
-	if (Keyboard::Get()->KeyPress('W'))
-	{
-		//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
-		m_pSkinnedMesh->status =  1;
-	}
-	else if (Keyboard::Get()->KeyPress('S'))
-	{
-		m_pSkinnedMesh->status = 2;
-	}
-	else if (Keyboard::Get()->KeyPress(VK_SPACE))
-	{
-		m_pSkinnedMesh->status = 3;
-	}
-	//Keyboard::Get()->KeyDown('2') ||
-	else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
-	{
-		//if (m_animIndex > 0)//0
-		//m_animIndex--;
-		m_pSkinnedMesh->status = 0;
-	}
-	else//idle상태 만들기
-	{
-		m_pSkinnedMesh->status = 4;
-	}
-
-	m_pBox->Update();
-	m_pBox->SetPosition(&m_pos);
-
-	//위치 계산하기
-	AnimationModify();
-
-	Shoot();
 
 	D3DXTRACK_DESC track;
 	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
@@ -114,6 +82,38 @@ void Ironman::Update()
 	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
 	Debug->EndLine();
 	Debug->EndLine();
+
+	if (Keyboard::Get()->KeyPress('W'))
+	{
+		m_pSkinnedMesh->status =  1;
+	}
+
+	else if (Keyboard::Get()->KeyPress('S'))
+	{
+		m_pSkinnedMesh->status = 2;
+	}
+	else if (Keyboard::Get()->KeyPress(VK_SPACE))
+	{
+		m_pSkinnedMesh->status = 3;
+	}
+	else if (Mouse::Get()->ButtonPress(Mouse::Get()->LBUTTON))
+	{
+		//if (m_animIndex > 0)//0
+		//m_animIndex--;
+		m_pSkinnedMesh->status = 0;
+	}
+
+	else//idle상태 만들기
+	{
+		m_pSkinnedMesh->status = 4;
+	}
+
+	m_pBox->Update();
+	m_pBox->SetPosition(&m_pos);
+
+	Shoot();
+
+	//해제하기
 	pCurrAnimSet->Release();
 }
 
@@ -124,14 +124,6 @@ void Ironman::Render()
 
 void Ironman::Shoot()
 {
-	Debug->AddText("화면좌표 x : ");
-	Debug->AddText(g_pCamera->GetMCenter().x);
-	Debug->AddText("  y : ");
-	Debug->AddText(g_pCamera->GetMCenter().y);
-	Debug->EndLine();
-	Debug->EndLine();
-
-
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
@@ -171,19 +163,3 @@ void Ironman::Shoot()
 	Debug->EndLine();
 }
 
-void Ironman::AnimationModify()
-{
-	D3DXMATRIXA16 matRotY, matRotX, matRot, m_matWorldT;
-	D3DXMatrixRotationY(&matRotY, m_rot.y);
-	D3DXMatrixRotationX(&matRotX, m_rot.x);
-	matRot = matRotY * matRotX;
-
-	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
-	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixRotationY(&matR, D3DX_PI);
-	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
-
-	m_matWorld = matS * matRotY* matR * matT;
-
-	ApplyMatWorld = m_matWorld;
-}

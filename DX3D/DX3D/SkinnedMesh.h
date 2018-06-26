@@ -1,6 +1,5 @@
 #pragma once
 
-//: public IUnitObject
 class SkinnedMesh 
 {
 protected:
@@ -45,6 +44,10 @@ public:
 	LPD3DXANIMATIONCONTROLLER GetAnimationController() {return m_pAnimController;}
 	
 	int status;
+
+
+	void AnimationModify();//X파일 위치 및 스케일 조정부분.
+
 };
 
 // OnInit
