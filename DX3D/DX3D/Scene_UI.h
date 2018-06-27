@@ -4,6 +4,7 @@
 class ObjMap;
 class Ironman;
 class EnemyManager;
+class Inventory;
 
 class Scene_UI : public IScene
 {
@@ -23,5 +24,6 @@ public:
 	ObjMap * m_pObjMAp;
 	Ironman * m_pCharacter;
 	EnemyManager * m_pEm;
+	Inventory * m_pInventory;
 };
 

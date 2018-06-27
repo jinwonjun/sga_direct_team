@@ -9,6 +9,8 @@
 #include "EnemyManager.h"
 #include "Enemy.h"
 
+#include "Inventory.h"
+
 Scene_UI::Scene_UI()
 {
 }
@@ -37,6 +39,10 @@ void Scene_UI::Init()
 	m_pEm = new EnemyManager();
 	m_pEm->Init();
 	AddSimpleDisplayObj(m_pEm);
+
+	m_pInventory = new Inventory();
+	m_pInventory->Init();
+	AddSimpleDisplayObj(m_pInventory);
 
 	//빛이 중요해
 	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);

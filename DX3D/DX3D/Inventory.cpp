@@ -305,9 +305,6 @@ void Inventory::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex_MouseCursor_ClickedOn);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-
-
-
 										  // 렌더에서 가져 온 것들  // 이미지 정보를 바로 위에 있는 친구들한테
 										  //받기 때문에 D3DXCreateTextureFromFileEx 보다 아래에 있어야 한다.
 
@@ -523,9 +520,7 @@ void Inventory::Update()
 			}
 		}
 
-
 		// 아이템 드래그해서 욺직이게 하는 친구들 //
-
 
 		else if (g_pMouse->ButtonPress(Mouse::LBUTTON))
 		{
@@ -533,22 +528,7 @@ void Inventory::Update()
 			{
 				CrossX = (RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).x - INVENITEMSTART_X) / ItemSizeX;
 				VertiY = (RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).y - INVENITEMSTART_Y) / ItemSizeY;
-
-				for (int j = 0; j < INVENVERTI; j++)
-				{
-					for (int i = 0; i < INVENCORSS; i++)
-					{
-
-						InvenArray[i][j].isInvenOn = false;
-						InvenArray[CrossX][VertiY].isInvenOn = true;
-					}
-				}
-
-
-
-
-
-
+				
 				if (InvenArray[preChosenX][preChosenY].isClicked)
 				{
 					InvenArray[preChosenX][preChosenY].PositionX = mousePoint.x - 30;
@@ -562,6 +542,34 @@ void Inventory::Update()
 				}
 				else
 				{
+
+				}
+
+				if (((RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).x - INVENITEMSTART_X) >= 0 
+					&& (RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).y >= 0) 
+					&& (CrossX <= 5 && VertiY <= 3)))
+				{
+					for (int j = 0; j < INVENVERTI; j++)
+					{
+						for (int i = 0; i < INVENCORSS; i++)
+						{
+
+							InvenArray[i][j].isInvenOn = false;
+							InvenArray[CrossX][VertiY].isInvenOn = true;
+						}
+					}
+				}				
+				else 
+				{
+					for (int j = 0; j < INVENVERTI; j++)
+					{
+						for (int i = 0; i < INVENCORSS; i++)
+						{
+
+							InvenArray[i][j].isInvenOn = false;
+							//InvenArray[CrossX][VertiY].isInvenOn = false;
+						}
+					}
 
 				}
 
@@ -583,7 +591,7 @@ void Inventory::Update()
 				InvenArray[preChosenX][preChosenY].isInvenOn = false;
 				InvenArray[CrossX][VertiY].isInvenOn = false;
 
-				if (CrossX >= 0 && VertiY >= 0)
+				if ((CrossX >= 0 && VertiY >= 0 ) && (CrossX <= 5 && VertiY <= 3))
 				{
 
 
@@ -632,6 +640,7 @@ void Inventory::Update()
 					}
 
 				}//(CrossX >= 0 && VertiY >= 0) 끝
+				
 
 				else // 아이템이 인벤토리 영역 밖으로 나갔을때 처리 
 				{
@@ -639,6 +648,7 @@ void Inventory::Update()
 					{
 						for (int i = 0; i < INVENCORSS; i++)
 						{
+							
 							InvenArray[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i) * Adjust_Display_Mode_X;
 							InvenArray[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j)* Adjust_Display_Mode_X;
 						}
@@ -661,10 +671,6 @@ void Inventory::Update()
 				}
 			}
 		}
-
-
-
-
 	} // OpenInve 끝
 	Debug->AddText(mousePoint.x);
 	Debug->EndLine();
@@ -677,28 +683,9 @@ void Inventory::Render()
 {
 	g_pDevice->SetTexture(0, NULL);
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-
-
-
-
-
-
-	//D3DXMATRIXA16 matR, matT, matWorld;
-	//D3DXMATRIXA16 matS;
-	//static float fAngle = 0.0f;
-
+	
 	if (openInven)
-	{
-
-
-
-		//m_pSprite->SetTransform(&m_matWorld);		
-
-		//Inventory
-
-		// m_rc_Inventory = temp1;
-
-
+	{		
 		//인벤토리 == 나중에 살릴  것 ====
 		//===========================
 		SetRect(&m_rc_Inventory, 0, 0, m_image_Inventory_info.Width, m_image_Inventory_info.Height);
@@ -781,6 +768,34 @@ void Inventory::Render()
 		//윈도우 기준이 아닌, 스크린기준으로 되어있엉
 		static float fAngle = 0.0f;
 
+		for (int j = 0; j < INVENVERTI; j++)
+		{
+
+			for (int i = 0; i < INVENCORSS; i++)
+			{
+				if (InvenArray[i][j].isInvenOn)
+				{
+
+					SetRect(&InvenArray[i][j].isInven_rc, 0, 0, InvenArray[i][j].m_image_InvenOn_Info.Width, InvenArray[i][j].m_image_InvenOn_Info.Height);
+					SetRect(&InvenArray[i][j].isInven_show_rc,
+						InvenArray[i][j].PositionX + 2,
+						InvenArray[i][j].PositionY,
+						InvenArray[i][j].PositionX + 2 + ((InvenArray[i][j].m_image_InvenOn_Info.Width)*(InvenArray[i][j].ScaleX)),
+						InvenArray[i][j].PositionY + ((InvenArray[i][j].m_image_InvenOn_Info.Height)*(InvenArray[i][j].ScaleY)));
+
+					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+					m_pSprite->SetTransform(&matWorld_InvenItems[i + j * 6]);
+
+					m_pSprite->Draw(
+						InvenArray[i][j].m_pTex_InvenOn,
+						&InvenArray[i][j].isInven_rc,
+						&D3DXVECTOR3(0, 0, 0),
+						&D3DXVECTOR3(0, 0, 0),
+						WHITE);
+
+				}
+			}
+		}
 
 		for (int j = 0; j < INVENVERTI; j++)
 		{
@@ -826,34 +841,7 @@ void Inventory::Render()
 			}
 		}
 
-		for (int j = 0; j < INVENVERTI; j++)
-		{
-
-			for (int i = 0; i < INVENCORSS; i++)
-			{
-				if (InvenArray[i][j].isInvenOn)
-				{
-
-					SetRect(&InvenArray[i][j].isInven_rc, 0, 0, InvenArray[i][j].m_image_InvenOn_Info.Width, InvenArray[i][j].m_image_InvenOn_Info.Height);
-					SetRect(&InvenArray[i][j].isInven_show_rc,
-						InvenArray[i][j].PositionX + 2,
-						InvenArray[i][j].PositionY,
-						InvenArray[i][j].PositionX + 2 + ((InvenArray[i][j].m_image_InvenOn_Info.Width)*(InvenArray[i][j].ScaleX)),
-						InvenArray[i][j].PositionY + ((InvenArray[i][j].m_image_InvenOn_Info.Height)*(InvenArray[i][j].ScaleY)));
-
-					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-					m_pSprite->SetTransform(&matWorld_InvenItems[i + j * 6]);
-
-					m_pSprite->Draw(
-						InvenArray[i][j].m_pTex_InvenOn,
-						&InvenArray[i][j].isInven_rc,
-						&D3DXVECTOR3(0, 0, 0),
-						&D3DXVECTOR3(0, 0, 0),
-						WHITE);
-
-				}
-			}
-		}
+		
 
 		SetRect(&Shop_Item[0].Click_rc, Shop_Item[0].PositionX
 			, Shop_Item[0].PositionY
@@ -1004,29 +992,5 @@ items Inventory::addIndex(items a)
 
 void Inventory::MovingItem(items *a, items* b)
 {
-
-
-
-	a;
-	b;
-
 	swap(a, b);
-
-	a;
-	b;
-
-}
-
-void Inventory::ExMovingItem(items * b)
-{
-
-
-}
-
-items Inventory::moveItems(items a)
-{
-
-
-
-	return items();
 }

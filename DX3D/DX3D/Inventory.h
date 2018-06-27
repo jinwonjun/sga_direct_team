@@ -186,8 +186,6 @@ public:
 	items addIndex(items a); // 인벤토리에 아이템 넣기
 
 	void MovingItem(items* a, items* b); // 인벤토리 내에서 아이템 옮기기 하지만 실패 ...
-	void ExMovingItem(items* a); // 둘 곳에 있던 아이템
-	items moveItems(items a);// 아이템 이동이긴 한데...
-
+	
 };
 

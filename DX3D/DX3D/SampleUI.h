@@ -4,6 +4,18 @@
 
 class IUIObject;
 
+struct HUD_Ui
+{
+
+	RECT m_Image_rc;
+	RECT m_Sacle_rc;
+
+	LPDIRECT3DTEXTURE9 m_pTex;
+	D3DXIMAGE_INFO m_imageInfo;
+};
+
+
+
 class SampleUI :public IDisplayObject, public IUIButtonDelegate
 {
 private:
