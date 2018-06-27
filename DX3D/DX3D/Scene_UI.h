@@ -3,6 +3,7 @@
 
 class ObjMap;
 class Ironman;
+class EnemyManager;
 
 class Scene_UI : public IScene
 {
@@ -16,9 +17,11 @@ public:
 	virtual void Render() override;
 	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
+	void BoundingCheck();
 
 	IDisplayObject *pObj;
 	ObjMap * m_pObjMAp;
 	Ironman * m_pCharacter;
+	EnemyManager * m_pEm;
 };
 

@@ -4,32 +4,32 @@
 #include "BoundingBox.h"
 
 class BoundingBox;
-class ObjLoader;
-class DrawingGroup;
+class SkinnedMesh;
 
 class Enemy : public IUnitObject
 {
-private :
+private:
 	friend class EnemyManager;
 
-	vector<VERTEX_PC>		m_vecVertex;
-	vector<WORD>			m_vecIndex;
-	LPDIRECT3DVERTEXBUFFER9	m_pVB;
-	LPDIRECT3DINDEXBUFFER9	m_pIB;
-	D3DVERTEXBUFFER_DESC	m_VBDesc;
-	D3DINDEXBUFFER_DESC		m_IBDesc;
+	CString					m_path;
+	CString					m_filename;
+
+	D3DXMATRIXA16			matT, matS, matR;
 
 	BoundingBox*			m_pBox;
 
 	BoundingSphere*			m_pBounidngSphere;
-	LPD3DXMESH				m_pSphere;
+	LPD3DXMESH				m_pSphereMesh;
 
-	vector<DrawingGroup * > m_vecDrawingGroup;
+	SkinnedMesh*			m_pSkinnedMesh;
 
-	int					m_HP;
-	float				m_radius;
+	int						m_HP;
+	float					m_radius;
+
+	D3DXMATRIXA16			m_SphereMat;
+	float					m_SphereHeight;
 public:
-	Enemy(D3DXVECTOR3& pos);
+	Enemy(D3DXVECTOR3& pos, CString path, CString fileName);
 	virtual ~Enemy();
 
 	// IDisplayObject을(를) 통해 상속됨
@@ -38,13 +38,17 @@ public:
 	virtual void Render() override;
 
 	void InitVertex();
-	void SetVertex(vector<VERTEX_PC> &vecVertexOut,	vector<WORD> &vecIndexOut, vector<D3DXVECTOR3> vecPos);
+	void SetVertex(vector<VERTEX_PC> &vecVertexOut, vector<WORD> &vecIndexOut, vector<D3DXVECTOR3> vecPos);
 	void SetBuffer(LPDIRECT3DVERTEXBUFFER9 &pVb, LPDIRECT3DINDEXBUFFER9 &pIb, vector<VERTEX_PC> &vecVertex, vector<WORD> &vecIndex);
 
 	void UpdatePosition();
 	void SetDestPos(D3DXVECTOR3& pos);
 	void MoveStop();
+	int  GetHP() { return m_HP; }
 	void MinusHP() { m_HP--; }
+
+	D3DXMATRIXA16 ApplyMatWorld;//스킨매쉬에서 그리는 월드 행렬값을 여기서 가져오자.
+	void AnimationModify();//X파일 위치 및 스케일 조정부분.
 
 	BoundingBox*	GetBoundingBox() { return m_pBox; }
 	BoundingSphere*	GetSphere() { return m_pBounidngSphere; }

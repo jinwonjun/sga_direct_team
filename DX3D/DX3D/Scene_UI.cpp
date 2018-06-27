@@ -6,6 +6,8 @@
 #include "ObjMap.h"
 #include "Ironman.h"
 
+#include "EnemyManager.h"
+#include "Enemy.h"
 
 Scene_UI::Scene_UI()
 {
@@ -28,10 +30,13 @@ void Scene_UI::Init()
 	//객체를 생성했으면 객체 추가 함수를 호출하자
 	AddSimpleDisplayObj(m_pObjMAp);
 
-
 	m_pCharacter = new Ironman;
 	m_pCharacter->Init();
 	AddSimpleDisplayObj(m_pCharacter);
+
+	m_pEm = new EnemyManager();
+	m_pEm->Init();
+	AddSimpleDisplayObj(m_pEm);
 
 	//빛이 중요해
 	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
@@ -48,6 +53,7 @@ void Scene_UI::Init()
 void Scene_UI::Update()
 {
 	OnUpdateIScene();
+	BoundingCheck();
 }
 
 void Scene_UI::Render()
@@ -57,4 +63,24 @@ void Scene_UI::Render()
 
 void Scene_UI::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+}
+
+void Scene_UI::BoundingCheck()
+{
+
+	Ironman* PlayerObj = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
+	EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+
+	for (auto p : EnemyObj->GetVecEnemy())
+	{
+		BoundingBox* pEnemyBox = p->GetBoundingBox();
+		if (PlayerObj->GetBoundingBox()->IsIntersected(*pEnemyBox))
+		{
+			p->SetDestPos(PlayerObj->GetPosition());
+		}
+		else
+		{
+			p->MoveStop();
+		}
+	}
 }

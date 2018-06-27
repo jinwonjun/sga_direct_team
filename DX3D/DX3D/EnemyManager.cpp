@@ -17,10 +17,11 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Init(void)
 {
-	AddEnemy(D3DXVECTOR3(20, 0, 30));
-	AddEnemy(D3DXVECTOR3(45, 0, 20));
-	AddEnemy(D3DXVECTOR3(100, 0, 70));
-	AddEnemy(D3DXVECTOR3(145, 0, 90));
+	AddEnemy(D3DXVECTOR3(20, 0, 30), "resources/zealot/", "zealot.X");
+	//AddEnemy(D3DXVECTOR3(45, 0, 20), "resources/zealot/", "zealot.X");
+	//AddEnemy(D3DXVECTOR3(100, 0, 70), "resources/zealot/", "zealot.X");
+	//AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X");
+	//AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X");
 
 	g_pObjMgr->AddToTagList(TAG_ENEMY, this);
 }
@@ -44,8 +45,8 @@ void EnemyManager::Render(void)
 	}
 }
 
-void EnemyManager::AddEnemy(D3DXVECTOR3 & pos)
+void EnemyManager::AddEnemy(D3DXVECTOR3 & pos, CString path, CString fileName)
 {
-	Enemy* pEnemy = new Enemy(pos); pEnemy->Init();
+	Enemy* pEnemy = new Enemy(pos, path, fileName); pEnemy->Init();
 	m_vecEnemy.push_back(pEnemy);
 }

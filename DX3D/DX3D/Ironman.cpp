@@ -147,8 +147,10 @@ void Ironman::Shoot()
 		float intersectionDistance;
 		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
 		BoundingSphere* temp = NULL;
+		Enemy* tempEnemy = NULL;
 		for (auto p : em->GetVecEnemy())
 		{
+			if (p->GetHP() <= 0) continue;
 			temp = p->GetSphere();
 			if (r.CalcIntersectSphere(temp) == true)
 			{
@@ -158,19 +160,20 @@ void Ironman::Shoot()
 				if (intersectionDistance < minDistance)
 				{
 					minDistance = intersectionDistance;
-					sphere = temp;
+					//sphere = temp;
+					tempEnemy = p;
 				}
 				//거리 보정 위치값 찾기
-				BloodCalPos = r.m_dir * (intersectionDistance - temp->radius) + r.m_pos;
+				BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 			}
-			if (sphere != NULL)
-			{
-				p->MinusHP();
-				m_pBlood->Fire(BloodCalPos, -m_forward);
+		}
 
-				//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
-				break;
-			}
+		if (tempEnemy != NULL)
+		{
+			tempEnemy->MinusHP();
+			m_pBlood->Fire(BloodCalPos, -m_forward);
+			//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
+			//break;
 		}
 	}
 	Debug->AddText("힛트계산 위치 : ");
@@ -196,5 +199,8 @@ void Ironman::AnimationModify()
 	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
 
 	m_matWorld = matS * matRotY* matR * matT;
+
+	//skinnedMesh에서 X파일 위치 및 스케일 조정부분.
+	m_pSkinnedMesh->SetWorldMatrix(&m_matWorld);
 }
 

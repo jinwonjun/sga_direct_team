@@ -100,7 +100,8 @@ void SkinnedMesh::Update()
 	Debug->EndLine();
 
 	//X파일 위치 및 스케일 조정부분.
-	SetWorldMatrix( &((g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetWorldMatrix()));
+	//이 부분 ironman AnimationModify()로 옮겼습니다!
+	//SetWorldMatrix( &((g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetWorldMatrix()));
 	
 	SetAnimationIndex(status, true);
 

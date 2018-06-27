@@ -6,7 +6,7 @@
 IUnitObject::IUnitObject()
 {
 	m_isMoving = false;
-	m_moveSpeed = 0.5f;
+	m_moveSpeed = 0.7f;
 	m_currMoveSpeedRate = 1.0f;
 	m_rotationSpeed = 0.1f;
 
