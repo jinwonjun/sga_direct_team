@@ -139,6 +139,9 @@ private:
 	float ShopItem_Display_Mode_X;//해상도 변경에 따라 비율 조절해주는 아이
 	float ShopItem_Display_Mode_Y;//해상도 변경에 따라 비율 조절해주는 아이
 
+
+	int EmptyRcX;
+	int EmptyRcY;
 public:
 	Inventory();
 	~Inventory();
@@ -183,7 +186,7 @@ public:
 	bool Endfor;
 	// 포문 종결을 선언한다.
 
-	items addIndex(items a); // 인벤토리에 아이템 넣기
+	void addIndex(items a); // 인벤토리에 아이템 넣기
 
 	void MovingItem(items* a, items* b); // 인벤토리 내에서 아이템 옮기기 하지만 실패 ...
 	

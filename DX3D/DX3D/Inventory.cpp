@@ -31,7 +31,8 @@ void Inventory::Init()
 	alreadyWorkedRbutton = false;
 	ItemSizeX = 80;
 	ItemSizeY = 80;
-
+	EmptyRcX = ItemSizeX - 5;
+	EmptyRcY = ItemSizeY - 5;
 	//UIImage 를 담는것.
 	{UIImage * pImage = new UIImage(m_pSprite);
 	m_pRootUI = pImage;
@@ -39,120 +40,14 @@ void Inventory::Init()
 	GetClientRect(g_hWnd, &clientRect);
 
 	//해상도 변환에 따른 비율을 만든다. 
-	Adjust_Display_Mode_X = ((float)clientRect.right - (float)clientRect.left) / (float) OriginX;
-	Adjust_Display_Mode_Y = ((float)clientRect.bottom - (float)clientRect.top) / (float) OriginY;
+	Adjust_Display_Mode_X = ((float)clientRect.right - (float)clientRect.left) / (float)OriginX;
+	Adjust_Display_Mode_Y = ((float)clientRect.bottom - (float)clientRect.top) / (float)OriginY;
 
 	//인벤토리 초기화 공식
 	//보이드도 똑같이 하나 만들어둔다.
 	Basic_ScaleX = 0.3f;
 	Basic_ScaleY = 0.3f;
-	for (int j = 0; j < INVENVERTI; j++)
-	{
 
-		for (int i = 0; i < INVENCORSS; i++)
-		{
-
-			InvenArray[i][j].index = 0;
-			InvenArray[i][j].name = "no_Name";
-			InvenArray[i][j].Atk = 0;
-			InvenArray[i][j].MaxHp = 0;
-			InvenArray[i][j].Hp = 0;
-			InvenArray[i][j].Def = 0;
-
-			InvenArray[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i) * Adjust_Display_Mode_X;
-			InvenArray[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j) * Adjust_Display_Mode_Y;
-
-			InvenArray[i][j].ScaleX = Basic_ScaleX* Adjust_Display_Mode_X;
-			InvenArray[i][j].ScaleY = Basic_ScaleY* Adjust_Display_Mode_Y;
-			InvenArray[i][j].isClicked = false;
-
-			InvenArray[i][j].isInvenIn = true;
-			InvenArray[i][j].Copy_num = 0;
-
-			InvenArray[i][j].isInvenOn = false;
-
-			SetRect(&InvenArray[i][j].Click_rc,
-				InvenArray[i][j].PositionX,
-				InvenArray[i][j].PositionY,
-				InvenArray[i][j].PositionX + ((InvenArray[i][j].m_image_Item_Info.Width)*(InvenArray[i][j].ScaleX)),
-				InvenArray[i][j].PositionY + ((InvenArray[i][j].m_image_Item_Info.Height)*(InvenArray[i][j].ScaleY)));
-
-			SetRect(&InvenArray[i][j].Item_rc,
-				0,
-				0,
-				InvenArray[i][j].m_image_Item_Info.Width,
-				InvenArray[i][j].m_image_Item_Info.Height);
-
-
-			//============================================== 
-			// 그곳엔 공허뿐이었어 ..........................
-			//==============================================
-
-			Void_Item[i][j].index = 0;
-			Void_Item[i][j].name = "no_Name";
-			Void_Item[i][j].Atk = 0;
-			Void_Item[i][j].MaxHp = 0;
-			Void_Item[i][j].Hp = 0;
-			Void_Item[i][j].Def = 0;
-
-			Void_Item[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i) *Adjust_Display_Mode_X;
-			Void_Item[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j) * Adjust_Display_Mode_Y;
-			Void_Item[i][j].ScaleY = Basic_ScaleX* Adjust_Display_Mode_X;
-			Void_Item[i][j].ScaleX = Basic_ScaleY* Adjust_Display_Mode_Y;
-			Void_Item[i][j].isClicked = false;
-
-			Void_Item[i][j].isInvenIn = true;
-			Void_Item[i][j].Copy_num = 0;
-
-			Void_Item[i][j].isInvenOn = false;
-			SetRect(&Void_Item[i][j].Click_rc,
-				Void_Item[i][j].PositionX,
-				Void_Item[i][j].PositionY,
-				Void_Item[i][j].PositionX + ItemSizeX,
-				Void_Item[i][j].PositionY + ItemSizeY);
-
-			SetRect(&Void_Item[i][j].Item_rc,
-				Void_Item[i][j].PositionX,
-				Void_Item[i][j].PositionY,
-				Void_Item[i][j].PositionX + ItemSizeX,
-				Void_Item[i][j].PositionY + ItemSizeY);
-
-
-			D3DXCreateTextureFromFileEx(
-				g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-				_T("resources/images/InvenLight.png"),   //LPCTSTR pSrcFile,
-				D3DX_DEFAULT_NONPOW2,   //UINT Width,
-				D3DX_DEFAULT_NONPOW2,   //UINT Height,
-				D3DX_DEFAULT,      //UINT MipLevels,
-				0,               //DWORD Usage,
-				D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-				D3DPOOL_MANAGED,   //D3DPOOL Pool
-				D3DX_FILTER_NONE,   //DWORD Filter
-				D3DX_DEFAULT,      //DWORD MipFilter
-				D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-				&InvenArray[i][j].m_image_InvenOn_Info,   //D3DXIMAGE_INFO *pSrcInfo
-				NULL,         //PALETTEENTRY *pPalette
-				&InvenArray[i][j].m_pTex_InvenOn);   //LPDIRECT3DTEXTURE9 *ppTexture
-
-			D3DXCreateTextureFromFileEx(
-				g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-				_T("resources/images/InvenLight.png"),   //LPCTSTR pSrcFile,
-				D3DX_DEFAULT_NONPOW2,   //UINT Width,
-				D3DX_DEFAULT_NONPOW2,   //UINT Height,
-				D3DX_DEFAULT,      //UINT MipLevels,
-				0,               //DWORD Usage,
-				D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-				D3DPOOL_MANAGED,   //D3DPOOL Pool
-				D3DX_FILTER_NONE,   //DWORD Filter
-				D3DX_DEFAULT,      //DWORD MipFilter
-				D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-				&Void_Item[i][j].m_image_InvenOn_Info,   //D3DXIMAGE_INFO *pSrcInfo
-				NULL,         //PALETTEENTRY *pPalette
-				&Void_Item[i][j].m_pTex_InvenOn);   //LPDIRECT3DTEXTURE9 *ppTexture
-													// 이거 만들때 얘 스케일은??
-													//	SetRect(&InvenArray[i][j].Item_rc,1000+80*i, 420 + 100 * j, 1080 + 80 * i, 520 + 100 * j);
-		}
-	}
 
 
 
@@ -258,7 +153,7 @@ void Inventory::Init()
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/inventory/Inven_temp.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/inventory/Inven_temp__.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -311,9 +206,119 @@ void Inventory::Init()
 	static float fAngle = 0.0f;
 
 
+
+	for (int j = 0; j < INVENVERTI; j++)
+	{
+
+		for (int i = 0; i < INVENCORSS; i++)
+		{
+
+			InvenArray[i][j].index = 0;
+			InvenArray[i][j].name = "no_Name";
+			InvenArray[i][j].Atk = 0;
+			InvenArray[i][j].MaxHp = 0;
+			InvenArray[i][j].Hp = 0;
+			InvenArray[i][j].Def = 0;
+
+			InvenArray[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i) * Adjust_Display_Mode_X;
+			InvenArray[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j) * Adjust_Display_Mode_Y;
+
+			InvenArray[i][j].ScaleX = Basic_ScaleX* Adjust_Display_Mode_X;
+			InvenArray[i][j].ScaleY = Basic_ScaleY* Adjust_Display_Mode_Y;
+			InvenArray[i][j].isClicked = false;
+
+			InvenArray[i][j].isInvenIn = true;
+			InvenArray[i][j].Copy_num = 0;
+
+			InvenArray[i][j].isInvenOn = false;
+
+			SetRect(&InvenArray[i][j].Click_rc,
+				InvenArray[i][j].PositionX,
+				InvenArray[i][j].PositionY,
+				InvenArray[i][j].PositionX + ((InvenArray[i][j].m_image_Item_Info.Width)*(InvenArray[i][j].ScaleX)),
+				InvenArray[i][j].PositionY + ((InvenArray[i][j].m_image_Item_Info.Height)*(InvenArray[i][j].ScaleY)));
+
+			SetRect(&InvenArray[i][j].Item_rc,
+				0,
+				0,
+				InvenArray[i][j].m_image_Item_Info.Width,
+				InvenArray[i][j].m_image_Item_Info.Height);
+
+
+			//============================================== 
+			// 그곳엔 공허뿐이었어 ..........................
+			//==============================================
+
+			Void_Item[i][j].index = 0;
+			Void_Item[i][j].name = "no_Name";
+			Void_Item[i][j].Atk = 0;
+			Void_Item[i][j].MaxHp = 0;
+			Void_Item[i][j].Hp = 0;
+			Void_Item[i][j].Def = 0;
+
+			Void_Item[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i) *Adjust_Display_Mode_X;
+			Void_Item[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j) * Adjust_Display_Mode_Y;
+			Void_Item[i][j].ScaleY = Basic_ScaleX* Adjust_Display_Mode_X;
+			Void_Item[i][j].ScaleX = Basic_ScaleY* Adjust_Display_Mode_Y;
+			Void_Item[i][j].isClicked = false;
+
+			Void_Item[i][j].isInvenIn = true;
+			Void_Item[i][j].Copy_num = 0;
+
+			Void_Item[i][j].isInvenOn = false;
+
+			SetRect(&Void_Item[i][j].Click_rc,
+				Void_Item[i][j].PositionX,
+				Void_Item[i][j].PositionY,
+				Void_Item[i][j].PositionX + ItemSizeX,
+				Void_Item[i][j].PositionY + ItemSizeY);
+
+			SetRect(&Void_Item[i][j].Item_rc,
+				Void_Item[i][j].PositionX,
+				Void_Item[i][j].PositionY,
+				Void_Item[i][j].PositionX + ItemSizeX,
+				Void_Item[i][j].PositionY + ItemSizeY);
+
+
+			D3DXCreateTextureFromFileEx(
+				g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+				_T("resources/images/InvenLight.png"),   //LPCTSTR pSrcFile,
+				D3DX_DEFAULT_NONPOW2,   //UINT Width,
+				D3DX_DEFAULT_NONPOW2,   //UINT Height,
+				D3DX_DEFAULT,      //UINT MipLevels,
+				0,               //DWORD Usage,
+				D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+				D3DPOOL_MANAGED,   //D3DPOOL Pool
+				D3DX_FILTER_NONE,   //DWORD Filter
+				D3DX_DEFAULT,      //DWORD MipFilter
+				D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+				&InvenArray[i][j].m_image_InvenOn_Info,   //D3DXIMAGE_INFO *pSrcInfo
+				NULL,         //PALETTEENTRY *pPalette
+				&InvenArray[i][j].m_pTex_InvenOn);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+													 //D3DXCreateTextureFromFileEx(
+													 //	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+													 //	_T("resources/images/InvenLight.png"),   //LPCTSTR pSrcFile,
+													 //	D3DX_DEFAULT_NONPOW2,   //UINT Width,
+													 //	D3DX_DEFAULT_NONPOW2,   //UINT Height,
+													 //	D3DX_DEFAULT,      //UINT MipLevels,
+													 //	0,               //DWORD Usage,
+													 //	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+													 //	D3DPOOL_MANAGED,   //D3DPOOL Pool
+													 //	D3DX_FILTER_NONE,   //DWORD Filter
+													 //	D3DX_DEFAULT,      //DWORD MipFilter
+													 //	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+													 //	&Void_Item[i][j].m_image_InvenOn_Info,   //D3DXIMAGE_INFO *pSrcInfo
+													 //	NULL,         //PALETTEENTRY *pPalette
+													 //	&Void_Item[i][j].m_pTex_InvenOn);   //LPDIRECT3DTEXTURE9 *ppTexture
+													 //										// 이거 만들때 얘 스케일은??
+													 //	SetRect(&InvenArray[i][j].Item_rc,1000+80*i, 420 + 100 * j, 1080 + 80 * i, 520 + 100 * j);
+		}
+	}
+
 	//인벤토리 Mat world 계산
 	float inven_ScaleX, inven_ScaleY;
-	inven_ScaleX = 2.3f *Adjust_Display_Mode_X;
+	inven_ScaleX = 2.279f *Adjust_Display_Mode_X;
 	inven_ScaleY = 2.3f *Adjust_Display_Mode_Y;
 
 	float PositionX_Inven, PositionY_Inven;
@@ -406,6 +411,8 @@ void Inventory::Update()
 
 	if (openInven)
 	{
+
+
 		Debug->AddText(pressOn);
 		Debug->EndLine();
 
@@ -413,7 +420,21 @@ void Inventory::Update()
 		//마우스 커서 받고
 		ScreenToClient(g_hWnd, &mousePoint);
 		//스크린에 클ㄹ라이언트... 마우스 커서 쓰려면 필여ㅛ해요 ..
+		for (int j = 0; j < INVENVERTI; j++)
+		{
+			for (int i = 0; i < INVENCORSS; i++)
+			{
+				if (PtInRect(&Void_Item[i][j].Click_rc, mousePoint))
+				{
+					Void_Item[i][j].isInvenOn = true;
 
+				}
+				else
+				{
+					Void_Item[i][j].isInvenOn = false;
+				}
+			}
+		}
 
 		//아이템 착용
 		if (g_pMouse->ButtonDown(Mouse::RBUTTON))
@@ -528,7 +549,7 @@ void Inventory::Update()
 			{
 				CrossX = (RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).x - INVENITEMSTART_X) / ItemSizeX;
 				VertiY = (RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).y - INVENITEMSTART_Y) / ItemSizeY;
-				
+
 				if (InvenArray[preChosenX][preChosenY].isClicked)
 				{
 					InvenArray[preChosenX][preChosenY].PositionX = mousePoint.x - 30;
@@ -545,8 +566,9 @@ void Inventory::Update()
 
 				}
 
-				if (((RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).x - INVENITEMSTART_X) >= 0 
-					&& (RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).y >= 0) 
+				// 아이템이 인벤 위에 있으면 이거 사용.
+				if (((RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).x - INVENITEMSTART_X) >= 0
+					&& (RectCenter(InvenArray[preChosenX][preChosenY].Click_rc).y >= 0)
 					&& (CrossX <= 5 && VertiY <= 3)))
 				{
 					for (int j = 0; j < INVENVERTI; j++)
@@ -558,8 +580,8 @@ void Inventory::Update()
 							InvenArray[CrossX][VertiY].isInvenOn = true;
 						}
 					}
-				}				
-				else 
+				}
+				else
 				{
 					for (int j = 0; j < INVENVERTI; j++)
 					{
@@ -591,7 +613,7 @@ void Inventory::Update()
 				InvenArray[preChosenX][preChosenY].isInvenOn = false;
 				InvenArray[CrossX][VertiY].isInvenOn = false;
 
-				if ((CrossX >= 0 && VertiY >= 0 ) && (CrossX <= 5 && VertiY <= 3))
+				if ((CrossX >= 0 && VertiY >= 0) && (CrossX <= 5 && VertiY <= 3))
 				{
 
 
@@ -640,7 +662,7 @@ void Inventory::Update()
 					}
 
 				}//(CrossX >= 0 && VertiY >= 0) 끝
-				
+
 
 				else // 아이템이 인벤토리 영역 밖으로 나갔을때 처리 
 				{
@@ -648,7 +670,7 @@ void Inventory::Update()
 					{
 						for (int i = 0; i < INVENCORSS; i++)
 						{
-							
+
 							InvenArray[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i) * Adjust_Display_Mode_X;
 							InvenArray[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j)* Adjust_Display_Mode_X;
 						}
@@ -671,6 +693,10 @@ void Inventory::Update()
 				}
 			}
 		}
+
+
+
+
 	} // OpenInve 끝
 	Debug->AddText(mousePoint.x);
 	Debug->EndLine();
@@ -683,9 +709,9 @@ void Inventory::Render()
 {
 	g_pDevice->SetTexture(0, NULL);
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-	
+
 	if (openInven)
-	{		
+	{
 		//인벤토리 == 나중에 살릴  것 ====
 		//===========================
 		SetRect(&m_rc_Inventory, 0, 0, m_image_Inventory_info.Width, m_image_Inventory_info.Height);
@@ -698,7 +724,7 @@ void Inventory::Render()
 			&m_rc_Inventory,
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
-			WHITE);
+			D3DCOLOR_ARGB(150, 255, 255, 255));
 
 
 		//===========================
@@ -773,16 +799,18 @@ void Inventory::Render()
 
 			for (int i = 0; i < INVENCORSS; i++)
 			{
-				if (InvenArray[i][j].isInvenOn)
+				if (InvenArray[i][j].isInvenOn || Void_Item[i][j].isInvenOn)
 				{
+
 
 					SetRect(&InvenArray[i][j].isInven_rc, 0, 0, InvenArray[i][j].m_image_InvenOn_Info.Width, InvenArray[i][j].m_image_InvenOn_Info.Height);
 					SetRect(&InvenArray[i][j].isInven_show_rc,
 						InvenArray[i][j].PositionX + 2,
 						InvenArray[i][j].PositionY,
-						InvenArray[i][j].PositionX + 2 + ((InvenArray[i][j].m_image_InvenOn_Info.Width)*(InvenArray[i][j].ScaleX)),
-						InvenArray[i][j].PositionY + ((InvenArray[i][j].m_image_InvenOn_Info.Height)*(InvenArray[i][j].ScaleY)));
-					 
+						InvenArray[i][j].PositionX + 2 + (ItemSizeX*(InvenArray[i][j].ScaleX)),
+						InvenArray[i][j].PositionY + ItemSizeY*(InvenArray[i][j].ScaleY));
+					//ItemSizeX
+
 					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 					m_pSprite->SetTransform(&matWorld_InvenItems[i + j * 6]);
 
@@ -792,6 +820,7 @@ void Inventory::Render()
 						&D3DXVECTOR3(0, 0, 0),
 						&D3DXVECTOR3(0, 0, 0),
 						WHITE);
+
 
 				}
 			}
@@ -833,15 +862,10 @@ void Inventory::Render()
 					&D3DXVECTOR3(0, 0, 0),
 					&D3DXVECTOR3(0, 0, 0),
 					WHITE);
-
-
-
-
-
 			}
 		}
 
-		
+
 
 		SetRect(&Shop_Item[0].Click_rc, Shop_Item[0].PositionX
 			, Shop_Item[0].PositionY
@@ -936,15 +960,13 @@ void Inventory::Render()
 				&D3DXVECTOR3(0, 0, 0),
 				&D3DXVECTOR3(0, 0, 0),
 				WHITE);
-
 		}
 
 	}
 
 	else
 	{
-		//SetRect(&Weapons[0].Item_rc, 500, 500, 600, 600);
-		//SetRect(&inventory[0].Item_rc, 500, 500, 550, 550);
+
 	}
 
 
@@ -958,7 +980,7 @@ void Inventory::OnClick(UIButton * pSender)
 {
 }
 
-items Inventory::addIndex(items a)
+void Inventory::addIndex(items a)
 {
 
 	D3DXMATRIXA16 matR, matT, matWorld;
@@ -966,7 +988,6 @@ items Inventory::addIndex(items a)
 	//static float fAngle = 0.0f;
 	for (int j = 0; j < INVENVERTI; j++)
 	{
-
 		for (int i = 0; i < INVENCORSS; i++)
 		{
 			if (InvenArray[i][j].index == 0)
@@ -975,16 +996,13 @@ items Inventory::addIndex(items a)
 				InvenArray[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i)*Adjust_Display_Mode_X;
 				InvenArray[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j)*Adjust_Display_Mode_Y;
 				InvenArray[i][j].Copy_num += 1;
-
 				InvenArray[i][j].isInvenIn = true;
-				return InvenArray[i][j];
+				return;
 			}
-
 
 			else if (i == INVENCORSS && j == INVENVERTI)
 			{
 				std::printf("인벤토리가 가득 찼습니다.");
-				return a;
 			}
 		}
 	}
