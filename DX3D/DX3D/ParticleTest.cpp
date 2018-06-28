@@ -107,6 +107,8 @@ void ParticleTest::Render()
 	g_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VERTEX_PC));
 	g_pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, m_vecAtt.size());
 
+
+
 	g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	g_pDevice->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
 	g_pDevice->SetRenderState(D3DRS_POINTSCALEENABLE, false);

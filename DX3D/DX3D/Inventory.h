@@ -56,6 +56,7 @@ enum Weapon_Type
 enum matWorld_Numbering
 {
 	matWorld_Inven,
+	matWorld_Inven_Chara,
 	matWorld_ItemSet,
 	matWorld_ShopItem_1,
 	matWorld_ShopItem_2,
@@ -85,6 +86,11 @@ private:
 	LPDIRECT3DTEXTURE9	 m_pTex_Inventory;
 	D3DXIMAGE_INFO		 m_image_Inventory_info;
 	RECT				 m_rc_Inventory;
+
+	LPDIRECT3DTEXTURE9	 m_pTex_Inventory_Chara;
+	D3DXIMAGE_INFO		 m_image_Inventory_Chara_info;
+	RECT				 m_rc_Inventory_Chara;
+
 
 	std::vector<items> Shop_Item;//ÇÜÅä¸®¶û ÃÑ±â ¸ð¾ç
 

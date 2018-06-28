@@ -153,7 +153,7 @@ void Inventory::Init()
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/inventory/Inven_temp__.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/inventory/Inven_temp.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -166,6 +166,22 @@ void Inventory::Init()
 		&m_image_Inventory_info,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&m_pTex_Inventory);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/inventory/Inven_temp_.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&m_image_Inventory_Chara_info,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&m_pTex_Inventory_Chara);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
 	D3DXCreateTextureFromFileEx(
@@ -326,11 +342,29 @@ void Inventory::Init()
 	PositionY_Inven = ((clientRect.bottom *0.055));
 
 
+	float inven_Chara_ScaleX, inven_Chara_ScaleY;
+	inven_Chara_ScaleX = 2.279f *Adjust_Display_Mode_X;
+	inven_Chara_ScaleY = 2.3f *Adjust_Display_Mode_Y;
+
+	float PositionX_Inven_Chara, PositionY_Inven_Chara;
+	PositionX_Inven_Chara = PositionX_Inven ;
+	PositionY_Inven_Chara = PositionY_Inven;
+
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, PositionX_Inven_Chara, PositionY_Inven_Chara, 0);
+	D3DXMatrixScaling(&matS, inven_Chara_ScaleX, inven_Chara_ScaleY, 1);
+	matWorld[matWorld_Inven_Chara] = matS * matR * matT;
+
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, PositionX_Inven, PositionY_Inven, 0);
 	D3DXMatrixScaling(&matS, inven_ScaleX, inven_ScaleY, 1);
 	matWorld[matWorld_Inven] = matS * matR * matT;
+
+
+
 
 	Shop_Item[0].Item_rc = RectMake(0, 0, Shop_Item[0].m_image_Item_Info.Width, Shop_Item[0].m_image_Item_Info.Height);
 	Shop_Item[1].Item_rc = RectMake(0, 0, Shop_Item[1].m_image_Item_Info.Width, Shop_Item[1].m_image_Item_Info.Height);
@@ -714,6 +748,9 @@ void Inventory::Render()
 	{
 		//인벤토리 == 나중에 살릴  것 ====
 		//===========================
+
+		//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+
 		SetRect(&m_rc_Inventory, 0, 0, m_image_Inventory_info.Width, m_image_Inventory_info.Height);
 
 
@@ -724,12 +761,26 @@ void Inventory::Render()
 			&m_rc_Inventory,
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
-			D3DCOLOR_ARGB(150, 255, 255, 255));
+			D3DCOLOR_ARGB(220, 255, 255, 255));
+
+		//=======================================
+
+		SetRect(&m_rc_Inventory_Chara, 0, 0, m_image_Inventory_Chara_info.Width, m_image_Inventory_Chara_info.Height);
+
+
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld[matWorld_Inven_Chara]);
+		m_pSprite->Draw(
+			m_pTex_Inventory_Chara,
+			&m_rc_Inventory_Chara,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(0, 0, 0),
+			D3DCOLOR_ARGB(10, 255, 255, 255));
 
 
 		//===========================
 		//Item
-
+		//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 
 		SetRect(&Shop_Item[0].Item_rc, 0, 0, 0 + (Shop_Item[0].m_image_Item_Info.Width), 0 + (Shop_Item[0].m_image_Item_Info.Height /**temp*/));
 
