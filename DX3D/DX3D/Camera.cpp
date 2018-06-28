@@ -157,7 +157,7 @@ void Camera::Update()
 	}
 	else
 	{
-		m_pTarget == NULL;
+		m_pTarget = NULL;
 	}
 
 	//------- 벽에 충돌하는건 나중에 하자

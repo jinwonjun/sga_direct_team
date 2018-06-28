@@ -9,7 +9,8 @@
 #include "Enemy.h"
 #include "BloodEffect.h"
 
-#define SCALE 0.05f
+//0.05f
+#define SCALE 0.1f
 
 Ironman::Ironman()
 {
@@ -44,8 +45,11 @@ void Ironman::Init()
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
 	m_pSkinnedMesh->Init();
-	CString path = "resources/zealot/";
-	CString filename = "combine_test.X";
+	CString path = "resources/playerX/";
+	CString filename = "combine.X";
+	//CString path = "resources/zealot/";
+	//CString filename = "combine_test.X";
+
 	m_pSkinnedMesh->Load(path, filename);
 
 	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
@@ -70,7 +74,16 @@ void Ironman::Init()
 
 void Ironman::Update()
 {
-	//키보드랑 포지션 컨트롤 부분이 여기 아니면 안되는 문제가 있는데 이유를 모르겠음...
+	/*
+	idle = 1;
+	shot = 2;
+	run = 3;
+	left = 4;
+	right = 5;
+	jump = 6;
+	reload = 7;
+	back = 8;
+	*/
 	IUnitObject::UpdateKeyboardState();
 	IUnitObject::UpdatePosition();
 
@@ -95,28 +108,50 @@ void Ironman::Update()
 
 	if (Keyboard::Get()->KeyPress('W'))
 	{
-		m_pSkinnedMesh->status =  1;
+		m_pSkinnedMesh->status =  2;
 	}
-
 	else if (Keyboard::Get()->KeyPress('S'))
 	{
-		m_pSkinnedMesh->status = 2;
+		m_pSkinnedMesh->status = 7;
+	}
+	else if (Keyboard::Get()->KeyPress('A'))
+	{
+		//if (m_animIndex > 0)//0
+		//m_animIndex--;
+		m_pSkinnedMesh->status = 3;
+	}
+	else if (Keyboard::Get()->KeyPress('D'))
+	{
+		//if (m_animIndex > 0)//0
+		//m_animIndex--;
+		m_pSkinnedMesh->status = 4;
+	}
+	else if (Keyboard::Get()->KeyPress('R'))
+	{
+		//if (m_animIndex > 0)//0
+		//m_animIndex--;
+		m_pSkinnedMesh->status = 6;
 	}
 	else if (Keyboard::Get()->KeyPress(VK_SPACE))
 	{
-		m_pSkinnedMesh->status = 3;
+		m_pSkinnedMesh->status = 5;
 	}
 	else if (Mouse::Get()->ButtonPress(Mouse::Get()->LBUTTON))
 	{
 		//if (m_animIndex > 0)//0
 		//m_animIndex--;
-		m_pSkinnedMesh->status = 0;
+		m_pSkinnedMesh->status = 1;
 	}
 
 	else//idle상태 만들기
 	{
-		m_pSkinnedMesh->status = 4;
+		m_pSkinnedMesh->status = 0;
 	}
+
+	Debug->AddText("캐릭터포즈  :  ");
+	Debug->AddText(m_pos);
+	Debug->EndLine();
+	Debug->EndLine();
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);

@@ -103,6 +103,11 @@ void SkinnedMesh::Update()
 	//이 부분 ironman AnimationModify()로 옮겼습니다!
 	//SetWorldMatrix( &((g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetWorldMatrix()));
 	
+	if (Keyboard::Get()->KeyDown(VK_F1))
+	{
+		m_bDrawFrame = !m_bDrawFrame;
+	}
+
 	SetAnimationIndex(status, true);
 
 	UpdateAnim();
@@ -165,6 +170,7 @@ void SkinnedMesh::Render()
 {
 	m_numFrame = 0;
 	m_numMesh = 0;
+	
 	Debug->AddText(_T("=====DrawFrame====="));
 	Debug->EndLine();
 	if (m_bDrawFrame)DrawFrame(m_pRootFrame);

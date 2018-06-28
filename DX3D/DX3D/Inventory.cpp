@@ -782,7 +782,7 @@ void Inventory::Render()
 						InvenArray[i][j].PositionY,
 						InvenArray[i][j].PositionX + 2 + ((InvenArray[i][j].m_image_InvenOn_Info.Width)*(InvenArray[i][j].ScaleX)),
 						InvenArray[i][j].PositionY + ((InvenArray[i][j].m_image_InvenOn_Info.Height)*(InvenArray[i][j].ScaleY)));
-
+					 
 					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 					m_pSprite->SetTransform(&matWorld_InvenItems[i + j * 6]);
 

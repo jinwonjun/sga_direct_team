@@ -110,7 +110,7 @@ void SkyBox::Render()
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matT);
 
-	D3DXMatrixScaling(&matS, 100.0f, 100.0f,100.0f);
+	D3DXMatrixScaling(&matS, 400.0f, 400.0f,400.0f);
 	D3DXMatrixTranslation(&matT, vPos.x, vPos.y, vPos.z);
 
 	matWrd = matS * matT;
@@ -119,8 +119,9 @@ void SkyBox::Render()
 	g_pDevice->SetTransform(D3DTS_WORLD, &matWrd);
 
 	//텍스쳐 UV Address를 설정.
-	g_pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
-	g_pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
+	//이게 뭘 관련하는건지 모르겠어요!!!
+	//g_pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
+	//g_pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 
 	//스카이박스 드로우.
 	for (int i = 0; i<6; i++)
@@ -139,6 +140,7 @@ void SkyBox::Render()
 	g_pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);			//Z버퍼 켜기
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);			//조명 켜기
 	g_pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);	//컬링 반시계방향
+
 }
 
 void SkyBox::Set_Vtx3D_Tex(VERTEX_PNT & ct, D3DXVECTOR3 p, D3DXVECTOR3 n, float tu, float tv)
