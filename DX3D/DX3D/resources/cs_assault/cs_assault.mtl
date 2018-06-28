@@ -12,8 +12,8 @@ newmtl texture_0
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_0.jpg
-	map_Kd Amadeus maps\cs_assault_texture_0.jpg
+	map_Ka cs_assault_texture_0.jpg
+	map_Kd cs_assault_texture_0.jpg
 
 newmtl texture_1
 	Ns 30.0000
@@ -26,8 +26,8 @@ newmtl texture_1
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_1.jpg
-	map_Kd Amadeus maps\cs_assault_texture_1.jpg
+	map_Ka cs_assault_texture_1.jpg
+	map_Kd cs_assault_texture_1.jpg
 
 newmtl texture_2
 	Ns 30.0000
@@ -40,8 +40,8 @@ newmtl texture_2
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_2.jpg
-	map_Kd Amadeus maps\cs_assault_texture_2.jpg
+	map_Ka cs_assault_texture_2.jpg
+	map_Kd cs_assault_texture_2.jpg
 
 newmtl texture_3
 	Ns 30.0000
@@ -54,8 +54,8 @@ newmtl texture_3
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_3.jpg
-	map_Kd Amadeus maps\cs_assault_texture_3.jpg
+	map_Ka cs_assault_texture_3.jpg
+	map_Kd cs_assault_texture_3.jpg
 
 newmtl texture_4
 	Ns 30.0000
@@ -68,8 +68,8 @@ newmtl texture_4
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_4.jpg
-	map_Kd Amadeus maps\cs_assault_texture_4.jpg
+	map_Ka cs_assault_texture_4.jpg
+	map_Kd cs_assault_texture_4.jpg
 
 newmtl texture_5
 	Ns 30.0000
@@ -82,8 +82,8 @@ newmtl texture_5
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_5.jpg
-	map_Kd Amadeus maps\cs_assault_texture_5.jpg
+	map_Ka cs_assault_texture_5.jpg
+	map_Kd cs_assault_texture_5.jpg
 
 newmtl texture_6
 	Ns 30.0000
@@ -96,8 +96,8 @@ newmtl texture_6
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_6.jpg
-	map_Kd Amadeus maps\cs_assault_texture_6.jpg
+	map_Ka cs_assault_texture_6.jpg
+	map_Kd cs_assault_texture_6.jpg
 
 newmtl texture_7
 	Ns 30.0000
@@ -110,8 +110,8 @@ newmtl texture_7
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_7.jpg
-	map_Kd Amadeus maps\cs_assault_texture_7.jpg
+	map_Ka cs_assault_texture_7.jpg
+	map_Kd cs_assault_texture_7.jpg
 
 newmtl texture_8
 	Ns 30.0000
@@ -124,8 +124,8 @@ newmtl texture_8
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_8.jpg
-	map_Kd Amadeus maps\cs_assault_texture_8.jpg
+	map_Ka cs_assault_texture_8.jpg
+	map_Kd cs_assault_texture_8.jpg
 
 newmtl texture_9
 	Ns 30.0000
@@ -138,8 +138,8 @@ newmtl texture_9
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_9.jpg
-	map_Kd Amadeus maps\cs_assault_texture_9.jpg
+	map_Ka cs_assault_texture_9.jpg
+	map_Kd cs_assault_texture_9.jpg
 
 newmtl texture_10
 	Ns 30.0000
@@ -152,8 +152,8 @@ newmtl texture_10
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_10.jpg
-	map_Kd Amadeus maps\cs_assault_texture_10.jpg
+	map_Ka cs_assault_texture_10.jpg
+	map_Kd cs_assault_texture_10.jpg
 
 newmtl texture_11
 	Ns 30.0000
@@ -166,8 +166,8 @@ newmtl texture_11
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_11.jpg
-	map_Kd Amadeus maps\cs_assault_texture_11.jpg
+	map_Ka cs_assault_texture_11.jpg
+	map_Kd cs_assault_texture_11.jpg
 
 newmtl texture_12
 	Ns 30.0000
@@ -180,8 +180,8 @@ newmtl texture_12
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_12.jpg
-	map_Kd Amadeus maps\cs_assault_texture_12.jpg
+	map_Ka cs_assault_texture_12.jpg
+	map_Kd cs_assault_texture_12.jpg
 
 newmtl texture_13
 	Ns 30.0000
@@ -194,8 +194,8 @@ newmtl texture_13
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_13.jpg
-	map_Kd Amadeus maps\cs_assault_texture_13.jpg
+	map_Ka cs_assault_texture_13.jpg
+	map_Kd cs_assault_texture_13.jpg
 
 newmtl texture_14
 	Ns 30.0000
@@ -208,8 +208,8 @@ newmtl texture_14
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_14.jpg
-	map_Kd Amadeus maps\cs_assault_texture_14.jpg
+	map_Ka cs_assault_texture_14.jpg
+	map_Kd cs_assault_texture_14.jpg
 
 newmtl texture_15
 	Ns 30.0000
@@ -222,8 +222,8 @@ newmtl texture_15
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_15.jpg
-	map_Kd Amadeus maps\cs_assault_texture_15.jpg
+	map_Ka cs_assault_texture_15.jpg
+	map_Kd cs_assault_texture_15.jpg
 
 newmtl texture_16
 	Ns 30.0000
@@ -236,8 +236,8 @@ newmtl texture_16
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_16.jpg
-	map_Kd Amadeus maps\cs_assault_texture_16.jpg
+	map_Ka cs_assault_texture_16.jpg
+	map_Kd cs_assault_texture_16.jpg
 
 newmtl texture_17
 	Ns 30.0000
@@ -250,8 +250,8 @@ newmtl texture_17
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_17.jpg
-	map_Kd Amadeus maps\cs_assault_texture_17.jpg
+	map_Ka cs_assault_texture_17.jpg
+	map_Kd cs_assault_texture_17.jpg
 
 newmtl texture_18
 	Ns 30.0000
@@ -264,8 +264,8 @@ newmtl texture_18
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_18.jpg
-	map_Kd Amadeus maps\cs_assault_texture_18.jpg
+	map_Ka cs_assault_texture_18.jpg
+	map_Kd cs_assault_texture_18.jpg
 
 newmtl texture_19
 	Ns 30.0000
@@ -278,8 +278,8 @@ newmtl texture_19
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_19.jpg
-	map_Kd Amadeus maps\cs_assault_texture_19.jpg
+	map_Ka cs_assault_texture_19.jpg
+	map_Kd cs_assault_texture_19.jpg
 
 newmtl texture_20
 	Ns 30.0000
@@ -292,8 +292,8 @@ newmtl texture_20
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_20.jpg
-	map_Kd Amadeus maps\cs_assault_texture_20.jpg
+	map_Ka cs_assault_texture_20.jpg
+	map_Kd cs_assault_texture_20.jpg
 
 newmtl texture_21
 	Ns 30.0000
@@ -306,8 +306,8 @@ newmtl texture_21
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_21.jpg
-	map_Kd Amadeus maps\cs_assault_texture_21.jpg
+	map_Ka cs_assault_texture_21.jpg
+	map_Kd cs_assault_texture_21.jpg
 
 newmtl texture_22
 	Ns 30.0000
@@ -320,8 +320,8 @@ newmtl texture_22
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_22.jpg
-	map_Kd Amadeus maps\cs_assault_texture_22.jpg
+	map_Ka cs_assault_texture_22.jpg
+	map_Kd cs_assault_texture_22.jpg
 
 newmtl texture_23
 	Ns 30.0000
@@ -334,8 +334,8 @@ newmtl texture_23
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_23.jpg
-	map_Kd Amadeus maps\cs_assault_texture_23.jpg
+	map_Ka cs_assault_texture_23.jpg
+	map_Kd cs_assault_texture_23.jpg
 
 newmtl texture_24
 	Ns 30.0000
@@ -348,8 +348,8 @@ newmtl texture_24
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_24.jpg
-	map_Kd Amadeus maps\cs_assault_texture_24.jpg
+	map_Ka cs_assault_texture_24.jpg
+	map_Kd cs_assault_texture_24.jpg
 
 newmtl texture_25
 	Ns 30.0000
@@ -362,8 +362,8 @@ newmtl texture_25
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_25.jpg
-	map_Kd Amadeus maps\cs_assault_texture_25.jpg
+	map_Ka cs_assault_texture_25.jpg
+	map_Kd cs_assault_texture_25.jpg
 
 newmtl texture_26
 	Ns 30.0000
@@ -376,8 +376,8 @@ newmtl texture_26
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_26.jpg
-	map_Kd Amadeus maps\cs_assault_texture_26.jpg
+	map_Ka cs_assault_texture_26.jpg
+	map_Kd cs_assault_texture_26.jpg
 
 newmtl texture_27
 	Ns 30.0000
@@ -390,8 +390,8 @@ newmtl texture_27
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_27.jpg
-	map_Kd Amadeus maps\cs_assault_texture_27.jpg
+	map_Ka cs_assault_texture_27.jpg
+	map_Kd cs_assault_texture_27.jpg
 
 newmtl texture_28
 	Ns 30.0000
@@ -404,8 +404,8 @@ newmtl texture_28
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_28.jpg
-	map_Kd Amadeus maps\cs_assault_texture_28.jpg
+	map_Ka cs_assault_texture_28.jpg
+	map_Kd cs_assault_texture_28.jpg
 
 newmtl texture_29
 	Ns 30.0000
@@ -418,8 +418,8 @@ newmtl texture_29
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_29.jpg
-	map_Kd Amadeus maps\cs_assault_texture_29.jpg
+	map_Ka cs_assault_texture_29.jpg
+	map_Kd cs_assault_texture_29.jpg
 
 newmtl texture_30
 	Ns 30.0000
@@ -432,8 +432,8 @@ newmtl texture_30
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_30.jpg
-	map_Kd Amadeus maps\cs_assault_texture_30.jpg
+	map_Ka cs_assault_texture_30.jpg
+	map_Kd cs_assault_texture_30.jpg
 
 newmtl texture_31
 	Ns 30.0000
@@ -446,8 +446,8 @@ newmtl texture_31
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_31.jpg
-	map_Kd Amadeus maps\cs_assault_texture_31.jpg
+	map_Ka cs_assault_texture_31.jpg
+	map_Kd cs_assault_texture_31.jpg
 
 newmtl texture_32
 	Ns 30.0000
@@ -460,8 +460,8 @@ newmtl texture_32
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_32.jpg
-	map_Kd Amadeus maps\cs_assault_texture_32.jpg
+	map_Ka cs_assault_texture_32.jpg
+	map_Kd cs_assault_texture_32.jpg
 
 newmtl texture_33
 	Ns 30.0000
@@ -474,8 +474,8 @@ newmtl texture_33
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_33.jpg
-	map_Kd Amadeus maps\cs_assault_texture_33.jpg
+	map_Ka cs_assault_texture_33.jpg
+	map_Kd cs_assault_texture_33.jpg
 
 newmtl texture_34
 	Ns 30.0000
@@ -488,8 +488,8 @@ newmtl texture_34
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_34.jpg
-	map_Kd Amadeus maps\cs_assault_texture_34.jpg
+	map_Ka cs_assault_texture_34.jpg
+	map_Kd cs_assault_texture_34.jpg
 
 newmtl texture_35
 	Ns 30.0000
@@ -502,8 +502,8 @@ newmtl texture_35
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_35.jpg
-	map_Kd Amadeus maps\cs_assault_texture_35.jpg
+	map_Ka cs_assault_texture_35.jpg
+	map_Kd cs_assault_texture_35.jpg
 
 newmtl texture_36
 	Ns 30.0000
@@ -516,8 +516,8 @@ newmtl texture_36
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_36.jpg
-	map_Kd Amadeus maps\cs_assault_texture_36.jpg
+	map_Ka cs_assault_texture_36.jpg
+	map_Kd cs_assault_texture_36.jpg
 
 newmtl texture_37
 	Ns 30.0000
@@ -530,8 +530,8 @@ newmtl texture_37
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_37.jpg
-	map_Kd Amadeus maps\cs_assault_texture_37.jpg
+	map_Ka cs_assault_texture_37.jpg
+	map_Kd cs_assault_texture_37.jpg
 
 newmtl texture_38
 	Ns 30.0000
@@ -544,8 +544,8 @@ newmtl texture_38
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_38.jpg
-	map_Kd Amadeus maps\cs_assault_texture_38.jpg
+	map_Ka cs_assault_texture_38.jpg
+	map_Kd cs_assault_texture_38.jpg
 
 newmtl texture_39
 	Ns 30.0000
@@ -558,8 +558,8 @@ newmtl texture_39
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_39.jpg
-	map_Kd Amadeus maps\cs_assault_texture_39.jpg
+	map_Ka cs_assault_texture_39.jpg
+	map_Kd cs_assault_texture_39.jpg
 
 newmtl texture_40
 	Ns 30.0000
@@ -572,8 +572,8 @@ newmtl texture_40
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_40.jpg
-	map_Kd Amadeus maps\cs_assault_texture_40.jpg
+	map_Ka cs_assault_texture_40.jpg
+	map_Kd cs_assault_texture_40.jpg
 
 newmtl texture_41
 	Ns 30.0000
@@ -586,8 +586,8 @@ newmtl texture_41
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_41.jpg
-	map_Kd Amadeus maps\cs_assault_texture_41.jpg
+	map_Ka cs_assault_texture_41.jpg
+	map_Kd cs_assault_texture_41.jpg
 
 newmtl texture_42
 	Ns 30.0000
@@ -600,8 +600,8 @@ newmtl texture_42
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_42.jpg
-	map_Kd Amadeus maps\cs_assault_texture_42.jpg
+	map_Ka cs_assault_texture_42.jpg
+	map_Kd cs_assault_texture_42.jpg
 
 newmtl texture_43
 	Ns 30.0000
@@ -614,8 +614,8 @@ newmtl texture_43
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_43.jpg
-	map_Kd Amadeus maps\cs_assault_texture_43.jpg
+	map_Ka cs_assault_texture_43.jpg
+	map_Kd cs_assault_texture_43.jpg
 
 newmtl texture_44
 	Ns 30.0000
@@ -628,8 +628,8 @@ newmtl texture_44
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_44.jpg
-	map_Kd Amadeus maps\cs_assault_texture_44.jpg
+	map_Ka cs_assault_texture_44.jpg
+	map_Kd cs_assault_texture_44.jpg
 
 newmtl texture_45
 	Ns 30.0000
@@ -642,8 +642,8 @@ newmtl texture_45
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_45.jpg
-	map_Kd Amadeus maps\cs_assault_texture_45.jpg
+	map_Ka cs_assault_texture_45.jpg
+	map_Kd cs_assault_texture_45.jpg
 
 newmtl texture_46
 	Ns 30.0000
@@ -656,8 +656,8 @@ newmtl texture_46
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_46.jpg
-	map_Kd Amadeus maps\cs_assault_texture_46.jpg
+	map_Ka cs_assault_texture_46.jpg
+	map_Kd cs_assault_texture_46.jpg
 
 newmtl texture_47
 	Ns 30.0000
@@ -670,8 +670,8 @@ newmtl texture_47
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_47.jpg
-	map_Kd Amadeus maps\cs_assault_texture_47.jpg
+	map_Ka cs_assault_texture_47.jpg
+	map_Kd cs_assault_texture_47.jpg
 
 newmtl texture_48
 	Ns 30.0000
@@ -684,8 +684,8 @@ newmtl texture_48
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_48.jpg
-	map_Kd Amadeus maps\cs_assault_texture_48.jpg
+	map_Ka cs_assault_texture_48.jpg
+	map_Kd cs_assault_texture_48.jpg
 
 newmtl texture_49
 	Ns 30.0000
@@ -698,8 +698,8 @@ newmtl texture_49
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_49.jpg
-	map_Kd Amadeus maps\cs_assault_texture_49.jpg
+	map_Ka cs_assault_texture_49.jpg
+	map_Kd cs_assault_texture_49.jpg
 
 newmtl texture_50
 	Ns 30.0000
@@ -712,8 +712,8 @@ newmtl texture_50
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_50.jpg
-	map_Kd Amadeus maps\cs_assault_texture_50.jpg
+	map_Ka cs_assault_texture_50.jpg
+	map_Kd cs_assault_texture_50.jpg
 
 newmtl texture_51
 	Ns 30.0000
@@ -726,8 +726,8 @@ newmtl texture_51
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_51.jpg
-	map_Kd Amadeus maps\cs_assault_texture_51.jpg
+	map_Ka cs_assault_texture_51.jpg
+	map_Kd cs_assault_texture_51.jpg
 
 newmtl texture_52
 	Ns 30.0000
@@ -740,8 +740,8 @@ newmtl texture_52
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_52.jpg
-	map_Kd Amadeus maps\cs_assault_texture_52.jpg
+	map_Ka cs_assault_texture_52.jpg
+	map_Kd cs_assault_texture_52.jpg
 
 newmtl texture_53
 	Ns 30.0000
@@ -754,8 +754,8 @@ newmtl texture_53
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_53.jpg
-	map_Kd Amadeus maps\cs_assault_texture_53.jpg
+	map_Ka cs_assault_texture_53.jpg
+	map_Kd cs_assault_texture_53.jpg
 
 newmtl texture_54
 	Ns 30.0000
@@ -768,8 +768,8 @@ newmtl texture_54
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_54.jpg
-	map_Kd Amadeus maps\cs_assault_texture_54.jpg
+	map_Ka cs_assault_texture_54.jpg
+	map_Kd cs_assault_texture_54.jpg
 
 newmtl texture_55
 	Ns 30.0000
@@ -782,8 +782,8 @@ newmtl texture_55
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_55.jpg
-	map_Kd Amadeus maps\cs_assault_texture_55.jpg
+	map_Ka cs_assault_texture_55.jpg
+	map_Kd cs_assault_texture_55.jpg
 
 newmtl texture_56
 	Ns 30.0000
@@ -796,8 +796,8 @@ newmtl texture_56
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_56.jpg
-	map_Kd Amadeus maps\cs_assault_texture_56.jpg
+	map_Ka cs_assault_texture_56.jpg
+	map_Kd cs_assault_texture_56.jpg
 
 newmtl texture_57
 	Ns 30.0000
@@ -810,8 +810,8 @@ newmtl texture_57
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_57.jpg
-	map_Kd Amadeus maps\cs_assault_texture_57.jpg
+	map_Ka cs_assault_texture_57.jpg
+	map_Kd cs_assault_texture_57.jpg
 
 newmtl texture_58
 	Ns 30.0000
@@ -824,8 +824,8 @@ newmtl texture_58
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_58.jpg
-	map_Kd Amadeus maps\cs_assault_texture_58.jpg
+	map_Ka cs_assault_texture_58.jpg
+	map_Kd cs_assault_texture_58.jpg
 
 newmtl texture_59
 	Ns 30.0000
@@ -838,8 +838,8 @@ newmtl texture_59
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_59.jpg
-	map_Kd Amadeus maps\cs_assault_texture_59.jpg
+	map_Ka cs_assault_texture_59.jpg
+	map_Kd cs_assault_texture_59.jpg
 
 newmtl texture_60
 	Ns 30.0000
@@ -852,8 +852,8 @@ newmtl texture_60
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_60.jpg
-	map_Kd Amadeus maps\cs_assault_texture_60.jpg
+	map_Ka cs_assault_texture_60.jpg
+	map_Kd cs_assault_texture_60.jpg
 
 newmtl texture_61
 	Ns 30.0000
@@ -866,8 +866,8 @@ newmtl texture_61
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_61.jpg
-	map_Kd Amadeus maps\cs_assault_texture_61.jpg
+	map_Ka cs_assault_texture_61.jpg
+	map_Kd cs_assault_texture_61.jpg
 
 newmtl texture_62
 	Ns 30.0000
@@ -880,8 +880,8 @@ newmtl texture_62
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_62.jpg
-	map_Kd Amadeus maps\cs_assault_texture_62.jpg
+	map_Ka cs_assault_texture_62.jpg
+	map_Kd cs_assault_texture_62.jpg
 
 newmtl texture_63
 	Ns 30.0000
@@ -894,8 +894,8 @@ newmtl texture_63
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_63.jpg
-	map_Kd Amadeus maps\cs_assault_texture_63.jpg
+	map_Ka cs_assault_texture_63.jpg
+	map_Kd cs_assault_texture_63.jpg
 
 newmtl texture_64
 	Ns 30.0000
@@ -908,8 +908,8 @@ newmtl texture_64
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_64.jpg
-	map_Kd Amadeus maps\cs_assault_texture_64.jpg
+	map_Ka cs_assault_texture_64.jpg
+	map_Kd cs_assault_texture_64.jpg
 
 newmtl texture_65
 	Ns 30.0000
@@ -922,8 +922,8 @@ newmtl texture_65
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_65.jpg
-	map_Kd Amadeus maps\cs_assault_texture_65.jpg
+	map_Ka cs_assault_texture_65.jpg
+	map_Kd cs_assault_texture_65.jpg
 
 newmtl texture_66
 	Ns 30.0000
@@ -936,8 +936,8 @@ newmtl texture_66
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_66.jpg
-	map_Kd Amadeus maps\cs_assault_texture_66.jpg
+	map_Ka cs_assault_texture_66.jpg
+	map_Kd cs_assault_texture_66.jpg
 
 newmtl texture_67
 	Ns 30.0000
@@ -950,8 +950,8 @@ newmtl texture_67
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_67.jpg
-	map_Kd Amadeus maps\cs_assault_texture_67.jpg
+	map_Ka cs_assault_texture_67.jpg
+	map_Kd cs_assault_texture_67.jpg
 
 newmtl texture_68
 	Ns 30.0000
@@ -964,8 +964,8 @@ newmtl texture_68
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_68.jpg
-	map_Kd Amadeus maps\cs_assault_texture_68.jpg
+	map_Ka cs_assault_texture_68.jpg
+	map_Kd cs_assault_texture_68.jpg
 
 newmtl texture_69
 	Ns 30.0000
@@ -978,8 +978,8 @@ newmtl texture_69
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_69.jpg
-	map_Kd Amadeus maps\cs_assault_texture_69.jpg
+	map_Ka cs_assault_texture_69.jpg
+	map_Kd cs_assault_texture_69.jpg
 
 newmtl texture_70
 	Ns 30.0000
@@ -992,8 +992,8 @@ newmtl texture_70
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_70.jpg
-	map_Kd Amadeus maps\cs_assault_texture_70.jpg
+	map_Ka cs_assault_texture_70.jpg
+	map_Kd cs_assault_texture_70.jpg
 
 newmtl texture_71
 	Ns 30.0000
@@ -1006,8 +1006,8 @@ newmtl texture_71
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_71.jpg
-	map_Kd Amadeus maps\cs_assault_texture_71.jpg
+	map_Ka cs_assault_texture_71.jpg
+	map_Kd cs_assault_texture_71.jpg
 
 newmtl texture_72
 	Ns 30.0000
@@ -1020,8 +1020,8 @@ newmtl texture_72
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_72.jpg
-	map_Kd Amadeus maps\cs_assault_texture_72.jpg
+	map_Ka cs_assault_texture_72.jpg
+	map_Kd cs_assault_texture_72.jpg
 
 newmtl texture_73
 	Ns 30.0000
@@ -1034,8 +1034,8 @@ newmtl texture_73
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_73.jpg
-	map_Kd Amadeus maps\cs_assault_texture_73.jpg
+	map_Ka cs_assault_texture_73.jpg
+	map_Kd cs_assault_texture_73.jpg
 
 newmtl texture_74
 	Ns 30.0000
@@ -1048,8 +1048,8 @@ newmtl texture_74
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_74.jpg
-	map_Kd Amadeus maps\cs_assault_texture_74.jpg
+	map_Ka cs_assault_texture_74.jpg
+	map_Kd cs_assault_texture_74.jpg
 
 newmtl texture_75
 	Ns 30.0000
@@ -1062,8 +1062,8 @@ newmtl texture_75
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_75.jpg
-	map_Kd Amadeus maps\cs_assault_texture_75.jpg
+	map_Ka cs_assault_texture_75.jpg
+	map_Kd cs_assault_texture_75.jpg
 
 newmtl texture_76
 	Ns 30.0000
@@ -1076,8 +1076,8 @@ newmtl texture_76
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_76.jpg
-	map_Kd Amadeus maps\cs_assault_texture_76.jpg
+	map_Ka cs_assault_texture_76.jpg
+	map_Kd cs_assault_texture_76.jpg
 
 newmtl texture_77
 	Ns 30.0000
@@ -1090,8 +1090,8 @@ newmtl texture_77
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_77.jpg
-	map_Kd Amadeus maps\cs_assault_texture_77.jpg
+	map_Ka cs_assault_texture_77.jpg
+	map_Kd cs_assault_texture_77.jpg
 
 newmtl texture_78
 	Ns 30.0000
@@ -1104,8 +1104,8 @@ newmtl texture_78
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_78.jpg
-	map_Kd Amadeus maps\cs_assault_texture_78.jpg
+	map_Ka cs_assault_texture_78.jpg
+	map_Kd cs_assault_texture_78.jpg
 
 newmtl texture_79
 	Ns 30.0000
@@ -1118,8 +1118,8 @@ newmtl texture_79
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_79.jpg
-	map_Kd Amadeus maps\cs_assault_texture_79.jpg
+	map_Ka cs_assault_texture_79.jpg
+	map_Kd cs_assault_texture_79.jpg
 
 newmtl texture_80
 	Ns 30.0000
@@ -1132,8 +1132,8 @@ newmtl texture_80
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_80.jpg
-	map_Kd Amadeus maps\cs_assault_texture_80.jpg
+	map_Ka cs_assault_texture_80.jpg
+	map_Kd cs_assault_texture_80.jpg
 
 newmtl texture_81
 	Ns 30.0000
@@ -1146,8 +1146,8 @@ newmtl texture_81
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_81.jpg
-	map_Kd Amadeus maps\cs_assault_texture_81.jpg
+	map_Ka cs_assault_texture_81.jpg
+	map_Kd cs_assault_texture_81.jpg
 
 newmtl texture_82
 	Ns 30.0000
@@ -1160,8 +1160,8 @@ newmtl texture_82
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_82.jpg
-	map_Kd Amadeus maps\cs_assault_texture_82.jpg
+	map_Ka cs_assault_texture_82.jpg
+	map_Kd cs_assault_texture_82.jpg
 
 newmtl texture_83
 	Ns 30.0000
@@ -1174,8 +1174,8 @@ newmtl texture_83
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_83.jpg
-	map_Kd Amadeus maps\cs_assault_texture_83.jpg
+	map_Ka cs_assault_texture_83.jpg
+	map_Kd cs_assault_texture_83.jpg
 
 newmtl texture_84
 	Ns 30.0000
@@ -1188,8 +1188,8 @@ newmtl texture_84
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_84.jpg
-	map_Kd Amadeus maps\cs_assault_texture_84.jpg
+	map_Ka cs_assault_texture_84.jpg
+	map_Kd cs_assault_texture_84.jpg
 
 newmtl texture_85
 	Ns 30.0000
@@ -1202,8 +1202,8 @@ newmtl texture_85
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_85.jpg
-	map_Kd Amadeus maps\cs_assault_texture_85.jpg
+	map_Ka cs_assault_texture_85.jpg
+	map_Kd cs_assault_texture_85.jpg
 
 newmtl texture_86
 	Ns 30.0000
@@ -1216,8 +1216,8 @@ newmtl texture_86
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_86.jpg
-	map_Kd Amadeus maps\cs_assault_texture_86.jpg
+	map_Ka cs_assault_texture_86.jpg
+	map_Kd cs_assault_texture_86.jpg
 
 newmtl texture_87
 	Ns 30.0000
@@ -1230,8 +1230,8 @@ newmtl texture_87
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_87.jpg
-	map_Kd Amadeus maps\cs_assault_texture_87.jpg
+	map_Ka cs_assault_texture_87.jpg
+	map_Kd cs_assault_texture_87.jpg
 
 newmtl texture_88
 	Ns 30.0000
@@ -1244,8 +1244,8 @@ newmtl texture_88
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_88.jpg
-	map_Kd Amadeus maps\cs_assault_texture_88.jpg
+	map_Ka cs_assault_texture_88.jpg
+	map_Kd cs_assault_texture_88.jpg
 
 newmtl texture_89
 	Ns 30.0000
@@ -1258,8 +1258,8 @@ newmtl texture_89
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_89.jpg
-	map_Kd Amadeus maps\cs_assault_texture_89.jpg
+	map_Ka cs_assault_texture_89.jpg
+	map_Kd cs_assault_texture_89.jpg
 
 newmtl texture_90
 	Ns 30.0000
@@ -1272,8 +1272,8 @@ newmtl texture_90
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_90.jpg
-	map_Kd Amadeus maps\cs_assault_texture_90.jpg
+	map_Ka cs_assault_texture_90.jpg
+	map_Kd cs_assault_texture_90.jpg
 
 newmtl texture_91
 	Ns 30.0000
@@ -1286,8 +1286,8 @@ newmtl texture_91
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_91.jpg
-	map_Kd Amadeus maps\cs_assault_texture_91.jpg
+	map_Ka cs_assault_texture_91.jpg
+	map_Kd cs_assault_texture_91.jpg
 
 newmtl texture_92
 	Ns 30.0000
@@ -1300,8 +1300,8 @@ newmtl texture_92
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_92.jpg
-	map_Kd Amadeus maps\cs_assault_texture_92.jpg
+	map_Ka cs_assault_texture_92.jpg
+	map_Kd cs_assault_texture_92.jpg
 
 newmtl texture_93
 	Ns 30.0000
@@ -1314,8 +1314,8 @@ newmtl texture_93
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_93.jpg
-	map_Kd Amadeus maps\cs_assault_texture_93.jpg
+	map_Ka cs_assault_texture_93.jpg
+	map_Kd cs_assault_texture_93.jpg
 
 newmtl texture_94
 	Ns 30.0000
@@ -1328,8 +1328,8 @@ newmtl texture_94
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_94.jpg
-	map_Kd Amadeus maps\cs_assault_texture_94.jpg
+	map_Ka cs_assault_texture_94.jpg
+	map_Kd cs_assault_texture_94.jpg
 
 newmtl texture_95
 	Ns 30.0000
@@ -1342,8 +1342,8 @@ newmtl texture_95
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_95.jpg
-	map_Kd Amadeus maps\cs_assault_texture_95.jpg
+	map_Ka cs_assault_texture_95.jpg
+	map_Kd cs_assault_texture_95.jpg
 
 newmtl texture_96
 	Ns 30.0000
@@ -1356,8 +1356,8 @@ newmtl texture_96
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_96.jpg
-	map_Kd Amadeus maps\cs_assault_texture_96.jpg
+	map_Ka cs_assault_texture_96.jpg
+	map_Kd cs_assault_texture_96.jpg
 
 newmtl texture_97
 	Ns 30.0000
@@ -1370,8 +1370,8 @@ newmtl texture_97
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_97.jpg
-	map_Kd Amadeus maps\cs_assault_texture_97.jpg
+	map_Ka cs_assault_texture_97.jpg
+	map_Kd cs_assault_texture_97.jpg
 
 newmtl texture_98
 	Ns 30.0000
@@ -1384,8 +1384,8 @@ newmtl texture_98
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_98.jpg
-	map_Kd Amadeus maps\cs_assault_texture_98.jpg
+	map_Ka cs_assault_texture_98.jpg
+	map_Kd cs_assault_texture_98.jpg
 
 newmtl texture_99
 	Ns 30.0000
@@ -1398,8 +1398,8 @@ newmtl texture_99
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_99.jpg
-	map_Kd Amadeus maps\cs_assault_texture_99.jpg
+	map_Ka cs_assault_texture_99.jpg
+	map_Kd cs_assault_texture_99.jpg
 
 newmtl texture_100
 	Ns 30.0000
@@ -1412,8 +1412,8 @@ newmtl texture_100
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_100.jpg
-	map_Kd Amadeus maps\cs_assault_texture_100.jpg
+	map_Ka cs_assault_texture_100.jpg
+	map_Kd cs_assault_texture_100.jpg
 
 newmtl texture_101
 	Ns 30.0000
@@ -1426,8 +1426,8 @@ newmtl texture_101
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_101.jpg
-	map_Kd Amadeus maps\cs_assault_texture_101.jpg
+	map_Ka cs_assault_texture_101.jpg
+	map_Kd cs_assault_texture_101.jpg
 
 newmtl texture_102
 	Ns 30.0000
@@ -1440,8 +1440,8 @@ newmtl texture_102
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_102.jpg
-	map_Kd Amadeus maps\cs_assault_texture_102.jpg
+	map_Ka cs_assault_texture_102.jpg
+	map_Kd cs_assault_texture_102.jpg
 
 newmtl texture_103
 	Ns 30.0000
@@ -1454,8 +1454,8 @@ newmtl texture_103
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_103.jpg
-	map_Kd Amadeus maps\cs_assault_texture_103.jpg
+	map_Ka cs_assault_texture_103.jpg
+	map_Kd cs_assault_texture_103.jpg
 
 newmtl texture_104
 	Ns 30.0000
@@ -1468,8 +1468,8 @@ newmtl texture_104
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_104.jpg
-	map_Kd Amadeus maps\cs_assault_texture_104.jpg
+	map_Ka cs_assault_texture_104.jpg
+	map_Kd cs_assault_texture_104.jpg
 
 newmtl texture_105
 	Ns 30.0000
@@ -1482,8 +1482,8 @@ newmtl texture_105
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_105.jpg
-	map_Kd Amadeus maps\cs_assault_texture_105.jpg
+	map_Ka cs_assault_texture_105.jpg
+	map_Kd cs_assault_texture_105.jpg
 
 newmtl texture_106
 	Ns 30.0000
@@ -1496,8 +1496,8 @@ newmtl texture_106
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_106.jpg
-	map_Kd Amadeus maps\cs_assault_texture_106.jpg
+	map_Ka cs_assault_texture_106.jpg
+	map_Kd cs_assault_texture_106.jpg
 
 newmtl texture_107
 	Ns 30.0000
@@ -1510,8 +1510,8 @@ newmtl texture_107
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_107.jpg
-	map_Kd Amadeus maps\cs_assault_texture_107.jpg
+	map_Ka cs_assault_texture_107.jpg
+	map_Kd cs_assault_texture_107.jpg
 
 newmtl texture_108
 	Ns 30.0000
@@ -1524,8 +1524,8 @@ newmtl texture_108
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_108.jpg
-	map_Kd Amadeus maps\cs_assault_texture_108.jpg
+	map_Ka cs_assault_texture_108.jpg
+	map_Kd cs_assault_texture_108.jpg
 
 newmtl texture_109
 	Ns 30.0000
@@ -1538,8 +1538,8 @@ newmtl texture_109
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_109.jpg
-	map_Kd Amadeus maps\cs_assault_texture_109.jpg
+	map_Ka cs_assault_texture_109.jpg
+	map_Kd cs_assault_texture_109.jpg
 
 newmtl texture_110
 	Ns 30.0000
@@ -1552,8 +1552,8 @@ newmtl texture_110
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_110.jpg
-	map_Kd Amadeus maps\cs_assault_texture_110.jpg
+	map_Ka cs_assault_texture_110.jpg
+	map_Kd cs_assault_texture_110.jpg
 
 newmtl texture_111
 	Ns 30.0000
@@ -1566,8 +1566,8 @@ newmtl texture_111
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_111.jpg
-	map_Kd Amadeus maps\cs_assault_texture_111.jpg
+	map_Ka cs_assault_texture_111.jpg
+	map_Kd cs_assault_texture_111.jpg
 
 newmtl texture_112
 	Ns 30.0000
@@ -1580,8 +1580,8 @@ newmtl texture_112
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_112.jpg
-	map_Kd Amadeus maps\cs_assault_texture_112.jpg
+	map_Ka cs_assault_texture_112.jpg
+	map_Kd cs_assault_texture_112.jpg
 
 newmtl texture_113
 	Ns 30.0000
@@ -1594,8 +1594,8 @@ newmtl texture_113
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_113.jpg
-	map_Kd Amadeus maps\cs_assault_texture_113.jpg
+	map_Ka cs_assault_texture_113.jpg
+	map_Kd cs_assault_texture_113.jpg
 
 newmtl texture_114
 	Ns 30.0000
@@ -1608,8 +1608,8 @@ newmtl texture_114
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_114.jpg
-	map_Kd Amadeus maps\cs_assault_texture_114.jpg
+	map_Ka cs_assault_texture_114.jpg
+	map_Kd cs_assault_texture_114.jpg
 
 newmtl texture_115
 	Ns 30.0000
@@ -1622,8 +1622,8 @@ newmtl texture_115
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_115.jpg
-	map_Kd Amadeus maps\cs_assault_texture_115.jpg
+	map_Ka cs_assault_texture_115.jpg
+	map_Kd cs_assault_texture_115.jpg
 
 newmtl texture_116
 	Ns 30.0000
@@ -1636,8 +1636,8 @@ newmtl texture_116
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_116.jpg
-	map_Kd Amadeus maps\cs_assault_texture_116.jpg
+	map_Ka cs_assault_texture_116.jpg
+	map_Kd cs_assault_texture_116.jpg
 
 newmtl texture_117
 	Ns 30.0000
@@ -1650,8 +1650,8 @@ newmtl texture_117
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_117.jpg
-	map_Kd Amadeus maps\cs_assault_texture_117.jpg
+	map_Ka cs_assault_texture_117.jpg
+	map_Kd cs_assault_texture_117.jpg
 
 newmtl texture_118
 	Ns 30.0000
@@ -1664,8 +1664,8 @@ newmtl texture_118
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_118.jpg
-	map_Kd Amadeus maps\cs_assault_texture_118.jpg
+	map_Ka cs_assault_texture_118.jpg
+	map_Kd cs_assault_texture_118.jpg
 
 newmtl texture_119
 	Ns 30.0000
@@ -1678,8 +1678,8 @@ newmtl texture_119
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_119.jpg
-	map_Kd Amadeus maps\cs_assault_texture_119.jpg
+	map_Ka cs_assault_texture_119.jpg
+	map_Kd cs_assault_texture_119.jpg
 
 newmtl texture_120
 	Ns 30.0000
@@ -1692,8 +1692,8 @@ newmtl texture_120
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_120.jpg
-	map_Kd Amadeus maps\cs_assault_texture_120.jpg
+	map_Ka cs_assault_texture_120.jpg
+	map_Kd cs_assault_texture_120.jpg
 
 newmtl texture_121
 	Ns 30.0000
@@ -1706,8 +1706,8 @@ newmtl texture_121
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_121.jpg
-	map_Kd Amadeus maps\cs_assault_texture_121.jpg
+	map_Ka cs_assault_texture_121.jpg
+	map_Kd cs_assault_texture_121.jpg
 
 newmtl texture_122
 	Ns 30.0000
@@ -1720,8 +1720,8 @@ newmtl texture_122
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_122.jpg
-	map_Kd Amadeus maps\cs_assault_texture_122.jpg
+	map_Ka cs_assault_texture_122.jpg
+	map_Kd cs_assault_texture_122.jpg
 
 newmtl texture_123
 	Ns 30.0000
@@ -1734,8 +1734,8 @@ newmtl texture_123
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_123.jpg
-	map_Kd Amadeus maps\cs_assault_texture_123.jpg
+	map_Ka cs_assault_texture_123.jpg
+	map_Kd cs_assault_texture_123.jpg
 
 newmtl texture_124
 	Ns 30.0000
@@ -1748,8 +1748,8 @@ newmtl texture_124
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_124.jpg
-	map_Kd Amadeus maps\cs_assault_texture_124.jpg
+	map_Ka cs_assault_texture_124.jpg
+	map_Kd cs_assault_texture_124.jpg
 
 newmtl texture_125
 	Ns 30.0000
@@ -1762,8 +1762,8 @@ newmtl texture_125
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_125.jpg
-	map_Kd Amadeus maps\cs_assault_texture_125.jpg
+	map_Ka cs_assault_texture_125.jpg
+	map_Kd cs_assault_texture_125.jpg
 
 newmtl texture_126
 	Ns 30.0000
@@ -1776,8 +1776,8 @@ newmtl texture_126
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_126.jpg
-	map_Kd Amadeus maps\cs_assault_texture_126.jpg
+	map_Ka cs_assault_texture_126.jpg
+	map_Kd cs_assault_texture_126.jpg
 
 newmtl texture_127
 	Ns 30.0000
@@ -1790,8 +1790,8 @@ newmtl texture_127
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_127.jpg
-	map_Kd Amadeus maps\cs_assault_texture_127.jpg
+	map_Ka cs_assault_texture_127.jpg
+	map_Kd cs_assault_texture_127.jpg
 
 newmtl texture_128
 	Ns 30.0000
@@ -1804,8 +1804,8 @@ newmtl texture_128
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_128.jpg
-	map_Kd Amadeus maps\cs_assault_texture_128.jpg
+	map_Ka cs_assault_texture_128.jpg
+	map_Kd cs_assault_texture_128.jpg
 
 newmtl texture_129
 	Ns 30.0000
@@ -1818,8 +1818,8 @@ newmtl texture_129
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_129.jpg
-	map_Kd Amadeus maps\cs_assault_texture_129.jpg
+	map_Ka cs_assault_texture_129.jpg
+	map_Kd cs_assault_texture_129.jpg
 
 newmtl texture_130
 	Ns 30.0000
@@ -1832,8 +1832,8 @@ newmtl texture_130
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_130.jpg
-	map_Kd Amadeus maps\cs_assault_texture_130.jpg
+	map_Ka cs_assault_texture_130.jpg
+	map_Kd cs_assault_texture_130.jpg
 
 newmtl texture_131
 	Ns 30.0000
@@ -1846,8 +1846,8 @@ newmtl texture_131
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_131.jpg
-	map_Kd Amadeus maps\cs_assault_texture_131.jpg
+	map_Ka cs_assault_texture_131.jpg
+	map_Kd cs_assault_texture_131.jpg
 
 newmtl texture_132
 	Ns 30.0000
@@ -1860,8 +1860,8 @@ newmtl texture_132
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_132.jpg
-	map_Kd Amadeus maps\cs_assault_texture_132.jpg
+	map_Ka cs_assault_texture_132.jpg
+	map_Kd cs_assault_texture_132.jpg
 
 newmtl texture_133
 	Ns 30.0000
@@ -1874,8 +1874,8 @@ newmtl texture_133
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_133.jpg
-	map_Kd Amadeus maps\cs_assault_texture_133.jpg
+	map_Ka cs_assault_texture_133.jpg
+	map_Kd cs_assault_texture_133.jpg
 
 newmtl texture_134
 	Ns 30.0000
@@ -1888,8 +1888,8 @@ newmtl texture_134
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_134.jpg
-	map_Kd Amadeus maps\cs_assault_texture_134.jpg
+	map_Ka cs_assault_texture_134.jpg
+	map_Kd cs_assault_texture_134.jpg
 
 newmtl texture_135
 	Ns 30.0000
@@ -1902,8 +1902,8 @@ newmtl texture_135
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_135.jpg
-	map_Kd Amadeus maps\cs_assault_texture_135.jpg
+	map_Ka cs_assault_texture_135.jpg
+	map_Kd cs_assault_texture_135.jpg
 
 newmtl texture_136
 	Ns 30.0000
@@ -1916,8 +1916,8 @@ newmtl texture_136
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_136.jpg
-	map_Kd Amadeus maps\cs_assault_texture_136.jpg
+	map_Ka cs_assault_texture_136.jpg
+	map_Kd cs_assault_texture_136.jpg
 
 newmtl texture_137
 	Ns 30.0000
@@ -1930,8 +1930,8 @@ newmtl texture_137
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_137.jpg
-	map_Kd Amadeus maps\cs_assault_texture_137.jpg
+	map_Ka cs_assault_texture_137.jpg
+	map_Kd cs_assault_texture_137.jpg
 
 newmtl texture_138
 	Ns 30.0000
@@ -1944,8 +1944,8 @@ newmtl texture_138
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_138.jpg
-	map_Kd Amadeus maps\cs_assault_texture_138.jpg
+	map_Ka cs_assault_texture_138.jpg
+	map_Kd cs_assault_texture_138.jpg
 
 newmtl texture_139
 	Ns 30.0000
@@ -1958,8 +1958,8 @@ newmtl texture_139
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_139.jpg
-	map_Kd Amadeus maps\cs_assault_texture_139.jpg
+	map_Ka cs_assault_texture_139.jpg
+	map_Kd cs_assault_texture_139.jpg
 
 newmtl texture_140
 	Ns 30.0000
@@ -1972,8 +1972,8 @@ newmtl texture_140
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_140.jpg
-	map_Kd Amadeus maps\cs_assault_texture_140.jpg
+	map_Ka cs_assault_texture_140.jpg
+	map_Kd cs_assault_texture_140.jpg
 
 newmtl texture_141
 	Ns 30.0000
@@ -1986,8 +1986,8 @@ newmtl texture_141
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_141.jpg
-	map_Kd Amadeus maps\cs_assault_texture_141.jpg
+	map_Ka cs_assault_texture_141.jpg
+	map_Kd cs_assault_texture_141.jpg
 
 newmtl texture_142
 	Ns 30.0000
@@ -2000,8 +2000,8 @@ newmtl texture_142
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_142.jpg
-	map_Kd Amadeus maps\cs_assault_texture_142.jpg
+	map_Ka cs_assault_texture_142.jpg
+	map_Kd cs_assault_texture_142.jpg
 
 newmtl texture_143
 	Ns 30.0000
@@ -2014,8 +2014,8 @@ newmtl texture_143
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_143.jpg
-	map_Kd Amadeus maps\cs_assault_texture_143.jpg
+	map_Ka cs_assault_texture_143.jpg
+	map_Kd cs_assault_texture_143.jpg
 
 newmtl texture_144
 	Ns 30.0000
@@ -2028,8 +2028,8 @@ newmtl texture_144
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_144.jpg
-	map_Kd Amadeus maps\cs_assault_texture_144.jpg
+	map_Ka cs_assault_texture_144.jpg
+	map_Kd cs_assault_texture_144.jpg
 
 newmtl texture_145
 	Ns 30.0000
@@ -2042,8 +2042,8 @@ newmtl texture_145
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_145.jpg
-	map_Kd Amadeus maps\cs_assault_texture_145.jpg
+	map_Ka cs_assault_texture_145.jpg
+	map_Kd cs_assault_texture_145.jpg
 
 newmtl texture_146
 	Ns 30.0000
@@ -2056,5 +2056,5 @@ newmtl texture_146
 	Kd 0.5500 0.5500 0.5500
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Amadeus maps\cs_assault_texture_146.jpg
-	map_Kd Amadeus maps\cs_assault_texture_146.jpg
+	map_Ka cs_assault_texture_146.jpg
+	map_Kd cs_assault_texture_146.jpg

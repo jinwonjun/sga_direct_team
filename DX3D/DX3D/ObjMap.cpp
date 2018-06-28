@@ -8,13 +8,8 @@ ObjMap::ObjMap()
 	m_rayOffsetY = 4;
 }
 
-
 ObjMap::~ObjMap()
 {
-	//for (auto p : m_vecDrawingGroup)
-	//{
-	//	SAFE_RELEASE(p);
-	//}
 	for (auto p : m_vecDrawingGroup)
 		SAFE_RELEASE(p);
 	SAFE_RELEASE(m_pMeshMap);
@@ -24,36 +19,8 @@ ObjMap::~ObjMap()
 
 void ObjMap::Init()
 {
-	//D3DXMATRIXA16 matRX, matRY, matS, matWorld;
-	//D3DXMatrixRotationX(&matRX, -D3DX_PI / 2.0f);
-	//D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
-	////D3DXMatrixScaling(&matS, 0.04f, 0.04f, 0.04f);
-	//D3DXMatrixScaling(&matS, 3.0f, 3.0f, 3.0f);
-	//matWorld = matS * matRX * matRY;
-
-	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
-	D3DXMatrixScaling(&matS, 0.2f, 0.2f, 0.2f);
-	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
-	D3DXMatrixTranslation(&matT, 0, -250, 0);
-	localMatrix = matS * matRY * matT;
-
-	ObjLoader loader;
-	//Map_surface <- z높이 측정하는 용도로 쓰임!
-	//loader.Load("resources/obj", "Map.obj", &matWorld, m_vecDrawingGroup);
-	//loader.LoadSurface("resources/obj/Map_surface.obj", &matWorld, m_vecVertex);
-	//m_pMeshMap = loader.LoadMesh("resources/obj", "Map.obj", &matWorld, m_vecMtlTex);
-
-	//loader.Load("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecDrawingGroup);
-	m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
-	//loader.CreateSurface(m_surfaceVertices);
-	loader.CreateSurface(m_vecVertex);
-
-	//m_pMeshMap = loader.CreateSurface()
-
-	//loader.LoadNoneMtl("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
-
-	//m_pMeshMap = loader.LoadMesh("resources/obj", "UED_SCV_V1.obj", &matWorld, m_vecMtlTex);
-
+	//Init_cs_italy();
+	Init_cs_assault();
 	//OBJ맵 적용하기
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");
@@ -140,20 +107,6 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 	float distance;
 	float tmpHeight;
 	float highest = -99999;
-	//for (size_t i = 0; i < m_surfaceVertices.size(); i += 3)
-	//{
-	//	if (D3DXIntersectTri(&m_surfaceVertices[i], &m_surfaceVertices[i + 1], &m_surfaceVertices[i + 2],
-	//		&rayPos, &rayDir, NULL, NULL, &distance))
-	//	{
-	//		tmpHeight = rayPos.y - distance;
-
-	//		if (tmpHeight > highest + FLT_EPSILON)
-	//		{
-	//			highest = tmpHeight;
-	//			height = tmpHeight;
-	//		}
-	//	}
-	//}
 	for (size_t i = 0; i < m_vecVertex.size(); i += 3)
 	{
 		if (D3DXIntersectTri(&m_vecVertex[i], &m_vecVertex[i + 1], &m_vecVertex[i + 2],
@@ -187,10 +140,6 @@ void ObjMap::RenderMesh()
 
 void ObjMap::RenderDrawingGroup()
 {
-	//for (auto p : m_vecDrawingGroup)
-	//{
-	//	SAFE_RENDER(p);
-	//}
 
 	for (auto p : m_vecDrawingGroup)
 	{
@@ -212,3 +161,42 @@ void ObjMap::RenderDrawingGroup()
 
 	m_vecDrawingGroup[nSubSet]->Render();
 }
+
+void ObjMap::Init_cs_italy()
+{
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 0.2f, 0.2f, 0.2f);
+	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	D3DXMatrixTranslation(&matT, 0, -250, 0);
+	localMatrix = matS * matRY * matT;
+
+	ObjLoader loader;
+	m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
+	loader.CreateSurface(m_vecVertex);
+}
+
+void ObjMap::Init_cs_assault()
+{
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 0.4f, 0.4f, 0.4f);
+	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	D3DXMatrixTranslation(&matT, 0, -700, 0);
+	localMatrix = matS * matRY * matT;
+
+	ObjLoader loader;
+	m_pMeshMap = loader.LoadMesh("resources/cs_assault", "cs_assault.obj", &localMatrix, m_vecMtlTex);
+	loader.CreateSurface(m_vecVertex);
+}
+
+
+//Map_surface <- z높이 측정하는 용도로 쓰임!
+//loader.Load("resources/obj", "Map.obj", &matWorld, m_vecDrawingGroup);
+//loader.LoadSurface("resources/obj/Map_surface.obj", &matWorld, m_vecVertex);
+//m_pMeshMap = loader.LoadMesh("resources/obj", "Map.obj", &matWorld, m_vecMtlTex);
+//loader.Load("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecDrawingGroup);
+//m_pMeshMap = loader.LoadMesh("resources/cs_assault", "cs_assault.obj", &localMatrix, m_vecMtlTex);
+//loader.CreateSurface(m_surfaceVertices);
+//loader.CreateSurface(m_vecVertex);
+//m_pMeshMap = loader.CreateSurface()
+//loader.LoadNoneMtl("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
+//m_pMeshMap = loader.LoadMesh("resources/obj", "UED_SCV_V1.obj", &matWorld, m_vecMtlTex);
