@@ -136,7 +136,7 @@ void Inventory::Init()
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/Gun.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/Gun_.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -746,24 +746,27 @@ void Inventory::Render()
 
 	if (openInven)
 	{
-		//인벤토리 == 나중에 살릴  것 ====
+		
 		//===========================
 
-		//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	
 
 		SetRect(&m_rc_Inventory, 0, 0, m_image_Inventory_info.Width, m_image_Inventory_info.Height);
 
 
-		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		//m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		m_pSprite->SetTransform(&matWorld[matWorld_Inven]);
 		m_pSprite->Draw(
 			m_pTex_Inventory,
 			&m_rc_Inventory,
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
-			D3DCOLOR_ARGB(220, 255, 255, 255));
+			D3DCOLOR_ARGB(255, 255, 255, 255));
 
 		//=======================================
+
+		//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+
 
 		SetRect(&m_rc_Inventory_Chara, 0, 0, m_image_Inventory_Chara_info.Width, m_image_Inventory_Chara_info.Height);
 
@@ -775,9 +778,17 @@ void Inventory::Render()
 			&m_rc_Inventory_Chara,
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
-			D3DCOLOR_ARGB(10, 255, 255, 255));
+			D3DCOLOR_ARGB(50, 255, 255, 255));
 
 
+		g_pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+		g_pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		g_pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		g_pDevice->SetRenderState(D3DRS_LIGHTING, false); // 라이트를 키면 껌해진다 ...
+
+		m_pSprite->End();
+	//	g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+		//
 		//===========================
 		//Item
 		//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);

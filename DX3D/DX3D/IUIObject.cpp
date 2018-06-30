@@ -4,7 +4,10 @@
 
 IUIObject::IUIObject(LPD3DXSPRITE pSprite, int uiTag) 
 	: m_bDrawBorder(false), m_pSprite(pSprite),m_uiTag(uiTag),m_color(D3DXCOLOR(1,1,1,1))
-{//스프라이트 하나가지고서, 맨위에가 공유해주면 그거가지고 계속 사용하기(-1이면 태그 필요없는 놈)
+{
+
+	//스프라이트 하나가지고서, 맨위에가 공유해주면 그거가지고 계속 사용하기(-1이면 태그 필요없는 놈)
+
 }
 
 

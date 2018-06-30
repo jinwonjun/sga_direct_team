@@ -90,17 +90,17 @@ void AseCharacter::Render()
 	*/
 	//알파블렌드 먹이기
 	//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);//알파 블렌드 시작 코드
-	g_pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+	g_pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);               // 두개를 더한다. opperator ... 어우야 ...
 	//g_pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
 	//g_pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_DESTCOLOR);
-	g_pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	g_pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	g_pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);     		// 원본과 건드릴 놈 
+	g_pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);		// 원본과 건드릴 놈 
 
 	g_pDevice->SetRenderState(D3DRS_BLENDFACTOR, 0xffff22cc);
 
-	g_pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	g_pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-	g_pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+	g_pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE); //여기 세줄이 알파 건드리는 것  Modulate = 두개를 곱한다. ... 
+	g_pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE); //여기 세줄이 알파 건드리는 것
+	g_pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE); //여기 세줄이 알파 건드리는 것
 	//Diffuse 가 아닌, Current를 쓰면, 결과값이 최종 텍스쳐를 삼는다.
 
 	//색감 자체를 조절해주기

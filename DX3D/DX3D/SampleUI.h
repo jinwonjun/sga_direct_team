@@ -10,6 +10,8 @@ struct HUD_Ui
 	RECT m_Image_rc;
 	RECT m_Sacle_rc;
 
+
+
 	LPDIRECT3DTEXTURE9 m_pTex;
 	D3DXIMAGE_INFO m_imageInfo;
 };
@@ -26,25 +28,14 @@ private:
 
 	D3DXMATRIXA16 matWorld_2;
 
-	LPDIRECT3DTEXTURE9 m_pTex;
-	D3DXIMAGE_INFO m_imageInfo;
 
 
-	LPD3DXSPRITE m_pSprite_;
-	LPDIRECT3DTEXTURE9 m_pTex_;
-	D3DXIMAGE_INFO m_imageInfo_;
 
-
-	LPDIRECT3DTEXTURE9 m_pTex_Hp_Back;
-	D3DXIMAGE_INFO m_imageInfo_Hp_Back;
-
-
-	LPDIRECT3DTEXTURE9 m_pTex_Hp_Loss;
-	D3DXIMAGE_INFO m_imageInfo_Hp_Loss;
-
-	LPDIRECT3DTEXTURE9 m_pTex_Hp_Remain;
-	D3DXIMAGE_INFO m_imageInfo_Hp_Remain;
-
+	HUD_Ui Cross_Hair;
+	HUD_Ui Gun;
+	HUD_Ui Character_HP_BackGround;
+	HUD_Ui Character_HP_Loss;
+	HUD_Ui Character_HP_Remain;
 
 	UIButton * BulletNum;
 

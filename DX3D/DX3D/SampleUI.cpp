@@ -18,7 +18,7 @@ enum
 SampleUI::SampleUI()
 {
 	m_pSprite = NULL;
-	m_pSprite_ = NULL;
+	//m_pSprite_ = NULL;
 	m_pRootUI = NULL;
 }
 
@@ -26,7 +26,7 @@ SampleUI::SampleUI()
 SampleUI::~SampleUI()
 {
 	SAFE_RELEASE(m_pSprite);
-	SAFE_RELEASE(m_pSprite_);
+	//SAFE_RELEASE(m_pSprite_);
 	//SAFE_RELEASE(m_pRootUI);
 	//SAFE_RELEASE(pbutt)
 	m_pRootUI->ReleaseAll();
@@ -35,7 +35,7 @@ SampleUI::~SampleUI()
 void SampleUI::Init()
 {
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
-	D3DXCreateSprite(g_pDevice, &m_pSprite_);
+//	D3DXCreateSprite(g_pDevice, &m_pSprite_);
 	restBullet = 30;
 	spaceOn = false;
 	contorller = 0;
@@ -180,7 +180,7 @@ void SampleUI::Init()
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/Gun.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/Gun_.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -190,9 +190,9 @@ void SampleUI::Init()
 		D3DX_FILTER_NONE,   //DWORD Filter
 		D3DX_DEFAULT,      //DWORD MipFilter
 		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		&Gun.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
-		&m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+		&Gun.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 					// 와 주석이 죄다 영어네
 					// 영어 잘한다고 자랑하냐??
@@ -208,9 +208,9 @@ void SampleUI::Init()
 		D3DX_FILTER_NONE,   //DWORD Filter
 		D3DX_DEFAULT,      //DWORD MipFilter
 		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&m_imageInfo_,   //D3DXIMAGE_INFO *pSrcInfo
+		&Cross_Hair.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
-		&m_pTex_);   //LPDIRECT3DTEXTURE9 *ppTexture
+		&Cross_Hair.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
 
@@ -227,9 +227,9 @@ void SampleUI::Init()
 		D3DX_FILTER_NONE,   //DWORD Filter
 		D3DX_DEFAULT,      //DWORD MipFilter
 		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&m_imageInfo_Hp_Back,   //D3DXIMAGE_INFO *pSrcInfo
+		&Character_HP_BackGround.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
-		&m_pTex_Hp_Back);   //LPDIRECT3DTEXTURE9 *ppTexture
+		&Character_HP_BackGround.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
 							// 체력 남은 양
@@ -245,9 +245,9 @@ void SampleUI::Init()
 		D3DX_FILTER_NONE,   //DWORD Filter
 		D3DX_DEFAULT,      //DWORD MipFilter
 		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&m_imageInfo_Hp_Remain,   //D3DXIMAGE_INFO *pSrcInfo
+		&Character_HP_Remain.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
-		&m_pTex_Hp_Remain);   //LPDIRECT3DTEXTURE9 *ppTexture
+		&Character_HP_Remain.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
 	// 체력 잃은 양
@@ -263,23 +263,25 @@ void SampleUI::Init()
 		D3DX_FILTER_NONE,   //DWORD Filter
 		D3DX_DEFAULT,      //DWORD MipFilter
 		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&m_imageInfo_Hp_Loss,   //D3DXIMAGE_INFO *pSrcInfo
+		&Character_HP_Loss.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
-		&m_pTex_Hp_Loss);   //LPDIRECT3DTEXTURE9 *ppTexture
+		&Character_HP_Loss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
 	{
 		D3DXMATRIXA16 matS;
-		D3DXMatrixScaling(&matS, 1.f, 1.9f, 1);
+		D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
 		D3DXMATRIXA16 matT;
-		D3DXMatrixTranslation(&matT, 150, 150, 0);
+		D3DXMatrixTranslation(&matT, (WINSIZEX/5)*4, (WINSIZEY/32) *25, 0);
 		m_matWorld = matS * matT;
 
 		BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
 		// 널 저주 하겠다.
 		m_pRootUI->AddChild(BulletNum);
 		//WINSIZEY / 3
-		BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
+		//BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
+		BulletNum->SetPosition(&D3DXVECTOR3(0, 0, 0));
+
 		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 			"resources/ui/btn-med-over.png.png",
 			"resources/ui/btn-med-down.png.png");
@@ -402,14 +404,14 @@ void SampleUI::Render()
 	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
 	matWorld = matS * matT;  // 젤 끝에서 시작점으로 이동하는것
 
-	RECT rc_; // 회전중점, 위치이동 따로따로 있따.       에임
-	SetRect(&rc_, 0, 0, m_imageInfo_.Width, m_imageInfo_.Height);
+	// 회전중점, 위치이동 따로따로 있따.       에임
+	SetRect(&Cross_Hair.m_Image_rc, 0, 0, Cross_Hair.m_imageInfo.Width, Cross_Hair.m_imageInfo.Height);
 	//D3DXSPRITE_ALPHABLEND
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pSprite->SetTransform(&matWorld);
 	m_pSprite->Draw(
-		m_pTex_,
-		&rc_,
+		Cross_Hair.m_pTex,
+		&Cross_Hair.m_Image_rc,
 		&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
@@ -425,13 +427,13 @@ void SampleUI::Render()
 	//fAngle += 0.1f;
 
 
-	RECT rc; // 회전중점, 위치이동 따로따로 있따.  총
-	SetRect(&rc, 0, 0, m_imageInfo.Width, m_imageInfo.Height);
+	// 회전중점, 위치이동 따로따로 있따.  총
+	SetRect(&Gun.m_Image_rc, 0, 0, Gun.m_imageInfo.Width, Gun.m_imageInfo.Height);
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, ((clientRect.right - m_imageInfo.Width)*19)/20, clientRect.bottom/1.5, 0);
-	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
+	D3DXMatrixTranslation(&matT, ((clientRect.right - Gun.m_imageInfo.Width)/40)*39, clientRect.bottom/1.5, 0);
+	D3DXMatrixScaling(&matS, 1.f, .8f, 1);
 	//1325 0  -> 1325 -150
 	matWorld = matS* matR * matT;
 
@@ -439,8 +441,8 @@ void SampleUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pSprite->SetTransform(&matWorld);
 	m_pSprite->Draw(
-		m_pTex,
-		&rc,
+		Gun.m_pTex,
+		&Gun.m_Image_rc,
 		&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
@@ -454,8 +456,8 @@ void SampleUI::Render()
 
 
 
-	RECT Hp_Back; // 회전중점, 위치이동 따로따로 있따.  체력 바탕
-	SetRect(&rc, 0, 0, m_imageInfo_Hp_Back.Width, m_imageInfo_Hp_Back.Height);
+	 // 회전중점, 위치이동 따로따로 있따.  체력 바탕
+	SetRect(&Character_HP_BackGround.m_Image_rc, 0, 0, Character_HP_BackGround.m_imageInfo.Width, Character_HP_BackGround.m_imageInfo.Height);
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
@@ -469,8 +471,8 @@ void SampleUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pSprite->SetTransform(&matWorld);
 	m_pSprite->Draw(
-		m_pTex_Hp_Back,
-		&rc,
+		Character_HP_BackGround.m_pTex,
+		&Character_HP_BackGround.m_Image_rc,
 		&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
@@ -484,8 +486,8 @@ void SampleUI::Render()
 
 
 
-	RECT Hp_Loss; // 회전중점, 위치이동 따로따로 있따.  체력 잃은 양
-	SetRect(&rc, 0, 0, m_imageInfo_Hp_Loss.Width, m_imageInfo_Hp_Loss.Height);
+	// 회전중점, 위치이동 따로따로 있따.  체력 잃은 양
+	SetRect(&Character_HP_Loss.m_Image_rc, 0, 0, Character_HP_Loss.m_imageInfo.Width, Character_HP_Loss.m_imageInfo.Height);
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
@@ -499,8 +501,8 @@ void SampleUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pSprite->SetTransform(&matWorld);
 	m_pSprite->Draw(
-		m_pTex_Hp_Loss,
-		&rc,
+		Character_HP_Loss.m_pTex,
+		&Character_HP_Loss.m_Image_rc,
 		&D3DXVECTOR3(0,0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
@@ -512,8 +514,8 @@ void SampleUI::Render()
 
 
 
-	RECT Hp_Remain; // 회전중점, 위치이동 따로따로 있따.  체력 남은 양
-	SetRect(&rc, 0, 0, m_imageInfo_Hp_Remain.Width * PercentOfHp, m_imageInfo_Hp_Remain.Height);
+	 // 회전중점, 위치이동 따로따로 있따.  체력 남은 양
+	SetRect(&Character_HP_Remain.m_Image_rc, 0, 0, Character_HP_Remain.m_imageInfo.Width * PercentOfHp, Character_HP_Remain.m_imageInfo.Height);
 
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
@@ -527,8 +529,8 @@ void SampleUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pSprite->SetTransform(&matWorld);
 	m_pSprite->Draw(
-		m_pTex_Hp_Remain,
-		&rc,
+		Character_HP_Remain.m_pTex,
+		&Character_HP_Remain.m_Image_rc,
 		&D3DXVECTOR3(0,0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
