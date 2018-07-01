@@ -6,7 +6,7 @@
 #define GREEN	D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f)
 #define BLUE	D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)
 #define YELLOW	D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f)
-#define BLOOD	D3DXCOLOR(0.5f, 0.1f, 0.1f, 1.0f)
+#define BLOOD	D3DXCOLOR(1.0f, 0.2f, 0.1f, 1.0f)
 
 namespace DXUtil
 {

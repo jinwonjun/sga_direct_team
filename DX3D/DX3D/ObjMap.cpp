@@ -19,6 +19,7 @@ ObjMap::~ObjMap()
 
 void ObjMap::Init()
 {
+	surfaceMode = false;
 	//Init_cs_italy();
 	Init_cs_assault();
 	//OBJ¸Ê Àû¿ëÇÏ±â
@@ -28,6 +29,10 @@ void ObjMap::Init()
 
 void ObjMap::Update()
 {
+	if (g_pKeyboard->Get()->KeyDown(VK_F2))
+	{
+		surfaceMode = !surfaceMode;
+	}
 }
 
 void ObjMap::Render()
@@ -129,12 +134,21 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 
 void ObjMap::RenderMesh()
 {
-	for (size_t i = 0; i < m_vecMtlTex.size(); i++)
+	if (surfaceMode)
 	{
-		g_pDevice->SetMaterial(&m_vecMtlTex[i]->material);
-		g_pDevice->SetTexture(0, m_vecMtlTex[i]->pTexture);
-		m_pMeshMap->DrawSubset(i);
+		g_pDevice->SetFVF(D3DFVF_XYZ);
+		g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size() / 3, &m_vecVertex[0], sizeof(D3DXVECTOR3));
 	}
+	else
+	{
+		for (size_t i = 0; i < m_vecMtlTex.size(); i++)
+		{
+			g_pDevice->SetMaterial(&m_vecMtlTex[i]->material);
+			g_pDevice->SetTexture(0, m_vecMtlTex[i]->pTexture);
+			m_pMeshMap->DrawSubset(i);
+		}
+	}
+
 }
 
 void ObjMap::RenderDrawingGroup()
