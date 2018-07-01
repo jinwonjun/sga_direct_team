@@ -163,6 +163,26 @@ void SkinnedMesh::UpdateFrameMatrices(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	{
 		UpdateFrameMatrices(pFrameEx->pFrameFirstChild, pFrameEx);
 	}
+
+	/*
+	mixamorig:RightHand
+	mixamorig:RightHandIndex1
+	mixamorig:RightHandIndex2
+	mixamorig_RightHand
+	mixamorig_LeftHand
+	*/
+	//오른손행렬값 찾아서 따로 담기
+	LPSTR hand = "mixamorig_RightHandIndex1";
+	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHandIndex1")==0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;//* m_matWorld
+		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	/*else
+	{
+
+	}*/
+
 }
 
 
@@ -174,7 +194,10 @@ void SkinnedMesh::Render()
 	Debug->AddText(_T("=====DrawFrame====="));
 	Debug->EndLine();
 	if (m_bDrawFrame)DrawFrame(m_pRootFrame);
+	
 	Debug->EndLine();
+
+
 	Debug->AddText(_T("numFrame = "));
 	Debug->AddText(m_numFrame);
 	Debug->EndLine();
@@ -196,7 +219,6 @@ void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 		Debug->AddText(_T("NULL"));
 	else
 		Debug->AddText(pFrame->Name);
-
 
 	LPD3DXMESHCONTAINER pMeshContainer = pFrame->pMeshContainer;
 	while (pMeshContainer != NULL)

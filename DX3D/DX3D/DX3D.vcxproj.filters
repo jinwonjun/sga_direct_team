@@ -360,6 +360,9 @@
     <ClInclude Include="BloodEffect.h">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -583,6 +586,9 @@
     </ClCompile>
     <ClCompile Include="BloodEffect.cpp">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
+    </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

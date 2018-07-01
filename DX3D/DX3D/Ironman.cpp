@@ -63,6 +63,7 @@ void Ironman::Init()
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
+	
 
 
 	keyPress = false;
@@ -89,6 +90,10 @@ void Ironman::Update()
 
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
+
+	//오른손 좌표 가져오기
+	RightHand = m_pSkinnedMesh->GetHandMatrix();
+
 
 	D3DXTRACK_DESC track;
 	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);

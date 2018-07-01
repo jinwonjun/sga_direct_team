@@ -12,6 +12,7 @@ class SkyBox;
 class HeightMap;
 class EnemyManager;
 class Ironman;
+class Gun;
 
 class SceneGrid : public IScene
 {
@@ -69,6 +70,7 @@ public:
 	// 이거 바꿀수 있을까?
 
 	Ironman * m_pCharacter;
+	Gun * m_pGun;
 
 	
 };

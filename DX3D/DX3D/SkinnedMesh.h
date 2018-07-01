@@ -18,6 +18,7 @@ protected:
 	int							m_numMesh;
 
 	D3DXMATRIXA16 m_matWorld;
+	D3DXMATRIXA16 m_RightHandFrame;
 
 public:
 	SkinnedMesh();
@@ -46,6 +47,8 @@ public:
 	int status;
 	//m_matWorld값을 이 함수를 통해서 바꿔주자.
 	void SetWorldMatrix(D3DXMATRIXA16* matW) { m_matWorld = *matW; }
+
+	D3DXMATRIXA16& GetHandMatrix() { return m_RightHandFrame; }
 };
 
 // OnInit

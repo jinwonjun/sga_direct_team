@@ -8,6 +8,8 @@ class BloodEffect;
 class Ironman :
 	public IUnitObject
 {
+
+
 public:
 	Ironman();
 	~Ironman();
@@ -28,6 +30,8 @@ public:
 	BloodEffect* m_pBlood;
 
 	D3DXVECTOR3 BloodCalPos;
+
+	D3DXMATRIXA16 RightHand;
 
 	void Shoot();
 

@@ -28,7 +28,6 @@ void ObjMap::Init()
 
 void ObjMap::Update()
 {
-	
 }
 
 void ObjMap::Render()

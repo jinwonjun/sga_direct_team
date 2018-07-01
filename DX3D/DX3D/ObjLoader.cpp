@@ -515,3 +515,134 @@ bool ObjLoader::CompareStr(char * str1, const char * str2)
 {
 	return strcmp(str1, str2) == 0;
 }
+
+LPD3DXMESH ObjLoader::LoadF_Tri_Mesh(const char * filePath, const char * fileName, D3DXMATRIXA16 * pMat, OUT vector<MTLTEX*>& vecMtlTex)
+{
+	vector<D3DXVECTOR3> vecP;
+	vector<D3DXVECTOR3> vecN;
+	vector<D3DXVECTOR2> vecT;
+	vector<VERTEX_PNT> vecPNT;
+	vector<DWORD> vecAttBuf;//어트리뷰트 정보를 담아줄거임
+							//머테리얼이름
+	string mtlName;
+
+	char szToken[128];
+	ifstream fin;//이 변수로 파일을 읽을거야
+
+	m_filePath = filePath;
+	string fullPath = m_filePath + "/" + fileName;
+	fin.open(fullPath);
+
+	if (fin.is_open() == false) return NULL;
+	//파일의 끝 까지
+	while (fin.eof() == false)
+	{
+		//단어 단위로 읽어서 문자 비교
+		fin >> szToken;
+
+
+		if (CompareStr(szToken, "mtllib"))
+		{
+			string fileName;
+			fin >> fileName;
+			fileName = m_filePath + "/" + fileName;
+
+			LoadMtlLib(fileName.c_str());
+
+			vecMtlTex.resize(m_mapMtlTex.size());
+			for (auto p : m_mapMtlTex)
+			{
+				vecMtlTex[p.second->id] = p.second;
+			}
+
+		}
+		else if (CompareStr(szToken, "v"))
+		{
+			float x, y, z;
+			fin.getline(szToken, 128);
+			sscanf_s(szToken, "%f %f %f", &x, &y, &z);
+			vecP.push_back(D3DXVECTOR3(x, y, z));
+		}
+		else if (CompareStr(szToken, "vt"))
+		{
+			float x, y, z;
+			fin.getline(szToken, 128);
+			sscanf_s(szToken, "%f %f *%f", &x, &y);//형식 지정자 앞에 * 붙이면, 값을 받지 않겠다 라는 의미!
+			vecT.push_back(D3DXVECTOR2(x, y));
+		}
+		else if (CompareStr(szToken, "vn"))
+		{
+			float x, y, z;
+			fin.getline(szToken, 128);
+			sscanf_s(szToken, "%f %f %f", &x, &y, &z);
+			vecN.push_back(D3DXVECTOR3(x, y, z));
+		}
+		else if (CompareStr(szToken, "usemtl"))
+		{
+			fin >> szToken;
+			//현재 그룹에 사용할 머테리얼 네임 지정하기
+			mtlName = szToken;
+		}
+		else if (CompareStr(szToken, "f"))
+		{
+			int aIndex[3][3];
+			fin.getline(szToken, 128);
+
+			sscanf_s(szToken, "%d/%d/%d %d/%d/%d %d/%d/%d",
+				&aIndex[0][0], &aIndex[0][1], &aIndex[0][2],
+				&aIndex[1][0], &aIndex[1][1], &aIndex[1][2],
+				&aIndex[2][0], &aIndex[2][1], &aIndex[2][2]);
+			for (int i = 0; i < 3; i++)
+			{
+				//면 하나 만들고
+				VERTEX_PNT pnt;
+				pnt.p = vecP[aIndex[i][0] - 1];
+				pnt.t = vecT[aIndex[i][1] - 1];
+				pnt.n = vecN[aIndex[i][2] - 1];
+
+				if (pMat)
+				{
+					D3DXVec3TransformCoord(&pnt.p, &pnt.p, pMat);
+					D3DXVec3TransformNormal(&pnt.n, &pnt.n, pMat);
+				}
+				vecPNT.push_back(pnt);
+			}
+			//속성 ID값 부여하기
+			vecAttBuf.push_back(m_mapMtlTex[mtlName]->id);
+		}
+	}//end of Fileread
+
+	m_mapMtlTex.clear();
+	fin.close();
+
+	//매쉬를 생성 및 정보 채우기, 최적화해보기
+	LPD3DXMESH pMesh = NULL;
+	//(비어있는)매쉬 생성하기
+	D3DXCreateMeshFVF(vecPNT.size() / 3, vecPNT.size(), D3DXMESH_MANAGED, VERTEX_PNT::FVF, g_pDevice, &pMesh);
+
+	VERTEX_PNT * pV = NULL;
+	DWORD flags = 0;
+	pMesh->LockVertexBuffer(flags, (LPVOID*)& pV);
+	memcpy(pV, &vecPNT[0], vecPNT.size() * sizeof(VERTEX_PNT));
+	pMesh->UnlockVertexBuffer();
+
+	WORD * pI = NULL;
+	pMesh->LockIndexBuffer(flags, (LPVOID*)& pI);
+	for (size_t i = 0; i < vecPNT.size(); i++)
+	{
+		pI[i] = i;
+	}
+	pMesh->UnlockIndexBuffer();
+
+	DWORD * pA = NULL;
+	pMesh->LockAttributeBuffer(flags, &pA);
+	memcpy(pA, &vecAttBuf[0], vecAttBuf.size() * sizeof(DWORD));
+	pMesh->UnlockAttributeBuffer();
+	//인접정보 생성하기
+	vector<DWORD> vecAdjacency(pMesh->GetNumFaces() * 3);
+	pMesh->GenerateAdjacency(FLT_EPSILON, &vecAdjacency[0]);
+	//최적화 시키기
+	pMesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE, &vecAdjacency[0], 0, 0, 0);
+
+	return pMesh;
+}

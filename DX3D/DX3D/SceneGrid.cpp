@@ -18,6 +18,7 @@
 
 //맵에 스킨매쉬 올려보기
 #include "ironman.h"
+#include "Gun.h"
 
 //인벤토리 넣어보기
 #include "Inventory.h"
@@ -123,6 +124,10 @@ void SceneGrid::Init()
 	m_pCharacter = new Ironman;
 	m_pCharacter->Init();
 	AddSimpleDisplayObj(m_pCharacter);
+
+	m_pGun = new Gun;
+	m_pGun->Init();
+	AddSimpleDisplayObj(m_pGun);
 
 
 	//헤이트맵 올리기
