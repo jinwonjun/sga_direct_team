@@ -118,6 +118,9 @@
     <Filter Include="소스 파일\UI_CLASS\ITEM">
       <UniqueIdentifier>{89a1edd6-d485-4213-93d4-6e25a11b025a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\CHARACTER&amp;MOB\IRONMAN\GUN_OBJECT">
+      <UniqueIdentifier>{38d68eae-38f4-4bb0-b1c8-930c417b286c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -357,11 +360,11 @@
     <ClInclude Include="BloodEffect.h">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
-    <ClInclude Include="Gun.h">
-      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
-    </ClInclude>
     <ClInclude Include="InventoryManager.h">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN\GUN_OBJECT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -584,11 +587,11 @@
     <ClCompile Include="BloodEffect.cpp">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
-    <ClCompile Include="Gun.cpp">
-      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
-    </ClCompile>
     <ClCompile Include="InventoryManager.cpp">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
+    </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN\GUN_OBJECT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
