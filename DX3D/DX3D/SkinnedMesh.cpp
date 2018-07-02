@@ -172,8 +172,8 @@ void SkinnedMesh::UpdateFrameMatrices(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	mixamorig_LeftHand
 	*/
 	//오른손행렬값 찾아서 따로 담기
-	LPSTR hand = "mixamorig_RightHand";
-	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHand")==0)
+	LPSTR hand = "mixamorig_RightHandIndex1";
+	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHandIndex1")==0)
 	{
 		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;//* m_matWorld
 		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);

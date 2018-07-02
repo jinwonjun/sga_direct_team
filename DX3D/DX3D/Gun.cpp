@@ -22,17 +22,15 @@ void Gun::Init()
 	D3DXMatrixIdentity(&ApplyMatrix);
 	D3DXMatrixIdentity(&CalPrevMat);
 
-	D3DXMATRIXA16 matRY, matRX, matRZ,matS;
-	D3DXMatrixScaling(&matS, 1.0f, 1.0f, 1.0f);
-	D3DXMatrixRotationY(&matRY, D3DX_PI / 2);
-	D3DXMatrixRotationX(&matRX, D3DX_PI);
-	D3DXMatrixRotationZ(&matRZ, D3DX_PI/2);
+	D3DXMATRIXA16 matRY, matRZ,matS;
+	D3DXMatrixScaling(&matS, 10.0f, 10.0f, 10.0f);
+	D3DXMatrixRotationY(&matRY, D3DX_PI);
+	D3DXMatrixRotationZ(&matRZ, D3DX_PI/2 * 3);
 
-	
-	CalPrevMat = matS * matRY * matRX * matRZ;
+	CalPrevMat = matRY* matRZ* matS;
 
 	ObjLoader loader;
-	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/Beam", "Beam_Gun.obj", &ApplyMatrix, m_vecMtlTex);
+	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/M4a1", "guntest.obj", &ApplyMatrix, m_vecMtlTex);
 }
 
 void Gun::Update()
