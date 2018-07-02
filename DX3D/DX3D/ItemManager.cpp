@@ -4,7 +4,7 @@
 
 ItemManager* ItemManager::instance = NULL;
 
-<<<<<<< HEAD
+
 ItemManager * ItemManager::Get()
 {
 
@@ -70,7 +70,7 @@ void ItemManager::Update()
 void ItemManager::Render()
 {
 }
-=======
+
 //InventoryManager * InventoryManager::Get()
 //{
 //
@@ -95,4 +95,4 @@ void ItemManager::Render()
 //ItemManager::~ItemManager()
 //{
 //}
->>>>>>> 0415652514d450b1f76eac62648af3ead5fbec42
+

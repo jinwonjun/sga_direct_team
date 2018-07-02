@@ -790,6 +790,7 @@ void InventoryManager::Render()
 		//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 
 
+
 		SetRect(&m_rc_Inventory_Chara, 0, 0, m_image_Inventory_Chara_info.Width, m_image_Inventory_Chara_info.Height);
 
 
