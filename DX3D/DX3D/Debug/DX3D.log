@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  stdafx.cpp
 d:\_pp\dx3d\dx3d\cubeman_head.h(8): warning C4584: 'Cubeman_Head': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
   d:\_pp\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
@@ -244,3 +245,22 @@ d:\_pp\dx3d\dx3d\astar.cpp(170): warning C4018: '<': signed 또는 unsigned가 �
 d:\_pp\dx3d\dx3d\astar.cpp(227): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+=======
+﻿  ObjLoader.cpp
+d:\sga\pp\dx3d\dx3d\objloader.cpp(73): warning C4473: 'sscanf_s': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
+  d:\sga\pp\dx3d\dx3d\objloader.cpp(73): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 3개 필요하지만 2개가 제공되었습니다.
+  d:\sga\pp\dx3d\dx3d\objloader.cpp(73): note: 누락된 variadic 인수 3이(가) 서식 문자열 '%f'에 필요합니다.
+d:\sga\pp\dx3d\dx3d\objloader.cpp(238): warning C4101: 'z' :참조되지 않은 지역 변수입니다.
+d:\sga\pp\dx3d\dx3d\objloader.cpp(429): warning C4267: '=': 'size_t'에서 'WORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\objloader.cpp(344): warning C4473: 'sscanf_s': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
+  d:\sga\pp\dx3d\dx3d\objloader.cpp(344): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 3개 필요하지만 2개가 제공되었습니다.
+  d:\sga\pp\dx3d\dx3d\objloader.cpp(344): note: 누락된 variadic 인수 3이(가) 서식 문자열 '%f'에 필요합니다.
+d:\sga\pp\dx3d\dx3d\objloader.cpp(342): warning C4101: 'z' :참조되지 않은 지역 변수입니다.
+d:\sga\pp\dx3d\dx3d\objloader.cpp(633): warning C4267: '=': 'size_t'에서 'WORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\objloader.cpp(570): warning C4473: 'sscanf_s': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
+  d:\sga\pp\dx3d\dx3d\objloader.cpp(570): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 3개 필요하지만 2개가 제공되었습니다.
+  d:\sga\pp\dx3d\dx3d\objloader.cpp(570): note: 누락된 variadic 인수 3이(가) 서식 문자열 '%f'에 필요합니다.
+d:\sga\pp\dx3d\dx3d\objloader.cpp(568): warning C4101: 'z' :참조되지 않은 지역 변수입니다.
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> c3db72c90764620532f8c7b2da19363a622889e1

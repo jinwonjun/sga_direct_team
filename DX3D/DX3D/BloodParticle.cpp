@@ -54,6 +54,8 @@ void BloodParticle::Init()
 		VERTEX_PC::FVF, D3DPOOL_DEFAULT, &m_pVB, 0);
 
 	playTime = 0.f;
+	Speed = 0.05f;
+	endTime = Speed * 80.f;
 	fire = false;
 	firePos = D3DXVECTOR3(0, 0, 0);
 	fireDir = D3DXVECTOR3(0, 0, 0);
@@ -63,7 +65,7 @@ void BloodParticle::Update()
 {
 	if (fire) //피격했을때 활성화 온
 	{
-		playTime += 0.02f;
+		playTime += Speed;
 
 		for (size_t i = 0; i < m_vecAtt.size(); i++)
 		{
@@ -74,17 +76,17 @@ void BloodParticle::Update()
 			//m_vecAtt[i]->_color.a -= 0.001f;
 
 			//경사도 * time * (time + 확장도)
-			m_vecAtt[i]->_position.y = -8.f * playTime * (playTime - m_vecAtt[i]->_expand);
+			m_vecAtt[i]->_position.y = -4.f * playTime * (playTime - m_vecAtt[i]->_expand);
 
 			if (i < 20)
 			{
-				m_vecAtt[i]->_position.x = 2 * playTime * cosf(m_vecAtt[i]->_angle);
-				m_vecAtt[i]->_position.z = 2 * playTime * sinf(m_vecAtt[i]->_angle);
+				m_vecAtt[i]->_position.x = 4 * playTime * cosf(m_vecAtt[i]->_angle);
+				m_vecAtt[i]->_position.z = 4 * playTime * sinf(m_vecAtt[i]->_angle);
 			}
 			else
 			{
-				m_vecAtt[i]->_position.x = playTime * cosf(m_vecAtt[i]->_angle);
-				m_vecAtt[i]->_position.z = playTime * sinf(m_vecAtt[i]->_angle);
+				m_vecAtt[i]->_position.x = 2 * playTime * cosf(m_vecAtt[i]->_angle);
+				m_vecAtt[i]->_position.z = 2 * playTime * sinf(m_vecAtt[i]->_angle);
 			}
 		}
 
@@ -100,7 +102,7 @@ void BloodParticle::Update()
 		m_pVB->Unlock();
 
 		//시간지났을떄 처리
-		if (playTime > 1.6f)
+		if (playTime > endTime)
 		{
 			playTime = 0.f;
 			fire = false;
@@ -125,8 +127,8 @@ void BloodParticle::Render()
 			D3DXMatrixScaling(&matS, Scales[i], Scales[i], Scales[i]);
 
 			//눈에 잘보이게 테스트용
-			float tempS = 3.f;
-			D3DXMatrixScaling(&matS, tempS, tempS, tempS);
+			//float tempS = 10.f;
+			//D3DXMatrixScaling(&matS, tempS, tempS, tempS);
 
 			D3DXMatrixTranslation(&mat, p->_position.x, p->_position.y, p->_position.z);
 
