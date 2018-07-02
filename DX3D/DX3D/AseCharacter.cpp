@@ -68,10 +68,6 @@ void AseCharacter::Update()
 
 	if (m_pCurrObj != NULL)
 		m_pCurrObj->Update(tickCount, &m_matWorld);
-
-	Debug->AddText("Pos : ");
-	Debug->AddText(m_pos);
-	Debug->EndLine();
 }
 
 void AseCharacter::Render()

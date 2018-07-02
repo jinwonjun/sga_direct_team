@@ -427,10 +427,7 @@ void InventoryManager::Init()
 		Debug->EndLine();
 		for (int i = 0; i < INVENCORSS; i++)
 		{
-
-
-			Debug->AddText(InvenArray[i][j].index);
-
+			//Debug->AddText(InvenArray[i][j].index);
 
 			D3DXMatrixRotationZ(&matR, fAngle);
 			D3DXMatrixIdentity(&matT);
@@ -469,8 +466,8 @@ void InventoryManager::Update()
 	{
 
 
-		Debug->AddText(pressOn);
-		Debug->EndLine();
+		//Debug->AddText(pressOn);
+		//Debug->EndLine();
 
 		GetCursorPos(&mousePoint);
 		//마우스 커서 받고
@@ -754,10 +751,10 @@ void InventoryManager::Update()
 
 
 	} // OpenInve 끝
-	Debug->AddText(mousePoint.x);
-	Debug->EndLine();
-	Debug->AddText(mousePoint.y);
-	Debug->EndLine();
+	//Debug->AddText(mousePoint.x);
+	//Debug->EndLine();
+	//Debug->AddText(mousePoint.y);
+	//Debug->EndLine();
 
 }
 

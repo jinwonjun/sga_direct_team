@@ -283,6 +283,26 @@ void SampleUI::Init()
 		&Minimap.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&Minimap.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+	
+	//미니맵의 캐릭터 표시 그리기
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/minimap/MiniChar.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&MiniCHAR.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&MiniCHAR.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+	//플레이어 위치랑 연동시킬 행렬값 초기화
+	D3DXMatrixIdentity(&CalPlayerPos);
+
 
 
 
@@ -393,6 +413,12 @@ void SampleUI::Update()
 	//pButton->SetTexture("resources/ui/btn-med-up.png.png",
 	//	"resources/ui/btn-med-over.png.png",
 	//	"resources/ui/btn-med-down.png.png");
+
+	//플레이어의 월드 행렬 가져오기
+	CalPlayerPos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetWorldMatrix();
+	//CalPlayerPos._41//이게 X좌표
+	//CalPlayerPos._42//이게 Y좌표
+	//CalPlayerPos._43//이게 Z좌표
 
 
 	//==========================================
@@ -556,7 +582,7 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 
-
+	//미니맵 그리기
 	SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
 
 	D3DXMatrixRotationZ(&matR, fAngle);
@@ -578,6 +604,33 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
+
+	//미니맵 캐릭터 표시
+	SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	//D3DXMatrixTranslation(&matT, 10, 10, 0);
+	D3DXMatrixTranslation(&matT, CalPlayerPos._41 / 5.f, CalPlayerPos._43 / 5.f, 0);
+
+	D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+	matWorld = matS* matR * matT;
+
+	//D3DXSPRITE_ALPHABLEND
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld);
+	m_pSprite->Draw(
+		MiniCHAR.m_pTex,
+		&MiniCHAR.m_Image_rc,
+		&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(360, 170, 0),
+		WHITE);
+
+
+
 
 
 	m_pSprite->SetTransform(&matWorld);

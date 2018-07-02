@@ -28,15 +28,13 @@ private:
 
 	D3DXMATRIXA16 matWorld_2;
 
-
-
-
 	HUD_Ui Cross_Hair;
 	HUD_Ui Gun;
 	HUD_Ui Character_HP_BackGround;
 	HUD_Ui Character_HP_Loss;
 	HUD_Ui Character_HP_Remain;
 	HUD_Ui Minimap;
+	HUD_Ui MiniCHAR;
 
 	UIButton * BulletNum;
 
@@ -66,4 +64,6 @@ public:
 	int CurrHp;
 	float PercentOfHp;
 
+
+	D3DXMATRIXA16 CalPlayerPos;
 };

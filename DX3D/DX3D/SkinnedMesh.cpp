@@ -98,7 +98,6 @@ void SkinnedMesh::Update()
 	if(m_pAnimController != NULL)
 	Debug->AddText((int)m_pAnimController->GetMaxNumAnimationSets());
 	Debug->EndLine();
-
 	//X파일 위치 및 스케일 조정부분.
 	//이 부분 ironman AnimationModify()로 옮겼습니다!
 	//SetWorldMatrix( &((g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetWorldMatrix()));

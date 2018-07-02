@@ -108,21 +108,21 @@ void Ironman::Update()
 	RightHand = m_pSkinnedMesh->GetHandMatrix();
 
 
-	D3DXTRACK_DESC track;
-	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
-	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
-	m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
-	pCurrAnimSet->GetPeriod(); //전체 시간
-	Debug->EndLine();
-	Debug->EndLine();
-	Debug->AddText("전체 시간 : ");
-	Debug->AddText(pCurrAnimSet->GetPeriod());
-	Debug->EndLine();
-	Debug->AddText("현재 시간 : ");
-	pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
-	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
-	Debug->EndLine();
-	Debug->EndLine();
+	//D3DXTRACK_DESC track;
+	//m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
+	//LPD3DXANIMATIONSET pCurrAnimSet = NULL;
+	//m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
+	//pCurrAnimSet->GetPeriod(); //전체 시간
+	//Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->AddText("전체 시간 : ");
+	//Debug->AddText(pCurrAnimSet->GetPeriod());
+	//Debug->EndLine();
+	//Debug->AddText("현재 시간 : ");
+	//pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
+	//Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
+	//Debug->EndLine();
+	//Debug->EndLine();
 
 
 
@@ -171,11 +171,6 @@ void Ironman::Update()
 		}
 	}
 
-	Debug->AddText("캐릭터포즈  :  ");
-	Debug->AddText(m_pos);
-	Debug->EndLine();
-	Debug->EndLine();
-
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
 
@@ -185,7 +180,7 @@ void Ironman::Update()
 	SAFE_UPDATE(m_pBlood);
 
 	//해제하기
-	pCurrAnimSet->Release();
+	//pCurrAnimSet->Release();
 }
 
 void Ironman::Render()
@@ -234,10 +229,6 @@ void Ironman::Shoot()
 			//break;
 		}
 	}
-	Debug->AddText("힛트계산 위치 : ");
-	Debug->AddText(BloodCalPos);
-	Debug->EndLine();
-	Debug->EndLine();
 }
 
 void Ironman::AnimationModify()
