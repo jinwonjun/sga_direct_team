@@ -287,7 +287,7 @@ void SampleUI::Init()
 	//미니맵의 캐릭터 표시 그리기
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/minimap/MiniChar.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/minimap/MiniChara__.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -585,9 +585,9 @@ void SampleUI::Render()
 	//미니맵 그리기
 	SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
 
-	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixRotationZ(&matR, 0);
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT,0, 0, 0);
+	D3DXMatrixTranslation(&matT, Minimap.m_imageInfo.Width / 4, Minimap.m_imageInfo.Height / 4, 0);
 	//250, 850, 0
 	D3DXMatrixScaling(&matS, .5f, .5f, 1);
 
@@ -599,23 +599,29 @@ void SampleUI::Render()
 	m_pSprite->Draw(
 		Minimap.m_pTex,
 		&Minimap.m_Image_rc,
-		&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(Minimap.m_imageInfo.Width/2, Minimap.m_imageInfo.Height/2, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 
+
+	//fAngle -= 0.01;
+	float Rotscale = g_pCamera->m_rotY;
+
 	//미니맵 캐릭터 표시
 	SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
 
-	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixRotationZ(&matR, D3DX_PI/-2 + Rotscale * (-1));
 	D3DXMatrixIdentity(&matT);
 	//D3DXMatrixTranslation(&matT, 10, 10, 0);
-	D3DXMatrixTranslation(&matT, CalPlayerPos._41 / 5.f, CalPlayerPos._43 / 5.f, 0);
-
+	D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width /2) + ((CalPlayerPos._43 / 8.f)*(-1)) +180 , (MiniCHAR.m_imageInfo.Height / 2) +(CalPlayerPos._41 / 6.f) +90, 0);
 	D3DXMatrixScaling(&matS, .5f, .5f, 1);
 
 	matWorld = matS* matR * matT;
+
+	MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.5f;
+	MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.5f;
 
 	//D3DXSPRITE_ALPHABLEND
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
@@ -623,17 +629,17 @@ void SampleUI::Render()
 	m_pSprite->Draw(
 		MiniCHAR.m_pTex,
 		&MiniCHAR.m_Image_rc,
+		&D3DXVECTOR3(MiniCHAR.m_imageInfo.Width/2, MiniCHAR.m_imageInfo.Height*(0.75f), 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(360, 170, 0),
 		WHITE);
 
 
 
 
 
-	m_pSprite->SetTransform(&matWorld);
+
 	//SAFE_RENDER(m_pRootUI);
 
 	m_pSprite->End();
