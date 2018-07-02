@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+﻿  SkinnedMesh.cpp
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
 ﻿  stdafx.cpp
 d:\_pp\dx3d\dx3d\cubeman_head.h(8): warning C4584: 'Cubeman_Head': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
   d:\_pp\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
@@ -245,3 +250,4 @@ d:\_pp\dx3d\dx3d\astar.cpp(170): warning C4018: '<': signed 또는 unsigned가 �
 d:\_pp\dx3d\dx3d\astar.cpp(227): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+>>>>>>> 84977a9864e448e7c1fc0e3172ba078e49f06f5c
