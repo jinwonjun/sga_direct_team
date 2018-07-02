@@ -83,14 +83,6 @@ void Enemy::Update()
 
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
-
-	Debug->AddText("데스트포즈  :  ");
-	Debug->AddText(m_destPos);
-	Debug->EndLine();
-	Debug->EndLine();
-
-
-
 }
 
 void Enemy::Render()

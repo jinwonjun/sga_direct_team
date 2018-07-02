@@ -4,7 +4,10 @@
 
 ItemManager* ItemManager::instance = NULL;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 501e556b4e27434ff2bec81c978a7e75b21012e3
 ItemManager * ItemManager::Get()
 {
 
