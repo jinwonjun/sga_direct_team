@@ -154,6 +154,8 @@ void Camera::Update()
 	{
 		m_lookAt = *m_pTarget;
 		m_eye = *m_pTarget + m_eye;
+		m_eye.y += 10.f;
+		m_lookAt.y += 10.f;
 	}
 	else
 	{

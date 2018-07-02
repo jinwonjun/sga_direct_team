@@ -211,14 +211,14 @@ void SkinnedMesh::Render()
 void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 {
 	m_numFrame++;
-	if (m_numFrame % 10 == 0)
+	/*if (m_numFrame % 10 == 0)
 	{
 		Debug->EndLine();
 	}
 	if (pFrame->Name == NULL)
 		Debug->AddText(_T("NULL"));
 	else
-		Debug->AddText(pFrame->Name);
+		Debug->AddText(pFrame->Name);*/
 
 	LPD3DXMESHCONTAINER pMeshContainer = pFrame->pMeshContainer;
 	while (pMeshContainer != NULL)
@@ -228,7 +228,7 @@ void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 		DrawMeshContainer(pFrame);
 		pMeshContainer = pMeshContainer->pNextMeshContainer;
 	}
-	Debug->AddText(_T(" / "));
+	//Debug->AddText(_T(" / "));
 	if (pFrame->pFrameSibling != NULL)
 	{
 		DrawFrame(pFrame->pFrameSibling);

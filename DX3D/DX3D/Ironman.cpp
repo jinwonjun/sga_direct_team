@@ -246,7 +246,16 @@ void Ironman::AnimationModify()
 	D3DXMATRIXA16 matRotY, matT, matR, matS;
 	//, matRotX, matRot, m_matWorld;
 
-	D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
+	//D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
+
+	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
+	{
+		D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
+	}
+	else
+	{
+		D3DXMatrixIdentity(&matRotY);
+	}
 	//D3DXMatrixRotationX(&matRotX, m_rot.x);
 	//matRot = matRotY * matRotX;
 	//D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
