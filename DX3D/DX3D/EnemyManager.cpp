@@ -30,7 +30,15 @@ void EnemyManager::Update(void)
 {
 	for each(Enemy* e in m_vecEnemy)
 	{
-		if (e->m_HP <= 0) continue;
+		if (e->m_HP <= 0)
+		{
+			if (e->m_ItemDrop == false)
+			{
+				g_pInventory->addIndex(g_pInventory->Shop_Item[0]);
+				e->m_ItemDrop = true;
+			}
+			continue;
+		}
 		e->Update();
 	}
 

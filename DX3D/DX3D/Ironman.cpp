@@ -42,6 +42,8 @@ void Ironman::Init()
 	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
 	g_pCamera->SetTarget(&m_pos);
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
+	
+
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
 	m_pSkinnedMesh->Init();
@@ -71,6 +73,9 @@ void Ironman::Init()
 	//시작위치 조정
 	m_pos.y = 10;
 
+	//UI 열리면 캐릭터 이동 막기
+	OpenUI = false;
+
 }
 
 void Ironman::Update()
@@ -85,8 +90,16 @@ void Ironman::Update()
 	reload = 7;
 	back = 8;
 	*/
-	IUnitObject::UpdateKeyboardState();
-	IUnitObject::UpdatePosition();
+	if (Keyboard::Get()->KeyPress('I'))
+	{
+		OpenUI = !OpenUI;
+	}
+	
+	if (!OpenUI)
+	{
+		IUnitObject::UpdateKeyboardState();
+		IUnitObject::UpdatePosition();
+	}
 
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
@@ -111,46 +124,51 @@ void Ironman::Update()
 	Debug->EndLine();
 	Debug->EndLine();
 
-	if (Keyboard::Get()->KeyPress('W'))
-	{
-		m_pSkinnedMesh->status =  2;
-	}
-	else if (Keyboard::Get()->KeyPress('S'))
-	{
-		m_pSkinnedMesh->status = 7;
-	}
-	else if (Keyboard::Get()->KeyPress('A'))
-	{
-		//if (m_animIndex > 0)//0
-		//m_animIndex--;
-		m_pSkinnedMesh->status = 3;
-	}
-	else if (Keyboard::Get()->KeyPress('D'))
-	{
-		//if (m_animIndex > 0)//0
-		//m_animIndex--;
-		m_pSkinnedMesh->status = 4;
-	}
-	else if (Keyboard::Get()->KeyPress('R'))
-	{
-		//if (m_animIndex > 0)//0
-		//m_animIndex--;
-		m_pSkinnedMesh->status = 6;
-	}
-	else if (Keyboard::Get()->KeyPress(VK_SPACE))
-	{
-		m_pSkinnedMesh->status = 5;
-	}
-	else if (Mouse::Get()->ButtonPress(Mouse::Get()->LBUTTON))
-	{
-		//if (m_animIndex > 0)//0
-		//m_animIndex--;
-		m_pSkinnedMesh->status = 1;
-	}
 
-	else//idle상태 만들기
+
+	if (!OpenUI)
 	{
-		m_pSkinnedMesh->status = 0;
+		if (Keyboard::Get()->KeyPress('W'))
+		{
+			m_pSkinnedMesh->status = 2;
+		}
+		else if (Keyboard::Get()->KeyPress('S'))
+		{
+			m_pSkinnedMesh->status = 7;
+		}
+		else if (Keyboard::Get()->KeyPress('A'))
+		{
+			//if (m_animIndex > 0)//0
+			//m_animIndex--;
+			m_pSkinnedMesh->status = 3;
+		}
+		else if (Keyboard::Get()->KeyPress('D'))
+		{
+			//if (m_animIndex > 0)//0
+			//m_animIndex--;
+			m_pSkinnedMesh->status = 4;
+		}
+		else if (Keyboard::Get()->KeyPress('R'))
+		{
+			//if (m_animIndex > 0)//0
+			//m_animIndex--;
+			m_pSkinnedMesh->status = 6;
+		}
+		else if (Keyboard::Get()->KeyPress(VK_SPACE))
+		{
+			m_pSkinnedMesh->status = 5;
+		}
+		else if (Mouse::Get()->ButtonPress(Mouse::Get()->LBUTTON))
+		{
+			//if (m_animIndex > 0)//0
+			//m_animIndex--;
+			m_pSkinnedMesh->status = 1;
+		}
+
+		else//idle상태 만들기
+		{
+			m_pSkinnedMesh->status = 0;
+		}
 	}
 
 	Debug->AddText("캐릭터포즈  :  ");

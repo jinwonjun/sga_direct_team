@@ -196,6 +196,7 @@
     <ClInclude Include="Ironman.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ItemImage.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="IUIObject.h" />
     <ClInclude Include="IUnitObject.h" />
     <ClInclude Include="Keyboard.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="InventoryManager.cpp" />
     <ClCompile Include="Ironman.cpp" />
     <ClCompile Include="ItemImage.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="IUIObject.cpp" />
     <ClCompile Include="IUnitObject.cpp" />
     <ClCompile Include="Keyboard.cpp" />

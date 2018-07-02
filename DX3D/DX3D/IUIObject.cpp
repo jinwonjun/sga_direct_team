@@ -13,10 +13,12 @@ IUIObject::IUIObject(LPD3DXSPRITE pSprite, int uiTag)
 
 IUIObject::~IUIObject()
 {
+
 }
 
 void IUIObject::Init()
 {
+
 }
 
 void IUIObject::Update()
@@ -37,6 +39,7 @@ void IUIObject::Render()
 	{
 		p->Render();
 	}
+
 }
 
 void IUIObject::DrawBorder()

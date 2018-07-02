@@ -363,8 +363,13 @@
     <ClInclude Include="InventoryManager.h">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Gun.h">
       <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN\GUN_OBJECT</Filter>
+=======
+    <ClInclude Include="ItemManager.h">
+      <Filter>헤더 파일</Filter>
+>>>>>>> 84977a9864e448e7c1fc0e3172ba078e49f06f5c
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -590,8 +595,13 @@
     <ClCompile Include="InventoryManager.cpp">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Gun.cpp">
       <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN\GUN_OBJECT</Filter>
+=======
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>소스 파일</Filter>
+>>>>>>> 84977a9864e448e7c1fc0e3172ba078e49f06f5c
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

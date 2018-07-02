@@ -21,10 +21,9 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName)
 	m_maxStepHeight = 2.0f;
 
 	m_forward = D3DXVECTOR3(0, 0, 1);
-
 	m_isMoving = false;
-
 	m_HP = 10;
+	m_ItemDrop = false;
 
 	m_path = path;			// "resources/zealot/";
 	m_filename = fileName;	// "combine_test.X";

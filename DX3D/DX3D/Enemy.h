@@ -24,6 +24,7 @@ private:
 	SkinnedMesh*			m_pSkinnedMesh;
 
 	int						m_HP;
+	bool					m_ItemDrop;
 	float					m_radius;
 
 	D3DXMATRIXA16			m_SphereMat;
