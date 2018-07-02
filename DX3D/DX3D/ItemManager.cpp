@@ -4,6 +4,7 @@
 
 ItemManager* ItemManager::instance = NULL;
 
+<<<<<<< HEAD
 ItemManager * ItemManager::Get()
 {
 
@@ -69,3 +70,29 @@ void ItemManager::Update()
 void ItemManager::Render()
 {
 }
+=======
+//InventoryManager * InventoryManager::Get()
+//{
+//
+//	if (instance == NULL)
+//		instance = new InventoryManager();
+//
+//	return instance;
+//}
+//
+//void InventoryManager::Delete()
+//{
+//
+//	SAFE_DELETE(instance);
+//}
+//
+//
+//ItemManager::ItemManager()
+//{
+//}
+//
+//
+//ItemManager::~ItemManager()
+//{
+//}
+>>>>>>> 0415652514d450b1f76eac62648af3ead5fbec42

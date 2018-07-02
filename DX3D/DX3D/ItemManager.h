@@ -4,6 +4,7 @@
 
 #define g_pItem ItemManager::Get()
 
+<<<<<<< HEAD
 //struct items {
 //
 //	int index;  //아이템 번호
@@ -76,4 +77,17 @@ public:
 	virtual void Render() override;
 
 };
+=======
+//class ItemManager
+//{
+//private:
+//	
+//	//static ItemManager*
+//
+//
+//public:
+//	ItemManager();
+//	~ItemManager();
+//};
+>>>>>>> 0415652514d450b1f76eac62648af3ead5fbec42
 
