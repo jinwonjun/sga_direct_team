@@ -21,7 +21,7 @@ void InventoryManager::Delete()
 	SAFE_DELETE(instance);
 }
 
-//
+
 //InventoryManager::Inventory()
 //{
 //	m_pSprite = NULL;
@@ -54,7 +54,8 @@ void InventoryManager::Init()
 	EmptyRcY = ItemSizeY - 5;
 
 	//UIImage 를 담는것.
-	{UIImage * pImage = new UIImage(m_pSprite);
+	{
+	UIImage * pImage = new UIImage(m_pSprite);
 	m_pRootUI = pImage;
 	}
 	GetClientRect(g_hWnd, &clientRect);
