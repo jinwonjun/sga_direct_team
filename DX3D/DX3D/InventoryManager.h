@@ -97,8 +97,7 @@ private:
 	RECT				 m_rc_Inventory_Chara;
 
 
-	std::vector<items> Shop_Item;//ÇÜÅä¸®¶û ÃÑ±â ¸ð¾ç
-
+	
 	LPDIRECT3DTEXTURE9	 m_pTex_ItemSet;
 	D3DXIMAGE_INFO		 m_image_ItemSet_info;
 	RECT				 m_rc_ItemSet;
@@ -156,6 +155,7 @@ private:
 public:
 	//Inventory();
 	//~Inventory();
+	std::vector<items> Shop_Item;//ÇÜÅä¸®¶û ÃÑ±â ¸ð¾ç
 
 	static InventoryManager* Get();
 	static void Delete();
