@@ -9,6 +9,10 @@ private:
 	D3DXMATRIXA16 ApplyMatrix;
 	D3DXMATRIXA16 CalPrevMat;
 
+	float					m_radius;
+	LPD3DXMESH				m_pSphereMesh;
+
+
 public:
 	Gun();
 	~Gun();

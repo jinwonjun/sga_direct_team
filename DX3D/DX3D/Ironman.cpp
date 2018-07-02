@@ -173,7 +173,7 @@ void Ironman::Update()
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
-
+	
 	Shoot();
 
 	//Ç÷Èç

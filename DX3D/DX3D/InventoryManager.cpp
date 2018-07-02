@@ -72,34 +72,34 @@ void InventoryManager::Init()
 
 
 
-	//// 1번 아이템 초기화
-	//Weapons[0].index = 1;
-	//Weapons[0].name = "Wood";
-	//Weapons[0].Atk = 10;
-	//Weapons[0].MaxHp = 0;
-	//Weapons[0].Hp = 0;
-	//Weapons[0].Def = 0;
+	// 1번 아이템 초기화
+	Weapons[0].index = 1;
+	Weapons[0].name = "Wood";
+	Weapons[0].Atk = 10;
+	Weapons[0].MaxHp = 0;
+	Weapons[0].Hp = 0;
+	Weapons[0].Def = 0;
 
-	//Weapons[0].ScaleX = 0.3f;
-	//Weapons[0].ScaleY = 0.3f;
-	//Weapons[0].PositionX = (OriginX / 3) *Adjust_Display_Mode_X;
-	//Weapons[0].PositionY = (OriginY / 2) * Adjust_Display_Mode_Y;
-	//Weapons[0].isClicked = false;
-	//Weapons[0].isInvenIn = false;
-	//Weapons[0].Copy_num = 0;
-	//Weapons[0].Equip_Type = Weapon_Type_LeftHand;
+	Weapons[0].ScaleX = 0.3f;
+	Weapons[0].ScaleY = 0.3f;
+	Weapons[0].PositionX = (OriginX / 3) *Adjust_Display_Mode_X;
+	Weapons[0].PositionY = (OriginY / 2) * Adjust_Display_Mode_Y;
+	Weapons[0].isClicked = false;
+	Weapons[0].isInvenIn = false;
+	Weapons[0].Copy_num = 0;
+	Weapons[0].Equip_Type = Weapon_Type_LeftHand;
 
 
 	// 2번아이템 초기화
-	//Weapons[1] = { 2, "Gun", 15, 20 , 0,0 ,
-	//	((OriginX / 3) + ItemSizeX) * Adjust_Display_Mode_X,
-	//	(OriginY / 2) * Adjust_Display_Mode_Y,
-	//	0.3f,0.3f,false, false ,
-	//	0, Weapon_Type_LeftHand };
+	Weapons[1] = { 2, "Gun", 15, 20 , 0,0 ,
+		((OriginX / 3) + ItemSizeX) * Adjust_Display_Mode_X,
+		(OriginY / 2) * Adjust_Display_Mode_Y,
+		0.3f,0.3f,false, false ,
+		0, Weapon_Type_LeftHand };
 
 
 
-	g_pItem->ItemTable();
+	//g_pItem->ItemTable();
 
 	//inventory.push_back(Weapons[0]);
 
@@ -127,50 +127,50 @@ void InventoryManager::Init()
 
 
 
-	//CString  Filename = "resources/images/ham1.png";
+	CString  Filename = "resources/images/ham1.png";
 
-	////이 친구가 텍스쳐를 파일로부터 읽어오는데...
-	////사실 검색해봐도 잘 모르겠음...
-	//D3DXCreateTextureFromFileEx(
-	//	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-	//	Filename,   //LPCTSTR pSrcFile,  파일명을 가져옴
-	//				//이거 CString으로 선언한 변수에다 집어넣고
-	//				// LPCTSTR로 받아서 쓰면
-	//				// 변수로 집어넣어도 작동 됨
+	//이 친구가 텍스쳐를 파일로부터 읽어오는데...
+	//사실 검색해봐도 잘 모르겠음...
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		Filename,   //LPCTSTR pSrcFile,  파일명을 가져옴
+					//이거 CString으로 선언한 변수에다 집어넣고
+					// LPCTSTR로 받아서 쓰면
+					// 변수로 집어넣어도 작동 됨
 
-	//	D3DX_DEFAULT_NONPOW2,   //UINT Width,
-	//	D3DX_DEFAULT_NONPOW2,   //UINT Height,
-	//	D3DX_DEFAULT,      //UINT MipLevels,
-	//	0,               //DWORD Usage,
-	//	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-	//	D3DPOOL_MANAGED,   //D3DPOOL Pool
-	//	D3DX_FILTER_NONE,   //DWORD Filter
-	//	D3DX_DEFAULT,      //DWORD MipFilter
-	//	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-	//	&Shop_Item[0].m_image_Item_Info,   //D3DXIMAGE_INFO *pSrcInfo
-	//	NULL,         //PALETTEENTRY *pPalette
-	//	&Shop_Item[0].m_pTex_Item);   //LPDIRECT3DTEXTURE9 *ppTexture
-	//								  // 위에서 말한 경로에서 정보를 가져와서 m_image_info에 넣고
-	//								  // 텍스쳐도 m_pTex에 저장
-
-
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Shop_Item[0].m_image_Item_Info,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Shop_Item[0].m_pTex_Item);   //LPDIRECT3DTEXTURE9 *ppTexture
+									  // 위에서 말한 경로에서 정보를 가져와서 m_image_info에 넣고
+									  // 텍스쳐도 m_pTex에 저장
 
 
-	//D3DXCreateTextureFromFileEx(
-	//	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-	//	_T("resources/images/Gun_.png"),   //LPCTSTR pSrcFile,
-	//	D3DX_DEFAULT_NONPOW2,   //UINT Width,
-	//	D3DX_DEFAULT_NONPOW2,   //UINT Height,
-	//	D3DX_DEFAULT,      //UINT MipLevels,
-	//	0,               //DWORD Usage,
-	//	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-	//	D3DPOOL_MANAGED,   //D3DPOOL Pool
-	//	D3DX_FILTER_NONE,   //DWORD Filter
-	//	D3DX_DEFAULT,      //DWORD MipFilter
-	//	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-	//	&Shop_Item[1].m_image_Item_Info,   //D3DXIMAGE_INFO *pSrcInfo
-	//	NULL,         //PALETTEENTRY *pPalette
-	//	&Shop_Item[1].m_pTex_Item);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/Gun_.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Shop_Item[1].m_image_Item_Info,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Shop_Item[1].m_pTex_Item);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
 	D3DXCreateTextureFromFileEx(

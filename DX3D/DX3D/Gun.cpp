@@ -30,6 +30,10 @@ void Gun::Init()
 
 	CalPrevMat = matS * matRX *matRY * matRZ;
 
+	m_radius = 5.0f;
+
+	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
+
 	ObjLoader loader;
 	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/Beam", "Beam_Gun.obj", &ApplyMatrix, m_vecMtlTex);
 }
@@ -54,4 +58,10 @@ void Gun::Render()
 		g_pDevice->SetTexture(0, m_vecMtlTex[i]->pTexture);
 		m_pMeshGun->DrawSubset(i);
 	}
+
+	g_pDevice->SetTransform(D3DTS_WORLD, &ApplyMatrix);
+	g_pDevice->SetTexture(0, NULL);
+	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	m_pSphereMesh->DrawSubset(0);
+	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
