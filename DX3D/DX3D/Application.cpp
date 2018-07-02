@@ -18,6 +18,7 @@ void Application::Init()
 	g_pCamera->Init();
 	g_pSceneManager->Init();
 	
+	
 }
 
 void Application::Destroy()

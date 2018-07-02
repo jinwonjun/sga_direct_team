@@ -348,9 +348,6 @@
     <ClInclude Include="UIText.h">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
-    </ClInclude>
     <ClInclude Include="ItemImage.h">
       <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClInclude>
@@ -362,6 +359,9 @@
     </ClInclude>
     <ClInclude Include="Gun.h">
       <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryManager.h">
+      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -575,9 +575,6 @@
     <ClCompile Include="UIText.cpp">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
     </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
-    </ClCompile>
     <ClCompile Include="ItemImage.cpp">
       <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClCompile>
@@ -589,6 +586,9 @@
     </ClCompile>
     <ClCompile Include="Gun.cpp">
       <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryManager.cpp">
+      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -603,5 +603,8 @@
     <Image Include="DX3D.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>

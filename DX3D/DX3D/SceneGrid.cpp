@@ -21,7 +21,7 @@
 #include "Gun.h"
 
 //인벤토리 넣어보기
-#include "Inventory.h"
+#include "InventoryManager.h"
 
 SceneGrid::SceneGrid()
 {
@@ -49,7 +49,7 @@ void SceneGrid::Release()
 	m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
 	
-	SAFE_RELEASE(m_Inventory);
+	//SAFE_RELEASE(m_Inventory);
 	
 	SAFE_RELEASE(m_pCharacter);
 
@@ -58,6 +58,9 @@ void SceneGrid::Release()
 
 void SceneGrid::Init()
 {
+	g_pInventory->Init();
+	AddSimpleDisplayObj(g_pInventory->Get());
+
 	//D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
 	//D3DXVec3Normalize(&dir, &dir);
 	//D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &WHITE);
@@ -104,10 +107,11 @@ void SceneGrid::Init()
 	m_pEm->Init();
 
 	// 인벤토리
-	m_Inventory = new Inventory;
-	m_Inventory->Init();
-	AddSimpleDisplayObj(m_Inventory);
 
+
+	//m_Inventory = new Inventory;
+	//m_Inventory->Init();
+	
 
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0), D3DXVECTOR2(0, 1)));//7
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 1, 0), D3DXVECTOR2(0, 0)));//6
