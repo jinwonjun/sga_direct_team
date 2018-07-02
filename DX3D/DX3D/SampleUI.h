@@ -36,6 +36,7 @@ private:
 	HUD_Ui Character_HP_BackGround;
 	HUD_Ui Character_HP_Loss;
 	HUD_Ui Character_HP_Remain;
+	HUD_Ui Minimap;
 
 	UIButton * BulletNum;
 

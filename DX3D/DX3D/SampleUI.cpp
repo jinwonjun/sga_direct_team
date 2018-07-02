@@ -267,6 +267,25 @@ void SampleUI::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&Character_HP_Loss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
+	 // 미니맵
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/minimap/MiniMap_.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Minimap.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Minimap.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
+
 	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
 	{
 		D3DXMATRIXA16 matS;
@@ -536,6 +555,30 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
+
+
+	SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
+
+	D3DXMatrixRotationZ(&matR, fAngle);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT,0, 0, 0);
+	//250, 850, 0
+	D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+	matWorld = matS* matR * matT;
+
+	//D3DXSPRITE_ALPHABLEND
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld);
+	m_pSprite->Draw(
+		Minimap.m_pTex,
+		&Minimap.m_Image_rc,
+		&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		//&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+
 
 	m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
