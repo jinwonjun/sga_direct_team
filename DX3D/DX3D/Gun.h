@@ -24,7 +24,9 @@ public:
 	void Update();
 	void Render();
 
+	void GunEqiupSet(int WeaponStatus);
 	void BeamGunInit();
 	void LaserGunInit();
+	void M4GunInit();
 };
 

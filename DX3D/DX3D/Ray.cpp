@@ -40,6 +40,7 @@ Ray Ray::RayAtWorldSpace(int x, int y)
 	D3DXVec3Normalize(&ray.m_dir, &ray.m_dir);
 
 	return ray;
+
 }
 
 bool Ray::CalcIntersectSphere(BoundingSphere * pSphere)
