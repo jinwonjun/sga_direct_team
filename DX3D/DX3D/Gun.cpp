@@ -23,9 +23,31 @@ void Gun::Init()
 
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 
-	//총 스왑 시그널주기
-	checkB = true;
-	checkL = false;
+}
+/*
+No Gun = 0;
+M4 = 1;
+Laser = 2;
+Beam = 3;
+*/
+void Gun::GunEqiupSet(int WeaponStatus)
+{
+	if (WeaponStatus == 1)
+	{
+		BeamGunInit();
+	}
+	else if (WeaponStatus == 2)
+	{
+		LaserGunInit();
+	}
+	else if (WeaponStatus == 3)
+	{
+		M4GunInit();
+	}
+	else
+	{
+		WeaponStatus = 0;
+	}
 }
 
 void Gun::BeamGunInit()
@@ -43,9 +65,6 @@ void Gun::BeamGunInit()
 
 	ObjLoader loader;
 	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/Beam", "Beam_Gun.obj", &ApplyMatrix, m_vecMtlTex);
-
-	checkB = false;
-	checkL = true;
 }
 
 void Gun::LaserGunInit()
@@ -60,11 +79,30 @@ void Gun::LaserGunInit()
 	D3DXMatrixTranslation(&matT, 0, 0, 40);
 
 	CalPrevMat = matS * matRX * matRZ * matT;
+
 	ObjLoader loader;
 	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/Zod_Rifle", "zod_gun.obj", &ApplyMatrix, m_vecMtlTex);
+}
 
-	checkB = true;
-	checkL = false;
+void Gun::M4GunInit()
+{
+	D3DXMatrixIdentity(&ApplyMatrix);
+	D3DXMatrixIdentity(&CalPrevMat);
+
+	D3DXMATRIXA16 matRX, matRY, matRZ, matS,matR, matT;
+	D3DXMatrixScaling(&matS, 10.0f, 10.0f, 10.0f);
+	D3DXMatrixRotationX(&matRX, D3DX_PI/-40);
+	D3DXMatrixRotationY(&matRY, D3DX_PI);
+	D3DXMatrixRotationZ(&matRZ, D3DX_PI / 2 * 3);
+
+	matR = matRX*matRY* matRZ;
+
+	D3DXMatrixTranslation(&matT, 0, 0, 30);
+
+	CalPrevMat = matS* matR * matT;
+
+	ObjLoader loader;
+	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/M4a1", "guntest.obj", &ApplyMatrix, m_vecMtlTex);
 }
 
 
@@ -72,17 +110,15 @@ void Gun::Update()
 {
 	if (g_pKeyboard->KeyDown('1'))
 	{
-		if (checkB && checkL == false)
-		{
-			BeamGunInit();
-		}
+		GunEqiupSet(1);
 	}
 	if (g_pKeyboard->KeyDown('2'))
 	{
-		if (checkB == false && checkL)
-		{
-			LaserGunInit();
-		}
+		GunEqiupSet(2);
+	}
+	if (g_pKeyboard->KeyDown('3'))
+	{
+		GunEqiupSet(3);
 	}
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
@@ -93,7 +129,6 @@ void Gun::Update()
 void Gun::Render()
 {
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
-	//g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTransform(D3DTS_WORLD, &ApplyMatrix);
 
 	//총 매쉬로 그리기
