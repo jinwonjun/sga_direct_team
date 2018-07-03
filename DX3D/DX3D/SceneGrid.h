@@ -38,8 +38,6 @@ public:
 
 	void BoundingCheck();
 
-	void Init_cs_italy();
-
 	//큐브 동적 생성
 	Cube * pCube;
 	Grid * pGrid;
