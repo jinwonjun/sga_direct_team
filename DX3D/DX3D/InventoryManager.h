@@ -1,6 +1,6 @@
 #pragma once
-#include "IDisplayObject.h"
-#include "UIButton.h"
+
+#include "ItemManager.h"
 #define INVENCORSS 6
 #define INVENVERTI 4
 #define INVENITEMSTART_X 1000
@@ -9,51 +9,51 @@
 #define g_pInventory  InventoryManager::Get()
 
 
-
-struct items {
-
-	int index;  //아이템 번호
-	char* name; // 이름
-	int Atk;    // 공격력
-	int MaxHp;	// HP
-	int Hp;     // 지금 HP
-	int Def;    // 방어력
-
-	float PositionX; // rc가 들어갈 위치
-	float PositionY; // rc가 들어갈 위치
-	float ScaleX;    // X축 스캐일
-	float ScaleY;    // Y축 스캐일
-	bool  isClicked; // 클릭 되었는가?
-	bool  isInvenIn; // 인벤토리 안에 있는가?
-
-	int Copy_num;    // 몇 번째 복사된 아이템인가?
-	int Equip_Type;  // 아이템 장착 타입. 이넘으로 숫자 부여
-
-
-	bool isInvenOn;
-	RECT Item_rc;    // 이미지를 담을 렉트
-	RECT Click_rc;   // 클릭으로 반응하는 렉트
-	RECT isInven_rc;
-	RECT isInven_show_rc;
-
-	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
-	D3DXIMAGE_INFO		 m_image_InvenOn_Info;
-
-	LPDIRECT3DTEXTURE9	 m_pTex_Item;       // 텍스쳐 정보
-	LPDIRECT3DTEXTURE9	 m_pTex_InvenOn;
-};
+//
+//struct items {
+//
+//	int index;  //아이템 번호
+//	char* name; // 이름
+//	int Atk;    // 공격력
+//	int MaxHp;	// HP
+//	int Hp;     // 지금 HP
+//	int Def;    // 방어력
+//
+//	float PositionX; // rc가 들어갈 위치
+//	float PositionY; // rc가 들어갈 위치
+//	float ScaleX;    // X축 스캐일
+//	float ScaleY;    // Y축 스캐일
+//	bool  isClicked; // 클릭 되었는가?
+//	bool  isInvenIn; // 인벤토리 안에 있는가?
+//
+//	int Copy_num;    // 몇 번째 복사된 아이템인가?
+//	int Equip_Type;  // 아이템 장착 타입. 이넘으로 숫자 부여
+//
+//
+//	bool isInvenOn;
+//	RECT Item_rc;    // 이미지를 담을 렉트
+//	RECT Click_rc;   // 클릭으로 반응하는 렉트
+//	RECT isInven_rc;
+//	RECT isInven_show_rc;
+//
+//	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
+//	D3DXIMAGE_INFO		 m_image_InvenOn_Info;
+//
+//	LPDIRECT3DTEXTURE9	 m_pTex_Item;       // 텍스쳐 정보
+//	LPDIRECT3DTEXTURE9	 m_pTex_InvenOn;
+//};
 
  //이넘문으로 1부터 6까지 선언해준다.
-enum Weapon_Type
-{
-	Weapon_Type_LeftHand = 1,
-	Weapon_Type_RightHand,
-	Weapon_Type_Amor,
-	Weapon_Type_Belt,
-	Weapon_Type_Glove,
-	Weapon_Type_Boots
-
-};
+//enum Weapon_Type
+//{
+//	Weapon_Type_LeftHand = 1,
+//	Weapon_Type_RightHand,
+//	Weapon_Type_Amor,
+//	Weapon_Type_Belt,
+//	Weapon_Type_Glove,
+//	Weapon_Type_Boots
+//
+//};
 
 enum matWorld_Numbering
 {
@@ -66,8 +66,8 @@ enum matWorld_Numbering
 	matWorld_MouseCursor,
 
 };
-class IUIObject;
-class InventoryManager : public IDisplayObject, public IUIButtonDelegate
+
+class InventoryManager : public ItemManager
 {
 	//SINGLETON(InventoryManager)
 private:
@@ -79,7 +79,7 @@ private:
 
 	POINT mousePoint; //마우스 포인트 위치를 가져오기 위해서
 	LPD3DXSPRITE m_pSprite;
-	IUIObject * m_pRootUI;
+	
 
 
 	D3DXMATRIXA16 matR, matT, matS;
@@ -117,6 +117,8 @@ private:
 	D3DXIMAGE_INFO		 m_image_Inventory_on_info;
 	RECT				 m_rc_Inventory_on;
 
+
+
 	std::vector<items> inventory; //인벤토리에 아이템 넣기
 
 
@@ -152,21 +154,24 @@ private:
 
 	int EmptyRcX;
 	int EmptyRcY;
+
 public:
 	//Inventory();
 	//~Inventory();
-	std::vector<items> Shop_Item;//햄토리랑 총기 모양
+
 
 	static InventoryManager* Get();
 	static void Delete();
 
+
+
 	// IDisplayObject을(를) 통해 상속됨
-	virtual void Init() override;
-	virtual void Update() override;
-	virtual void Render() override;
+	void Init();
+	void Update();
+	void Render() ;
 
 	// IUIButtonDelegate을(를) 통해 상속됨
-	virtual void OnClick(UIButton * pSender) override;
+
 
 	std::vector<items> Equip_RightHand; // 오른손 장착 백터
 	std::vector<items> Equip_LeftHand; // 왼손 장착 백터
@@ -177,7 +182,11 @@ public:
 
 
 
-	items Weapons[10]; // 일단 무기 10개까지 만들려고 하긴 했으나...
+//	items Weapons[10]; // 일단 무기 10개까지 만들려고 하긴 했으나...
+
+
+	std::vector<items> Shop_Item;//햄토리랑 총기 모양
+
 	items Void_Item[INVENCORSS][INVENVERTI];
 	// 공허의 아이템... 초기값을 세이브 시켜두기 위해서 사용한다...
 	// 사실 배열로 만들 필요 없이 하나만 해도 되지 않을까 싶긴 했는뎅 ...
@@ -201,7 +210,7 @@ public:
 	// 포문 종결을 선언한다.
 
 	void addIndex(items a); // 인벤토리에 아이템 넣기
-	void addIndex(); // 인벤토리에 아이템 넣기
+	//void addIndex(items a, int b); // 인벤토리에 아이템 넣기
 
 	void MovingItem(items* a, items* b); // 인벤토리 내에서 아이템 옮기기 하지만 실패 ...
 	

@@ -29,6 +29,16 @@ void IUIObject::Update()
 	{
 		p->Update();
 	}
+
+	
+
+		for (auto p : m_vecPChild2)
+		{
+			p->Update();
+		}
+		
+	
+
 }
 
 void IUIObject::Render()
@@ -40,6 +50,15 @@ void IUIObject::Render()
 		p->Render();
 	}
 
+	if (g_pItem->timer > 0)
+	{
+		for (auto p : m_vecPChild2)
+		{
+			p->Render();
+
+		}
+		g_pItem->timer--;
+	}
 }
 
 void IUIObject::DrawBorder()

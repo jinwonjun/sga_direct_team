@@ -15,6 +15,8 @@ public:
 	D3DXVECTOR2 m_size;
 	D3DCOLOR m_color;
 
+	
+
 	bool m_bDrawBorder;
 
 	IUIObject(LPD3DXSPRITE pSprite, int uiTag = -1);

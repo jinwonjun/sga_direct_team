@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "InventoryManager.h"
-#include "UIImage.h"
-#include "ItemImage.h"
+
+
 
 InventoryManager* InventoryManager::instance = NULL;
 
@@ -22,23 +22,6 @@ void InventoryManager::Delete()
 }
 
 
-//InventoryManager::Inventory()
-//{
-//	m_pSprite = NULL;
-//	m_pRootUI = NULL;
-//}
-//
-//
-//InventoryManager::~Inventory()
-//{
-//	SAFE_RELEASE(m_pSprite);
-//
-//	//m_pRootUI->ReleaseAll();
-//
-//	SAFE_RELEASE(m_pRootUI);
-//}
-
-
 void InventoryManager::Init()
 {
 	//불값은 다 false로 초기화 시키고, m_pSprite 저장소 열고
@@ -53,11 +36,6 @@ void InventoryManager::Init()
 	EmptyRcX = ItemSizeX - 5;
 	EmptyRcY = ItemSizeY - 5;
 
-	//UIImage 를 담는것.
-	{
-	UIImage * pImage = new UIImage(m_pSprite);
-	m_pRootUI = pImage;
-	}
 	GetClientRect(g_hWnd, &clientRect);
 
 	//해상도 변환에 따른 비율을 만든다. 
@@ -69,49 +47,20 @@ void InventoryManager::Init()
 	Basic_ScaleX = 0.3f;
 	Basic_ScaleY = 0.3f;
 
+	g_pItem->ItemTable();
+	
 
 
+	for (int i = 0; i < NumberOfItems; i++)
+	{
+		if (g_pItem->Weapons[i].index == NULL)
+		{
+			continue;
+		}
 
-	// 1번 아이템 초기화
-	Weapons[0].index = 1;
-	Weapons[0].name = "Wood";
-	Weapons[0].Atk = 10;
-	Weapons[0].MaxHp = 0;
-	Weapons[0].Hp = 0;
-	Weapons[0].Def = 0;
+		Shop_Item.push_back(g_pItem->Weapons[i]);
 
-	Weapons[0].ScaleX = 0.3f;
-	Weapons[0].ScaleY = 0.3f;
-	Weapons[0].PositionX = (OriginX / 3) *Adjust_Display_Mode_X;
-	Weapons[0].PositionY = (OriginY / 2) * Adjust_Display_Mode_Y;
-	Weapons[0].isClicked = false;
-	Weapons[0].isInvenIn = false;
-	Weapons[0].Copy_num = 0;
-	Weapons[0].Equip_Type = Weapon_Type_LeftHand;
-
-
-	// 2번아이템 초기화
-	Weapons[1] = { 2, "Gun", 15, 20 , 0,0 ,
-		((OriginX / 3) + ItemSizeX) * Adjust_Display_Mode_X,
-		(OriginY / 2) * Adjust_Display_Mode_Y,
-		0.3f,0.3f,false, false ,
-		0, Weapon_Type_LeftHand };
-
-
-
-	//g_pItem->ItemTable();
-
-	//inventory.push_back(Weapons[0]);
-
-	// 아이템 샵에 2개만 일단 푸시백 콕
-	Shop_Item.push_back(Weapons[0]);
-	Shop_Item.push_back(Weapons[1]);
-	//Weapons[1] = { Weapons[1].Item_rc,"Stick",3,20,0 };
-	//Weapons[2] = { Weapons[2].Item_rc,"Chap",5,25,0 };
-	//Weapons[3] = { Weapons[3].Item_rc,"Knife",7,30,0 };
-	//Weapons[4] = { Weapons[4].Item_rc,"Spoon",9,35,0 };
-	//Weapons[5] = { Weapons[5].Item_rc,"DongHee",11,40,0 };
-	//Weapons[6] = { Weapons[6].Item_rc,"WonJun",13,45,0 };
+	}
 
 
 
@@ -123,54 +72,6 @@ void InventoryManager::Init()
 	// 이미지 스캐일을 X =  0.5 , Y = 0.5 로 설정
 	// 단 예외처리는 필요할듯
 
-
-
-
-
-	CString  Filename = "resources/images/ham1.png";
-
-	//이 친구가 텍스쳐를 파일로부터 읽어오는데...
-	//사실 검색해봐도 잘 모르겠음...
-	D3DXCreateTextureFromFileEx(
-		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		Filename,   //LPCTSTR pSrcFile,  파일명을 가져옴
-					//이거 CString으로 선언한 변수에다 집어넣고
-					// LPCTSTR로 받아서 쓰면
-					// 변수로 집어넣어도 작동 됨
-
-		D3DX_DEFAULT_NONPOW2,   //UINT Width,
-		D3DX_DEFAULT_NONPOW2,   //UINT Height,
-		D3DX_DEFAULT,      //UINT MipLevels,
-		0,               //DWORD Usage,
-		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-		D3DPOOL_MANAGED,   //D3DPOOL Pool
-		D3DX_FILTER_NONE,   //DWORD Filter
-		D3DX_DEFAULT,      //DWORD MipFilter
-		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&Shop_Item[0].m_image_Item_Info,   //D3DXIMAGE_INFO *pSrcInfo
-		NULL,         //PALETTEENTRY *pPalette
-		&Shop_Item[0].m_pTex_Item);   //LPDIRECT3DTEXTURE9 *ppTexture
-									  // 위에서 말한 경로에서 정보를 가져와서 m_image_info에 넣고
-									  // 텍스쳐도 m_pTex에 저장
-
-
-
-
-	D3DXCreateTextureFromFileEx(
-		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/Gun_.png"),   //LPCTSTR pSrcFile,
-		D3DX_DEFAULT_NONPOW2,   //UINT Width,
-		D3DX_DEFAULT_NONPOW2,   //UINT Height,
-		D3DX_DEFAULT,      //UINT MipLevels,
-		0,               //DWORD Usage,
-		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-		D3DPOOL_MANAGED,   //D3DPOOL Pool
-		D3DX_FILTER_NONE,   //DWORD Filter
-		D3DX_DEFAULT,      //DWORD MipFilter
-		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&Shop_Item[1].m_image_Item_Info,   //D3DXIMAGE_INFO *pSrcInfo
-		NULL,         //PALETTEENTRY *pPalette
-		&Shop_Item[1].m_pTex_Item);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
 	D3DXCreateTextureFromFileEx(
@@ -386,10 +287,18 @@ void InventoryManager::Init()
 	matWorld[matWorld_Inven] = matS * matR * matT;
 
 
+	for (int i = 0; i < NumberOfItems; i++)
+	{
+		if (g_pItem->Weapons[i].index == NULL)
+		{
+			continue;
+		}
+		Shop_Item[i].Item_rc = RectMake(0, 0, Shop_Item[i].m_image_Item_Info.Width, Shop_Item[i].m_image_Item_Info.Height);
 
+	}
 
-	Shop_Item[0].Item_rc = RectMake(0, 0, Shop_Item[0].m_image_Item_Info.Width, Shop_Item[0].m_image_Item_Info.Height);
-	Shop_Item[1].Item_rc = RectMake(0, 0, Shop_Item[1].m_image_Item_Info.Width, Shop_Item[1].m_image_Item_Info.Height);
+	//Shop_Item[0].Item_rc = RectMake(0, 0, Shop_Item[0].m_image_Item_Info.Width, Shop_Item[0].m_image_Item_Info.Height);
+	//Shop_Item[1].Item_rc = RectMake(0, 0, Shop_Item[1].m_image_Item_Info.Width, Shop_Item[1].m_image_Item_Info.Height);
 
 
 	D3DXMatrixRotationZ(&matR, fAngle);
@@ -409,17 +318,17 @@ void InventoryManager::Init()
 
 	matWorld[matWorld_ShopItem_1] = matS * matR * matT;
 
-	D3DXMatrixRotationZ(&matR, fAngle);
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT,
-		Shop_Item[1].PositionX,
-		Shop_Item[1].PositionY,
-		0);
+	//D3DXMatrixRotationZ(&matR, fAngle);
+	//D3DXMatrixIdentity(&matT);
+	//D3DXMatrixTranslation(&matT,
+	//	Shop_Item[1].PositionX,
+	//	Shop_Item[1].PositionY,
+	//	0);
 
 
-	D3DXMatrixScaling(&matS, ShopItem_Display_Mode_X, ShopItem_Display_Mode_Y, 1);
+	//D3DXMatrixScaling(&matS, ShopItem_Display_Mode_X, ShopItem_Display_Mode_Y, 1);
 
-	matWorld[matWorld_ShopItem_2] = matS * matR * matT;
+	//matWorld[matWorld_ShopItem_2] = matS * matR * matT;
 
 
 	for (int j = 0; j < INVENVERTI; j++)
@@ -452,7 +361,7 @@ void InventoryManager::Init()
 
 void InventoryManager::Update()
 {
-	SAFE_UPDATE(m_pRootUI);
+	//SAFE_UPDATE(m_pRootUI);
 
 
 	if (g_pKeyboard->KeyDown('I'))
@@ -556,42 +465,48 @@ void InventoryManager::Update()
 		//불로 어떻게 하면 될꺼 같은데 2
 		else if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 		{
-			if (PtInRect(&Shop_Item[0].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[0]);
-			}
+			
+		
+				
+				if (PtInRect(&Shop_Item[0].Click_rc, mousePoint))
+				{
+					addIndex(Shop_Item[0]);				
+				}
+				
+			
 
-			else if (PtInRect(&Shop_Item[1].Click_rc, mousePoint))
+	/*		else if (PtInRect(&Shop_Item[1].Click_rc, mousePoint))
 			{
 				addIndex(Shop_Item[1]);
-			}
-			else
-			{
-				for (int j = 0; j < INVENVERTI; j++)
+			}*/
+				else
 				{
-					for (int i = 0; i < INVENCORSS; i++)
+					for (int j = 0; j < INVENVERTI; j++)
 					{
-						if (PtInRect(&InvenArray[i][j].Click_rc, mousePoint) && InvenArray[i][j].index != 0)
+						for (int i = 0; i < INVENCORSS; i++)
 						{
-							preChosenX = i;
-							preChosenY = j;
-							InvenArray[preChosenX][preChosenY].isClicked = true;
-							// Press가 조작 되게 하기 위해서
-							Endfor = true;
-							pressOn = true;
+							if (PtInRect(&InvenArray[i][j].Click_rc, mousePoint) && InvenArray[i][j].index != 0)
+							{
+								preChosenX = i;
+								preChosenY = j;
+								InvenArray[preChosenX][preChosenY].isClicked = true;
+								// Press가 조작 되게 하기 위해서
+								Endfor = true;
+								pressOn = true;
+							}
+							if (Endfor)
+							{
+								continue;
+							}
 						}
 						if (Endfor)
 						{
 							continue;
 						}
-					}
-					if (Endfor)
-					{
-						continue;
-					}
-				} // for문 끝
-				Endfor = false;
-			}
+					} // for문 끝
+					Endfor = false;
+				}
+			
 		}
 
 		// 아이템 드래그해서 욺직이게 하는 친구들 //
@@ -825,53 +740,6 @@ void InventoryManager::Render()
 			WHITE);
 		// 이 부분에 대해 물어보기
 
-		// 샵아이텝 1번
-		//D3DXMatrixRotationZ(&matR, fAngle);
-		//D3DXMatrixIdentity(&matT);
-		//D3DXMatrixTranslation(&matT,
-		//	Shop_Item[1].PositionX,
-		//	Shop_Item[1].PositionY,
-		//	0);
-
-
-		//D3DXMatrixScaling(&matS, temp, temp, 1);
-
-		//matWorld = matS * matR * matT;
-
-		//m_pSprite->SetTransform(&m_matWorld);
-
-		/*	for (int i = 0; i < inventory.size(); i++)
-		{
-		SetRect(&inventory[i].Item_rc, m_rc_ItemSet.left + (100 * i), m_rc_ItemSet.top - (100 * i), m_rc_ItemSet.left + (100 * i) + 80, m_rc_ItemSet.top + (100 * i) + 90);
-		}*/
-
-
-
-
-
-
-
-		SetRect(&Shop_Item[1].Item_rc, 0, 0, 0 + (Shop_Item[1].m_image_Item_Info.Width), 0 + (Shop_Item[1].m_image_Item_Info.Height /**temp*/));
-
-
-
-		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-		m_pSprite->SetTransform(&matWorld[matWorld_ShopItem_2]);
-		m_pSprite->Draw(
-			Shop_Item[1].m_pTex_Item,
-			&Shop_Item[1].Item_rc,
-			&D3DXVECTOR3(0, 0, 0),
-			&D3DXVECTOR3(0, 0, 0),
-			WHITE);
-
-
-
-
-		//SetRect(&inventory[0].Click_rc, positionX - ((inventory[0].m_image_Item_Info.Width / 2))
-		//	, positionY - ((inventory[0].m_image_Item_Info.Height / 2))
-		//	, positionX + ((inventory[0].m_image_Item_Info.Width / 2))
-		//	, positionY + ((inventory[0].m_image_Item_Info.Height / 2)));
-
 
 		//윈도우 기준이 아닌, 스크린기준으로 되어있엉
 		static float fAngle = 0.0f;
@@ -954,10 +822,6 @@ void InventoryManager::Render()
 			, Shop_Item[0].PositionX + ((Shop_Item[0].m_image_Item_Info.Width)*ShopItem_Display_Mode_X)
 			, Shop_Item[0].PositionY + ((Shop_Item[0].m_image_Item_Info.Height)*ShopItem_Display_Mode_Y));
 
-		SetRect(&Shop_Item[1].Click_rc, Shop_Item[1].PositionX
-			, Shop_Item[1].PositionY
-			, Shop_Item[1].PositionX + ((Shop_Item[1].m_image_Item_Info.Width)*ShopItem_Display_Mode_X)
-			, Shop_Item[1].PositionY + ((Shop_Item[1].m_image_Item_Info.Height)*ShopItem_Display_Mode_Y));
 
 		//============================================
 
@@ -970,7 +834,7 @@ void InventoryManager::Render()
 		{
 
 
-			m_pSprite->SetTransform(&m_matWorld);
+			
 
 			Equip_LeftHand[0].PositionX = 200 / OriginX;
 			Equip_LeftHand[0].PositionY = 200 / OriginY;
@@ -1052,15 +916,11 @@ void InventoryManager::Render()
 	}
 
 
-
-
 	m_pSprite->End();
 
 }
 
-void InventoryManager::OnClick(UIButton * pSender)
-{
-}
+
 
 void InventoryManager::addIndex(items a)
 {

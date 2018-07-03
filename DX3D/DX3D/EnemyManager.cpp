@@ -34,8 +34,10 @@ void EnemyManager::Update(void)
 		{
 			if (e->m_ItemDrop == false)
 			{
+				
+				
+				g_pItem->ItemGet(e->GetEnemyNum());
 
-				g_pInventory->addIndex(g_pInventory->Shop_Item[e->GetEnemyNum()]);
 				e->m_ItemDrop = true;
 			}
 			continue;

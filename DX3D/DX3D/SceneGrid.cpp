@@ -59,7 +59,7 @@ void SceneGrid::Release()
 void SceneGrid::Init()
 {
 	g_pInventory->Init();
-	AddSimpleDisplayObj(g_pInventory->Get());
+	//AddSimpleDisplayObj(g_pInventory->Get());
 
 	//D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
 	//D3DXVec3Normalize(&dir, &dir);

@@ -77,6 +77,7 @@ void Enemyman::Update()
 		child->Update();
 	}
 	
+
 }
 //Å¥ºê¸Ç ÆÄÃ÷ ·»´õ¸µ
 void Enemyman::Render()
