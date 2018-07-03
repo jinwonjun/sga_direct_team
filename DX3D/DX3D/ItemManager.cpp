@@ -84,10 +84,10 @@ void ItemManager::ItemGet(int a)
 
 	
 
-	D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
-	D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
-	m_matWorld = matS * matT;
-	timer = 100;
+	//D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
+	//D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
+	//m_matWorld = matS * matT;
+	timer = 400;
 
 	//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
 	

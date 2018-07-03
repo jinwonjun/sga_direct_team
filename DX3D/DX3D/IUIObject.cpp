@@ -55,8 +55,8 @@ void IUIObject::Render()
 		for (auto p : m_vecPChild2)
 		{
 			p->Render();
-
 		}
+
 		g_pItem->timer--;
 	}
 }

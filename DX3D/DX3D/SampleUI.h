@@ -38,10 +38,10 @@ private:
 	HUD_Ui MiniCHAR;
 
 	UIButton * BulletNum;
-
+	UIButton * GetItems;
 
 	int LifeLoss;
-
+	int positionY;
 	RECT clientRect;
 	float tempX;
 	float tempY;

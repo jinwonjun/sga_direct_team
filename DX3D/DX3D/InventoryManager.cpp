@@ -949,34 +949,7 @@ void InventoryManager::addIndex(items a)
 		}
 	}
 }
-//
-//void InventoryManager::addIndex(items_ a)
-//{
-//
-//	D3DXMATRIXA16 matR, matT, matWorld;
-//	D3DXMATRIXA16 matS;
-//	//static float fAngle = 0.0f;
-//	for (int j = 0; j < INVENVERTI; j++)
-//	{
-//		for (int i = 0; i < INVENCORSS; i++)
-//		{
-//			if (InvenArray[i][j].index == 0)
-//			{
-//				InvenArray[i][j] = a;
-//				InvenArray[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i)*Adjust_Display_Mode_X;
-//				InvenArray[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j)*Adjust_Display_Mode_Y;
-//				InvenArray[i][j].Copy_num += 1;
-//				InvenArray[i][j].isInvenIn = true;
-//				return;
-//			}
-//
-//			else if (i == INVENCORSS && j == INVENVERTI)
-//			{
-//				std::printf("인벤토리가 가득 찼습니다.");
-//			}
-//		}
-//	}
-//}
+
 
 void InventoryManager::MovingItem(items *a, items* b)
 {
