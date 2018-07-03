@@ -12,6 +12,9 @@ private:
 	float					m_radius;
 	LPD3DXMESH				m_pSphereMesh;
 
+	int WeaponStatus;
+	bool checkB;
+	bool checkL;
 
 public:
 	Gun();
@@ -20,5 +23,8 @@ public:
 	void Init();
 	void Update();
 	void Render();
+
+	void BeamGunInit();
+	void LaserGunInit();
 };
 

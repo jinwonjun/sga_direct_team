@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 ﻿  ItemManager.cpp
 d:\_pp\dx3d\dx3d\itemmanager.cpp(11): warning C4316: 'ItemManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 d:\_pp\dx3d\dx3d\itemmanager.cpp(83): warning C4101: 'rect' :참조되지 않은 지역 변수입니다.
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+=======
+﻿  Gun.cpp
+  코드를 생성하고 있습니다...
+  건너뛰고 있습니다... (관련된 변경 내용 없음)
+  SceneGrid.cpp
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> fa7b0c3656f07f597aef18898d5fe197044e8126
