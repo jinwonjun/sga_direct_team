@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  InventoryManager.cpp
 d:\_pp\dx3d\dx3d\inventorymanager.cpp(12): warning C4316: 'InventoryManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 d:\_pp\dx3d\dx3d\inventorymanager.cpp(178): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -17,3 +18,10 @@ d:\_pp\dx3d\dx3d\inventorymanager.cpp(892): warning C4244: '인수': 'LONG'에�
   Application.cpp
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+=======
+﻿  EnemyManager.cpp
+c:\project\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(59): warning C4316: 'Enemy': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> 50835c929f457d7ea454b07f3e75aedcaf5e5f47

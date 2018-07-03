@@ -48,6 +48,7 @@ void Gun::Update()
 
 void Gun::Render()
 {
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	//g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTransform(D3DTS_WORLD, &ApplyMatrix);
 
@@ -64,4 +65,5 @@ void Gun::Render()
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_pSphereMesh->DrawSubset(0);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 }

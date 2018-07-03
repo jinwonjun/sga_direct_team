@@ -36,7 +36,7 @@ SceneGrid::SceneGrid()
 void SceneGrid::Release()
 {
 	SAFE_RELEASE(tex);
-	SAFE_RELEASE(m_pGrid);
+	//SAFE_RELEASE(m_pGrid);
 	//SAFE_RELEASE(m_pCubeman);
 	SAFE_RELEASE(m_pHexagon);
 	SAFE_RELEASE(m_pWalls);
@@ -83,8 +83,8 @@ void SceneGrid::Init()
 	AddSimpleDisplayObj(pObj);
 
 
-	m_pGrid = new TeachGrid;
-	m_pGrid->Init();
+	//m_pGrid = new TeachGrid;
+	//m_pGrid->Init();
 
 	//m_pCubeman = new Cubeman();
 	//m_pCubeman->Init();
@@ -156,7 +156,11 @@ void SceneGrid::Init()
 	//g_pMapManager->AddMap("heightMap", m_pHeightMap);
 	//g_pMapManager->SetCurrentMap("heightMap");
 
-	Init_cs_italy();
+
+	//obj맵 깔기
+	ObjMap* pMap = new ObjMap();
+	pMap->Init();
+	AddSimpleDisplayObj((pMap));
 
 	//조명!
 	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
@@ -208,7 +212,7 @@ void SceneGrid::Render()
 	//큐브 그리기
 	//pCube->Render();
 	//그리드 그리기
-	SAFE_RENDER(m_pGrid);
+	//SAFE_RENDER(m_pGrid);
 
 	//SAFE_RENDER(m_pCubeman);
 	//조명에 따른 벽 그려보기
@@ -251,25 +255,4 @@ void SceneGrid::BoundingCheck()
 			p->MoveStop();
 		}
 	}
-}
-
-void SceneGrid::Init_cs_italy()
-{
-	//D3DXMATRIXA16 matS, matRY, matT, localMatrix;
-	//D3DXMatrixScaling(&matS, 0.2f, 0.2f, 0.2f);
-	//D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
-	//D3DXMatrixTranslation(&matT, 0, -250, 0);
-	//localMatrix = matS * matRY * matT;
-
-	ObjMap* pMap = new ObjMap(); 
-	pMap->Init();
-	AddSimpleDisplayObj((pMap));
-	//pMap->SetLocalMatrix(&localMatrix);
-	//pMap->SetLocalMatrix(localMatrix);
-	//pMap->SetFilename(ASSET_PATH + _T("Models/cs_italy/"), _T("cs_italy.obj"), NULL);
-	//pMap->SetFilename(_T("resources/cs_italy/"), _T("cs_italy.obj"), NULL);
-	
-	//pMap->Init();
-	//pMap->SetName(_T("map"));
-	//Objects::SetCurrentMap(_T("map"));
 }

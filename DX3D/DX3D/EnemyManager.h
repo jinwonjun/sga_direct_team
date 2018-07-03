@@ -17,7 +17,7 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	void AddEnemy(D3DXVECTOR3 & pos, CString path, CString fileName);
+	void AddEnemy(D3DXVECTOR3 & pos, CString path, CString fileName, int enemyNum);
 
 	vector<Enemy*> GetVecEnemy() { return m_vecEnemy; }
 };
