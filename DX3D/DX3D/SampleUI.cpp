@@ -26,16 +26,14 @@ SampleUI::SampleUI()
 SampleUI::~SampleUI()
 {
 	SAFE_RELEASE(m_pSprite);
-	//SAFE_RELEASE(m_pSprite_);
-	//SAFE_RELEASE(m_pRootUI);
-	//SAFE_RELEASE(pbutt)
+
 	m_pRootUI->ReleaseAll();
 }
 
 void SampleUI::Init()
 {
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
-//	D3DXCreateSprite(g_pDevice, &m_pSprite_);
+
 	restBullet = 30;
 	spaceOn = false;
 	contorller = 0;

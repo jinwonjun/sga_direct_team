@@ -90,7 +90,7 @@ void Ironman::Update()
 	reload = 7;
 	back = 8;
 	*/
-	if (Keyboard::Get()->KeyPress('I'))
+	if (Keyboard::Get()->KeyDown('I'))
 	{
 		OpenUI = !OpenUI;
 	}

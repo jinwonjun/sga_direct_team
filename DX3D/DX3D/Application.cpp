@@ -17,7 +17,9 @@ void Application::Init()
 	g_pMouse->SetHandle(g_hWnd);
 	g_pCamera->Init();
 	g_pSceneManager->Init();
-	
+	//g_pItem->ItemTable();
+	g_pInventory->Init();
+
 	
 }
 
@@ -34,6 +36,7 @@ void Application::Destroy()
 	g_pFontMgr->Destroy();
 	Debug->Destroy();
 	g_pDeviceManager->Destroy();
+	g_pInventory->Delete();
 }
 
 void Application::Update()
@@ -44,9 +47,10 @@ void Application::Update()
 	g_pMouse->Update();
 	g_pKeyboard->Update();
 	g_pSceneManager->Update();
-
+	
 	//카메라 업데이트를 여기서 돌림
 	g_pCamera->Update();
+	g_pInventory->Update();
 }
 
 void Application::Render()
@@ -59,6 +63,8 @@ void Application::Render()
 	g_pSceneManager->Render();
 	Debug->Print();
 
+	g_pInventory->Render();
+
 	if (GetAsyncKeyState('M') & 0x0001)
 	{
 		Debug->ShowMessageBox();
@@ -66,6 +72,7 @@ void Application::Render()
 
 	g_pDevice->EndScene();
 	g_pDevice->Present(NULL, NULL, NULL, NULL);
+	
 }
 
 void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
