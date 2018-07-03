@@ -23,6 +23,7 @@ class SampleUI :public IDisplayObject, public IUIButtonDelegate
 private:
 	std::wstring temp;
 	LPD3DXSPRITE m_pSprite;
+	LPD3DXSPRITE m_pSprite_2;
 	IUIObject * m_pRootUI;
 	IUIObject * m_pRootUI_2;
 

@@ -77,14 +77,30 @@ void ItemManager::ItemTable()
 	}
 
 }
-//
-//void ItemManager::ItemGet(int a)
-//{
-//
-//	
-//
-//
-//}
+
+void ItemManager::ItemGet(int a)
+{
+	RECT rect;
+
+	
+
+	D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
+	D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
+	m_matWorld = matS * matT;
+	timer = 100;
+
+	//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
+	
+	g_pInventory->addIndex(g_pItem->Weapons[a]);
+
+}
+
+void ItemManager::render(int a)
+{
+
+}
+
+
 
 //InventoryManager * InventoryManager::Get()
 //{

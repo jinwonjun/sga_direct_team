@@ -73,16 +73,25 @@ private:
 	int EmptyRcX;
 	int EmptyRcY;
 
+	D3DXMATRIXA16 matS;
+	D3DXMATRIXA16 matT;
+	D3DXMATRIXA16 m_matWorld;
+
+	
+	
+
 public:
 
 	static ItemManager* Get();
 	static void Delete();
 
+
+	int timer;
 	items Weapons[NumberOfItems];
 
 	void ItemTable();
-	//void ItemGet(int a);
-
+	void ItemGet(int a);
+	void render(int a);
 	// IDisplayObject을(를) 통해 상속됨
 
 

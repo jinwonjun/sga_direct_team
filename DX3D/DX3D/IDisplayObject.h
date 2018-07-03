@@ -8,7 +8,9 @@ protected:
 	D3DXVECTOR3				m_rot;
 	D3DXMATRIXA16			m_matWorld;
 	IDisplayObject*			m_pParent;
+	IDisplayObject*			m_pParent2;
 	vector<IDisplayObject*> m_vecPChild;
+	vector<IDisplayObject*> m_vecPChild2;
 
 	vector<VERTEX_PC> m_vecVertex;
 
@@ -20,6 +22,7 @@ public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 	virtual void AddChild(IDisplayObject* pChild);
+	virtual void AddChild2(IDisplayObject* pChild);
 	virtual void ReleaseAll();
 
 

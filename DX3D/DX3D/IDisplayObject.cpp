@@ -20,6 +20,13 @@ void IDisplayObject::AddChild(IDisplayObject * pChild)
 	pChild->m_pParent = this;
 }
 
+void IDisplayObject::AddChild2(IDisplayObject * pChild)
+{
+	if (pChild == NULL) return;
+	m_vecPChild2.push_back(pChild);
+	pChild->m_pParent2 = this;
+}
+
 void IDisplayObject::ReleaseAll()
 {
 	for (auto child : m_vecPChild)

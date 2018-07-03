@@ -110,12 +110,12 @@ void SampleUI::Init()
 	//	D3DXMATRIXA16 matS;
 	//	D3DXMatrixScaling(&matS, 1.f, 1.5f, 1);
 	//	D3DXMATRIXA16 matT;
-	//	D3DXMatrixTranslation(&matT, 150, 150, 0);
+	//	D3DXMatrixTranslation(&matT, 0, 0, 0);
 	//	m_matWorld = matS * matT;
 
 	//	UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON2);
 	//	m_pRootUI->AddChild(pButton);
-	//	pButton->SetPosition(&D3DXVECTOR3(135, 400, 0));
+	//	pButton->SetPosition(&D3DXVECTOR3(0,00, 0));
 	//	pButton->SetTexture("resources/ui/btn-med-up.png.png",
 	//		"resources/ui/btn-med-over.png.png",
 	//		"resources/ui/btn-med-down.png.png");
@@ -130,14 +130,6 @@ void SampleUI::Init()
 
 
 
-
-	//	UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON3);
-	//	m_pRootUI_2->AddChild(pButton);
-	//	pButton->SetPosition(&D3DXVECTOR3(135, 260, 0));
-	//	pButton->SetTexture("resources/ui/btn-med-up.png.png",
-	//		"resources/ui/btn-med-over.png.png",
-	//		"resources/ui/btn-med-down.png.png");
-	//	pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Button3___"));
 	//}
 
 	//내가 만들어 본 것
@@ -302,6 +294,26 @@ void SampleUI::Init()
 	D3DXMatrixIdentity(&CalPlayerPos);
 
 
+	{
+		D3DXMATRIXA16 matS;
+		D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
+		D3DXMATRIXA16 matT;
+		D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
+		//D3DXMatrixTranslation(&matT, 500, 500, 0);
+		m_matWorld = matS * matT;
+
+		//m_pSprite_2->SetTransform(&m_matWorld);
+
+		UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON1);
+	
+		pButton->SetPosition(&D3DXVECTOR3(0, -200, 0));
+		pButton->SetTexture("resources/ui/back.png",
+			"resources/ui/back.png",
+			"resources/ui/back.png");
+		pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
+
+		m_pRootUI->AddChild2(pButton);
+	}
 
 
 	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
@@ -313,8 +325,8 @@ void SampleUI::Init()
 		m_matWorld = matS * matT;
 
 		BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
-		// 널 저주 하겠다.
-		m_pRootUI->AddChild(BulletNum);
+		
+	
 		//WINSIZEY / 3
 		//BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
 		BulletNum->SetPosition(&D3DXVECTOR3(0, 0, 0));
@@ -325,7 +337,12 @@ void SampleUI::Init()
 
 		temp = std::to_wstring(restBullet) + L" / 30";
 		BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+
+		m_pRootUI->AddChild(BulletNum);
 	}
+
+
+
 
 	GetClientRect(g_hWnd, &clientRect);
 
@@ -369,6 +386,8 @@ void SampleUI::Update()
 	//총알 숫자가 줄어드는걸 하려면 업데이트에 이녀석들은 있어야 되는듯!
 	temp = std::to_wstring(restBullet) + L" / 30";
 	//BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+
+
 	if (g_pKeyboard->KeyDown('G'))
 	{
 		CurrHp = CurrHp - 5;
@@ -411,6 +430,12 @@ void SampleUI::Update()
 	//pButton->SetTexture("resources/ui/btn-med-up.png.png",
 	//	"resources/ui/btn-med-over.png.png",
 	//	"resources/ui/btn-med-down.png.png");
+
+
+
+
+
+
 
 	//플레이어의 월드 행렬 가져오기
 	CalPlayerPos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetWorldMatrix();
@@ -462,6 +487,8 @@ void SampleUI::Render()
 		WHITE);
 	//580 -500
 	m_pSprite->SetTransform(&m_matWorld);
+
+
 	SAFE_RENDER(m_pRootUI);
 
 	//	D3DXMATRIXA16 matR, matT, matWorld;
