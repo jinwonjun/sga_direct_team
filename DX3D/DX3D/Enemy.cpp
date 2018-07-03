@@ -13,7 +13,7 @@
 
 #define SCALE 10.00f
 
-Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName)
+Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 {
 	m_destPos = m_pos = pos;
 	m_moveSpeed = 0.4f;
@@ -30,6 +30,8 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName)
 
 	m_radius = 1.7f;
 	m_SphereHeight = 7.0f;
+
+	m_enemyNum = enemyNum;
 }
 
 

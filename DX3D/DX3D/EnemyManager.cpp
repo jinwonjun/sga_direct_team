@@ -17,10 +17,10 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Init(void)
 {
-	AddEnemy(D3DXVECTOR3(20, 0, 30), "resources/zealot/", "zealot.X");
-	//AddEnemy(D3DXVECTOR3(45, 0, 20), "resources/zealot/", "zealot.X");
-	//AddEnemy(D3DXVECTOR3(100, 0, 70), "resources/zealot/", "zealot.X");
-	//AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X");
+	AddEnemy(D3DXVECTOR3(20, 0, 30), "resources/zealot/", "zealot.X", 0);
+	AddEnemy(D3DXVECTOR3(45, 0, 20), "resources/zealot/", "zealot.X", 1);
+	AddEnemy(D3DXVECTOR3(100, 0, 70), "resources/zealot/", "zealot.X", 0);
+	AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X", 1);
 	//AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X");
 
 	g_pObjMgr->AddToTagList(TAG_ENEMY, this);
@@ -34,8 +34,8 @@ void EnemyManager::Update(void)
 		{
 			if (e->m_ItemDrop == false)
 			{
-				g_pInventory->addIndex(g_pInventory->Shop_Item[0]);
-				//g_pInventory->addIndex(g_pItem->Weapons[0]);
+
+				g_pInventory->addIndex(g_pInventory->Shop_Item[e->GetEnemyNum()]);
 				e->m_ItemDrop = true;
 			}
 			continue;
@@ -54,8 +54,8 @@ void EnemyManager::Render(void)
 	}
 }
 
-void EnemyManager::AddEnemy(D3DXVECTOR3 & pos, CString path, CString fileName)
+void EnemyManager::AddEnemy(D3DXVECTOR3 & pos, CString path, CString fileName, int enemyNum)
 {
-	Enemy* pEnemy = new Enemy(pos, path, fileName); pEnemy->Init();
+	Enemy* pEnemy = new Enemy(pos, path, fileName, enemyNum); pEnemy->Init();
 	m_vecEnemy.push_back(pEnemy);
 }
