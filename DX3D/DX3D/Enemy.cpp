@@ -22,7 +22,7 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 
 	m_forward = D3DXVECTOR3(0, 0, 1);
 	m_isMoving = false;
-	m_HP = 10;
+	m_HP = 1;
 	m_ItemDrop = false;
 
 	m_path = path;			// "resources/zealot/";
@@ -104,17 +104,8 @@ void Enemy::Render()
 	SAFE_RENDER(m_pSkinnedMesh);
 
 
-	//g_pDevice->SetFVF(VERTEX_PC::FVF);
-	//g_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VERTEX_PC));
-	//g_pDevice->SetIndices(m_pIB);
-	//g_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0,m_VBDesc.Size, 0, m_IBDesc.Size / 3);
 
-
-	//obj°´Ã¼ ±×¸®±â
-	//for (auto p : m_vecDrawingGroup)
-	//{
-	//	SAFE_RENDER(p);
-	//}
+	
 }
 
 void Enemy::UpdatePosition()

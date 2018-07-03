@@ -9,8 +9,11 @@ protected:
 	D3DXMATRIXA16			m_matWorld;
 	IDisplayObject*			m_pParent;
 	IDisplayObject*			m_pParent2;
+	IDisplayObject*			m_pParent3;
+
 	vector<IDisplayObject*> m_vecPChild;
 	vector<IDisplayObject*> m_vecPChild2;
+	vector<IDisplayObject*> m_vecPChild3;
 
 	vector<VERTEX_PC> m_vecVertex;
 
@@ -23,6 +26,7 @@ public:
 	virtual void Render() = 0;
 	virtual void AddChild(IDisplayObject* pChild);
 	virtual void AddChild2(IDisplayObject* pChild);
+	virtual void AddChild3(IDisplayObject* pChild);
 	virtual void ReleaseAll();
 
 

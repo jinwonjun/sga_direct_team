@@ -295,6 +295,27 @@ void SampleUI::Init()
 
 
 	{
+		//D3DXMATRIXA16 matS;
+		//D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
+		//D3DXMATRIXA16 matT;
+		//D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
+		////D3DXMatrixTranslation(&matT, 500, 500, 0);
+		//m_matWorld = matS * matT;
+
+		////m_pSprite_2->SetTransform(&m_matWorld);
+
+		//UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON1);
+
+		//pButton->SetPosition(&D3DXVECTOR3(0, -200, 0));
+		//pButton->SetTexture("resources/ui/back.png",
+		//	"resources/ui/back.png",
+		//	"resources/ui/back.png");
+		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
+
+		//m_pRootUI->AddChild3(pButton);
+	}
+
+	{
 		D3DXMATRIXA16 matS;
 		D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
 		D3DXMATRIXA16 matT;
@@ -304,15 +325,15 @@ void SampleUI::Init()
 
 		//m_pSprite_2->SetTransform(&m_matWorld);
 
-		UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON1);
+		GetItems = new UIButton(this, m_pSprite, UITAG_BUTTON1);
 	
-		pButton->SetPosition(&D3DXVECTOR3(0, -200, 0));
-		pButton->SetTexture("resources/ui/back.png",
+		//GetItems->SetPosition(&D3DXVECTOR3(0, -200 , 0));
+		GetItems->SetTexture("resources/ui/back.png",
 			"resources/ui/back.png",
 			"resources/ui/back.png");
-		pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
+		GetItems->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
 
-		m_pRootUI->AddChild2(pButton);
+		m_pRootUI->AddChild2(GetItems);
 	}
 
 
@@ -363,6 +384,9 @@ void SampleUI::Update()
 	//	spaceOn = true;
 	//	contorller++;
 	//}
+
+	positionY = g_pItem->timer;
+	GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400-positionY)/8), 0));
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		spaceOn = true;
