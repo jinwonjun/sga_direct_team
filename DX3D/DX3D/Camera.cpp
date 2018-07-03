@@ -4,9 +4,11 @@
 Camera::Camera()
 {
 	//m_distance = 5.0f;
-	mLimitDistance = m_distance = 25.f;
-	m_basePosX = 10.0f;
-	m_basePosY = 10.0f;
+	mLimitDistance = m_distance = 20.f;
+	m_basePosX = 5.0f;
+	//origin
+	//m_basePosY = 10.0f;
+	m_basePosY = 15.0f;
 	m_eye = D3DXVECTOR3(m_basePosX, m_basePosY, -m_distance);
 
 	m_lookAt = D3DXVECTOR3(0, 0, 0);
@@ -87,7 +89,7 @@ void Camera::Update()
 	//g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
 
 	m_eye = D3DXVECTOR3(m_basePosX, m_basePosY, -m_distance);
-	m_lookAt = D3DXVECTOR3(0, m_basePosY, m_distance);
+	m_lookAt = D3DXVECTOR3(m_basePosX, m_basePosY, m_distance);
 
 	D3DXMATRIXA16 matRotX, matRotY, matRot;
 

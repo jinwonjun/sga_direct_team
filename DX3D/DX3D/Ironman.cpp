@@ -234,7 +234,7 @@ void Ironman::Shoot()
 void Ironman::AnimationModify()
 {
 	//아이언맨의 계산된 월드 행렬을 가져오자
-	D3DXMATRIXA16 matRotY, matT, matR, matS;
+	D3DXMATRIXA16 matRotY,matRotX, matT, matR, matS;
 	//, matRotX, matRot, m_matWorld;
 
 	//D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
@@ -253,10 +253,12 @@ void Ironman::AnimationModify()
 	D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixRotationY(&matR, D3DX_PI);
-	
 	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+	
+	//카메라 고도 경사를 어떻게 해야되나!
+	D3DXMatrixRotationX(&matRotX, (-1)*g_pCamera->m_rotX * (0.5f));
 
-	m_matWorld = matS * matRotY* matR * matT;
+	m_matWorld = matS *matRotX * matRotY* matR * matT;
 
 	//skinnedMesh에서 X파일 위치 및 스케일 조정부분.
 	m_pSkinnedMesh->SetWorldMatrix(&m_matWorld);

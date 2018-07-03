@@ -13,8 +13,6 @@ private:
 	LPD3DXMESH				m_pSphereMesh;
 
 	int WeaponStatus;
-	bool checkB;
-	bool checkL;
 
 public:
 	Gun();
