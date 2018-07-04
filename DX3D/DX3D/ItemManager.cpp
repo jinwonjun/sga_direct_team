@@ -35,7 +35,7 @@ void ItemManager::ItemTable()
 	Basic_ScaleX = 0.3f;
 	Basic_ScaleY = 0.3f;
 
-	Weapons[0] = { 1,"wood",10,0,0,0 ,"resources/images/ham1.png",1 };
+	Weapons[0] = { 1,"wood",10,0,0,0 ,"resources/images/Weapon_Normal_1.png",1 };
 //	Weapons[1] = { 2, "Gun", 15,20, 0, 0, "resources/images/Gun_.png",1 };
 
 
@@ -45,6 +45,7 @@ void ItemManager::ItemTable()
 	Weapons[0].PositionY = (OriginY / 2) * Adjust_Display_Mode_Y;
 	Weapons[0].isClicked = false;
 	Weapons[0].isInvenIn = false;
+	Weapons[0].isEquiped = false;
 	Weapons[0].Equip_Type = Weapon_Type_LeftHand;
 	for (int i = 0; i < NumberOfItems; i++)
 	{
