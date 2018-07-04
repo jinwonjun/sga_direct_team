@@ -1,24 +1,17 @@
-<<<<<<< HEAD
-﻿  Ironman.cpp
-d:\sga_direct_team\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
-d:\sga_direct_team\dx3d\dx3d\ironman.cpp(48): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\ironman.cpp(57): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\ironman.cpp(59): warning C4316: 'BloodEffect': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
-=======
-<<<<<<< HEAD
-﻿  DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
-=======
-<<<<<<< HEAD
-﻿  ItemManager.cpp
-d:\_pp\dx3d\dx3d\itemmanager.cpp(11): warning C4316: 'ItemManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\itemmanager.cpp(83): warning C4101: 'rect' :참조되지 않은 지역 변수입니다.
+﻿  InventoryManager.cpp
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(12): warning C4316: 'InventoryManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(177): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(212): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(218): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(244): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(245): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(505): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(506): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(511): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(739): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(782): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(803): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(834): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(854): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\inventorymanager.cpp(877): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
-=======
-﻿  Gun.cpp
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
->>>>>>> fa7b0c3656f07f597aef18898d5fe197044e8126
->>>>>>> 3016c44f3d62f3ac0280d35c7b062b26d858d9b3
->>>>>>> 9755a4dff57e14cf422d0ab5ad8a7fe2912b67d0

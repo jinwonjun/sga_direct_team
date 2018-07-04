@@ -32,6 +32,7 @@ struct items {
 	float PositionY; // rc가 들어갈 위치
 	float ScaleX;    // X축 스캐일
 	float ScaleY;    // Y축 스캐일
+	bool isEquiped;
 
 	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
 	D3DXIMAGE_INFO		 m_image_InvenOn_Info;
