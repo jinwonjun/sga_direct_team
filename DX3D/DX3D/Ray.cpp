@@ -9,14 +9,21 @@ Ray::~Ray()
 {
 }
 
+//월드좌표 -> 뷰 좌표 -> 프로젝션 -> 뷰포트 
+//g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj); 
+//g_pDevice->GetTransform(D3DTS_VIEW, &matView);
+//ScreenX = projVertex.x * (ViewportWidth / 2) + ViewportLeft + (ViewportWidth / 2)
+//ScreenY = -projVertex.y * (ViewportHeight / 2) + ViewportTop + (ViewportHeight / 2)
+
 Ray Ray::RayAtViewSpace(int x, int y)
 {
+	//디스플레이(윈도우화면상의)표시영역
 	D3DVIEWPORT9 vp;
 	g_pDevice->GetViewport(&vp);
+	
 
 	D3DXMATRIXA16 matProj;
 	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
-
 
 	Ray ray;
 	ray.m_dir.x = ((x * 2.0f) / vp.Width - 1.0f) / matProj._11;

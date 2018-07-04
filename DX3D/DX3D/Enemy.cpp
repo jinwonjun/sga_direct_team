@@ -197,8 +197,6 @@ void Enemy::UpdatePosition()
 		m_matWorld = matS * matR * matT;
 		SetPosition(&pos);
 	}
-
-
 }
 
 void Enemy::SetDestPos(D3DXVECTOR3 & pos)

@@ -20,5 +20,7 @@ public:
 	void AddEnemy(D3DXVECTOR3 & pos, CString path, CString fileName, int enemyNum);
 
 	vector<Enemy*> GetVecEnemy() { return m_vecEnemy; }
+
+	void WorldToVP();
 };
 
