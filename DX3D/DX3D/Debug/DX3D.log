@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 ﻿  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
+﻿  Enemy.cpp
+d:\sga\pp\dx3d\dx3d\enemy.cpp(52): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\enemy.cpp(66): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> 8860696d027fd1f9829f7b41222034590a9c3739
