@@ -21,6 +21,10 @@ Camera::Camera()
 	deltaRotY = 0.f;
 	isStart = true;
 
+
+	m_lookatTemp = D3DXVECTOR3(0, 0, 0);
+	m_eyeTemp = D3DXVECTOR3(0, 0, 0);
+
 	//mLimitX = 400.f;
 	//mLimitY = 200.f;
 	//mRCCollCheck = false;
@@ -135,8 +139,6 @@ void Camera::Update()
 	D3DXVec3TransformCoord(&m_eye, &m_eye, &matRot);
 	D3DXVec3TransformCoord(&m_lookAt, &m_lookAt, &matRot);
 
-	//m_lookAt = D3DXVECTOR3(0, 0, 50.0f);
-
 	if (m_pTarget && !(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
 		//static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
@@ -151,6 +153,9 @@ void Camera::Update()
 
 		m_lookAt = *m_pTarget + m_lookAt;
 		m_eye = *m_pTarget + m_eye;
+
+		m_lookatTemp = m_lookAt;
+		m_eyeTemp = m_eye;
 	}
 	else if(m_pTarget && (g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{

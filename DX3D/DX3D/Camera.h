@@ -49,6 +49,10 @@ public:
 	D3DXVECTOR3		m_eye;
 	D3DXVECTOR3		m_lookAt;
 	D3DXVECTOR3		m_up;
+
+	D3DXVECTOR3		m_lookatTemp;
+	D3DXVECTOR3		m_eyeTemp;
+
 	void Init();
 	void Update();
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

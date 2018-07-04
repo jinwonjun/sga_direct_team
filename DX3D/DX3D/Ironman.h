@@ -19,8 +19,6 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	D3DXMATRIXA16	matT, matS, matR;
-
 	BoundingBox*	m_pBox;
 
 	SkinnedMesh * m_pSkinnedMesh;
@@ -42,4 +40,7 @@ public:
 	bool OpenUI;
 
 	void AnimationModify();//X파일 위치 및 스케일 조정부분.
+
+	//아이언맨의 계산된 월드 행렬을 가져오자
+	D3DXMATRIXA16 matRotY, matRotX, matT, matR, matS, matTemp;
 };

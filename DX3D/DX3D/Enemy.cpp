@@ -10,6 +10,8 @@
 
 #include "SkinnedMesh.h"
 
+#include "Ironman.h"
+
 #define SCALE 10.00f
 
 Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
@@ -144,7 +146,8 @@ void Enemy::Render()
 	//UI그리기
 	////////////////////////////////////////////////////////////////////
 	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
-	if (m_HP != 0)
+	
+	if (m_HP > 0)
 	{
 		SetRect(&HP_Info[m_HP-1].m_Image_rc, 0, 0, HP_Info[m_HP-1].m_imageInfo.Width, HP_Info[m_HP-1].m_imageInfo.Height);
 		//D3DXMatrixRotationZ(&matR, fAngle);
@@ -332,9 +335,4 @@ void Enemy::WorldToVP()
 	Debug->AddText(ScreenY);
 	Debug->EndLine();
 	Debug->EndLine();
-}
-
-void Enemy::HpBar()
-{
-
 }

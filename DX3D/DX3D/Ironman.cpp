@@ -76,6 +76,13 @@ void Ironman::Init()
 	//UI 열리면 캐릭터 이동 막기
 	OpenUI = false;
 
+
+	D3DXMatrixIdentity(&matRotY);
+	D3DXMatrixIdentity(&matRotX);
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixIdentity(&matR);
+	D3DXMatrixIdentity(&matS);
+	D3DXMatrixIdentity(&matTemp);
 }
 
 void Ironman::Update()
@@ -218,6 +225,9 @@ void Ironman::Shoot()
 				}
 				//거리 보정 위치값 찾기
 				BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+
+				//적이 그리게 할 수 있는 시그널 주기
+				//return true;
 			}
 		}
 
@@ -233,23 +243,16 @@ void Ironman::Shoot()
 
 void Ironman::AnimationModify()
 {
-	//아이언맨의 계산된 월드 행렬을 가져오자
-	D3DXMATRIXA16 matRotY,matRotX, matT, matR, matS;
-	//, matRotX, matRot, m_matWorld;
-
-	//D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
-
 	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
 		D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
+		matTemp = matRotY;
 	}
-	else
+	if (g_pKeyboard->KeyUp(VK_LSHIFT))//시프트키 땔때 누르기 바로 전 값 전달
 	{
-		D3DXMatrixIdentity(&matRotY);
+		matRotY = matTemp;
 	}
-	//D3DXMatrixRotationX(&matRotX, m_rot.x);
-	//matRot = matRotY * matRotX;
-	//D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+
 	D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixRotationY(&matR, D3DX_PI);
@@ -258,7 +261,14 @@ void Ironman::AnimationModify()
 	//카메라 고도 경사를 어떻게 해야되나!
 	D3DXMatrixRotationX(&matRotX, (-1)*g_pCamera->m_rotX * (0.5f));
 
-	m_matWorld = matS *matRotX * matRotY* matR * matT;
+	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
+	{
+		m_matWorld = matS *matRotX * matRotY* matR * matT;
+	}
+	else
+	{
+		m_matWorld = matS *matRotX * matTemp* matR * matT;
+	}
 
 	//skinnedMesh에서 X파일 위치 및 스케일 조정부분.
 	m_pSkinnedMesh->SetWorldMatrix(&m_matWorld);
