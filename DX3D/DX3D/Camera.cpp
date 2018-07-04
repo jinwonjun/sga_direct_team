@@ -227,8 +227,6 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case WM_MOUSEMOVE:
 		{
-
-
 			currPoint.x = LOWORD(lParam);
 			currPoint.y = HIWORD(lParam);
 		}

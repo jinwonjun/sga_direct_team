@@ -4,7 +4,6 @@
 #include "AStarNode.h"
 #include "BoundingBox.h"
 
-
 //obj파일 불러오기
 #include "DrawingGroup.h"
 #include "ObjLoader.h"
@@ -85,6 +84,8 @@ void Enemy::Update()
 
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
+
+	WorldToVP();
 }
 
 void Enemy::Render()
@@ -98,14 +99,8 @@ void Enemy::Render()
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	////////////////////////////////////////////////////////////////////
 
-
-
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	SAFE_RENDER(m_pSkinnedMesh);
-
-
-
-	
 }
 
 void Enemy::UpdatePosition()
@@ -125,16 +120,17 @@ void Enemy::UpdatePosition()
 		isIntersected = g_pCurrentMap->GetHeight(height, targetPos);
 	}
 
-	if (isIntersected == true)
-	{
+	//if (isIntersected == true)
+	//{
 
-	}
-	else
-	{
-		m_pos = targetPos;
-	}
+	//}
+	//else
+	//{
+	//	m_pos = targetPos;
+	//}
 
-	if (m_destPos != m_pos)
+	//바운딩 박스에 닿았을때 거리가 10보다 크면 이동 -> 10보다 작으면 멈춤
+	if (D3DXVec3Length(&(m_destPos - m_pos)) > 10.f)
 	{
 		m_pSkinnedMesh->status = 3;	//이동
 		m_isMoving = true;
@@ -149,8 +145,8 @@ void Enemy::UpdatePosition()
 	{
 		D3DXVECTOR3 pos;
 		D3DXVECTOR3 forward = D3DXVECTOR3(m_destPos.x - m_pos.x, 0, m_destPos.z - m_pos.z);
-		D3DXVECTOR3 forwardNormalized = forward;
-		D3DXVec3Normalize(&forwardNormalized, &forwardNormalized);
+		D3DXVECTOR3 forwardNormalized;
+		D3DXVec3Normalize(&forwardNormalized, &forward);
 
 		D3DXMATRIXA16 matRotY;
 		D3DXMatrixRotationY(&matRotY, m_rot.y);
@@ -159,36 +155,34 @@ void Enemy::UpdatePosition()
 
 		float dot;		//내적의 값
 		float radian;	//내적의 값을 역코사인 해서 구한 최종 각도
-		dot = D3DXVec3Dot(&m_forward, &forwardNormalized);
+		
+		D3DXVECTOR3 m_forwardNormalized;
+		D3DXVec3Normalize(&m_forwardNormalized, &m_forward);
+
+		dot = D3DXVec3Dot(&m_forwardNormalized, &forwardNormalized);
 		radian = (float)acos(dot);
+
+		Debug->AddText("Radian : " + to_string(radian));
+		Debug->EndLine();
 
 		D3DXVECTOR3 rightDir;	//우향벡터
 		D3DXVec3Cross(&rightDir, &m_forward, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
 
 		//우향벡터와 바라보는 벡터의 내적이 0보다 크면 왼쪽
-		D3DXVECTOR3 rotY;
+		//D3DXVECTOR3 rotY;
 		if (D3DXVec3Dot(&rightDir, &forwardNormalized) > 0)
 		{
 			//왼쪽			
-			rotY.y = -radian;
+			m_rot.y -= radian * m_rotationSpeed;
 		}
 		else
 		{
 			//오른쪽
-			rotY.y = radian;
+			m_rot.y += radian * m_rotationSpeed;
 		}
 
 		D3DXMATRIXA16 matR;
-		//if (m_rot.y < radian)
-		//{
-		//	m_forward = forwardNormalized;
-		m_rot += rotY * m_rotationSpeed;
-		//}
-		//else if (m_rot.y >= radian)
-		//{
-		//	m_rot.y = radian;
-		//}
-		//m_rot.y = radian;
+
 		D3DXMatrixRotationY(&matR, m_rot.y);
 
 		m_pos.y = height; //+ 5.0f;
@@ -197,8 +191,6 @@ void Enemy::UpdatePosition()
 		m_matWorld = matS * matR * matT;
 		SetPosition(&pos);
 	}
-
-
 }
 
 void Enemy::SetDestPos(D3DXVECTOR3 & pos)
@@ -233,4 +225,49 @@ void Enemy::AnimationModify()
 	matTemp = matS * matRotY * matR * matT;
 
 	m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+}
+
+void Enemy::WorldToVP()
+{
+	//월드좌표 -> 뷰 좌표 -> 프로젝션 -> 뷰포트 
+	//g_pDevice->GetTransform(D3DTS_VIEW, &matView);
+	//g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj); 
+	//ScreenX = projVertex.x * (ViewportWidth / 2) + ViewportLeft + (ViewportWidth / 2)
+	//ScreenY = -projVertex.y * (ViewportHeight / 2) + ViewportTop + (ViewportHeight / 2)
+
+	D3DXMATRIXA16 matProj, matWorld, matView, matWVP;
+	D3DVIEWPORT9 vp;
+	D3DXVECTOR3 v(0, 0, 0);
+
+	matWorld = m_matWorld;//0번 인덱스 놈의 월드 행렬 가져오기
+
+	g_pDevice->GetTransform(D3DTS_VIEW, &matView);
+	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+
+	matWVP = matWorld * matView * matProj;
+
+	D3DXVec3TransformCoord(&v, &v, &matWVP);
+
+	g_pDevice->GetViewport(&vp);//뷰포트 정보값 가져오기
+
+								//스크린좌표 가져오기
+	ScreenX = (v.x * 0.5f + 0.5f) * vp.Width;
+	ScreenY = ((-1)*v.y * 0.5f + 0.5f) * vp.Height;
+
+	//스크린좌표 구했으니까 피통 UI를 머리 위로 올려!
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->AddText("스크린상좌표 X : ");
+	Debug->AddText(g_pCamera->GetMCenter().x);
+	Debug->AddText("  Y : ");
+	Debug->AddText(g_pCamera->GetMCenter().y);
+	Debug->EndLine();
+	Debug->EndLine();
+
+	Debug->AddText("몹 스크린상좌표 X : ");
+	Debug->AddText(ScreenX);
+	Debug->AddText("  Y : ");
+	Debug->AddText(ScreenY);
+	Debug->EndLine();
+	Debug->EndLine();
 }
