@@ -92,15 +92,12 @@ void SkinnedMesh::SetupBoneMatrixPointersOnMesh(LPD3DXMESHCONTAINER pMeshContain
 
 void SkinnedMesh::Update()
 {
-	Debug->AddText(_T("Anim Index = "));
-	Debug->AddText((int)m_animIndex + 1);
-	Debug->AddText(_T(" / "));
-	if(m_pAnimController != NULL)
-	Debug->AddText((int)m_pAnimController->GetMaxNumAnimationSets());
-	Debug->EndLine();
-	//X파일 위치 및 스케일 조정부분.
-	//이 부분 ironman AnimationModify()로 옮겼습니다!
-	//SetWorldMatrix( &((g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetWorldMatrix()));
+	//Debug->AddText(_T("Anim Index = "));
+	//Debug->AddText((int)m_animIndex + 1);
+	//Debug->AddText(_T(" / "));
+	//if(m_pAnimController != NULL)
+	//Debug->AddText((int)m_pAnimController->GetMaxNumAnimationSets());
+	//Debug->EndLine();
 	
 	if (Keyboard::Get()->KeyDown(VK_F1))
 	{

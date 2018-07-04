@@ -2,6 +2,7 @@
 
 #include "IUnitObject.h"
 #include "BoundingBox.h"
+#include "SampleUI.h"
 
 class BoundingBox;
 class SkinnedMesh;
@@ -32,7 +33,14 @@ private:
 	D3DXMATRIXA16			m_SphereMat;
 	float					m_SphereHeight;
 
+	//È­¸é ÁÂÇ¥
 	float ScreenX, ScreenY;
+
+	//HUD_Ui HP_Info;
+
+	vector<HUD_Ui> HP_Info;
+	LPD3DXSPRITE m_pSprite;
+	D3DXMATRIXA16 matT_UI, matS_UI, matR_UI,matW_UI;
 
 public:
 	Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum);
@@ -63,5 +71,6 @@ public:
 
 
 	void WorldToVP();
+	void HpBar();
 };
 

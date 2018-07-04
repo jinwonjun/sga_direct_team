@@ -556,6 +556,8 @@ void SampleUI::Render()
 	D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, clientRect.right / 12, clientRect.bottom/1.2, 0);
+	//D3DXMatrixTranslation(&matT,0, 0, 0);
+
 	//250, 850, 0
 	D3DXMatrixScaling(&matS, 1.2f, 1.f, 1);
 
@@ -573,7 +575,7 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 
-	m_pSprite->SetTransform(&matWorld);
+	//m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
 
 

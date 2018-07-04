@@ -21,7 +21,7 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 
 	m_forward = D3DXVECTOR3(0, 0, 1);
 	m_isMoving = false;
-	m_HP = 1;
+	m_HP = 8;
 	m_ItemDrop = false;
 
 	m_path = path;			// "resources/zealot/";
@@ -72,6 +72,45 @@ void Enemy::Init()
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
+
+	D3DXCreateSprite(g_pDevice, &m_pSprite);
+
+	//벡터 사이즈잡기
+	for (int i = 0; i < 8; i++)
+	{
+		HUD_Ui t;
+		HP_Info.push_back(t);
+	}
+	//일괄 넣기
+	//1~8까지, 0부터 7까지 인덱스로 접근하기
+	for (int i = 1; i < 9; i++)
+	{
+		wstring strPath = L"resources/mobHp/";
+		wstring modName = L".bmp";
+		wstring fullPath = strPath + (to_wstring(i)) + modName;
+
+		D3DXCreateTextureFromFileEx(
+			g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+			(fullPath.c_str()),   //LPCTSTR pSrcFile,
+			D3DX_DEFAULT_NONPOW2,   //UINT Width,
+			D3DX_DEFAULT_NONPOW2,   //UINT Height,
+			D3DX_DEFAULT,      //UINT MipLevels,
+			0,               //DWORD Usage,
+			D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+			D3DPOOL_MANAGED,   //D3DPOOL Pool
+			D3DX_FILTER_NONE,   //DWORD Filter
+			D3DX_DEFAULT,      //DWORD MipFilter
+			D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+			&(HP_Info[i-1].m_imageInfo),   //D3DXIMAGE_INFO *pSrcInfo
+			NULL,         //PALETTEENTRY *pPalette
+			&(HP_Info[i-1].m_pTex));   //LPDIRECT3DTEXTURE9 *ppTexture
+	}
+
+
+	D3DXMatrixIdentity(&matT_UI);
+	D3DXMatrixIdentity(&matS_UI);
+	D3DXMatrixIdentity(&matR_UI);
+	D3DXMatrixIdentity(&matW_UI);
 }
 
 void Enemy::Update()
@@ -101,6 +140,29 @@ void Enemy::Render()
 
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	SAFE_RENDER(m_pSkinnedMesh);
+
+	//UI그리기
+	////////////////////////////////////////////////////////////////////
+	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
+	if (m_HP != 0)
+	{
+		SetRect(&HP_Info[m_HP-1].m_Image_rc, 0, 0, HP_Info[m_HP-1].m_imageInfo.Width, HP_Info[m_HP-1].m_imageInfo.Height);
+		//D3DXMatrixRotationZ(&matR, fAngle);
+		D3DXMatrixIdentity(&matT_UI);
+		D3DXMatrixTranslation(&matT_UI, ScreenX - HP_Info[m_HP-1].m_imageInfo.Width / 2, ScreenY, 0);
+		//D3DXMatrixTranslation(&matT,0, 0, 0);
+
+		//250, 850, 0
+		D3DXMatrixScaling(&matS_UI, 1.0f, 1.0f, 1);
+
+		matW_UI = matS_UI* matR_UI * matT_UI;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matW_UI);
+		m_pSprite->Draw(HP_Info[m_HP-1].m_pTex, &HP_Info[m_HP-1].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
+		m_pSprite->End();
+	}
 }
 
 void Enemy::UpdatePosition()
@@ -270,4 +332,9 @@ void Enemy::WorldToVP()
 	Debug->AddText(ScreenY);
 	Debug->EndLine();
 	Debug->EndLine();
+}
+
+void Enemy::HpBar()
+{
+
 }
