@@ -4,7 +4,6 @@
 #include "AStarNode.h"
 #include "BoundingBox.h"
 
-
 //obj파일 불러오기
 #include "DrawingGroup.h"
 #include "ObjLoader.h"
@@ -85,6 +84,8 @@ void Enemy::Update()
 
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
+
+	WorldToVP();
 }
 
 void Enemy::Render()
@@ -98,14 +99,8 @@ void Enemy::Render()
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	////////////////////////////////////////////////////////////////////
 
-
-
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	SAFE_RENDER(m_pSkinnedMesh);
-
-
-
-	
 }
 
 void Enemy::UpdatePosition()
@@ -230,4 +225,49 @@ void Enemy::AnimationModify()
 	matTemp = matS * matRotY * matR * matT;
 
 	m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+}
+
+void Enemy::WorldToVP()
+{
+	//월드좌표 -> 뷰 좌표 -> 프로젝션 -> 뷰포트 
+	//g_pDevice->GetTransform(D3DTS_VIEW, &matView);
+	//g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj); 
+	//ScreenX = projVertex.x * (ViewportWidth / 2) + ViewportLeft + (ViewportWidth / 2)
+	//ScreenY = -projVertex.y * (ViewportHeight / 2) + ViewportTop + (ViewportHeight / 2)
+
+	D3DXMATRIXA16 matProj, matWorld, matView, matWVP;
+	D3DVIEWPORT9 vp;
+	D3DXVECTOR3 v(0, 0, 0);
+
+	matWorld = m_matWorld;//0번 인덱스 놈의 월드 행렬 가져오기
+
+	g_pDevice->GetTransform(D3DTS_VIEW, &matView);
+	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+
+	matWVP = matWorld * matView * matProj;
+
+	D3DXVec3TransformCoord(&v, &v, &matWVP);
+
+	g_pDevice->GetViewport(&vp);//뷰포트 정보값 가져오기
+
+								//스크린좌표 가져오기
+	ScreenX = (v.x * 0.5f + 0.5f) * vp.Width;
+	ScreenY = ((-1)*v.y * 0.5f + 0.5f) * vp.Height;
+
+	//스크린좌표 구했으니까 피통 UI를 머리 위로 올려!
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->AddText("스크린상좌표 X : ");
+	Debug->AddText(g_pCamera->GetMCenter().x);
+	Debug->AddText("  Y : ");
+	Debug->AddText(g_pCamera->GetMCenter().y);
+	Debug->EndLine();
+	Debug->EndLine();
+
+	Debug->AddText("몹 스크린상좌표 X : ");
+	Debug->AddText(ScreenX);
+	Debug->AddText("  Y : ");
+	Debug->AddText(ScreenY);
+	Debug->EndLine();
+	Debug->EndLine();
 }

@@ -31,6 +31,9 @@ private:
 
 	D3DXMATRIXA16			m_SphereMat;
 	float					m_SphereHeight;
+
+	float ScreenX, ScreenY;
+
 public:
 	Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum);
 	virtual ~Enemy();
@@ -57,5 +60,8 @@ public:
 
 	BoundingBox*	GetBoundingBox() { return m_pBox; }
 	BoundingSphere*	GetSphere() { return m_pBounidngSphere; }
+
+
+	void WorldToVP();
 };
 
