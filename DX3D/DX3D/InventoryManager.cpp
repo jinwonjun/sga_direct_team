@@ -166,7 +166,7 @@ void InventoryManager::Init()
 			InvenArray[i][j].isInvenIn = true;
 			InvenArray[i][j].Copy_num = 0;
 
-			InvenArray[i][j].isInvenOn = false;
+			InvenArray[i][j].isInvenOver = false;
 
 			SetRect(&InvenArray[i][j].Click_rc,
 				InvenArray[i][j].PositionX,
@@ -201,7 +201,7 @@ void InventoryManager::Init()
 			Void_Item[i][j].isInvenIn = true;
 			Void_Item[i][j].Copy_num = 0;
 
-			Void_Item[i][j].isInvenOn = false;
+			Void_Item[i][j].isInvenOver = false;
 
 			SetRect(&Void_Item[i][j].Click_rc,
 				Void_Item[i][j].PositionX,
@@ -350,12 +350,12 @@ void InventoryManager::Update()
 			{
 				if (PtInRect(&Void_Item[i][j].Click_rc, mousePoint))
 				{
-					Void_Item[i][j].isInvenOn = true;
+					Void_Item[i][j].isInvenOver = true;
 
 				}
 				else
 				{
-					Void_Item[i][j].isInvenOn = false;
+					Void_Item[i][j].isInvenOver = false;
 				}
 			}
 		}
@@ -521,8 +521,8 @@ void InventoryManager::Update()
 						for (int i = 0; i < INVENCORSS; i++)
 						{
 
-							InvenArray[i][j].isInvenOn = false;
-							InvenArray[CrossX][VertiY].isInvenOn = true;
+							InvenArray[i][j].isInvenOver = false;
+							InvenArray[CrossX][VertiY].isInvenOver = true;
 						}
 					}
 				}
@@ -533,7 +533,7 @@ void InventoryManager::Update()
 						for (int i = 0; i < INVENCORSS; i++)
 						{
 
-							InvenArray[i][j].isInvenOn = false;
+							InvenArray[i][j].isInvenOver = false;
 							//InvenArray[CrossX][VertiY].isInvenOn = false;
 						}
 					}
@@ -555,8 +555,8 @@ void InventoryManager::Update()
 
 				//클릭이 온 되면 모두 false로 바로 바꿔준다. 
 				//이거 안하면  swap과정에서 isInvenOn = true 상태가 생겨남 .
-				InvenArray[preChosenX][preChosenY].isInvenOn = false;
-				InvenArray[CrossX][VertiY].isInvenOn = false;
+				InvenArray[preChosenX][preChosenY].isInvenOver = false;
+				InvenArray[CrossX][VertiY].isInvenOver = false;
 
 				if ((CrossX >= 0 && VertiY >= 0) && (CrossX <= 5 && VertiY <= 3))
 				{
@@ -634,7 +634,7 @@ void InventoryManager::Update()
 					InvenArray[i][j].PositionX = (INVENITEMSTART_X + ItemSizeX * i) * Adjust_Display_Mode_X;
 					InvenArray[i][j].PositionY = (INVENITEMSTART_Y + ItemSizeY * j)* Adjust_Display_Mode_Y;
 
-					InvenArray[i][j].isInvenOn = false;
+					InvenArray[i][j].isInvenOver = false;
 				}
 			}
 		}
@@ -722,7 +722,7 @@ void InventoryManager::Render()
 
 			for (int i = 0; i < INVENCORSS; i++)
 			{
-				if (InvenArray[i][j].isInvenOn || Void_Item[i][j].isInvenOn)
+				if (InvenArray[i][j].isInvenOver || Void_Item[i][j].isInvenOver)
 				{
 
 

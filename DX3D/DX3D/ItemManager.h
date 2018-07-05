@@ -18,7 +18,7 @@ struct items {
 	int Equip_Type;  // 아이템 장착 타입. 이넘으로 숫자 부여
 
 
-	bool isInvenOn;
+	bool isInvenOver; // 위에 올라가 있는가?
 
 
 
