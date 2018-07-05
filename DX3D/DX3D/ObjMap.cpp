@@ -21,8 +21,8 @@ void ObjMap::Init()
 {
 	surfaceMode = false;
 	//Init_cs_italy();
-	//Init_cs_assault();
-	Init_pk_stadium();
+	Init_cs_assault();
+	//Init_pk_stadium();
 	//OBJ¸Ê Àû¿ëÇÏ±â
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");
