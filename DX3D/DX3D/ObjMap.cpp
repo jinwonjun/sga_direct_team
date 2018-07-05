@@ -21,8 +21,8 @@ void ObjMap::Init()
 {
 	surfaceMode = false;
 	//Init_cs_italy();
-	Init_cs_assault();
-	//Init_pk_stadium();
+	//Init_cs_assault();
+	Init_pk_stadium();
 	//OBJ¸Ê Àû¿ëÇÏ±â
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");
@@ -215,7 +215,7 @@ void ObjMap::Init_pk_stadium()
 	loader.CreateSurface(m_vecVertex);
 
 	D3DXVECTOR3 dir = D3DXVECTOR3(0, -1, 0);
-	D3DXVECTOR3 dir2 = D3DXVECTOR3(0, -1, 0);
+	D3DXVECTOR3 dir2 = D3DXVECTOR3(0, 1, 0);
 
 	D3DXCOLOR c = WHITE;
 	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &c);
