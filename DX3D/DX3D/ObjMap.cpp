@@ -21,7 +21,8 @@ void ObjMap::Init()
 {
 	surfaceMode = false;
 	//Init_cs_italy();
-	Init_cs_assault();
+	//Init_cs_assault();
+	Init_pk_stadium();
 	//OBJ맵 적용하기
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");
@@ -43,7 +44,7 @@ void ObjMap::Render()
 	//RenderDrawingGroup();
 	//매쉬 함수
 	RenderMesh();
-
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 	//D3DXCreateSphere(g_pDevice,1.5,);
 
 	//D3DXCreateBox(g_pDevice,5.5f,5.5f,5.5f,m_pMeshMap->CloneMesh,adja)
@@ -199,6 +200,38 @@ void ObjMap::Init_cs_assault()
 	ObjLoader loader;
 	m_pMeshMap = loader.LoadMesh("resources/cs_assault", "cs_assault.obj", &localMatrix, m_vecMtlTex);
 	loader.CreateSurface(m_vecVertex);
+}
+
+void ObjMap::Init_pk_stadium()
+{
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 50.0f, 50.0f, 50.0f);
+	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	localMatrix = matS * matRY * matT;
+
+	ObjLoader loader;
+	m_pMeshMap = loader.LoadMesh("resources/stadium", "stadium.obj", &localMatrix, m_vecMtlTex);
+	loader.CreateSurface(m_vecVertex);
+
+	D3DXVECTOR3 dir = D3DXVECTOR3(0, -1, 0);
+	D3DXVECTOR3 dir2 = D3DXVECTOR3(0, 1, 0);
+
+	D3DXCOLOR c = WHITE;
+	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &c);
+	D3DLIGHT9 light2 = DXUtil::InitDirectional(&dir2, &c);
+	//DXUtil::InitSpot
+	//손전등의 시야각 변경하기
+	//light.Phi = D3DX_PI / 2;
+	//D3DLIGHT9 light = DXUtil::InitPoint(&dir, &c);
+
+	//광원을 만들었으면 세팅을 해주자.
+	//0번 라이트
+	g_pDevice->SetLight(10, &light);
+	g_pDevice->SetLight(9, &light2);
+	//bool 값에 따라서 0번으로 지시한 광원을 껐다 켰다 컨트롤 해보기
+	g_pDevice->LightEnable(9, true);
+	g_pDevice->LightEnable(10, true);
 }
 
 
