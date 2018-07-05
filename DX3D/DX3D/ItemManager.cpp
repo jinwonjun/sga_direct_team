@@ -19,11 +19,10 @@ void ItemManager::Delete()
 	SAFE_DELETE(instance);
 }
 
-void ItemManager::getXY(int X, int Y)
+void ItemManager::getMonsterXY(int X, int Y)
 {
 	MonsterX = X;
 	MonsterY = Y;
-
 }
 
 int ItemManager::SetX()
@@ -37,12 +36,6 @@ int ItemManager::SetY()
 	return MonsterY;
 }
 
-//void ItemManager::SetXY(int *X, int *Y)
-//{
-//
-//	X = &MonsterX;
-//	Y = &MonsterY;
-//}
 
 void ItemManager::ItemTable()
 {
@@ -60,10 +53,18 @@ void ItemManager::ItemTable()
 	Basic_ScaleX = 0.3f;
 	Basic_ScaleY = 0.3f;
 
-	Weapons[0] = { 1,"wood",10,0,0,0 ,"resources/images/Weapon_Normal_1.png",1 };
-//	Weapons[1] = { 2, "Gun", 15,20, 0, 0, "resources/images/Gun_.png",1 };
-
-
+	Weapons[0] = { 1,  //인덱스, 아이템 번호
+		"wood", // 이름
+		10, // 공격력
+		0, // HP
+		0, // 현제 hp
+		0,
+		"resources/images/Weapon_Normal_1.png",
+		1,
+		false,
+		0,
+		
+	};
 	Weapons[0].ScaleX = 0.3f;
 	Weapons[0].ScaleY = 0.3f;
 	Weapons[0].PositionX = (OriginX / 3) *Adjust_Display_Mode_X;
@@ -72,6 +73,8 @@ void ItemManager::ItemTable()
 	Weapons[0].isInvenIn = false;
 	Weapons[0].isEquiped = false;
 	Weapons[0].Equip_Type = Weapon_Type_LeftHand;
+
+	
 	for (int i = 0; i < NumberOfItems; i++)
 	{
 		if (Weapons[i].index == NULL)
@@ -110,9 +113,6 @@ void ItemManager::ItemGet(int a)
 
 	
 
-	//D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
-	//D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
-	//m_matWorld = matS * matT;
 	timer = 400;
 
 	//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));

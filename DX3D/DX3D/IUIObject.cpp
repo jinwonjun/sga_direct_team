@@ -29,13 +29,12 @@ void IUIObject::Update()
 	{
 		p->Update();
 	}
+		
 
-	
-
-		for (auto p : m_vecPChild2)
-		{
-			p->Update();
-		}
+	for (auto p : m_vecPChild2)
+	{
+		p->Update();
+	}
 		
 	
 
@@ -106,6 +105,7 @@ void IUIObject::GetFinalRect(RECT * rect)
 {
 	D3DXMATRIXA16 mat;
 	m_pSprite->GetTransform(&mat);
+
 
 	int left = mat._41 + m_combinedPos.x * mat._11;
 	int top = mat._42 + m_combinedPos.y * mat._22;

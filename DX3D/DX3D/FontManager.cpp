@@ -27,6 +27,13 @@ LPD3DXFONT FontManager::GetFont(FONT::FontType e)
 			D3DXCreateFont(g_pDevice, 24, 12, FW_NORMAL, 1, false,
 				DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, _T("umberto"), &m_mapFont[e]);
 		}
+		else if (e == FONT::Item)
+		{
+			//폰트 추가는 이런식으로
+			//AddFontResource("파일 경로/fonts/umberto.ttf");
+			D3DXCreateFont(g_pDevice, 12, 6, FW_NORMAL, 1, false,
+				DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, _T("umberto"), &m_mapFont[e]);
+		}
 		else
 		{
 			D3DXCreateFont(g_pDevice, 50, 12, FW_NORMAL, 1, true,

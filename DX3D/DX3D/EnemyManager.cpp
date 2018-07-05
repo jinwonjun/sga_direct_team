@@ -37,13 +37,15 @@ void EnemyManager::Update(void)
 			if (e->m_ItemDrop == false)
 			{
 				
-				
+				g_pItem->getMonsterXY(e->ScreenX, e->ScreenY);
 				g_pItem->ItemGet(e->GetEnemyNum());
 
 				e->m_ItemDrop = true;
 			}
 			continue;
 		}
+
+		
 		e->Update();
 	}
 

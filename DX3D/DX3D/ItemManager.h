@@ -19,10 +19,7 @@ struct items {
 
 
 	bool isInvenOn;
-	RECT Item_rc;    // 이미지를 담을 렉트
-	RECT Click_rc;   // 클릭으로 반응하는 렉트
-	RECT isInven_rc;
-	RECT isInven_show_rc;
+
 
 
 	int Copy_num;    // 몇 번째 복사된 아이템인가?
@@ -33,6 +30,12 @@ struct items {
 	float ScaleX;    // X축 스캐일
 	float ScaleY;    // Y축 스캐일
 	bool isEquiped;
+
+
+	RECT Item_rc;    // 이미지를 담을 렉트
+	RECT Click_rc;   // 클릭으로 반응하는 렉트
+	RECT isInven_rc;
+	RECT isInven_show_rc;
 
 	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
 	D3DXIMAGE_INFO		 m_image_InvenOn_Info;
@@ -92,7 +95,7 @@ public:
 
 	int timer;
 	items Weapons[NumberOfItems];
-	void getXY(int X, int Y);
+	void getMonsterXY(int X, int Y);
 	//void SetXY(int *X, int *Y);
 	int SetX();
 	int SetY();

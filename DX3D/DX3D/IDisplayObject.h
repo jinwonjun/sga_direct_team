@@ -7,8 +7,7 @@ protected:
 	D3DXVECTOR3				m_pos;
 	D3DXVECTOR3				m_rot;
 	D3DXMATRIXA16			m_matWorld;
-	//D3DXMATRIXA16			m_matWorld;
-
+	
 	IDisplayObject*			m_pParent;
 	IDisplayObject*			m_pParent2;
 	IDisplayObject*			m_pParent3;

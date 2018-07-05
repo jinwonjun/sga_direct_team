@@ -147,7 +147,7 @@ void Enemy::Render()
 	////////////////////////////////////////////////////////////////////
 	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
 	
-
+	
 	
 	if (m_HP > 0)
 	{
@@ -171,11 +171,7 @@ void Enemy::Render()
 	}
 	
 
-	if (m_HP == 1)
-	{
-		g_pItem->getXY(ScreenX, ScreenY);
-
-	}
+	
 
 	
 }

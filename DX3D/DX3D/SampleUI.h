@@ -20,11 +20,12 @@ class SampleUI :public IDisplayObject, public IUIButtonDelegate
 private:
 	std::wstring temp;
 	LPD3DXSPRITE m_pSprite;
+	//LPD3DXSPRITE m_pSprite2;
 
 	IUIObject * m_pRootUI;
 	IUIObject * m_pRootUI_2;
 
-	D3DXMATRIXA16 matWorld_2;
+	//D3DXMATRIXA16 matWorld_2;
 
 	HUD_Ui Cross_Hair;
 	HUD_Ui Gun;
@@ -33,6 +34,7 @@ private:
 	HUD_Ui Character_HP_Remain;
 	HUD_Ui Minimap;
 	HUD_Ui MiniCHAR;
+	HUD_Ui Notice_Msg;
 
 	UIButton * BulletNum;
 	UIButton * GetItems;
@@ -46,6 +48,11 @@ private:
 	int MobX;
 	int MobY;
 
+	float ScaleX_GetItems;
+	float ScaleY_GetItems;
+
+	float ScaleX_BulletNum;
+	float ScaleY_BulletNum;
 public:
 	SampleUI();
 	~SampleUI();
@@ -66,6 +73,8 @@ public:
 	int CurrHp;
 	float PercentOfHp;
 
+	void FontInit();
+	void FontInit2();
 
 	D3DXMATRIXA16 CalPlayerPos;
 };
