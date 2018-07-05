@@ -22,6 +22,10 @@ private:
 	POINT			m_ptPrevMouse;
 	D3DXVECTOR3 *	m_pTarget;
 
+	//자유시점 후 초기화할 회전값
+	float			tempRotX;
+	float			tempRotY;
+
 	//마우스 카메라 회전
 	POINT			mCenter;
 	RECT			mRc;
