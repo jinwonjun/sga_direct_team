@@ -20,6 +20,7 @@ SampleUI::SampleUI()
 	m_pSprite = NULL;
 	//m_pSprite_ = NULL;
 	m_pRootUI = NULL;
+	//m_pRootUI_2 = NULL;
 }
 
 
@@ -28,6 +29,7 @@ SampleUI::~SampleUI()
 	SAFE_RELEASE(m_pSprite);
 
 	m_pRootUI->ReleaseAll();
+	//m_pRootUI_2->ReleaseAll();
 }
 
 void SampleUI::Init()
@@ -294,6 +296,22 @@ void SampleUI::Init()
 	D3DXMatrixIdentity(&CalPlayerPos);
 
 
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/ui/back.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Notice_Msg.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Notice_Msg.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 	{
 		//D3DXMATRIXA16 matS;
 		//D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
@@ -315,51 +333,14 @@ void SampleUI::Init()
 		//m_pRootUI->AddChild3(pButton);
 	}
 
-	{
-		D3DXMATRIXA16 matS;
-		D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
-		D3DXMATRIXA16 matT;
-		D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
-		//D3DXMatrixTranslation(&matT, 500, 500, 0);
-		m_matWorld = matS * matT;
 
-		//m_pSprite_2->SetTransform(&m_matWorld);
-
-		GetItems = new UIButton(this, m_pSprite, UITAG_BUTTON1);
-	
-		//GetItems->SetPosition(&D3DXVECTOR3(0, -200 , 0));
-		GetItems->SetTexture("resources/ui/back.png",
-			"resources/ui/back.png",
-			"resources/ui/back.png");
-		GetItems->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
-
-		m_pRootUI->AddChild2(GetItems);
-	}
-
+	FontInit();
+	FontInit2();
 
 	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
 	{
-		D3DXMATRIXA16 matS;
-		D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
-		D3DXMATRIXA16 matT;
-		D3DXMatrixTranslation(&matT, (WINSIZEX/5)*4, (WINSIZEY/32) *25, 0);
-		m_matWorld = matS * matT;
 
-		BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
-		
-	
-		//WINSIZEY / 3
-		//BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
-		BulletNum->SetPosition(&D3DXVECTOR3(0, 0, 0));
-
-		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
-			"resources/ui/btn-med-over.png.png",
-			"resources/ui/btn-med-down.png.png");
-
-		temp = std::to_wstring(restBullet) + L" / 30";
-		BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
-
-		m_pRootUI->AddChild(BulletNum);
+		//m_pSprite->SetTransform(&m_matWorld);
 	}
 
 
@@ -379,14 +360,21 @@ void SampleUI::Update()
 		restBullet--;
 		spaceOn = false;
 	}
-	//if (GetAsyncKeyState(VK_SPACE))
-	//{
-	//	spaceOn = true;
-	//	contorller++;
-	//}
+
+
+	MobX = g_pItem->SetX();
+	MobY = g_pItem->SetY();
+
 
 	positionY = g_pItem->timer;
-	GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400-positionY)/8), 0));
+	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
+	
+	if (MobX != 0)
+	{
+		int a = 123;
+	}
+	GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((400-g_pItem->timer)/4), 0));
+	
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		spaceOn = true;
@@ -471,6 +459,7 @@ void SampleUI::Update()
 	//==========================================
 	//==========================================
 	SAFE_UPDATE(m_pRootUI);
+	
 }
 
 void SampleUI::Render()
@@ -481,7 +470,8 @@ void SampleUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 	
-
+	
+	
 	D3DXMATRIXA16 matR, matT, matWorld;
 	D3DXMATRIXA16 matS;
 	static float fAngle = 0.0f;
@@ -490,9 +480,6 @@ void SampleUI::Render()
 	//D3DXMatrixRotationZ(&matR, fAngle);
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, (clientRect.right  / 2) -15, ((clientRect.bottom / 2) -15), 0);
-
-
-
 	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
 	matWorld = matS * matT;  // 젤 끝에서 시작점으로 이동하는것
 
@@ -510,11 +497,16 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 	//580 -500
+	//=======================================================
+
 	m_pSprite->SetTransform(&m_matWorld);
-
-
 	SAFE_RENDER(m_pRootUI);
 
+	//===============================================
+	
+
+
+	
 	//	D3DXMATRIXA16 matR, matT, matWorld;
 	//	static float fAngle = 0.0f;
 
@@ -543,9 +535,9 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 
+	//m_pSprite->SetTransform(&m_matWorld);
 
-
-	m_pSprite->SetTransform(&matWorld);
+	//m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
 
 
@@ -730,4 +722,53 @@ wstring SampleUI::s2ws(const string & s)
 	delete[] buf;
 
 	return r;
+}
+
+void SampleUI::FontInit()
+{
+	
+	ScaleX_GetItems = 1.f;
+	ScaleY_GetItems = 1.f;
+
+		D3DXMATRIXA16 matS;
+		D3DXMATRIXA16 matT;
+
+		D3DXMatrixScaling(&matS, ScaleX_GetItems, ScaleY_GetItems, 1);
+		D3DXMatrixTranslation(&matT, 0, 0, 0);
+		m_matWorld = matS * matT;
+		GetItems = new UIButton(this, m_pSprite, UITAG_BUTTON1);
+		GetItems->SetTexture("resources/ui/back.png",
+			"resources/ui/back.png",
+			"resources/ui/back.png");
+		GetItems->SetText(g_pFontMgr->GetFont(FONT::Item), _T("Item Get"));
+		m_pRootUI->AddChild2(GetItems);
+	
+
+}
+
+void SampleUI::FontInit2()
+{
+
+	ScaleX_BulletNum = 1.f;
+	ScaleY_BulletNum = 1.f;
+	D3DXMATRIXA16 matS;
+	D3DXMatrixScaling(&matS, ScaleX_BulletNum, ScaleY_BulletNum, 1);
+	D3DXMATRIXA16 matT;
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	m_matWorld = matS * matT;
+
+	BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
+
+	BulletNum->SetPosition(&D3DXVECTOR3(((WINSIZEX / 5) * 4)  , ((WINSIZEY / 32) * 25) , 0));
+
+	BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
+		"resources/ui/btn-med-over.png.png",
+		"resources/ui/btn-med-down.png.png");
+
+	temp = std::to_wstring(restBullet) + L" / 30";
+	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+
+	m_pRootUI->AddChild(BulletNum);
+
+
 }

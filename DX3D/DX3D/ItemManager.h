@@ -18,11 +18,8 @@ struct items {
 	int Equip_Type;  // 아이템 장착 타입. 이넘으로 숫자 부여
 
 
-	bool isInvenOn;
-	RECT Item_rc;    // 이미지를 담을 렉트
-	RECT Click_rc;   // 클릭으로 반응하는 렉트
-	RECT isInven_rc;
-	RECT isInven_show_rc;
+	bool isInvenOver; // 위에 올라가 있는가?
+
 
 
 	int Copy_num;    // 몇 번째 복사된 아이템인가?
@@ -33,6 +30,12 @@ struct items {
 	float ScaleX;    // X축 스캐일
 	float ScaleY;    // Y축 스캐일
 	bool isEquiped;
+
+
+	RECT Item_rc;    // 이미지를 담을 렉트
+	RECT Click_rc;   // 클릭으로 반응하는 렉트
+	RECT isInven_rc;
+	RECT isInven_show_rc;
 
 	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
 	D3DXIMAGE_INFO		 m_image_InvenOn_Info;
@@ -79,6 +82,9 @@ private:
 	D3DXMATRIXA16 m_matWorld;
 
 	
+	int MonsterX;
+	int MonsterY;
+	bool MonsterDead;
 	
 
 public:
@@ -89,6 +95,11 @@ public:
 
 	int timer;
 	items Weapons[NumberOfItems];
+	void getMonsterXY(int X, int Y);
+	//void SetXY(int *X, int *Y);
+	int SetX();
+	int SetY();
+
 
 	void ItemTable();
 	void ItemGet(int a);

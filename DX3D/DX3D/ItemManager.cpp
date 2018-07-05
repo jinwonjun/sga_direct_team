@@ -19,6 +19,24 @@ void ItemManager::Delete()
 	SAFE_DELETE(instance);
 }
 
+void ItemManager::getMonsterXY(int X, int Y)
+{
+	MonsterX = X;
+	MonsterY = Y;
+}
+
+int ItemManager::SetX()
+{
+	return MonsterX;
+}
+
+int ItemManager::SetY()
+{
+
+	return MonsterY;
+}
+
+
 void ItemManager::ItemTable()
 {
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
@@ -35,18 +53,53 @@ void ItemManager::ItemTable()
 	Basic_ScaleX = 0.3f;
 	Basic_ScaleY = 0.3f;
 
-	Weapons[0] = { 1,"wood",10,0,0,0 ,"resources/images/Weapon_Normal_1.png",1 };
-//	Weapons[1] = { 2, "Gun", 15,20, 0, 0, "resources/images/Gun_.png",1 };
+	Weapons[0] = { 1,  //인덱스, 아이템 번호
+		"wood", // 이름
+		10, // 공격력
+		0, // HP
+		0, // 현재 hp
+		0, // 방어력
+		"resources/images/Weapon_Normal_1.png", //이미지 파일이름
+		Weapon_Type_LeftHand, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+	    (OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
 
+	Weapons[1] = { 2,  //인덱스, 아이템 번호
+		"Stick", // 이름
+		15, // 공격력
+		0, // HP
+		0, // 현재 hp
+		0, // 방어력
+		"resources/images/Weapon_1_MouseOver.png", //이미지 파일이름
+		Weapon_Type_LeftHand, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+	//Weapons[0].ScaleX = 0.3f;
+	//Weapons[0].ScaleY = 0.3f;
+	//Weapons[0].PositionX = (OriginX / 3) *Adjust_Display_Mode_X;
+	//Weapons[0].PositionY = (OriginY / 2) * Adjust_Display_Mode_Y;
+	//Weapons[0].isClicked = false;
+	//Weapons[0].isInvenIn = false;
+	//Weapons[0].isEquiped = false;
+	//Weapons[0].Equip_Type = Weapon_Type_LeftHand;
 
-	Weapons[0].ScaleX = 0.3f;
-	Weapons[0].ScaleY = 0.3f;
-	Weapons[0].PositionX = (OriginX / 3) *Adjust_Display_Mode_X;
-	Weapons[0].PositionY = (OriginY / 2) * Adjust_Display_Mode_Y;
-	Weapons[0].isClicked = false;
-	Weapons[0].isInvenIn = false;
-	Weapons[0].isEquiped = false;
-	Weapons[0].Equip_Type = Weapon_Type_LeftHand;
+	//
 	for (int i = 0; i < NumberOfItems; i++)
 	{
 		if (Weapons[i].index == NULL)
@@ -85,9 +138,6 @@ void ItemManager::ItemGet(int a)
 
 	
 
-	//D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
-	//D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
-	//m_matWorld = matS * matT;
 	timer = 400;
 
 	//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
