@@ -42,7 +42,7 @@ void Ironman::Init()
 	g_pObjMgr->AddToTagList(TAG_PLAYER, this);
 	g_pCamera->SetTarget(&m_pos);
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
-	
+
 
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
@@ -65,7 +65,7 @@ void Ironman::Init()
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
-	
+
 
 
 	keyPress = false;
@@ -101,7 +101,7 @@ void Ironman::Update()
 	{
 		OpenUI = !OpenUI;
 	}
-	
+
 	if (!OpenUI)
 	{
 		IUnitObject::UpdateKeyboardState();
@@ -180,7 +180,7 @@ void Ironman::Update()
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
-	
+
 	Shoot();
 
 	//혈흔
@@ -243,31 +243,31 @@ void Ironman::Shoot()
 
 void Ironman::AnimationModify()
 {
-	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
+	if (g_pKeyboard->KeyPress(VK_LSHIFT))
 	{
-		D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY);
-		matTemp = matRotY;
+
 	}
-	if (g_pKeyboard->KeyUp(VK_LSHIFT))//시프트키 땔때 누르기 바로 전 값 전달
+	else
 	{
-		matRotY = matTemp;
+		D3DXMatrixRotationY(&matRotY, g_pCamera->m_rotY + D3DX_PI);
+		matTemp = matRotY;
 	}
 
 	D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixRotationY(&matR, D3DX_PI);
+	//D3DXMatrixRotationY(&matR, D3DX_PI);
 	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
-	
+
 	//카메라 고도 경사를 어떻게 해야되나!
 	D3DXMatrixRotationX(&matRotX, (-1)*g_pCamera->m_rotX * (0.5f));
 
-	if (!(g_pKeyboard->KeyPress(VK_LSHIFT)))
+	if (g_pKeyboard->KeyPress(VK_LSHIFT))
 	{
-		m_matWorld = matS *matRotX * matRotY* matR * matT;
+		m_matWorld = matS *matRotX * matTemp * matT;
 	}
 	else
 	{
-		m_matWorld = matS *matRotX * matTemp* matR * matT;
+		m_matWorld = matS *matRotX * matRotY * matT;
 	}
 
 	//skinnedMesh에서 X파일 위치 및 스케일 조정부분.

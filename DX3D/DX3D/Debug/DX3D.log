@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  EnemyManager.cpp
 d:\_pp\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
 d:\_pp\dx3d\dx3d\enemymanager.cpp(40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -7,3 +8,10 @@ d:\_pp\dx3d\dx3d\enemy.cpp(53): warning C4316: 'BoundingBox': 힙에 할당된 �
 d:\_pp\dx3d\dx3d\enemy.cpp(67): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+=======
+﻿  Camera.cpp
+d:\sga\pp\dx3d\dx3d\camera.cpp(63): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\camera.cpp(64): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> 71e259ed2031f04cb170d3c1affc3869f3137c7e
