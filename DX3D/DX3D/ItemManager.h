@@ -79,6 +79,9 @@ private:
 	D3DXMATRIXA16 m_matWorld;
 
 	
+	int MonsterX;
+	int MonsterY;
+	bool MonsterDead;
 	
 
 public:
@@ -89,6 +92,11 @@ public:
 
 	int timer;
 	items Weapons[NumberOfItems];
+	void getXY(int X, int Y);
+	//void SetXY(int *X, int *Y);
+	int SetX();
+	int SetY();
+
 
 	void ItemTable();
 	void ItemGet(int a);

@@ -7,6 +7,8 @@ protected:
 	D3DXVECTOR3				m_pos;
 	D3DXVECTOR3				m_rot;
 	D3DXMATRIXA16			m_matWorld;
+	//D3DXMATRIXA16			m_matWorld;
+
 	IDisplayObject*			m_pParent;
 	IDisplayObject*			m_pParent2;
 	IDisplayObject*			m_pParent3;
@@ -33,7 +35,7 @@ public:
 	D3DXVECTOR3		GetPosition() { return m_pos; }
 	void			SetPosition(D3DXVECTOR3* pos) { m_pos = *pos; }
 	D3DXVECTOR3		GetRotation() { return m_rot; }
-	D3DXMATRIXA16	GetWorldMatrix() { return m_matWorld; }
+	D3DXMATRIXA16	GetWorldMatrix() { return m_matWorld ; }
 
 	vector<VERTEX_PC> GetCubeVertex() { return m_vecVertex; }
 

@@ -19,6 +19,31 @@ void ItemManager::Delete()
 	SAFE_DELETE(instance);
 }
 
+void ItemManager::getXY(int X, int Y)
+{
+	MonsterX = X;
+	MonsterY = Y;
+
+}
+
+int ItemManager::SetX()
+{
+	return MonsterX;
+}
+
+int ItemManager::SetY()
+{
+
+	return MonsterY;
+}
+
+//void ItemManager::SetXY(int *X, int *Y)
+//{
+//
+//	X = &MonsterX;
+//	Y = &MonsterY;
+//}
+
 void ItemManager::ItemTable()
 {
 	D3DXCreateSprite(g_pDevice, &m_pSprite);

@@ -319,38 +319,37 @@ void SampleUI::Init()
 		D3DXMATRIXA16 matS;
 		D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
 		D3DXMATRIXA16 matT;
-		D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
-		//D3DXMatrixTranslation(&matT, 500, 500, 0);
+		D3DXMatrixTranslation(&matT, 0, 0, 0);	
 		m_matWorld = matS * matT;
-
+		//m_pSprite->SetTransform(&m_matWorld);
 		//m_pSprite_2->SetTransform(&m_matWorld);
-
+	//	m_pSprite->SetTransform(&m_matWorld);
 		GetItems = new UIButton(this, m_pSprite, UITAG_BUTTON1);
 	
-		//GetItems->SetPosition(&D3DXVECTOR3(0, -200 , 0));
+		//GetItems->SetPosition(&D3DXVECTOR3(MobX, MobY, 0));
 		GetItems->SetTexture("resources/ui/back.png",
 			"resources/ui/back.png",
 			"resources/ui/back.png");
 		GetItems->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
-
 		m_pRootUI->AddChild2(GetItems);
 	}
 
+	
 
 	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
 	{
 		D3DXMATRIXA16 matS;
 		D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
 		D3DXMATRIXA16 matT;
-		D3DXMatrixTranslation(&matT, (WINSIZEX/5)*4, (WINSIZEY/32) *25, 0);
+		D3DXMatrixTranslation(&matT, 0, 0, 0);
 		m_matWorld = matS * matT;
-
+	
 		BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
-		
+	//
 	
 		//WINSIZEY / 3
 		//BulletNum->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 4), 0));
-		BulletNum->SetPosition(&D3DXVECTOR3(0, 0, 0));
+		BulletNum->SetPosition(&D3DXVECTOR3((WINSIZEX / 5) * 4, (WINSIZEY / 32) * 25, 0));
 
 		BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 			"resources/ui/btn-med-over.png.png",
@@ -360,6 +359,8 @@ void SampleUI::Init()
 		BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
 
 		m_pRootUI->AddChild(BulletNum);
+
+		//m_pSprite->SetTransform(&m_matWorld);
 	}
 
 
@@ -379,14 +380,23 @@ void SampleUI::Update()
 		restBullet--;
 		spaceOn = false;
 	}
-	//if (GetAsyncKeyState(VK_SPACE))
-	//{
-	//	spaceOn = true;
-	//	contorller++;
-	//}
+
+	//g_pItem->SetXY(&MobX, &MobY);
+
+
+	MobX = g_pItem->SetX();
+	MobY = g_pItem->SetY();
+
 
 	positionY = g_pItem->timer;
-	GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400-positionY)/8), 0));
+	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
+	
+	if (MobX != 0)
+	{
+		int a = 123;
+	}
+	GetItems->SetPosition(&D3DXVECTOR3(MobX, MobY, 0));
+	
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
 		spaceOn = true;
@@ -481,7 +491,8 @@ void SampleUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 	
-
+	
+	
 	D3DXMATRIXA16 matR, matT, matWorld;
 	D3DXMATRIXA16 matS;
 	static float fAngle = 0.0f;
@@ -511,6 +522,7 @@ void SampleUI::Render()
 		WHITE);
 	//580 -500
 	m_pSprite->SetTransform(&m_matWorld);
+
 
 
 	SAFE_RENDER(m_pRootUI);
@@ -543,9 +555,9 @@ void SampleUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 
+	//m_pSprite->SetTransform(&m_matWorld);
 
-
-	m_pSprite->SetTransform(&matWorld);
+	//m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
 
 

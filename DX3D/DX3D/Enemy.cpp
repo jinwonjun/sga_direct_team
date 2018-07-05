@@ -147,6 +147,8 @@ void Enemy::Render()
 	////////////////////////////////////////////////////////////////////
 	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
 	
+
+	
 	if (m_HP > 0)
 	{
 		SetRect(&HP_Info[m_HP-1].m_Image_rc, 0, 0, HP_Info[m_HP-1].m_imageInfo.Width, HP_Info[m_HP-1].m_imageInfo.Height);
@@ -165,7 +167,17 @@ void Enemy::Render()
 		m_pSprite->SetTransform(&matW_UI);
 		m_pSprite->Draw(HP_Info[m_HP-1].m_pTex, &HP_Info[m_HP-1].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
 		m_pSprite->End();
+
 	}
+	
+
+	if (m_HP == 1)
+	{
+		g_pItem->getXY(ScreenX, ScreenY);
+
+	}
+
+	
 }
 
 void Enemy::UpdatePosition()
