@@ -28,6 +28,7 @@ public:
 	void RenderDrawingGroup();
 	void Init_cs_italy();
 	void Init_cs_assault();
+	void Init_pk_stadium();
 
 	// IMap을(를) 통해 상속됨
 	virtual bool CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY) override { return true; }

@@ -54,16 +54,6 @@ void Enemy::Init()
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
-	//D3DXMATRIXA16 matS, matT, matRX, matRY;
-	//D3DXMatrixScaling(&matS, 5.0f, 5.0f, 5.0f);
-	//D3DXMatrixRotationX(&matRX, D3DX_PI * 3 / 2);
-	//D3DXMatrixRotationY(&matRY, D3DX_PI);
-	//m_matWorld = matS * matRX;// *matRY;
-
-
-	//obj객체 로드 부분
-	//ObjLoader loader;
-	//loader.Load("resources/obj", "SCV.obj", &m_matWorld, m_vecDrawingGroup);
 	m_pSkinnedMesh = new SkinnedMesh;
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);

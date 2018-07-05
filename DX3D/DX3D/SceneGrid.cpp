@@ -46,7 +46,7 @@ void SceneGrid::Release()
 	SAFE_RELEASE(pObj);
 
 	SAFE_RELEASE(m_pHeightMap);
-	m_pSky->~SkyBox();
+	//m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
 	
 	//SAFE_RELEASE(m_Inventory);
@@ -207,7 +207,7 @@ void SceneGrid::Render()
 	//g_pDevice->SetTexture(0, NULL);
 
 	//스카이박스!!!
-	m_pSky->Render();
+	//m_pSky->Render();
 
 	//큐브 그리기
 	//pCube->Render();

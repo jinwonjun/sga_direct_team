@@ -443,9 +443,6 @@
     <ClCompile Include="Hexagon.cpp">
       <Filter>소스 파일\POLYGON_exmaple</Filter>
     </ClCompile>
-    <ClCompile Include="Enemyman.cpp">
-      <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
-    </ClCompile>
     <ClCompile Include="DrawingGroup.cpp">
       <Filter>소스 파일\%28R%29Obj_READ</Filter>
     </ClCompile>
@@ -595,6 +592,9 @@
     </ClCompile>
     <ClCompile Include="ItemManager.cpp">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemyman.cpp">
+      <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
