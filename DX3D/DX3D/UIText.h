@@ -10,6 +10,7 @@ public:
 
 	LPCWSTR m_text;
 	DWORD m_drawTextFormat;
+	bool RenderingOn;
 
 	UIText(LPD3DXFONT pFont, LPD3DXSPRITE pSptrite, int uiTag = -1);
 	virtual ~UIText();

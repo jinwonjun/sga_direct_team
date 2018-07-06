@@ -43,7 +43,7 @@ void Ironman::Init()
 	g_pCamera->SetTarget(&m_pos);
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 
-
+	DamageFontNum = 0;
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
 	m_pSkinnedMesh->Init();
@@ -87,6 +87,11 @@ void Ironman::Init()
 
 void Ironman::Update()
 {
+	if (DamageFontNum > 18)
+	{
+		DamageFontNum = 0;
+	}
+
 	/*
 	idle = 1;
 	shot = 2;
@@ -233,6 +238,11 @@ void Ironman::Shoot()
 
 		if (tempEnemy != NULL)
 		{
+			g_pItem->FontController[DamageFontNum] = true;
+			g_pItem->MonsterDamaged(DamageFontNum);
+			DamageFontNum++;
+			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
+			
 			tempEnemy->MinusHP();
 			m_pBlood->Fire(BloodCalPos, -m_forward);
 			//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();

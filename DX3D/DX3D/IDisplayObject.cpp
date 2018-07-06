@@ -21,20 +21,24 @@ void IDisplayObject::AddChild(IDisplayObject * pChild)
 	pChild->m_pParent = this;
 }
 
-void IDisplayObject::AddChild2(IDisplayObject * pChild)
+void IDisplayObject::AddChild_Damage(IDisplayObject * pChild)
 {
 	if (pChild == NULL) return;
-	m_vecPChild2.push_back(pChild);
-	pChild->m_pParent2 = this;
+	m_vecPChild_DamageFont.push_back(pChild);
+	
+	pChild->m_pParent = this;
+
+}
+
+void IDisplayObject::RemoveChild_Damage()
+{
+	if (m_vecPChild_DamageFont.size() > 0)
+	{
+		m_vecPChild_DamageFont.erase(m_vecPChild_DamageFont.begin());
+	}
 }
 
 
-void IDisplayObject::AddChild3(IDisplayObject * pChild)
-{
-	if (pChild == NULL) return;
-	m_vecPChild2.push_back(pChild);
-	pChild->m_pParent2 = this;
-}
 
 void IDisplayObject::ReleaseAll()
 {

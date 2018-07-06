@@ -7,14 +7,13 @@ protected:
 	D3DXVECTOR3				m_pos;
 	D3DXVECTOR3				m_rot;
 	D3DXMATRIXA16			m_matWorld;
-	
+	D3DXMATRIXA16			m_matWorld_Bullet;
+	D3DXMATRIXA16			m_matWorld_DamageFont;
+
 	IDisplayObject*			m_pParent;
-	IDisplayObject*			m_pParent2;
-	IDisplayObject*			m_pParent3;
 
 	vector<IDisplayObject*> m_vecPChild;
-	vector<IDisplayObject*> m_vecPChild2;
-	vector<IDisplayObject*> m_vecPChild3;
+	vector<IDisplayObject*> m_vecPChild_DamageFont;
 
 	vector<VERTEX_PC> m_vecVertex;
 
@@ -22,12 +21,16 @@ public:
 	IDisplayObject();
 	virtual ~IDisplayObject();
 
+
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 	virtual void AddChild(IDisplayObject* pChild);
-	virtual void AddChild2(IDisplayObject* pChild);
-	virtual void AddChild3(IDisplayObject* pChild);
+	virtual void AddChild_Damage(IDisplayObject* pChild);
+	virtual void RemoveChild_Damage();
+
+	//virtual void AddChild2(IDisplayObject* pChild);
+	//virtual void AddChild3(IDisplayObject* pChild);
 	virtual void ReleaseAll();
 
 

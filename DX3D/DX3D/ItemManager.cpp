@@ -36,6 +36,15 @@ int ItemManager::SetY()
 	return MonsterY;
 }
 
+void ItemManager::MonsterDamaged(int DamageFontNum)
+{
+	FontNum = DamageFontNum;
+	
+	MonsterDamageTimer[DamageFontNum] = 40;
+
+
+}
+
 
 void ItemManager::ItemTable()
 {
@@ -138,7 +147,7 @@ void ItemManager::ItemGet(int a)
 
 	
 
-	timer = 400;
+	timer = 30;
 
 	//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
 	

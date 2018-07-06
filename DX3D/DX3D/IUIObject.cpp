@@ -29,14 +29,10 @@ void IUIObject::Update()
 	{
 		p->Update();
 	}
-		
-
-	for (auto p : m_vecPChild2)
+	for (auto p : m_vecPChild_DamageFont)
 	{
 		p->Update();
 	}
-		
-	
 
 }
 
@@ -44,20 +40,21 @@ void IUIObject::Render()
 {
 	if (m_bDrawBorder) DrawBorder();
 	
-	for (auto p : m_vecPChild)
-	{
-		p->Render();
-	}
-
-	if (g_pItem->timer > 0)
-	{
-		for (auto p : m_vecPChild2)
+	
+		
+		for (auto p : m_vecPChild)
 		{
 			p->Render();
 		}
+	
+		/*if (m_vecPChild_DamageFont.size() > 0)
+		{
 
-		g_pItem->timer--;
-	}
+			for (auto p : m_vecPChild_DamageFont)
+			{			
+				p->Render();
+			}
+		}*/
 }
 
 void IUIObject::DrawBorder()

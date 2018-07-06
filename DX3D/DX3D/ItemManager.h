@@ -99,6 +99,10 @@ public:
 	//void SetXY(int *X, int *Y);
 	int SetX();
 	int SetY();
+	int MonsterDamageTimer[20];
+	void MonsterDamaged(int DamageFontNum);
+	int FontNum;
+	bool FontController[20];
 
 
 	void ItemTable();
