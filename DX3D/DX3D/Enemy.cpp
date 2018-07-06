@@ -136,22 +136,29 @@ void Enemy::Render()
 	//UI그리기
 	////////////////////////////////////////////////////////////////////
 	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
+<<<<<<< HEAD
+	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
+						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
+						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
+						g_pCamera->GetMCenter().y <= ScreenY))
+=======
 	
 	
 	
 	if (m_HP > 0)
+>>>>>>> 6d10187ccbcb9dd3e610a938371df1b1918e4cab
 	{
 		SetRect(&HP_Info[m_HP-1].m_Image_rc, 0, 0, HP_Info[m_HP-1].m_imageInfo.Width, HP_Info[m_HP-1].m_imageInfo.Height);
 		//D3DXMatrixRotationZ(&matR, fAngle);
 		D3DXMatrixIdentity(&matT_UI);
 		D3DXMatrixTranslation(&matT_UI, ScreenX - HP_Info[m_HP-1].m_imageInfo.Width / 2, ScreenY, 0);
 		//D3DXMatrixTranslation(&matT,0, 0, 0);
-
+	
 		//250, 850, 0
 		D3DXMatrixScaling(&matS_UI, 1.0f, 1.0f, 1);
-
+	
 		matW_UI = matS_UI* matR_UI * matT_UI;
-
+	
 		//D3DXSPRITE_ALPHABLEND
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		m_pSprite->SetTransform(&matW_UI);
