@@ -491,8 +491,12 @@ void SampleUI::Update()
 	SAFE_UPDATE(m_pRootUI_Bullet);
 	for (int i = 0; i < 20; i++)
 	{
-
-		g_pItem->MonsterDamageTimer[i]--;
+		if (g_pItem->MonsterDamageTimer[i] != 0)
+		{
+			g_pItem->MonsterDamageTimer[i]--;
+		}
+		
+		
 		SAFE_UPDATE(m_pRootUI_Damage[i]);
 	}
 
@@ -500,19 +504,24 @@ void SampleUI::Update()
 void SampleUI::DamagePositionUpdate(int fontNum)
 {
 
-	
-		if ((g_pItem->MonsterDamageTimer[g_pItem->FontNum] <= 0))
+	for (int i = 0; i < 20; i++)
+	{
+
+		
+
+		if ((g_pItem->MonsterDamageTimer[i] == 0))
 		{
-			DamageFont->SetPosition(&D3DXVECTOR3((MobX - 25), ((MobY - 50)), 0));
-		}
-		else
-		{
-			for (int i = 0; i < 20; i++)
-			{
-				DamageFont->SetPosition(&D3DXVECTOR3((MobX - 25), ((MobY - 50)) - ((40 - (g_pItem->MonsterDamageTimer[i]))), 0));
-			}
-		}
+			DamageFont[i]->SetPosition(&D3DXVECTOR3((MobX - 50), ((MobY - 100)), 0));
+		}		
 	
+		else if (g_pItem->MonsterDamageTimer[i] != 0 )
+		{
+			DamageFont[i]->SetPosition(&D3DXVECTOR3((MobX - 50), ((MobY - 100)) - ((40 - g_pItem->MonsterDamageTimer[i])), 0));
+
+		}
+	}
+		/*}
+	*/
 
 }
 
@@ -571,14 +580,21 @@ void SampleUI::Render()
 	{*/
 		
 		
+
+
+
 	for (int i = 0; i < 20; i++)
 	{
-		if (renderingControl[i])
+		if (g_pItem->MonsterDamageTimer[i] > 0)
 		{
+		
+			DamagePositionUpdate(i);
 			SAFE_RENDER(m_pRootUI_Damage[i]);
 		}
-
+		
+	
 	}
+	
 	//}
 	//PreFontNum = g_pItem->FontNum;
 
@@ -586,7 +602,7 @@ void SampleUI::Render()
 	//===============================================
 		for (int i = 0; i < 20; i++)
 		{
-			DamagePositionUpdate(g_pItem->FontNum);
+		
 		}
 
 
@@ -870,13 +886,13 @@ void SampleUI::FontInit3()
 
 	for (int i = 0; i < 20; i++)
 	{
-		DamageFont = new UIText(g_pFontMgr->GetFont(FONT::NORMAL), m_pSprite_Damage, UITAG_TEXTVIEW);
+		DamageFont[i] = new UIText(g_pFontMgr->GetFont(FONT::NORMAL), m_pSprite_Damage, UITAG_TEXTVIEW);
 		/*WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);*/
 
-		DamageFont->m_text = WeaponAtk.c_str();
-		DamageFont->m_size = D3DXVECTOR2(100, 50);
-		DamageFont->RenderingOn = false;		
-		m_pRootUI_Damage[i]->AddChild(DamageFont);
+		DamageFont[i]->m_text = WeaponAtk.c_str();
+		DamageFont[i]->m_size = D3DXVECTOR2(100, 50);
+		DamageFont[i]->RenderingOn = false;
+		m_pRootUI_Damage[i]->AddChild_Damage(DamageFont[i]);
 
 	}
 

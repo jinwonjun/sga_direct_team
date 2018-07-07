@@ -29,6 +29,8 @@ void IUIObject::Update()
 	{
 		p->Update();
 	}
+
+
 	for (auto p : m_vecPChild_DamageFont)
 	{
 		p->Update();
@@ -47,14 +49,18 @@ void IUIObject::Render()
 			p->Render();
 		}
 	
-		/*if (m_vecPChild_DamageFont.size() > 0)
-		{
-
-			for (auto p : m_vecPChild_DamageFont)
-			{			
-				p->Render();
+	
+				
+			for (int i = 0; i < m_vecPChild_DamageFont.size(); i++)
+			{
+				if (g_pItem->MonsterDamageTimer[i])
+				{
+					m_vecPChild_DamageFont[i]->Render();
+				}
+				
 			}
-		}*/
+		
+		
 }
 
 void IUIObject::DrawBorder()

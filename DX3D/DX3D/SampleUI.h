@@ -41,7 +41,7 @@ private:
 
 	UIButton * BulletNum;
 	UIButton * GetItems;
-	UIText * DamageFont;
+	UIText * DamageFont[20];
 
 
 	int LifeLoss;
@@ -73,14 +73,16 @@ public:
 	int restBullet;
 	bool spaceOn;
 	int contorller;
-	int PreFontNum;
+
 
 	int MaxHp;
 	int CurrHp;
 	float PercentOfHp;
 	
-	bool renderingControl[20];
 
+
+	int SemiTimer[20];
+	// DamageFont도 20개가 필요할것이라 생각됨 ...
 
 	void FontInit();
 	void FontInit2();

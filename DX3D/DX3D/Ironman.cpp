@@ -87,7 +87,7 @@ void Ironman::Init()
 
 void Ironman::Update()
 {
-	if (DamageFontNum > 18)
+	if (DamageFontNum > 19)
 	{
 		DamageFontNum = 0;
 	}
@@ -238,7 +238,6 @@ void Ironman::Shoot()
 
 		if (tempEnemy != NULL)
 		{
-			g_pItem->FontController[DamageFontNum] = true;
 			g_pItem->MonsterDamaged(DamageFontNum);
 			DamageFontNum++;
 			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
