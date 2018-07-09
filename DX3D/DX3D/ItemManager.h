@@ -1,6 +1,7 @@
 #pragma once
 
 #define NumberOfItems 10
+#define NumberOfItemKinds 6
 
 #define g_pItem ItemManager::Get()
 
@@ -47,9 +48,9 @@ struct items {
 // 이넘문으로 1부터 6까지 선언해준다.
 enum Weapon_Types_
 {
-	Weapon_Type_LeftHand = 1,
-	Weapon_Type_RightHand,
-	Weapon_Type_Amor,
+	Weapon_Type_MainWeapons= 1,
+	Weapon_Type_SubWeapons,
+	Weapon_Type_Armor,
 	Weapon_Type_Belt,
 	Weapon_Type_Glove,
 	Weapon_Type_Boots
@@ -94,7 +95,7 @@ public:
 
 
 	int timer;
-	items Weapons[NumberOfItems];
+	items Items[NumberOfItems];
 	void getMonsterXY(int X, int Y);
 	//void SetXY(int *X, int *Y);
 	int SetX();
@@ -104,10 +105,13 @@ public:
 	int FontNum;
 	bool FontController[20];
 
-
 	void ItemTable();
 	void ItemGet(int a);
 	void render(int a);
+
+
+
+
 	// IDisplayObject을(를) 통해 상속됨
 
 

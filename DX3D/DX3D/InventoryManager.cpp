@@ -54,11 +54,11 @@ void InventoryManager::Init()
 
 	for (int i = 0; i < NumberOfItems; i++)
 	{
-		if (g_pItem->Weapons[i].index == NULL)
+		if (g_pItem->Items[i].index == NULL)
 		{
 			continue;
 		}
-		Shop_Item.push_back(g_pItem->Weapons[i]);
+		Shop_Item.push_back(g_pItem->Items[i]);
 	}
 
 
@@ -268,7 +268,7 @@ void InventoryManager::Init()
 
 	for (int i = 0; i < NumberOfItems; i++)
 	{
-		if (g_pItem->Weapons[i].index == NULL)
+		if (g_pItem->Items[i].index == NULL)
 		{
 			continue;
 		}
@@ -312,7 +312,7 @@ void InventoryManager::Init()
 
 
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		Equip.push_back(Void_Item[0][0]);
 	}
@@ -325,9 +325,9 @@ void InventoryManager::Update()
 	//SAFE_UPDATE(m_pRootUI);
 	Debug->EndLine();
 	Debug->EndLine();
-	Debug->AddText(Equip[Equip_Main_Weapon_1].PositionX);
+	Debug->AddText(Equip[Weapon_Type_MainWeapons].PositionX);
 	Debug->EndLine();
-	Debug->AddText(Equip[Equip_Main_Weapon_1].PositionY);
+	Debug->AddText(Equip[Weapon_Type_MainWeapons].PositionY);
 	Debug->EndLine();
 
 	if (g_pKeyboard->KeyDown('I'))
@@ -365,13 +365,13 @@ void InventoryManager::Update()
 		if (g_pMouse->ButtonDown(Mouse::RBUTTON))
 		{
 
-			if (PtInRect(&Equip[Equip_Main_Weapon_1].Click_rc, mousePoint)
-				&& Equip[Equip_Main_Weapon_1].isEquiped
+			if (PtInRect(&Equip[Weapon_Type_MainWeapons].Click_rc, mousePoint)
+				&& Equip[Weapon_Type_MainWeapons].isEquiped
 				&&alreadyWorkedRbutton == false)
 			{
-				addIndex(Equip[Equip_Main_Weapon_1]);
+				addIndex(Equip[Weapon_Type_MainWeapons]);
 				
-				Equip[Equip_Main_Weapon_1] = Void_Item[0][0];
+				Equip[Weapon_Type_MainWeapons] = Void_Item[0][0];
 				alreadyWorkedRbutton = true;
 			}
 
@@ -386,34 +386,49 @@ void InventoryManager::Update()
 
 						switch (InvenArray[i][j].Equip_Type)
 						{
-						case Weapon_Type_LeftHand:
-							if (Equip[Equip_Main_Weapon_1].index == 0)
+						case Weapon_Type_MainWeapons:
+							if (Equip[Weapon_Type_MainWeapons].index == 0)
 							{
-								swap(Equip[0], InvenArray[i][j]);
+								swap(Equip[Equip_Main_Weapon_1], InvenArray[i][j]);
 								
-								Equip[Equip_Main_Weapon_1].isEquiped = true;
+								Equip[Weapon_Type_MainWeapons].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
 
-								static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(Equip[Equip_Main_Weapon_1].index);
+								static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(Equip[Weapon_Type_MainWeapons].index);
 
 							}
 							else
 							{
 
-								swap(Equip[0], InvenArray[i][j]);
-								Equip[Equip_Main_Weapon_1].isEquiped = true;
+								swap(Equip[Equip_Main_Weapon_1], InvenArray[i][j]);
+								Equip[Weapon_Type_MainWeapons].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
 								
-								static_cast<Gun*>( g_pObjMgr->FindObjectByTag(TAG_GUN)) ->GunEqiupSet(Equip[Equip_Main_Weapon_1].index);
+								static_cast<Gun*>( g_pObjMgr->FindObjectByTag(TAG_GUN)) ->GunEqiupSet(Equip[Weapon_Type_MainWeapons].index);
 							}
 
 							break;
-						case Weapon_Type_RightHand:
+						case Weapon_Type_SubWeapons:
 							Equip.push_back(InvenArray[i][j]);
 
 							break;
-						case Weapon_Type_Amor:
+						case Weapon_Type_Armor:
 							Equip.push_back(InvenArray[i][j]);
+
+							if (Equip[Equip_Amor].index == 0)
+							{
+								swap(Equip[Equip_Amor], InvenArray[i][j]);
+
+								Equip[Equip_Amor].isEquiped = true;
+								InvenArray[i][j] = Void_Item[i][j];								
+							}
+							else
+							{
+								swap(Equip[Equip_Amor], InvenArray[i][j]);
+								Equip[Equip_Amor].isEquiped = true;
+								InvenArray[i][j].isEquiped = false;
+							}
+
 
 							break;
 
@@ -809,42 +824,73 @@ void InventoryManager::Render()
 
 
 		// EQUIP ¿Þ¼Õ¿¡ Âø¿ë ÇÏ±â À§ÇÑ °ÍÀ» ±×·ÁÁØ´Ù 
-		if (Equip[Equip_Main_Weapon_1].index != 0)
+		if (Equip[Weapon_Type_MainWeapons].index != 0)
 		{		
 
-			Equip[Equip_Main_Weapon_1].PositionX = Inventory.PositionX + (340 * Adjust_Display_Mode_X);
-			Equip[Equip_Main_Weapon_1].PositionY = Inventory.PositionY + (30 * Adjust_Display_Mode_X);
-			Equip[Equip_Main_Weapon_1].ScaleX = .3f * Adjust_Display_Mode_X;
-			Equip[Equip_Main_Weapon_1].ScaleY = .3f * Adjust_Display_Mode_Y;
+			Equip[Weapon_Type_MainWeapons].PositionX = Inventory.PositionX + (340 * Adjust_Display_Mode_X);
+			Equip[Weapon_Type_MainWeapons].PositionY = Inventory.PositionY + (30 * Adjust_Display_Mode_X);
+			Equip[Weapon_Type_MainWeapons].ScaleX = .3f * Adjust_Display_Mode_X;
+			Equip[Weapon_Type_MainWeapons].ScaleY = .3f * Adjust_Display_Mode_Y;
 			D3DXMatrixRotationZ(&matR, fAngle);
 			D3DXMatrixIdentity(&matT);
-			D3DXMatrixTranslation(&matT, Equip[Equip_Main_Weapon_1].PositionX, Equip[Equip_Main_Weapon_1].PositionY, 0);
-			D3DXMatrixScaling(&matS, Equip[Equip_Main_Weapon_1].ScaleX, Equip[Equip_Main_Weapon_1].ScaleY, 1);
-			matWorld[matWorld_Equip_LeftHand] = matS * matR * matT;
+			D3DXMatrixTranslation(&matT, Equip[Weapon_Type_MainWeapons].PositionX, Equip[Weapon_Type_MainWeapons].PositionY, 0);
+			D3DXMatrixScaling(&matS, Equip[Weapon_Type_MainWeapons].ScaleX, Equip[Weapon_Type_MainWeapons].ScaleY, 1);
+			matWorld[matWorld_Main_Weapon] = matS * matR * matT;
 
 
 			//ItemSet
-			SetRect(&Equip[Equip_Main_Weapon_1].Item_rc, 0, 0, Equip[Equip_Main_Weapon_1].m_image_Item_Info.Width, Equip[Equip_Main_Weapon_1].m_image_Item_Info.Height);
+			SetRect(&Equip[Weapon_Type_MainWeapons].Item_rc, 0, 0, Equip[Weapon_Type_MainWeapons].m_image_Item_Info.Width, Equip[Weapon_Type_MainWeapons].m_image_Item_Info.Height);
 					
-			SetRect(&Equip[Equip_Main_Weapon_1].Click_rc,
-				Equip[Equip_Main_Weapon_1].PositionX,
-				Equip[Equip_Main_Weapon_1].PositionY,
-				Equip[Equip_Main_Weapon_1].PositionX + ((Equip[Equip_Main_Weapon_1].m_image_Item_Info.Width)*(Equip[Equip_Main_Weapon_1].ScaleX)),
-				Equip[Equip_Main_Weapon_1].PositionY + ((Equip[Equip_Main_Weapon_1].m_image_Item_Info.Height)*(Equip[Equip_Main_Weapon_1].ScaleY)));
+			SetRect(&Equip[Weapon_Type_MainWeapons].Click_rc,
+				Equip[Weapon_Type_MainWeapons].PositionX,
+				Equip[Weapon_Type_MainWeapons].PositionY,
+				Equip[Weapon_Type_MainWeapons].PositionX + ((Equip[Weapon_Type_MainWeapons].m_image_Item_Info.Width)*(Equip[Weapon_Type_MainWeapons].ScaleX)),
+				Equip[Weapon_Type_MainWeapons].PositionY + ((Equip[Weapon_Type_MainWeapons].m_image_Item_Info.Height)*(Equip[Weapon_Type_MainWeapons].ScaleY)));
 
 			m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-			m_pSprite->SetTransform(&matWorld[matWorld_Equip_LeftHand]);
+			m_pSprite->SetTransform(&matWorld[matWorld_Main_Weapon]);
 
 			m_pSprite->Draw(
-				Equip[Equip_Main_Weapon_1].m_pTex_Item,
-				&Equip[Equip_Main_Weapon_1].Item_rc,
+				Equip[Weapon_Type_MainWeapons].m_pTex_Item,
+				&Equip[Weapon_Type_MainWeapons].Item_rc,
 				&D3DXVECTOR3(0, 0, 0),
 				&D3DXVECTOR3(0, 0, 0),
 				WHITE);
-
 		}
+		// °©¿Ê Âø¿ëÀ» ±×·ÁÁØ´Ù. 
+		if (Equip[Equip_Amor].index != 0)
+		{
+
+			Equip[Equip_Amor].PositionX = Inventory.PositionX + (340 * Adjust_Display_Mode_X);
+			Equip[Equip_Amor].PositionY = Inventory.PositionY + (135 * Adjust_Display_Mode_X);
+			Equip[Equip_Amor].ScaleX = .3f * Adjust_Display_Mode_X;
+			Equip[Equip_Amor].ScaleY = .3f * Adjust_Display_Mode_Y;
+			D3DXMatrixRotationZ(&matR, fAngle);
+			D3DXMatrixIdentity(&matT);
+			D3DXMatrixTranslation(&matT, Equip[Equip_Amor].PositionX, Equip[Equip_Amor].PositionY, 0);
+			D3DXMatrixScaling(&matS, Equip[Equip_Amor].ScaleX, Equip[Equip_Amor].ScaleY, 1);
+			matWorld[matWorld_Main_Weapon] = matS * matR * matT;
 
 
+			//ItemSet
+			SetRect(&Equip[Equip_Amor].Item_rc, 0, 0, Equip[Equip_Amor].m_image_Item_Info.Width, Equip[Equip_Amor].m_image_Item_Info.Height);
+
+			SetRect(&Equip[Equip_Amor].Click_rc,
+				Equip[Equip_Amor].PositionX,
+				Equip[Equip_Amor].PositionY,
+				Equip[Equip_Amor].PositionX + ((Equip[Equip_Amor].m_image_Item_Info.Width)*(Equip[Equip_Amor].ScaleX)),
+				Equip[Equip_Amor].PositionY + ((Equip[Equip_Amor].m_image_Item_Info.Height)*(Equip[Equip_Amor].ScaleY)));
+
+			m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+			m_pSprite->SetTransform(&matWorld[matWorld_Main_Weapon]);
+
+			m_pSprite->Draw(
+				Equip[Equip_Amor].m_pTex_Item,
+				&Equip[Equip_Amor].Item_rc,
+				&D3DXVECTOR3(0, 0, 0),
+				&D3DXVECTOR3(0, 0, 0),
+				WHITE);
+		}
 
 		if (g_pMouse->ButtonPress(Mouse::LBUTTON))
 		{
