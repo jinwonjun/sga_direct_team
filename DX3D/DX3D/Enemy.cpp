@@ -31,7 +31,6 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 
 	m_radius = 1.7f;
 	m_SphereHeight = 7.0f;
-
 	m_enemyNum = enemyNum;
 }
 
@@ -136,17 +135,11 @@ void Enemy::Render()
 	//UI그리기
 	////////////////////////////////////////////////////////////////////
 	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
-<<<<<<< HEAD
+
 	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
 						g_pCamera->GetMCenter().y <= ScreenY))
-=======
-	
-	
-	
-	if (m_HP > 0)
->>>>>>> 6d10187ccbcb9dd3e610a938371df1b1918e4cab
 	{
 		SetRect(&HP_Info[m_HP-1].m_Image_rc, 0, 0, HP_Info[m_HP-1].m_imageInfo.Width, HP_Info[m_HP-1].m_imageInfo.Height);
 		//D3DXMatrixRotationZ(&matR, fAngle);
