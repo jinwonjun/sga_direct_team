@@ -140,12 +140,6 @@ void Enemy::Render()
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
 						g_pCamera->GetMCenter().y <= ScreenY))
-<<<<<<< HEAD
-=======
-		
-	if (m_HP > 0)
-
->>>>>>> d4c4949223c96634b16b5dff9153916e2b6166f3
 	{
 		SetRect(&HP_Info[m_HP-1].m_Image_rc, 0, 0, HP_Info[m_HP-1].m_imageInfo.Width, HP_Info[m_HP-1].m_imageInfo.Height);
 		//D3DXMatrixRotationZ(&matR, fAngle);

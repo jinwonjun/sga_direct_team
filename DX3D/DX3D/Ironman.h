@@ -9,6 +9,9 @@ class Ironman :
 	public IUnitObject
 {
 
+private:
+	float timer;
+	bool checkTimer;
 
 public:
 	Ironman();
