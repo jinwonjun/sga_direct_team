@@ -357,13 +357,6 @@ void SampleUI::Init()
 	FontInit2();
 	FontInit3();
 
-	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
-	{
-
-		//m_pSprite->SetTransform(&m_matWorld);
-	}
-
-
 
 
 	GetClientRect(g_hWnd, &clientRect);
@@ -423,10 +416,6 @@ void SampleUI::Update()
 		restBullet = 0;
 	}
 	
-	//총알 숫자가 줄어드는걸 하려면 업데이트에 이녀석들은 있어야 되는듯!
-
-	//BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
-
 
 	if (g_pKeyboard->KeyDown('G'))
 	{

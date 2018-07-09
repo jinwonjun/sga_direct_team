@@ -23,31 +23,47 @@ void Gun::Init()
 
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 
+	GetCursorPos(&mousePoint);
 }
 /*
 No Gun = 0;
 M4 = 1;
-Laser = 2;
-Beam = 3;
+Zod_gun = 2;
+Beam_gun = 3;
 */
 void Gun::GunEqiupSet(int WeaponStatus)
 {
-	if (WeaponStatus == 1)
-	{
-		BeamGunInit();
-	}
-	else if (WeaponStatus == 2)
-	{
-		LaserGunInit();
-	}
-	else if (WeaponStatus == 3)
-	{
-		M4GunInit();
-	}
-	else
-	{
-		WeaponStatus = 0;
-	}
+	//int EquipNumber;
+	//EquipNumber = g_pInventory->Equip[Equip_Main_Weapon_1].index;
+
+
+
+
+		if (WeaponStatus == 1)
+		{
+			M4GunInit();
+		
+		
+		}
+		else if (WeaponStatus == 2)
+		{
+
+			BeamGunInit();
+	
+		}
+		else if (WeaponStatus == 3)
+		{
+
+			LaserGunInit();
+	
+		}
+		else
+		{
+			WeaponStatus = 0;
+		}
+
+
+
 }
 
 void Gun::BeamGunInit()
@@ -108,18 +124,13 @@ void Gun::M4GunInit()
 
 void Gun::Update()
 {
-	if (g_pKeyboard->KeyDown('1'))
-	{
-		GunEqiupSet(1);
-	}
-	if (g_pKeyboard->KeyDown('2'))
-	{
-		GunEqiupSet(2);
-	}
-	if (g_pKeyboard->KeyDown('3'))
-	{
-		GunEqiupSet(3);
-	}
+	
+
+
+			
+
+
+
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 
