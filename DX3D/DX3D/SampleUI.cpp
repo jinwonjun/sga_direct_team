@@ -2,7 +2,7 @@
 #include "SampleUI.h"
 #include "IUIObject.h"
 #include "UIImage.h"
-#include "UIText.h"
+
 #include <cstring>
 
 enum
@@ -35,7 +35,12 @@ SampleUI::~SampleUI()
 void SampleUI::Init()
 {
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
-
+	D3DXCreateSprite(g_pDevice, &m_pSprite_Bullet);
+	D3DXCreateSprite(g_pDevice, &m_pSprite_Damage);
+	for (int i = 0; i < 20; i++)
+	{
+		g_pItem->FontController[i] = false;
+	}
 	restBullet = 30;
 	spaceOn = false;
 	contorller = 0;
@@ -48,9 +53,23 @@ void SampleUI::Init()
 
 	{
 		UIImage * pImage = new UIImage(m_pSprite);
-		//pImage->SetTexture("resources/ui/panel-info.png.png");
-		m_pRootUI = pImage;
-		m_pRootUI_2 = pImage;
+		m_pRootUI = pImage;	
+	}
+	{
+		UIImage * pImage = new UIImage(m_pSprite_Bullet);
+		m_pRootUI_Bullet = pImage;
+	}
+
+
+		
+	{
+		UIImage * pImage = new UIImage(m_pSprite_Damage);
+		for (int i = 0; i < 20; i++)
+		{
+			
+			m_pRootUI_Damage[i] = pImage;
+		}
+
 	}
 
 	////텍스트 추가
@@ -336,6 +355,7 @@ void SampleUI::Init()
 
 	FontInit();
 	FontInit2();
+	FontInit3();
 
 	//이부분이 update에 가있어서 프레임 드랍 원인이었음.
 	{
@@ -369,11 +389,19 @@ void SampleUI::Update()
 	positionY = g_pItem->timer;
 	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
 	
-	if (MobX != 0)
-	{
-		int a = 123;
-	}
-	GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((400-g_pItem->timer)/4), 0));
+
+
+	
+	WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);
+
+	temp = std::to_wstring(restBullet) + L" / 30";
+
+	GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((30-g_pItem->timer)), 0));
+	
+
+	
+	//DamageFont->SetPosition(&D3DXVECTOR3(500,500, 0));
+
 	
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
@@ -396,7 +424,7 @@ void SampleUI::Update()
 	}
 	
 	//총알 숫자가 줄어드는걸 하려면 업데이트에 이녀석들은 있어야 되는듯!
-	temp = std::to_wstring(restBullet) + L" / 30";
+
 	//BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
 
 
@@ -458,8 +486,43 @@ void SampleUI::Update()
 
 	//==========================================
 	//==========================================
+
 	SAFE_UPDATE(m_pRootUI);
+	SAFE_UPDATE(m_pRootUI_Bullet);
+	for (int i = 0; i < 20; i++)
+	{
+		if (g_pItem->MonsterDamageTimer[i] != 0)
+		{
+			g_pItem->MonsterDamageTimer[i]--;
+		}
+		
+		
+		SAFE_UPDATE(m_pRootUI_Damage[i]);
+	}
+
+}
+void SampleUI::DamagePositionUpdate(int fontNum)
+{
+
+	for (int i = 0; i < 20; i++)
+	{
+
+		
+
+		if ((g_pItem->MonsterDamageTimer[i] == 0))
+		{
+			DamageFont[i]->SetPosition(&D3DXVECTOR3((MobX - 50), ((MobY - 100)), 0));
+		}		
 	
+		else if (g_pItem->MonsterDamageTimer[i] != 0 )
+		{
+			DamageFont[i]->SetPosition(&D3DXVECTOR3((MobX - 50), ((MobY - 100)) - ((40 - g_pItem->MonsterDamageTimer[i])), 0));
+
+		}
+	}
+		/*}
+	*/
+
 }
 
 void SampleUI::Render()
@@ -468,10 +531,11 @@ void SampleUI::Render()
 	g_pDevice->SetTexture(0, NULL); // 다른 색이 뭍어나와서 흰색이 주황색으로
 	//스프라이트는 비긴이랑 엔드 사이에서 그려준다.
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	m_pSprite_Bullet->Begin(D3DXSPRITE_ALPHABLEND);
+	m_pSprite_Damage->Begin(D3DXSPRITE_ALPHABLEND);
+	
 
-	
-	
-	
+
 	D3DXMATRIXA16 matR, matT, matWorld;
 	D3DXMATRIXA16 matS;
 	static float fAngle = 0.0f;
@@ -500,10 +564,46 @@ void SampleUI::Render()
 	//=======================================================
 
 	m_pSprite->SetTransform(&m_matWorld);
-	SAFE_RENDER(m_pRootUI);
+	m_pSprite->SetTransform(&m_matWorld_DamageFont);
+	m_pSprite->SetTransform(&m_matWorld_Bullet);
+
+	if (g_pItem->timer > 0)
+	{
+		SAFE_RENDER(m_pRootUI);
+		g_pItem->timer--;
+		Debug->AddText(g_pItem->timer);
+	}
+
+	SAFE_RENDER(m_pRootUI_Bullet);
+
+	/*if (PreFontNum != g_pItem->FontNum)
+	{*/
+		
+		
+
+
+
+	for (int i = 0; i < 20; i++)
+	{
+		if (g_pItem->MonsterDamageTimer[i] > 0)
+		{
+		
+			DamagePositionUpdate(i);
+			SAFE_RENDER(m_pRootUI_Damage[i]);
+		}
+		
+	
+	}
+	
+	//}
+	//PreFontNum = g_pItem->FontNum;
+
 
 	//===============================================
-	
+		for (int i = 0; i < 20; i++)
+		{
+		
+		}
 
 
 	
@@ -684,8 +784,11 @@ void SampleUI::Render()
 
 
 	//SAFE_RENDER(m_pRootUI);
-
+	m_pSprite_Damage->End();
+	m_pSprite_Bullet->End();
 	m_pSprite->End();
+	
+	
 }
 
 void SampleUI::OnClick(UIButton * pSender)
@@ -700,7 +803,6 @@ void SampleUI::OnClick(UIButton * pSender)
 	{
 		UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
 		pText->m_text = _T("Button2 pushed");
-
 	}
 
 	else if (pSender->m_uiTag == UITAG_BUTTON3)
@@ -729,10 +831,8 @@ void SampleUI::FontInit()
 	
 	ScaleX_GetItems = 1.f;
 	ScaleY_GetItems = 1.f;
-
 		D3DXMATRIXA16 matS;
 		D3DXMATRIXA16 matT;
-
 		D3DXMatrixScaling(&matS, ScaleX_GetItems, ScaleY_GetItems, 1);
 		D3DXMatrixTranslation(&matT, 0, 0, 0);
 		m_matWorld = matS * matT;
@@ -741,12 +841,38 @@ void SampleUI::FontInit()
 			"resources/ui/back.png",
 			"resources/ui/back.png");
 		GetItems->SetText(g_pFontMgr->GetFont(FONT::Item), _T("Item Get"));
-		m_pRootUI->AddChild2(GetItems);
-	
-
+		m_pRootUI->AddChild(GetItems);
 }
 
 void SampleUI::FontInit2()
+{
+	ScaleX_BulletNum = 1.f;
+	ScaleY_BulletNum = 1.f;
+	D3DXMATRIXA16 matS;
+	D3DXMatrixScaling(&matS, ScaleX_BulletNum, ScaleY_BulletNum, 1);
+	D3DXMATRIXA16 matT;
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	m_matWorld_Bullet = matS * matT;
+
+	BulletNum = new UIButton(this, m_pSprite_Bullet, UITAG_BUTTON4);
+	BulletNum->SetPosition(&D3DXVECTOR3(((WINSIZEX / 5) * 4)  , ((WINSIZEY / 32) * 25) , 0));
+
+	//BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
+	//	"resources/ui/btn-med-over.png.png",
+	//	"resources/ui/btn-med-down.png.png");
+
+	BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
+		"resources/ui/btn-med-up.png.png",
+		"resources/ui/btn-med-up.png.png");
+
+	temp = std::to_wstring(restBullet) + L" / 30";
+	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+	m_pRootUI_Bullet->AddChild(BulletNum);
+
+
+}
+
+void SampleUI::FontInit3()
 {
 
 	ScaleX_BulletNum = 1.f;
@@ -755,20 +881,26 @@ void SampleUI::FontInit2()
 	D3DXMatrixScaling(&matS, ScaleX_BulletNum, ScaleY_BulletNum, 1);
 	D3DXMATRIXA16 matT;
 	D3DXMatrixTranslation(&matT, 0, 0, 0);
-	m_matWorld = matS * matT;
+	m_matWorld_DamageFont = matS * matT;
+	
 
-	BulletNum = new UIButton(this, m_pSprite, UITAG_BUTTON4);
+	for (int i = 0; i < 20; i++)
+	{
+		DamageFont[i] = new UIText(g_pFontMgr->GetFont(FONT::NORMAL), m_pSprite_Damage, UITAG_TEXTVIEW);
+		/*WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);*/
 
-	BulletNum->SetPosition(&D3DXVECTOR3(((WINSIZEX / 5) * 4)  , ((WINSIZEY / 32) * 25) , 0));
+		DamageFont[i]->m_text = WeaponAtk.c_str();
+		DamageFont[i]->m_size = D3DXVECTOR2(100, 50);
+		DamageFont[i]->RenderingOn = false;
+		m_pRootUI_Damage[i]->AddChild_Damage(DamageFont[i]);
 
-	BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
-		"resources/ui/btn-med-over.png.png",
-		"resources/ui/btn-med-down.png.png");
-
-	temp = std::to_wstring(restBullet) + L" / 30";
-	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
-
-	m_pRootUI->AddChild(BulletNum);
+	}
 
 
+	//	UIText * pText = new UIText(g_pFontMgr->GetFont(FONT::NORMAL), m_pSprite, UITAG_TEXTVIEW);
+	//	m_pRootUI->AddChild(pText);
+	//	pText->m_text = _T("(Push the Button)");
+	//	pText->m_size = D3DXVECTOR2(312, 200);
+	//	pText->SetPosition(&D3DXVECTOR3(100, 100, 0));
 }
+

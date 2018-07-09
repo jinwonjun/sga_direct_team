@@ -1,6 +1,7 @@
 #pragma once
 #include "IDisplayObject.h"
 #include "UIButton.h"
+#include "UIText.h"
 
 class IUIObject;
 
@@ -19,12 +20,14 @@ class SampleUI :public IDisplayObject, public IUIButtonDelegate
 {
 private:
 	std::wstring temp;
+	std::wstring WeaponAtk;
 	LPD3DXSPRITE m_pSprite;
-	//LPD3DXSPRITE m_pSprite2;
+	LPD3DXSPRITE m_pSprite_Bullet;
+	LPD3DXSPRITE m_pSprite_Damage;
 
 	IUIObject * m_pRootUI;
-	IUIObject * m_pRootUI_2;
-
+	IUIObject * m_pRootUI_Bullet;
+	IUIObject * m_pRootUI_Damage[20];
 	//D3DXMATRIXA16 matWorld_2;
 
 	HUD_Ui Cross_Hair;
@@ -38,6 +41,8 @@ private:
 
 	UIButton * BulletNum;
 	UIButton * GetItems;
+	UIText * DamageFont[20];
+
 
 	int LifeLoss;
 	int positionY;
@@ -69,12 +74,21 @@ public:
 	bool spaceOn;
 	int contorller;
 
+
 	int MaxHp;
 	int CurrHp;
 	float PercentOfHp;
+	
+
+
+	int SemiTimer[20];
+	// DamageFont도 20개가 필요할것이라 생각됨 ...
 
 	void FontInit();
 	void FontInit2();
+	void FontInit3();
+	
+	void DamagePositionUpdate(int fontNum);
 
 	D3DXMATRIXA16 CalPlayerPos;
 };

@@ -60,6 +60,8 @@ public:
 	void SetDestPos(D3DXVECTOR3& pos);
 	void MoveStop();
 	int  GetHP() { return m_HP; }
+	int GetMonsterX() { return ScreenX;	}
+	int GetMonsterY() { return ScreenY; }
 	void MinusHP() { m_HP--; }
 	int GetEnemyNum() { return m_enemyNum; }
 
