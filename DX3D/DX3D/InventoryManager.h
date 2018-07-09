@@ -101,12 +101,11 @@ private:
 	int ItemSizeY; // 아이템 한칸당 사이즈
 
 	bool EscapeFor; //포문 탈출하기 위한 불값
+	D3DXMATRIXA16 matWorld[10];
+	D3DXMATRIXA16 matWorld_InvenItems[INVENCORSS*INVENVERTI];
 	bool alreadyWorkedRbutton;// 아이템이 이미 착용되었는지를 체크. 
 							  // 버그를 막아줘서 넣었는데 어떻게 막았는지 사실 잘 기억 안남.
 							  // 아마 우측 
-	D3DXMATRIXA16 matWorld[10];
-	D3DXMATRIXA16 matWorld_InvenItems[INVENCORSS*INVENVERTI];
-
 
 	float Adjust_Display_Mode_X; //해상도 변경에 따라 비율 조절해주는 아이
 	float Adjust_Display_Mode_Y; //해상도 변경에 따라 비율 조절해주는 아이
@@ -126,13 +125,17 @@ public:
 	static InventoryManager* Get();
 	static void Delete();
 
-
-
+	bool GetalreadyWorkedRbutton() { return alreadyWorkedRbutton;  }
+	//void SetalreadyWorkedRbutton(bool acb) { alreadyWorkedRbutton = acb; }
+	// 겟 셋 헷갈령
+	
 	// IDisplayObject을(를) 통해 상속됨
 	void Init();
 	void Update();
 	void Render() ;
 
+
+	int EquipData;
 	// IUIButtonDelegate을(를) 통해 상속됨
 
 	std::vector<items> Equip;

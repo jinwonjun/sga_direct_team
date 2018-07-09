@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "InventoryManager.h"
+#include "Gun.h"
 
 #include "Gun.h"
 
@@ -393,13 +394,17 @@ void InventoryManager::Update()
 								Equip[Equip_Main_Weapon_1].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
 
+								static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(Equip[Equip_Main_Weapon_1].index);
+
 							}
 							else
 							{
+
 								swap(Equip[0], InvenArray[i][j]);
 								Equip[Equip_Main_Weapon_1].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
 								
+								static_cast<Gun*>( g_pObjMgr->FindObjectByTag(TAG_GUN)) ->GunEqiupSet(Equip[Equip_Main_Weapon_1].index);
 							}
 
 							break;

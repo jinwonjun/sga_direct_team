@@ -13,6 +13,10 @@ private:
 	LPD3DXMESH				m_pSphereMesh;
 
 	int WeaponStatus;
+	POINT mousePoint; //마우스 포인트 위치를 가져오기 위해서
+
+	bool alreadyWorkedRbutton_In_Gun; //외부에서 정보를 담아줄 변수
+	
 
 public:
 	Gun();
