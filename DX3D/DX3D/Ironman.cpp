@@ -83,6 +83,9 @@ void Ironman::Init()
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matTemp);
+
+	timer = 0;//체크 타이머 초기화
+	checkTimer = false;
 }
 
 void Ironman::Update()
@@ -120,21 +123,21 @@ void Ironman::Update()
 	RightHand = m_pSkinnedMesh->GetHandMatrix();
 
 
-	//D3DXTRACK_DESC track;
-	//m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
-	//LPD3DXANIMATIONSET pCurrAnimSet = NULL;
-	//m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
-	//pCurrAnimSet->GetPeriod(); //전체 시간
-	//Debug->EndLine();
-	//Debug->EndLine();
-	//Debug->AddText("전체 시간 : ");
-	//Debug->AddText(pCurrAnimSet->GetPeriod());
-	//Debug->EndLine();
-	//Debug->AddText("현재 시간 : ");
-	//pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
-	//Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
-	//Debug->EndLine();
-	//Debug->EndLine();
+	D3DXTRACK_DESC track;
+	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
+	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
+	m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
+	pCurrAnimSet->GetPeriod(); //전체 시간
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->AddText("전체 시간 : ");
+	Debug->AddText(pCurrAnimSet->GetPeriod());
+	Debug->EndLine();
+	Debug->AddText("현재 시간 : ");
+	pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
+	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
+	Debug->EndLine();
+	Debug->EndLine();
 
 
 
@@ -142,46 +145,70 @@ void Ironman::Update()
 	{
 		if (Keyboard::Get()->KeyPress('W'))
 		{
+			checkTimer = true;
 			m_pSkinnedMesh->status = 2;
 		}
 		else if (Keyboard::Get()->KeyPress('S'))
 		{
+			checkTimer = true;
 			m_pSkinnedMesh->status = 7;
 		}
 		else if (Keyboard::Get()->KeyPress('A'))
 		{
 			//if (m_animIndex > 0)//0
 			//m_animIndex--;
+			checkTimer = true;
 			m_pSkinnedMesh->status = 3;
 		}
 		else if (Keyboard::Get()->KeyPress('D'))
 		{
 			//if (m_animIndex > 0)//0
 			//m_animIndex--;
+			checkTimer = true;
 			m_pSkinnedMesh->status = 4;
 		}
 		else if (Keyboard::Get()->KeyPress('R'))
 		{
 			//if (m_animIndex > 0)//0
 			//m_animIndex--;
+			checkTimer = true;
 			m_pSkinnedMesh->status = 6;
 		}
 		else if (Keyboard::Get()->KeyPress(VK_SPACE))
 		{
+			checkTimer = true;
 			m_pSkinnedMesh->status = 5;
 		}
-		else if (Mouse::Get()->ButtonPress(Mouse::Get()->LBUTTON))
+		else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
 		{
+			checkTimer = true;
+			m_pSkinnedMesh->status = 1;
 			//if (m_animIndex > 0)//0
 			//m_animIndex--;
-			m_pSkinnedMesh->status = 1;
 		}
-
-		else//idle상태 만들기
+		//else//idle상태 만들기
+		//{
+		//	//m_pSkinnedMesh->status = 0;
+		//}
+		if (checkTimer)
+		{
+			timer += 0.001f;
+			if (timer > 0.03f)
+			{
+				timer = 0;
+				checkTimer = false;
+			}
+		}
+		else
 		{
 			m_pSkinnedMesh->status = 0;
 		}
 	}
+
+	Debug->AddText("타이머 ");
+	Debug->AddText(timer);
+	Debug->EndLine();
+	Debug->EndLine();
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
