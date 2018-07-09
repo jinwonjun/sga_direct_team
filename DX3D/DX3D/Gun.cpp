@@ -108,18 +108,18 @@ void Gun::M4GunInit()
 
 void Gun::Update()
 {
-	if (g_pKeyboard->KeyDown('1'))
-	{
-		GunEqiupSet(1);
-	}
-	if (g_pKeyboard->KeyDown('2'))
-	{
-		GunEqiupSet(2);
-	}
-	if (g_pKeyboard->KeyDown('3'))
-	{
-		GunEqiupSet(3);
-	}
+	//if (g_pKeyboard->KeyDown('1'))
+	//{
+	//	GunEqiupSet(1);
+	//}
+	//if (g_pKeyboard->KeyDown('2'))
+	//{
+	//	GunEqiupSet(2);
+	//}
+	//if (g_pKeyboard->KeyDown('3'))
+	//{
+	//	GunEqiupSet(3);
+	//}
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 

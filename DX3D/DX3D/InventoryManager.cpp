@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "InventoryManager.h"
 
-
+#include "Gun.h"
 
 InventoryManager* InventoryManager::instance = NULL;
 
@@ -399,7 +399,6 @@ void InventoryManager::Update()
 								swap(Equip[0], InvenArray[i][j]);
 								Equip[Equip_Main_Weapon_1].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
-						
 								
 							}
 
