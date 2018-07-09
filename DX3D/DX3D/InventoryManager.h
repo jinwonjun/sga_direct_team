@@ -38,8 +38,8 @@ struct Inven_UI
 
 enum Equip_Type
 {
-	Equip_Main_Weapon_1 = 0,
-	Equip_Main_Weapon_2,
+	Equip_Main_Weapon_1 = 1,
+	Equip_Sub_Weapon_2,
 	Equip_Amor,
 	Equip_Belt,
 	Equip_Glove,
@@ -53,7 +53,7 @@ enum matWorld_Numbering
 	matWorld_ItemSet,
 	matWorld_ShopItem_1,
 	matWorld_ShopItem_2,
-	matWorld_Equip_LeftHand,
+	matWorld_Main_Weapon,
 	matWorld_MouseCursor,
 	
 

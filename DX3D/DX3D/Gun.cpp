@@ -125,12 +125,6 @@ void Gun::M4GunInit()
 void Gun::Update()
 {
 	
-
-
-			
-
-
-
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 

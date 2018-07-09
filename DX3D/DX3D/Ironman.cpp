@@ -174,7 +174,7 @@ void Ironman::Update()
 			checkTimer = true;
 			m_pSkinnedMesh->status = 6;
 		}
-		else if (Keyboard::Get()->KeyPress(VK_SPACE))
+		else if (Keyboard::Get()->KeyDown(VK_SPACE))
 		{
 			checkTimer = true;
 			m_pSkinnedMesh->status = 5;
