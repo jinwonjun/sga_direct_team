@@ -52,8 +52,8 @@ void Enemy::Init()
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
-	m_renderMode = RenderMode_ShadowMapping;
-	Shaders::Get()->AddList(this, m_renderMode);
+	//m_renderMode = RenderMode_ShadowMapping;
+	//Shaders::Get()->AddList(this, m_renderMode);
 	m_pSkinnedMesh = new SkinnedMesh; m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
@@ -259,6 +259,10 @@ void Enemy::UpdatePosition()
 		D3DXVec3Normalize(&m_forwardNormalized, &m_forward);
 
 		dot = D3DXVec3Dot(&m_forwardNormalized, &forwardNormalized);
+
+		if (dot > 1.f) dot = 1.f;
+		else if (dot < -1.f) dot = -1.f;
+
 		radian = (float)acos(dot);
 
 		Debug->AddText("Radian : " + to_string(radian));
@@ -311,19 +315,38 @@ void Enemy::MoveStop()
 
 void Enemy::AnimationModify()
 {
-	D3DXMATRIXA16 matRotY, matRot, m_matWorldT;
-	D3DXMatrixRotationY(&matRotY, m_rot.y);
-	matRot = matRotY;
+	//ÂÌ¸÷
+	if (GetEnemyNum() < 4)
+	{
+		D3DXMATRIXA16 matRotY, matRot, m_matWorldT;
+		D3DXMatrixRotationY(&matRotY, m_rot.y);
+		matRot = matRotY;
 
-	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
-	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixRotationY(&matR, D3DX_PI);
-	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+		D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+		D3DXMatrixRotationY(&matR, D3DX_PI);
+		D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
 
-	D3DXMATRIXA16 matTemp;
-	matTemp = matS * matRotY * matR * matT;
+		D3DXMATRIXA16 matTemp;
+		matTemp = matS * matRotY * matR * matT;
+		m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+	}
+	//º¸½ºÀÏ¶§
+	else
+	{
+		D3DXMATRIXA16 matRotY, matRot, m_matWorldT;
+		D3DXMatrixRotationY(&matRotY, m_rot.y);
+		matRot = matRotY;
 
-	m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+		D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+		D3DXMatrixRotationY(&matR, D3DX_PI);
+		D3DXMatrixScaling(&matS, 1.0f, 1.0f, 1.0f);
+
+		D3DXMATRIXA16 matTemp;
+		matTemp = matS * matRotY * matR * matT;
+		m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+	}
 }
 
 void Enemy::WorldToVP()
