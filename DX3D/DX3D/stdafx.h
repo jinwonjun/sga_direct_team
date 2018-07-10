@@ -73,6 +73,8 @@ extern HWND g_hWnd;
 #include "FontManager.h"
 #include "ItemManager.h"
 #include "InventoryManager.h"
+#include "IShader.h"
+#include "Shaders.h"
 
 //#define WINSIZEX 1560
 //#define WINSIZEY 990

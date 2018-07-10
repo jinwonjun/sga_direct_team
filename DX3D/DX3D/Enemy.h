@@ -76,5 +76,8 @@ public:
 
 	void WorldToVP();
 	void HpBar();
+
+	void RenderUseShader_0();
+	void RenderUseShader_1();
 };
 

@@ -45,6 +45,7 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	SAFE_RENDER(m_pCurrScene);
+	Shaders::Get()->Render();
 }
 
 void SceneManager::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

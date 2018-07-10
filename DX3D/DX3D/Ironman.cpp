@@ -41,9 +41,11 @@ void Ironman::Init()
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 
 	DamageFontNum = 0;
+	m_renderMode = RenderMode_ShadowMapping;
+	Shaders::Get()->AddList(this, m_renderMode);
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
-	m_pSkinnedMesh->Init();
+	m_pSkinnedMesh->Init(); m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	CString path = "resources/playerX/";
 	CString filename = "combine.X";
 	//CString path = "resources/zealot/";
@@ -81,6 +83,8 @@ void Ironman::Init()
 
 	timer = 0;//체크 타이머 초기화
 	checkTimer = false;
+
+
 }
 
 void Ironman::Update()
@@ -295,5 +299,15 @@ void Ironman::AnimationModify()
 
 	//skinnedMesh에서 X파일 위치 및 스케일 조정부분.
 	m_pSkinnedMesh->SetWorldMatrix(&m_matWorld);
+}
+
+void Ironman::RenderUseShader_0()
+{
+	m_pSkinnedMesh->RenderUseShader_0();
+}
+
+void Ironman::RenderUseShader_1()
+{
+	m_pSkinnedMesh->RenderUseShader_1();
 }
 

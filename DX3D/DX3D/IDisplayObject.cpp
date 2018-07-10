@@ -6,7 +6,7 @@ IDisplayObject::IDisplayObject()
 {
 	m_pParent = NULL;
 	D3DXMatrixIdentity(&m_matWorld);
-	
+	m_renderMode = RenderMode_Default;
 }
 
 

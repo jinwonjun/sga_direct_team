@@ -26,6 +26,10 @@ void ObjMap::Init()
 	//OBJ맵 적용하기
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");
+
+	m_renderMode = RenderMode_ShadowMapping;
+	Shaders::Get()->AddList(this, m_renderMode);
+
 }
 
 void ObjMap::Update()
@@ -234,6 +238,32 @@ void ObjMap::Init_pk_stadium()
 	g_pDevice->LightEnable(10, true);
 }
 
+
+void ObjMap::RenderUseShader_0()
+{
+	if (m_renderMode == RenderMode_ShadowMapping) return;
+
+	for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
+	{
+		Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
+		Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
+		Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
+		Shaders::Get()->GetCurrentShader()->Commit();
+		m_pMeshMap->DrawSubset(i);
+	}
+}
+
+void ObjMap::RenderUseShader_1()
+{
+	for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
+	{
+		Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
+		Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
+		Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
+		Shaders::Get()->GetCurrentShader()->Commit();
+		m_pMeshMap->DrawSubset(i);
+	}
+}
 
 //Map_surface <- z높이 측정하는 용도로 쓰임!
 //loader.Load("resources/obj", "Map.obj", &matWorld, m_vecDrawingGroup);
