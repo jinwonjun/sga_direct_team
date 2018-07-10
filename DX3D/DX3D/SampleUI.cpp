@@ -387,11 +387,8 @@ void SampleUI::Update()
 
 
 
-<<<<<<< HEAD
-	
+
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
-=======
->>>>>>> 2624e6fa8db82cd54e28ee904c2c85f6fb9aeb13
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
@@ -879,9 +876,10 @@ void SampleUI::FontInit3()
 
 	for (int i = 0; i < 20; i++)
 	{
-		DamageFont[i] = new UIText(g_pFontMgr->GetFont(FONT::NORMAL), m_pSprite_Damage, UITAG_TEXTVIEW);
+		DamageFont[i] = new UIText(g_pFontMgr->GetFont(FONT::QUEST), m_pSprite_Damage, UITAG_TEXTVIEW);
 		/*WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);*/
 
+		DamageFont[i]->SetColor(RED);
 		DamageFont[i]->m_text = WeaponAtk.c_str();
 		DamageFont[i]->m_size = D3DXVECTOR2(100, 50);
 		DamageFont[i]->RenderingOn = false;

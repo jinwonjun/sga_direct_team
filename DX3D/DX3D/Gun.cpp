@@ -109,28 +109,8 @@ void Gun::M4GunInit()
 
 void Gun::Update()
 {
-<<<<<<< HEAD
-=======
-//<<<<<<< HEAD
->>>>>>> 2a06e886323e686ee68a7ead1f8fcf0e864bd43a
-	//if (g_pKeyboard->KeyDown('1'))
-	//{
-	//	GunEqiupSet(1);
-	//}
-	//if (g_pKeyboard->KeyDown('2'))
-	//{
-	//	GunEqiupSet(2);
-	//}
-	//if (g_pKeyboard->KeyDown('3'))
-	//{
-	//	GunEqiupSet(3);
-	//}
-<<<<<<< HEAD
-=======
-//=======
-	
-//>>>>>>> 60b3719853b8ffcc10ad2a8c7d9023b2b7b9bcc2
->>>>>>> 2a06e886323e686ee68a7ead1f8fcf0e864bd43a
+
+
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 

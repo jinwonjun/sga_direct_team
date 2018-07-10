@@ -102,7 +102,7 @@ private:
 
 	// equip ¿Ã∏ß 
 
-	D3DXMATRIXA16	m_matWorld_Euip_Name_text;
+	D3DXMATRIXA16	m_matWorld_Euip_Name_text[6];
 	LPD3DXSPRITE m_pSprite_Equip[6];
 	UIText * Equip_Name[6];
 	IUIObject * m_pRootUI_Euip_Text[6];	

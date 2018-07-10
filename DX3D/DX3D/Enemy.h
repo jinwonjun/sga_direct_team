@@ -62,13 +62,11 @@ public:
 	int  GetHP() { return m_HP; }
 	int GetMonsterX() { return ScreenX;	}
 	int GetMonsterY() { return ScreenY; }
-<<<<<<< HEAD
+
 	void MinusHP() { m_HP -= g_pInventory->Equip[Equip_Main_Weapon_1].Atk; }
-=======
-	void MinusHP() { m_HP-= g_pInventory->Equip[1].Atk;}
 
 
->>>>>>> 2624e6fa8db82cd54e28ee904c2c85f6fb9aeb13
+
 	int GetEnemyNum() { return m_enemyNum; }
 
 	D3DXMATRIXA16 ApplyMatWorld;//스킨매쉬에서 그리는 월드 행렬값을 여기서 가져오자.

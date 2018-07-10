@@ -448,7 +448,7 @@ void InventoryManager::Init()
 			D3DXMatrixIdentity(&matT);
 			D3DXMatrixTranslation(&matT, InvenArray[i][j].PositionX, InvenArray[i][j].PositionY, 0);
 			D3DXMatrixScaling(&matS, InvenArray[i][j].ScaleX, InvenArray[i][j].ScaleY, 1);
-			matWorld_InvenItems[matWorld_InvenArray+i + j * 6] = matS * matR * matT;
+			matWorld_InvenItems[matWorld_InvenArray+ i + j * 6] = matS * matR * matT;
 
 		}
 	}
@@ -851,6 +851,8 @@ void InventoryManager::Update()
 	{
 	
 	SAFE_UPDATE(m_pRootUI_Euip_Text[i]);
+
+
 	}
 }
 
@@ -925,7 +927,7 @@ void InventoryManager::Render()
 		//
 		//===========================
 		//Item
-		//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+
 
 		SetRect(&Shop_Item[0].Item_rc, 0, 0, 0 + (Shop_Item[0].m_image_Item_Info.Width), 0 + (Shop_Item[0].m_image_Item_Info.Height /**temp*/));
 
@@ -1054,8 +1056,8 @@ void InventoryManager::Render()
 					&Equiped_Item[i].m_rc,
 					&D3DXVECTOR3(0, 0, 0),
 					&D3DXVECTOR3(0, 0, 0),
-					D3DCOLOR_ARGB(150, 255, 255, 255));
-
+					D3DCOLOR_ARGB(255, 255, 255, 255));
+			
 
 
 
@@ -1116,6 +1118,9 @@ void InventoryManager::Render()
 						D3DCOLOR_ARGB(255, 255, 255, 255));
 				}
 			
+				
+
+				
 			}
 
 
@@ -1167,9 +1172,11 @@ void InventoryManager::Render()
 					&D3DXVECTOR3(0, 0, 0),
 					WHITE);
 
-				/*m_pRootUI_Euip[i]->AddChild(Equip_Name[i]);*/
 				
 			}
+
+
+	
 		}	
 
 	
@@ -1251,29 +1258,35 @@ void InventoryManager::Render()
 			}
 		}
 
-	
 		for (int i = 0; i < 6; i++)
 		{
-			m_pSprite_Equip[i]->SetTransform(&m_matWorld_Euip_Name_text);
 
-		
-			Equip_Name[i]->SetPosition(&D3DXVECTOR3(Equiped_Item[i].PositionX*2.5f, Equiped_Item[i].PositionY , 0));
+			Equip_Name[i]->SetColor(BLACK);
+			Equip_Name[i]->SetPosition(&D3DXVECTOR3(Equiped_Item[i].PositionX*2.5f, Equiped_Item[i].PositionY, 0));
+
+			m_pSprite_Equip[i]->SetTransform(&m_matWorld_Euip_Name_text[i]);			
+	
 			SAFE_RENDER(m_pRootUI_Euip_Text[i]);
-
 		}
+	
 	
 		
 	}
 
 	else
 	{
-
+		
 	}
+
+
 
 	for (int i = 5; i >= 0; i--)
 	{
 		m_pSprite_Equip[i]->End();
 	}
+	
+
+
 
 	m_pSprite->End();
 
@@ -1335,7 +1348,7 @@ void InventoryManager::Weapon_Equip_Text()
 	D3DXMATRIXA16 matT;
 	//D3DXMatrixTranslation(&matT, Equiped_Item_BlackBack[i].PositionX, Equiped_Item_BlackBack[i].PositionY, 0);
 	D3DXMatrixTranslation(&matT, 0, 0, 0);
-	m_matWorld_Euip_Name_text = matS * matT;
+
 
 	Equip_Name_Text[0] = "MainWeapon";
 	Equip_Name_Text[1] = "Armor";
@@ -1347,14 +1360,14 @@ void InventoryManager::Weapon_Equip_Text()
 	////텍스트를 집어넣자
 	for (int i = 0; i < 6; i++)
 	{
+		m_matWorld_Euip_Name_text[i] = matS * matT;
 		float Equip_NameRect_StartX = Equiped_Item[i].PositionX + (Equiped_Item[i].m_image.Width*0.3*Adjust_Display_Mode_X);
 		float Equip_NameRect_StartY = Equiped_Item[i].PositionY + (Equiped_Item[i].m_image.Height*0.3*Adjust_Display_Mode_Y);
 		SetRect(&Equip_Name_Rect[i], Equip_NameRect_StartX, Equip_NameRect_StartY, Equip_NameRect_StartX+ 200, Equip_NameRect_StartY+200);
 
 		Equip_Name[i] = new UIText(g_pFontMgr->GetFont(FONT::Equiped), m_pSprite_Equip[i], 1);
 		
-	
-		Equip_Name[i]->m_text = Equip_Name_Text[i];
+			Equip_Name[i]->m_text = Equip_Name_Text[i];
 		Equip_Name[i]->m_size = D3DXVECTOR2(200, 100);
 		//Equip_Name[i]->Render();
 		Equip_Name[i]->RenderingOn = false;
@@ -1372,24 +1385,24 @@ void InventoryManager::Weapon_Equip_Text()
 	}
 }
 
-void InventoryManager::Item_Info_Text()
-{
-	for (int i = 0; i < 4; i++)
-	{
-		UIImage * pImage = new UIImage(m_pSprite_Equip[i]);
-		m_pRootUI_Item_Info[i] = pImage;
-	}
-
-	D3DXMATRIXA16 matS;
-	D3DXMatrixScaling(&matS, 1.f, 1.f, 1);
-	D3DXMATRIXA16 matT;
-	//D3DXMatrixTranslation(&matT, Equiped_Item_BlackBack[i].PositionX, Equiped_Item_BlackBack[i].PositionY, 0);
-	D3DXMatrixTranslation(&matT, 0, 0, 0);
-	m_matWorld_Item_Info[ItemName] = matS * matT;
-
-	Item_Info[ItemName] = new UIText(g_pFontMgr->GetFont(FONT::Equiped), m_pSprite_Item_Info[ItemName], 1);
-	
-}
+//void InventoryManager::Item_Info_Text()
+//{
+//	for (int i = 0; i < 4; i++)
+//	{
+//		UIImage * pImage = new UIImage(m_pSprite_Equip[i]);
+//		m_pRootUI_Item_Info[i] = pImage;
+//	}
+//
+//	D3DXMATRIXA16 matS;
+//	D3DXMatrixScaling(&matS, 1.f, 1.f, 1);
+//	D3DXMATRIXA16 matT;
+//	//D3DXMatrixTranslation(&matT, Equiped_Item_BlackBack[i].PositionX, Equiped_Item_BlackBack[i].PositionY, 0);
+//	D3DXMatrixTranslation(&matT, 0, 0, 0);
+//	m_matWorld_Item_Info[ItemName] = matS * matT;
+//
+//	Item_Info[ItemName] = new UIText(g_pFontMgr->GetFont(FONT::Equiped), m_pSprite_Item_Info[ItemName], 1);
+//	
+//}
 
 
 

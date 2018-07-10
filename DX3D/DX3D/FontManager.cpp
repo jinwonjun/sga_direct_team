@@ -17,14 +17,14 @@ LPD3DXFONT FontManager::GetFont(FONT::FontType e)
 	{
 		if (e == FONT::NORMAL)
 		{
-			D3DXCreateFont(g_pDevice,24, 12, FW_NORMAL, 1, false, 
-				DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, _T("궁서체"), &m_mapFont[e]);
+			D3DXCreateFont(g_pDevice,24, 12, FW_NORMAL, 1, false,
+				DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, _T("umberto"), &m_mapFont[e]);
 		}
 		else if (e == FONT ::QUEST)
 		{
 			//폰트 추가는 이런식으로
 			//AddFontResource("파일 경로/fonts/umberto.ttf");
-			D3DXCreateFont(g_pDevice, 24, 12, FW_NORMAL, 1, false,
+			D3DXCreateFont(g_pDevice, 24, 12, FW_NORMAL, 1, true,
 				DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, _T("umberto"), &m_mapFont[e]);
 		}
 		else if (e == FONT::Item)
@@ -45,7 +45,7 @@ LPD3DXFONT FontManager::GetFont(FONT::FontType e)
 		}
 		else
 		{
-			D3DXCreateFont(g_pDevice, 50, 12, FW_NORMAL, 1, true,
+			D3DXCreateFont(g_pDevice, 50, 12, FW_NORMAL, 1, false,
 				DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, _T("koverwatch"), &m_mapFont[e]);
 		}
 	}
