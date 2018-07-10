@@ -7,9 +7,7 @@
 //obj파일 불러오기
 #include "DrawingGroup.h"
 #include "ObjLoader.h"
-
 #include "SkinnedMesh.h"
-
 #include "Ironman.h"
 
 #define SCALE 10.00f
@@ -180,7 +178,6 @@ void Enemy::Render()
 	//Debug->EndLine();
 	//Debug->EndLine();
 
-
 	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
@@ -202,7 +199,6 @@ void Enemy::Render()
 		m_pSprite->SetTransform(&matW_UI);
 		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
 		m_pSprite->End();
-
 	}
 }
 

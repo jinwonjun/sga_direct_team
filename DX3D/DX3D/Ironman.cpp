@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Ironman.h"
-
 #include "SkinnedMesh.h"
 #include "AllocateHierarchy.h"
 #include "BoundingBox.h"
@@ -169,14 +168,14 @@ void Ironman::Update()
 		else if (Keyboard::Get()->KeyPress('R'))
 		{
 			checkTimer = true;
-			timer = -0.18f;
+			timer = -0.17f;
 			m_pSkinnedMesh->status = 6;
 			m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
 		}
 		else if (Keyboard::Get()->KeyDown(VK_SPACE))
 		{
 			checkTimer = true;
-			timer = -0.05f;
+			timer = -0.055f;
 			m_pSkinnedMesh->status = 5;
 		}
 		else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
@@ -188,7 +187,7 @@ void Ironman::Update()
 		if (checkTimer)
 		{
 			timer += 0.001f;
-			if (timer > 0.03f)
+			if (timer > 0.025f)
 			{
 				checkTimer = false;
 				timer = 0;
