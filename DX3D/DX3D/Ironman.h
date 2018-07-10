@@ -52,4 +52,8 @@ public:
 
 	//아이언맨의 계산된 월드 행렬을 가져오자
 	D3DXMATRIXA16 matRotY, matRotX, matT, matR, matS, matTemp;
+
+
+	void RenderUseShader_0();
+	void RenderUseShader_1();
 };

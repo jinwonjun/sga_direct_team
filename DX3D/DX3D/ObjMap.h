@@ -32,5 +32,8 @@ public:
 
 	// IMap을(를) 통해 상속됨
 	virtual bool CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY) override { return true; }
+
+	void RenderUseShader_0();
+	void RenderUseShader_1();
 };
 

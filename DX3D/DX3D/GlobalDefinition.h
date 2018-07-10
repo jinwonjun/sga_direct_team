@@ -1,6 +1,7 @@
 #pragma once
 
 //extern CSring
+const CString SHADER_PATH = _T("./resources/shadow/");
 
 #define CUBE_INDEX_SIZE 36
 extern WORD g_aCubeIndex[];

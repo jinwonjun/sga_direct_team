@@ -118,6 +118,9 @@
     <Filter Include="소스 파일\UI_CLASS\ITEM">
       <UniqueIdentifier>{89a1edd6-d485-4213-93d4-6e25a11b025a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\SHADER">
+      <UniqueIdentifier>{72b693a8-7a1c-4187-897c-f1b9fbc79e6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -366,6 +369,18 @@
     <ClInclude Include="ItemManager.h">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClInclude>
+    <ClInclude Include="IShader.h">
+      <Filter>소스 파일\SHADER</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>소스 파일\SHADER</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMappingShader.h">
+      <Filter>소스 파일\SHADER</Filter>
+    </ClInclude>
+    <ClInclude Include="LightingShader.h">
+      <Filter>소스 파일\SHADER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -595,6 +610,15 @@
     </ClCompile>
     <ClCompile Include="Enemyman.cpp">
       <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>소스 파일\SHADER</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMappingShader.cpp">
+      <Filter>소스 파일\SHADER</Filter>
+    </ClCompile>
+    <ClCompile Include="LightingShader.cpp">
+      <Filter>소스 파일\SHADER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

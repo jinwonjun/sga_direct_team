@@ -54,7 +54,9 @@ void Enemy::Init()
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
-	m_pSkinnedMesh = new SkinnedMesh;
+	m_renderMode = RenderMode_ShadowMapping;
+	Shaders::Get()->AddList(this, m_renderMode);
+	m_pSkinnedMesh = new SkinnedMesh; m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
 
@@ -371,4 +373,14 @@ void Enemy::WorldToVP()
 	Debug->AddText(ScreenY);
 	Debug->EndLine();
 	Debug->EndLine();
+}
+
+void Enemy::RenderUseShader_0()
+{
+	m_pSkinnedMesh->RenderUseShader_0();
+}
+
+void Enemy::RenderUseShader_1()
+{
+	m_pSkinnedMesh->RenderUseShader_1();
 }

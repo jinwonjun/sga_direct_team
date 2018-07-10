@@ -62,5 +62,10 @@ public:
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	void SetTarget(D3DXVECTOR3* pTarget) { m_pTarget = pTarget; }
 	POINT GetMCenter() { return mCenter; }//Áß¾ÓÁÂÇ¥ °¡Á®¿À±â
+
+	const D3DXVECTOR3& GetPosition() { return m_eye; }
+	D3DXMATRIXA16* GetViewMatrix() { return &m_matView; }
+	D3DXMATRIXA16* GetProjMatrix() { return &m_matProj; }
+	D3DXMATRIXA16* GetViewProjMatrix() { return &(D3DXMATRIXA16)(m_matView * m_matProj); }
 };
 

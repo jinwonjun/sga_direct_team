@@ -16,6 +16,7 @@ void Application::Init()
 	g_pDeviceManager->Init();
 	g_pMouse->SetHandle(g_hWnd);
 	g_pCamera->Init();
+	Shaders::Get()->Init();
 	g_pSceneManager->Init();
 	//g_pItem->ItemTable();
 	g_pInventory->Init();
@@ -25,6 +26,7 @@ void Application::Init()
 
 void Application::Destroy()
 {
+	Shaders::Get()->Delete();
 	g_pSceneManager->Destroy();
 
 	//디바이스 매니져와 텍스쳐 매니져에서 지우는 텍스쳐를 

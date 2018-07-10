@@ -3,6 +3,14 @@
 
 class IDisplayObject : public BaseObject
 {
+public:
+	enum RenderMode
+	{
+		RenderMode_Default,
+		RenderMode_Lighting,
+		RenderMode_ShadowMapping
+	};
+
 protected:
 	D3DXVECTOR3				m_pos;
 	D3DXVECTOR3				m_rot;
@@ -17,6 +25,7 @@ protected:
 
 	vector<VERTEX_PC> m_vecVertex;
 
+	RenderMode				m_renderMode;
 public:
 	IDisplayObject();
 	virtual ~IDisplayObject();
@@ -33,6 +42,8 @@ public:
 	//virtual void AddChild3(IDisplayObject* pChild);
 	virtual void ReleaseAll();
 
+	virtual void RenderUseShader_0() {};
+	virtual void RenderUseShader_1() {};
 
 	D3DXVECTOR3		GetPosition() { return m_pos; }
 	void			SetPosition(D3DXVECTOR3* pos) { m_pos = *pos; }
