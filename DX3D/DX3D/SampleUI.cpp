@@ -387,6 +387,11 @@ void SampleUI::Update()
 
 
 
+<<<<<<< HEAD
+	
+	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
+=======
+>>>>>>> 2624e6fa8db82cd54e28ee904c2c85f6fb9aeb13
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
@@ -495,9 +500,7 @@ void SampleUI::DamagePositionUpdate(int fontNum)
 {
 
 	for (int i = 0; i < 20; i++)
-	{
-
-		
+	{		
 
 		if ((g_pItem->MonsterDamageTimer[i] == 0))
 		{
@@ -865,6 +868,7 @@ void SampleUI::FontInit2()
 void SampleUI::FontInit3()
 {
 
+
 	ScaleX_BulletNum = 1.f;
 	ScaleY_BulletNum = 1.f;
 	D3DXMATRIXA16 matS;
@@ -872,7 +876,6 @@ void SampleUI::FontInit3()
 	D3DXMATRIXA16 matT;
 	D3DXMatrixTranslation(&matT, 0, 0, 0);
 	m_matWorld_DamageFont = matS * matT;
-	
 
 	for (int i = 0; i < 20; i++)
 	{

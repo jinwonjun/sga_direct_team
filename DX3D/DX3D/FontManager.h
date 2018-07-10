@@ -6,7 +6,7 @@ namespace FONT
 {
 	enum FontType
 	{
-		NORMAL, QUEST, BASE, Item
+		NORMAL, QUEST, BASE, Item, Equiped
 	};
 }
 
@@ -17,6 +17,8 @@ private:
 	map<FONT::FontType, LPD3DXFONT> m_mapFont;
 public:
 	LPD3DXFONT GetFont(FONT::FontType e);
+	LPD3DXFONT GetFont(FONT::FontType e, int i);
+
 	void Destroy();
 };
 

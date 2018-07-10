@@ -39,21 +39,22 @@ struct items {
 	RECT isInven_show_rc;
 
 	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
-	D3DXIMAGE_INFO		 m_image_InvenOn_Info;
+	D3DXIMAGE_INFO		 m_image_InvenOver_Info;
 
 	LPDIRECT3DTEXTURE9	 m_pTex_Item;       // 텍스쳐 정보
-	LPDIRECT3DTEXTURE9	 m_pTex_InvenOn;
+	LPDIRECT3DTEXTURE9	 m_pTex_InvenOver;
 };
 
 // 이넘문으로 1부터 6까지 선언해준다.
 enum Weapon_Types_
 {
 	Weapon_Type_MainWeapons= 1,
-	Weapon_Type_SubWeapons,
 	Weapon_Type_Armor,
-	Weapon_Type_Belt,
 	Weapon_Type_Glove,
+	Weapon_Type_SubWeapons,
+	Weapon_Type_Belt,
 	Weapon_Type_Boots
+
 };
 
 class ItemManager 
