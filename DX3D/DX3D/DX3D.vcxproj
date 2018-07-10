@@ -22,13 +22,13 @@
     <ProjectGuid>{318797B4-98FA-42CB-9E2C-9F47BA015126}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DX3D</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -195,12 +195,14 @@
     <ClInclude Include="InventoryManager.h" />
     <ClInclude Include="Ironman.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="IShader.h" />
     <ClInclude Include="ItemImage.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="IUIObject.h" />
     <ClInclude Include="IUnitObject.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardManager.h" />
+    <ClInclude Include="LightingShader.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="ObjLoader.h" />
@@ -216,6 +218,8 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneObjMap.h" />
     <ClInclude Include="Scene_UI.h" />
+    <ClInclude Include="Shaders.h" />
+    <ClInclude Include="ShadowMappingShader.h" />
     <ClInclude Include="SkinnedMesh.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stdafx.h" />
@@ -281,6 +285,7 @@
     <ClCompile Include="IUnitObject.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
+    <ClCompile Include="LightingShader.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
@@ -295,6 +300,8 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneObjMap.cpp" />
     <ClCompile Include="Scene_UI.cpp" />
+    <ClCompile Include="Shaders.cpp" />
+    <ClCompile Include="ShadowMappingShader.cpp" />
     <ClCompile Include="SkinnedMesh.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -2,7 +2,7 @@
 #include "InventoryManager.h"
 #include "Gun.h"
 
-
+#include "Gun.h"
 
 InventoryManager* InventoryManager::instance = NULL;
 
@@ -487,7 +487,11 @@ void InventoryManager::Update()
 							{
 								swap(Equip[Equip_Main_Weapon_1], InvenArray[i][j]);
 								Equip[Weapon_Type_MainWeapons].isEquiped = true;
+<<<<<<< HEAD
 								InvenArray[i][j].isEquiped = false;						
+=======
+								InvenArray[i][j].isEquiped = false;
+>>>>>>> 2a06e886323e686ee68a7ead1f8fcf0e864bd43a
 								
 								static_cast<Gun*>( g_pObjMgr->FindObjectByTag(TAG_GUN)) ->GunEqiupSet(Equip[Weapon_Type_MainWeapons].index);
 							}

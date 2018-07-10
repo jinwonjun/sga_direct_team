@@ -13,6 +13,7 @@
 #include "Ironman.h"
 
 #define SCALE 10.00f
+#define MOB_FULL_HP 100//몹의 전체 피통
 
 Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 {
@@ -23,7 +24,7 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 
 	m_forward = D3DXVECTOR3(0, 0, 1);
 	m_isMoving = false;
-	m_HP = 8;
+	m_HP = MOB_FULL_HP;//갱신되는 몹의 체력을 매크로에서 받아오기
 	m_ItemDrop = false;
 
 	m_path = path;			// "resources/zealot/";
@@ -53,7 +54,9 @@ void Enemy::Init()
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
-	m_pSkinnedMesh = new SkinnedMesh;
+	m_renderMode = RenderMode_ShadowMapping;
+	Shaders::Get()->AddList(this, m_renderMode);
+	m_pSkinnedMesh = new SkinnedMesh; m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
 
@@ -136,15 +139,57 @@ void Enemy::Render()
 	////////////////////////////////////////////////////////////////////
 	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
 
+	float HP_Percent = (float)(((float)m_HP / (float)MOB_FULL_HP) * 100);
+	
+	int Hp_Draw_Idx;
+	if (HP_Percent <= 100 && HP_Percent > 87.5)
+	{
+		Hp_Draw_Idx = 7;
+	}
+	else if (HP_Percent <= 87.5 && HP_Percent > 75)
+	{
+		Hp_Draw_Idx = 6;
+	}
+	else if (HP_Percent <= 75 && HP_Percent > 62.5)
+	{
+		Hp_Draw_Idx = 5;
+	}
+	else if (HP_Percent <= 62.5 && HP_Percent > 50)
+	{
+		Hp_Draw_Idx = 4;
+	}
+	else if (HP_Percent <= 50 && HP_Percent > 37.5)
+	{
+		Hp_Draw_Idx = 3;
+	}
+	else if (HP_Percent <= 37.5 && HP_Percent > 25)
+	{
+		Hp_Draw_Idx = 2;
+	}
+	else if (HP_Percent <= 25 && HP_Percent > 12.5)
+	{
+		Hp_Draw_Idx = 1;
+	}
+	else if (HP_Percent <= 12.5 && HP_Percent > 0)
+	{
+		Hp_Draw_Idx = 0;
+	}
+
+	//Debug->AddText("데미지 표시 : ");
+	//Debug->AddText(HP_Percent);
+	//Debug->EndLine();
+	//Debug->EndLine();
+
+
 	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
 						g_pCamera->GetMCenter().y <= ScreenY))
 	{
-		SetRect(&HP_Info[m_HP-1].m_Image_rc, 0, 0, HP_Info[m_HP-1].m_imageInfo.Width, HP_Info[m_HP-1].m_imageInfo.Height);
+		SetRect(&HP_Info[Hp_Draw_Idx].m_Image_rc, 0, 0, HP_Info[Hp_Draw_Idx].m_imageInfo.Width, HP_Info[Hp_Draw_Idx].m_imageInfo.Height);
 		//D3DXMatrixRotationZ(&matR, fAngle);
 		D3DXMatrixIdentity(&matT_UI);
-		D3DXMatrixTranslation(&matT_UI, ScreenX - HP_Info[m_HP-1].m_imageInfo.Width / 2, ScreenY, 0);
+		D3DXMatrixTranslation(&matT_UI, ScreenX - HP_Info[Hp_Draw_Idx].m_imageInfo.Width / 2, ScreenY, 0);
 		//D3DXMatrixTranslation(&matT,0, 0, 0);
 	
 		//250, 850, 0
@@ -155,15 +200,10 @@ void Enemy::Render()
 		//D3DXSPRITE_ALPHABLEND
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		m_pSprite->SetTransform(&matW_UI);
-		m_pSprite->Draw(HP_Info[m_HP-1].m_pTex, &HP_Info[m_HP-1].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
+		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
 		m_pSprite->End();
 
 	}
-	
-
-	
-
-	
 }
 
 void Enemy::UpdatePosition()
@@ -333,4 +373,14 @@ void Enemy::WorldToVP()
 	Debug->AddText(ScreenY);
 	Debug->EndLine();
 	Debug->EndLine();
+}
+
+void Enemy::RenderUseShader_0()
+{
+	m_pSkinnedMesh->RenderUseShader_0();
+}
+
+void Enemy::RenderUseShader_1()
+{
+	m_pSkinnedMesh->RenderUseShader_1();
 }

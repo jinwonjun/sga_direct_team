@@ -18,6 +18,8 @@ SkinnedMesh::SkinnedMesh()
 	m_bDrawFrame = true;
 	m_bDrawSkeleton = false;
 
+	//만약에 셰이더 안쓸라고 RenderMode 따로 셋팅 안해주면 그냥 Render 해주기
+	m_renderMode = IDisplayObject::RenderMode::RenderMode_Default;
 }
 
 SkinnedMesh::~SkinnedMesh()
@@ -184,6 +186,8 @@ void SkinnedMesh::UpdateFrameMatrices(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 
 void SkinnedMesh::Render()
 {
+	if (m_renderMode != IDisplayObject::RenderMode::RenderMode_Default) return;
+
 	m_numFrame = 0;
 	m_numMesh = 0;
 	
@@ -273,6 +277,7 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 
 	//D3DXMatrixIdentity(&m_matWorld);
 	//D3DXMatrixScaling(&m_matWorld, 5.0f, 5.0f, 5.0f);
+	/*
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 
 	for (size_t i = 0; i < pMeshContainerEx->vecMtlTex.size(); ++i)
@@ -280,6 +285,43 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 		g_pDevice->SetMaterial(&pMeshContainerEx->vecMtlTex[i]->GetMaterial());
 		g_pDevice->SetTexture(0, pMeshContainerEx->vecMtlTex[i]->GetTexture());
 		pMeshContainerEx->pWorkMesh->DrawSubset(i);
+	}
+	*/
+
+	if (m_renderMode == IDisplayObject::RenderMode::RenderMode_Default)
+	{
+		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+		g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+
+		for (size_t i = 0; i < pMeshContainerEx->vecMtlTex.size(); ++i)
+		{
+			g_pDevice->SetMaterial(&pMeshContainerEx->vecMtlTex[i]->material);
+			g_pDevice->SetTexture(0, pMeshContainerEx->vecMtlTex[i]->pTexture);
+			pMeshContainerEx->pWorkMesh->DrawSubset(i);
+		}
+	}
+
+	else if (m_renderMode == IDisplayObject::RenderMode::RenderMode_Lighting)
+	{
+		for (size_t i = 0; i < pMeshContainerEx->vecMtlTex.size(); ++i)
+		{
+			Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
+			Shaders::Get()->GetCurrentShader()->SetTexture(pMeshContainerEx->vecMtlTex[i]->pTexture);
+			Shaders::Get()->GetCurrentShader()->SetMaterial(&pMeshContainerEx->vecMtlTex[i]->material);
+			Shaders::Get()->GetCurrentShader()->Commit();
+			pMeshContainerEx->pWorkMesh->DrawSubset(i);
+		}
+	}
+	else if (m_renderMode == IDisplayObject::RenderMode::RenderMode_ShadowMapping)
+	{
+		for (size_t i = 0; i < pMeshContainerEx->vecMtlTex.size(); ++i)
+		{
+			Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
+			Shaders::Get()->GetCurrentShader()->SetTexture(pMeshContainerEx->vecMtlTex[i]->pTexture);
+			Shaders::Get()->GetCurrentShader()->SetMaterial(&pMeshContainerEx->vecMtlTex[i]->material);
+			Shaders::Get()->GetCurrentShader()->Commit();
+			pMeshContainerEx->pWorkMesh->DrawSubset(i);
+		}
 	}
 
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
@@ -325,6 +367,17 @@ void SkinnedMesh::DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	{
 		DrawSkeleton(pFrame->pFrameFirstChild, pFrame);
 	}
+}
+
+void SkinnedMesh::RenderUseShader_0()
+{
+	if (m_bDrawFrame)DrawFrame(m_pRootFrame);
+}
+
+void SkinnedMesh::RenderUseShader_1()
+{
+	if (m_bDrawFrame)DrawFrame(m_pRootFrame);
+	// if (m_pSubRootFrame) if (m_bDrawFrame)DrawFrame(m_pSubRootFrame);
 }
 
 void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)

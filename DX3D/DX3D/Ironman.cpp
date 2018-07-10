@@ -24,7 +24,6 @@ Ironman::Ironman()
 	//m_bWireFrame = false;
 	//m_bDrawFrame = true;
 	//m_bDrawSkeleton = false;
-
 	//status = 4;
 }
 
@@ -33,7 +32,6 @@ Ironman::~Ironman()
 {
 	SAFE_RELEASE(m_pBox);
 	SAFE_RELEASE(m_pBlood);
-
 	m_pSkinnedMesh->~SkinnedMesh();
 }
 
@@ -44,9 +42,11 @@ void Ironman::Init()
 	g_pKeyboardManager->SetMovingTarget(&m_keyState);
 
 	DamageFontNum = 0;
+	m_renderMode = RenderMode_ShadowMapping;
+	Shaders::Get()->AddList(this, m_renderMode);
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
-	m_pSkinnedMesh->Init();
+	m_pSkinnedMesh->Init(); m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	CString path = "resources/playerX/";
 	CString filename = "combine.X";
 	//CString path = "resources/zealot/";
@@ -66,8 +66,6 @@ void Ironman::Init()
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
 
-
-
 	keyPress = false;
 
 	//시작위치 조정
@@ -86,6 +84,8 @@ void Ironman::Init()
 
 	timer = 0;//체크 타이머 초기화
 	checkTimer = false;
+
+
 }
 
 void Ironman::Update()
@@ -122,24 +122,27 @@ void Ironman::Update()
 	//오른손 좌표 가져오기
 	RightHand = m_pSkinnedMesh->GetHandMatrix();
 
-
 	D3DXTRACK_DESC track;
 	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
 	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
 	m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
-	pCurrAnimSet->GetPeriod(); //전체 시간
-	Debug->EndLine();
-	Debug->EndLine();
-	Debug->AddText("전체 시간 : ");
-	Debug->AddText(pCurrAnimSet->GetPeriod());
-	Debug->EndLine();
-	Debug->AddText("현재 시간 : ");
-	pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
-	Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
-	Debug->EndLine();
-	Debug->EndLine();
+	//pCurrAnimSet->GetPeriod(); //전체 시간
+	//Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->AddText("전체 시간 : ");
+	//Debug->AddText(pCurrAnimSet->GetPeriod());
+	//Debug->EndLine();
+	//Debug->AddText("현재 시간 : ");
+	//pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
+	//Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
+	//Debug->EndLine();
+	//Debug->EndLine();
+	//위아래 짝꿍
+	//해제하기
+	//pCurrAnimSet->Release();
 
-
+	//if (m_animIndex > 0)//0
+	//m_animIndex--;
 
 	if (!OpenUI)
 	{
@@ -155,48 +158,40 @@ void Ironman::Update()
 		}
 		else if (Keyboard::Get()->KeyPress('A'))
 		{
-			//if (m_animIndex > 0)//0
-			//m_animIndex--;
 			checkTimer = true;
 			m_pSkinnedMesh->status = 3;
 		}
 		else if (Keyboard::Get()->KeyPress('D'))
 		{
-			//if (m_animIndex > 0)//0
-			//m_animIndex--;
 			checkTimer = true;
 			m_pSkinnedMesh->status = 4;
 		}
 		else if (Keyboard::Get()->KeyPress('R'))
 		{
-			//if (m_animIndex > 0)//0
-			//m_animIndex--;
 			checkTimer = true;
+			timer = -0.18f;
 			m_pSkinnedMesh->status = 6;
+			m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
 		}
 		else if (Keyboard::Get()->KeyDown(VK_SPACE))
 		{
 			checkTimer = true;
+			timer = -0.05f;
 			m_pSkinnedMesh->status = 5;
 		}
 		else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
 		{
 			checkTimer = true;
+			timer = 0.015f;
 			m_pSkinnedMesh->status = 1;
-			//if (m_animIndex > 0)//0
-			//m_animIndex--;
 		}
-		//else//idle상태 만들기
-		//{
-		//	//m_pSkinnedMesh->status = 0;
-		//}
 		if (checkTimer)
 		{
 			timer += 0.001f;
 			if (timer > 0.03f)
 			{
-				timer = 0;
 				checkTimer = false;
+				timer = 0;
 			}
 		}
 		else
@@ -205,10 +200,10 @@ void Ironman::Update()
 		}
 	}
 
-	Debug->AddText("타이머 ");
-	Debug->AddText(timer);
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->AddText("타이머 체크 : ");
+	//Debug->AddText(timer);
+	//Debug->EndLine();
+	//Debug->EndLine();
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
@@ -217,9 +212,6 @@ void Ironman::Update()
 
 	//혈흔
 	SAFE_UPDATE(m_pBlood);
-
-	//해제하기
-	//pCurrAnimSet->Release();
 }
 
 void Ironman::Render()
@@ -308,5 +300,15 @@ void Ironman::AnimationModify()
 
 	//skinnedMesh에서 X파일 위치 및 스케일 조정부분.
 	m_pSkinnedMesh->SetWorldMatrix(&m_matWorld);
+}
+
+void Ironman::RenderUseShader_0()
+{
+	m_pSkinnedMesh->RenderUseShader_0();
+}
+
+void Ironman::RenderUseShader_1()
+{
+	m_pSkinnedMesh->RenderUseShader_1();
 }
 

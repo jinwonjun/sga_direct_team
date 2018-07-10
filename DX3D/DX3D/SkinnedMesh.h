@@ -20,6 +20,7 @@ protected:
 	D3DXMATRIXA16 m_matWorld;
 	D3DXMATRIXA16 m_RightHandFrame;
 
+	IDisplayObject::RenderMode m_renderMode;
 public:
 	SkinnedMesh();
 	virtual ~SkinnedMesh();
@@ -39,7 +40,6 @@ private:
 	void DrawFrame(LPD3DXFRAME pFrame);
 	void DrawMeshContainer(LPD3DXFRAME pFrame);
 	void DrawSkeleton(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
-
 public:
 	void SetAnimationIndex(int nIndex, bool isBlend);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController() {return m_pAnimController;}
@@ -49,6 +49,10 @@ public:
 	void SetWorldMatrix(D3DXMATRIXA16* matW) { m_matWorld = *matW; }
 
 	D3DXMATRIXA16& GetHandMatrix() { return m_RightHandFrame; }
+
+	void RenderUseShader_0();
+	void RenderUseShader_1();
+	void SetRenderMode(IDisplayObject::RenderMode renderMode) { m_renderMode = renderMode; }
 };
 
 // OnInit

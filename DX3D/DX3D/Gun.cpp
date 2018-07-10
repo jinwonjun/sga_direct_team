@@ -5,7 +5,6 @@
 
 Gun::Gun()
 {
-
 }
 
 
@@ -33,37 +32,22 @@ Beam_gun = 3;
 */
 void Gun::GunEqiupSet(int WeaponStatus)
 {
-	//int EquipNumber;
-	//EquipNumber = g_pInventory->Equip[Equip_Main_Weapon_1].index;
-
-
-
-
-		if (WeaponStatus == 1)
-		{
-			M4GunInit();
-		
-		
-		}
-		else if (WeaponStatus == 2)
-		{
-
-			BeamGunInit();
-	
-		}
-		else if (WeaponStatus == 3)
-		{
-
-			LaserGunInit();
-	
-		}
-		else
-		{
-			WeaponStatus = 0;
-		}
-
-
-
+	if (WeaponStatus == 1)
+	{
+		M4GunInit();
+	}
+	else if (WeaponStatus == 2)
+	{
+		BeamGunInit();
+	}
+	else if (WeaponStatus == 3)
+	{
+		LaserGunInit();
+	}
+	else
+	{
+		WeaponStatus = 0;
+	}
 }
 
 void Gun::BeamGunInit()
@@ -71,13 +55,14 @@ void Gun::BeamGunInit()
 	D3DXMatrixIdentity(&ApplyMatrix);
 	D3DXMatrixIdentity(&CalPrevMat);
 
-	D3DXMATRIXA16 matRY, matRX, matRZ, matS;
+	D3DXMATRIXA16 matRY, matRX, matRZ, matS,matT;
 	D3DXMatrixScaling(&matS, 1.0f, 1.0f, 1.0f);
 	D3DXMatrixRotationY(&matRY, D3DX_PI / -2);
 	D3DXMatrixRotationX(&matRX, D3DX_PI);
 	D3DXMatrixRotationZ(&matRZ, D3DX_PI / 2);
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
 
-	CalPrevMat = matS * matRX *matRY * matRZ;
+	CalPrevMat = matS * matRX *matRY * matRZ * matT;
 
 	ObjLoader loader;
 	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/Beam", "Beam_Gun.obj", &ApplyMatrix, m_vecMtlTex);
@@ -124,7 +109,22 @@ void Gun::M4GunInit()
 
 void Gun::Update()
 {
+//<<<<<<< HEAD
+	//if (g_pKeyboard->KeyDown('1'))
+	//{
+	//	GunEqiupSet(1);
+	//}
+	//if (g_pKeyboard->KeyDown('2'))
+	//{
+	//	GunEqiupSet(2);
+	//}
+	//if (g_pKeyboard->KeyDown('3'))
+	//{
+	//	GunEqiupSet(3);
+	//}
+//=======
 	
+//>>>>>>> 60b3719853b8ffcc10ad2a8c7d9023b2b7b9bcc2
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 
