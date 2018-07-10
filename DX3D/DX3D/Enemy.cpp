@@ -52,8 +52,8 @@ void Enemy::Init()
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
-	m_renderMode = RenderMode_ShadowMapping;
-	Shaders::Get()->AddList(this, m_renderMode);
+	//m_renderMode = RenderMode_ShadowMapping;
+	//Shaders::Get()->AddList(this, m_renderMode);
 	m_pSkinnedMesh = new SkinnedMesh; m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
@@ -173,11 +173,6 @@ void Enemy::Render()
 		Hp_Draw_Idx = 0;
 	}
 
-	//Debug->AddText("데미지 표시 : ");
-	//Debug->AddText(HP_Percent);
-	//Debug->EndLine();
-	//Debug->EndLine();
-
 	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
@@ -228,15 +223,34 @@ void Enemy::UpdatePosition()
 	//	m_pos = targetPos;
 	//}
 
+	//enum4(이동) 랑 5(멈춤)로 컨트롤중
+	//보스기준 enum3이 공격 enum2가 달리기 enum1이 대기
 	//바운딩 박스에 닿았을때 거리가 10보다 크면 이동 -> 10보다 작으면 멈춤
 	if (D3DXVec3Length(&(m_destPos - m_pos)) > 10.f)
 	{
-		m_pSkinnedMesh->status = 3;	//이동
+		//보스
+		if (GetEnemyNum() == 4)
+		{
+			m_pSkinnedMesh->status = 1;
+		}
+		//쫄
+		else
+		{
+			m_pSkinnedMesh->status = 3;	//이동
+		}
 		m_isMoving = true;
 	}
 	else
 	{
-		m_pSkinnedMesh->status = 4; //멈춤
+		if (GetEnemyNum() == 4)
+		{
+			m_pSkinnedMesh->status = 2;
+		}
+		//쫄
+		else
+		{
+			m_pSkinnedMesh->status = 4; //멈춤
+		}
 		m_isMoving = false;
 	}
 
@@ -259,6 +273,10 @@ void Enemy::UpdatePosition()
 		D3DXVec3Normalize(&m_forwardNormalized, &m_forward);
 
 		dot = D3DXVec3Dot(&m_forwardNormalized, &forwardNormalized);
+
+		if (dot > 1.f) dot = 1.f;
+		else if (dot < -1.f) dot = -1.f;
+
 		radian = (float)acos(dot);
 
 		Debug->AddText("Radian : " + to_string(radian));
@@ -311,19 +329,57 @@ void Enemy::MoveStop()
 
 void Enemy::AnimationModify()
 {
-	D3DXMATRIXA16 matRotY, matRot, m_matWorldT;
-	D3DXMatrixRotationY(&matRotY, m_rot.y);
-	matRot = matRotY;
+	//쫄몹
+	if (GetEnemyNum() < 4)
+	{
+		D3DXMATRIXA16 matRotY, matRot;
+		D3DXMatrixRotationY(&matRotY, m_rot.y);
+		matRot = matRotY;
 
-	D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
-	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixRotationY(&matR, D3DX_PI);
-	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+		D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+		D3DXMatrixRotationY(&matR, D3DX_PI);
+		D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
 
-	D3DXMATRIXA16 matTemp;
-	matTemp = matS * matRotY * matR * matT;
+		D3DXMATRIXA16 matTemp;
+		matTemp = matS * matRotY * matR * matT;
+		m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+	}
+	//보스일때
+	else
+	{
+		if (m_pSkinnedMesh->status == 2)
+		{
+			D3DXMATRIXA16 matRotY, matRotX,matRot;
+			D3DXMatrixRotationY(&matRotY, m_rot.y);
+			matRot = matRotY;
 
-	m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+			D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+			D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+			D3DXMatrixRotationY(&matR, D3DX_PI);
+			D3DXMatrixRotationX(&matRotX, D3DX_PI/-2);
+			D3DXMatrixScaling(&matS, 0.4f, 0.4f, 0.4f);
+
+			D3DXMATRIXA16 matTemp;
+			matTemp = matS *matRotX *matRotY * matR * matT;
+			m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+		}
+		else
+		{
+			D3DXMATRIXA16 matRotY, matRot;
+			D3DXMatrixRotationY(&matRotY, m_rot.y);
+			matRot = matRotY;
+
+			D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
+			D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+			D3DXMatrixRotationY(&matR, D3DX_PI);
+			D3DXMatrixScaling(&matS, 1.0f, 1.0f, 1.0f);
+
+			D3DXMATRIXA16 matTemp;
+			matTemp = matS * matRotY * matR * matT;
+			m_pSkinnedMesh->SetWorldMatrix(&matTemp);
+		}
+	}
 }
 
 void Enemy::WorldToVP()
