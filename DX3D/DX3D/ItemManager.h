@@ -49,11 +49,12 @@ struct items {
 enum Weapon_Types_
 {
 	Weapon_Type_MainWeapons= 1,
-	Weapon_Type_SubWeapons,
 	Weapon_Type_Armor,
-	Weapon_Type_Belt,
 	Weapon_Type_Glove,
+	Weapon_Type_SubWeapons,
+	Weapon_Type_Belt,
 	Weapon_Type_Boots
+
 };
 
 class ItemManager 

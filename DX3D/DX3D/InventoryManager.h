@@ -1,22 +1,14 @@
 #pragma once
 
 #include "ItemManager.h"
+#include "UIText.h"
+
 #define INVENCORSS 6
 #define INVENVERTI 4
 #define INVENITEMSTART_X 1000
 #define INVENITEMSTART_Y 420
 
 #define g_pInventory  InventoryManager::Get()
-
-//#define DOUBLE_FOR \
-//	for (int j = 0; j < INVENVERTI; j++) \
-//	{  \
-//		for (int i = 0; i < INVENCORSS; i++) \
-//	{
-//
-//#define DOUBLE_FOR_END  }}
-//	
-
 
 
 struct Inven_UI
@@ -39,10 +31,10 @@ struct Inven_UI
 enum Equip_Type
 {
 	Equip_Main_Weapon_1 = 1,
-	Equip_Sub_Weapon_2,
-	Equip_Amor,
-	Equip_Belt,
+	Equip_Amor,	
 	Equip_Glove,
+	Equip_Sub_Weapon_2,
+	Equip_Belt,
 	Equip_Boots	
 };
 
@@ -50,12 +42,22 @@ enum matWorld_Numbering
 {
 	matWorld_Inven,
 	matWorld_Inven_Chara,
+	matWorld_Exit_Button,
 	matWorld_ItemSet,
 	matWorld_ShopItem_1,
 	matWorld_ShopItem_2,
 	matWorld_Main_Weapon,
+	matWorld_Armor,
+	matWorld_Glove,
+	matWorld_Sub_Weapon2,
+	matWorld_Belt,
+	matWorld_Boots,
 	matWorld_MouseCursor,
-	
+	matWorld_Equiped_Item,
+
+	matWorld_Equiped_Item_Black = 19,
+
+	matWorld_InvenArray = 25
 
 };
 
@@ -78,10 +80,18 @@ private:
 	Inven_UI ItemSet;
 	Inven_UI MouseCursor_Normal;
 	Inven_UI MousCursor_ClickedOn;
+	Inven_UI Exit_Button;
+	Inven_UI Equiped_Item[6];
+	Inven_UI Equiped_Item_BlackBack[6];
 
 	//해당 인벤토리에 올라갈 것 같을때는 이것을
 
 	Inven_UI Inventory_on;
+
+	// equip 이름 
+	LPD3DXSPRITE m_pSprite_Equip[6];
+	UIText * Equip_Name[6];
+
 
 
 	std::vector<items> inventory; //인벤토리에 아이템 넣기
@@ -102,7 +112,7 @@ private:
 
 	bool EscapeFor; //포문 탈출하기 위한 불값
 	D3DXMATRIXA16 matWorld[10];
-	D3DXMATRIXA16 matWorld_InvenItems[INVENCORSS*INVENVERTI];
+	D3DXMATRIXA16 matWorld_InvenItems[matWorld_InvenArray+INVENCORSS*INVENVERTI];
 	bool alreadyWorkedRbutton;// 아이템이 이미 착용되었는지를 체크. 
 							  // 버그를 막아줘서 넣었는데 어떻게 막았는지 사실 잘 기억 안남.
 							  // 아마 우측 
@@ -116,6 +126,11 @@ private:
 
 	int EmptyRcX;
 	int EmptyRcY;
+
+	int Column;
+	int Cross;
+	int fitstColumn;
+	int SecondColumn;
 
 public:
 	//Inventory();
@@ -137,7 +152,7 @@ public:
 
 	int EquipData;
 	// IUIButtonDelegate을(를) 통해 상속됨
-
+	
 	std::vector<items> Equip;
 
 	std::vector<items> Shop_Item;//햄토리랑 총기 모양

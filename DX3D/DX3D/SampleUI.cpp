@@ -385,7 +385,7 @@ void SampleUI::Update()
 
 
 	
-	WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);
+	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
@@ -494,9 +494,7 @@ void SampleUI::DamagePositionUpdate(int fontNum)
 {
 
 	for (int i = 0; i < 20; i++)
-	{
-
-		
+	{		
 
 		if ((g_pItem->MonsterDamageTimer[i] == 0))
 		{
