@@ -31,7 +31,7 @@ struct Inven_UI
 enum Equip_Type
 {
 	Equip_Main_Weapon_1 = 1,
-	Equip_Amor,	
+	Equip_Armor,	
 	Equip_Glove,
 	Equip_Sub_Weapon_2,
 	Equip_Belt,
@@ -43,6 +43,7 @@ enum matWorld_Numbering
 	matWorld_Inven,
 	matWorld_Inven_Chara,
 	matWorld_Exit_Button,
+	matWorld_Item_Info,
 	matWorld_ItemSet,
 	matWorld_ShopItem_1,
 	matWorld_ShopItem_2,
@@ -53,11 +54,21 @@ enum matWorld_Numbering
 	matWorld_Belt,
 	matWorld_Boots,
 	matWorld_MouseCursor,
-	matWorld_Equiped_Item,
+	matWorld_MouseOver,
+	matWorld_Equiped_Item, // 20까지
 
-	matWorld_Equiped_Item_Black = 19,
+	matWorld_Equiped_Item_Black = 25,
 
-	matWorld_InvenArray = 25
+	matWorld_InvenArray =40
+
+};
+
+enum Item_Info_Names
+{
+	ItemName,
+	ATK,
+	DEF,
+	HP,
 
 };
 
@@ -83,21 +94,31 @@ private:
 	Inven_UI Exit_Button;
 	Inven_UI Equiped_Item[6];
 	Inven_UI Equiped_Item_BlackBack[6];
+	Inven_UI Item_Info_Back;
 
 	//해당 인벤토리에 올라갈 것 같을때는 이것을
 
 	Inven_UI Inventory_on;
 
 	// equip 이름 
+
+	D3DXMATRIXA16	m_matWorld_Euip_Name_text;
 	LPD3DXSPRITE m_pSprite_Equip[6];
 	UIText * Equip_Name[6];
+	IUIObject * m_pRootUI_Euip_Text[6];	
+	RECT    Equip_Name_Rect[6];
+	CString Equip_Name_Text[6];
 
+
+
+	IUIObject *		m_pRootUI_Item_Info[4];
+	LPD3DXSPRITE m_pSprite_Item_Info[4];
+	D3DXMATRIXA16	m_matWorld_Item_Info[4];
+	CString			cstr_Item_Info[4];
+	UIText *		Item_Info[4];
 
 
 	std::vector<items> inventory; //인벤토리에 아이템 넣기
-
-
-
 
 	RECT clientRect; // 윈도우 전체 창 
 	int preChosenX; // 기존에 선택한 좌표를 저장하기 위한 값
@@ -132,6 +153,9 @@ private:
 	int fitstColumn;
 	int SecondColumn;
 
+	void Weapon_Equip_Text();
+	void Item_Info_Text();
+	void Item_Info_Description(items item);
 public:
 	//Inventory();
 	//~Inventory();
@@ -140,6 +164,9 @@ public:
 	static InventoryManager* Get();
 	static void Delete();
 
+//	LPD3DXSPRITE Get_m_pSprite_Equip() { return m_pSprite_Equip; }
+	CString Get_Equip_Name_Text(int i) { return Equip_Name_Text[i];	}
+	RECT Get_Equip_Rect(int i) {	return Equip_Name_Rect[i];	}
 	bool GetalreadyWorkedRbutton() { return alreadyWorkedRbutton;  }
 	//void SetalreadyWorkedRbutton(bool acb) { alreadyWorkedRbutton = acb; }
 	// 겟 셋 헷갈령

@@ -9,6 +9,7 @@ public:
 	//LPCTSTR m_text;
 
 	LPCWSTR m_text;
+	RECT m_pRect;
 	DWORD m_drawTextFormat;
 	bool RenderingOn;
 

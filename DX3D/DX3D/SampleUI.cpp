@@ -862,6 +862,7 @@ void SampleUI::FontInit2()
 void SampleUI::FontInit3()
 {
 
+
 	ScaleX_BulletNum = 1.f;
 	ScaleY_BulletNum = 1.f;
 	D3DXMATRIXA16 matS;
@@ -869,7 +870,6 @@ void SampleUI::FontInit3()
 	D3DXMATRIXA16 matT;
 	D3DXMatrixTranslation(&matT, 0, 0, 0);
 	m_matWorld_DamageFont = matS * matT;
-	
 
 	for (int i = 0; i < 20; i++)
 	{

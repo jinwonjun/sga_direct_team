@@ -39,10 +39,10 @@ struct items {
 	RECT isInven_show_rc;
 
 	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
-	D3DXIMAGE_INFO		 m_image_InvenOn_Info;
+	D3DXIMAGE_INFO		 m_image_InvenOver_Info;
 
 	LPDIRECT3DTEXTURE9	 m_pTex_Item;       // 텍스쳐 정보
-	LPDIRECT3DTEXTURE9	 m_pTex_InvenOn;
+	LPDIRECT3DTEXTURE9	 m_pTex_InvenOver;
 };
 
 // 이넘문으로 1부터 6까지 선언해준다.
