@@ -382,10 +382,11 @@ void SampleUI::Update()
 	positionY = g_pItem->timer;
 	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
 	
-
-
 	
-	WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);
+	WeaponAtk = std::to_wstring(g_pInventory->Equip[1].Atk);
+
+
+
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
