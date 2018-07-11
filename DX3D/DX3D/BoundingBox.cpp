@@ -13,6 +13,17 @@ BoundingBox::BoundingBox(D3DXVECTOR3 size)
 	m_size = size;
 }
 
+BoundingBox::BoundingBox(D3DXVECTOR3 size, D3DXVECTOR3 pos)
+{
+	m_pVB = NULL;
+	m_pIB = NULL;
+
+	m_minPos = D3DXVECTOR3(-1, -1, -1);
+	m_maxPos = D3DXVECTOR3(1, 1, 1);
+
+	m_size = size;
+	m_pos = pos;
+}
 
 BoundingBox::~BoundingBox()
 {
@@ -74,7 +85,6 @@ void BoundingBox::Init()
 
 void BoundingBox::Update()
 {
-	m_oriPos = m_pos;
 	D3DXMATRIXA16 matS, matT;
 	D3DXMatrixScaling(&matS, m_size.x, m_size.y, m_size.z);
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
@@ -83,12 +93,18 @@ void BoundingBox::Update()
 
 void BoundingBox::Render()
 {
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+	g_pDevice->SetTexture(0, NULL);
+	g_pDevice->SetMaterial(&DXUtil::YELLOW_MTRL);
+
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+
 	g_pDevice->SetFVF(VERTEX_PC::FVF);
 	g_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VERTEX_PC));
 	g_pDevice->SetIndices(m_pIB);
 	g_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0,
 		m_VBDesc.Size, 0, m_IBDesc.Size / 3);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 }

@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v140:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
-Debug|Win32|D:\sga_direct_team\DX3D\|
-=======
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.17134.0
-Debug|Win32|D:\_pp\DX3D\|
->>>>>>> e4e15373f5ce46b8f92e0169455a273b6e04b635
+Debug|Win32|D:\SGA\pp\DX3D\|

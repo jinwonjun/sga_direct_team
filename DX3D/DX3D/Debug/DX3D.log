@@ -1,85 +1,11 @@
-<<<<<<< HEAD
-﻿  EnemyManager.cpp
-d:\sga_direct_team\dx3d\dx3d\enemymanager.h(2): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
-d:\sga_direct_team\dx3d\dx3d\enemy.h(63): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\enemy.h(64): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(41): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(67): warning C4316: 'Enemy': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
-  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
-=======
-﻿  InventoryManager.cpp
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(14): warning C4316: 'InventoryManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(210): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(211): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(233): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(234): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(286): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(285): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(284): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(283): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(321): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(320): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(319): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(318): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(327): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(326): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(325): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(324): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(369): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(370): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(405): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(406): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(462): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(463): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(736): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(737): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(742): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(741): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(740): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(739): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1044): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1043): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1042): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1041): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1109): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1108): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1107): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1106): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1132): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1131): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1130): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1129): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1158): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1157): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1156): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1155): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1267): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1266): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1265): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1264): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1295): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1318): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1348): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1347): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1346): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1345): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1447): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1477): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1478): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1482): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1512): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1517): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1518): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1519): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1520): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1521): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1522): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1523): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1524): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1536): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1537): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1538): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_pp\dx3d\dx3d\inventorymanager.cpp(1539): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
->>>>>>> e4e15373f5ce46b8f92e0169455a273b6e04b635
+﻿  BoundingBox.cpp
+  코드를 생성하고 있습니다...
+  건너뛰고 있습니다... (관련된 변경 내용 없음)
+  Scene_UI.cpp
+  SceneGrid.cpp
+  Ironman.cpp
+  EnemyManager.cpp
+  Enemy.cpp
+  Cubeman.cpp
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
