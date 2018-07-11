@@ -109,10 +109,7 @@ void Gun::M4GunInit()
 
 void Gun::Update()
 {
-<<<<<<< HEAD
 
-
-=======
 	//if (g_pKeyboard->KeyDown('1'))
 	//{
 	//	GunEqiupSet(1);
@@ -125,7 +122,7 @@ void Gun::Update()
 	//{
 	//	GunEqiupSet(3);
 	//}
->>>>>>> d949d5a45e97fc71e39f012c0ec0f346f7a4059f
+
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 

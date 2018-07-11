@@ -2,6 +2,7 @@
 #include "UIButton.h"
 #include "UIText.h"
 
+
 //int uiTag = -1
 UIButton::UIButton(IUIButtonDelegate * pDelegate, LPD3DXSPRITE pSprite, int uiTag)
 	:IUIObject(pSprite, uiTag),m_pDelegate(pDelegate),m_buttonState(NORMAL)
@@ -69,7 +70,8 @@ void UIButton::Render()
 		RECT rect;
 		SetRect(&rect, 0, 0, m_size.x, m_size.y);
 
-		m_pSprite->Draw(m_aTexture[m_buttonState], &rect, &m_pivot, &m_combinedPos,m_color);
+		m_pSprite->Draw(m_aTexture[m_buttonState], &rect, &m_pivot, &m_combinedPos, m_color);
+	
 	}
 	IUIObject::Render();
 }
@@ -89,11 +91,21 @@ void UIButton::SetTexture(string normal, string mouseOver, string selected)
 	m_size.y = info.Height;
 }
 
-void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text)
+void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c)
 {
 	UIText * pText = new UIText(font, m_pSprite);
+	pText->SetColor(_c);
 	this->AddChild(pText);
 	pText->m_text = text;
 	pText->m_size = m_size;
 }
-
+void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c, D3DXVECTOR3 _pos)
+{
+	UIText * pText = new UIText(font, m_pSprite);
+	pText->SetColor(_c);
+	this->AddChild(pText);
+	pText->m_text = text;
+	pText->m_size = m_size;
+	//pText->m_pivot = _pos;
+	pText->SetPosition(&_pos);
+}

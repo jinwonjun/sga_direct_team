@@ -16,11 +16,16 @@ UIText::~UIText()
 void UIText::Render()
 {
 	RECT rect;
+
+	//m_combinedPos.x += 100.f;
+	
 	SetRect(&rect, m_combinedPos.x, m_combinedPos.y, m_combinedPos.x + m_size.x, m_combinedPos.y + m_size.y);
 
 	//m_pFont->DrawText(m_pSprite, m_text, lstrlen(m_text), &rect, m_drawTextFormat, m_color);
 
 	//m_text = L"123123";
+
+
 
 	m_pFont->DrawTextW(m_pSprite, m_text, lstrlen(m_text), &rect, m_drawTextFormat, m_color);
 

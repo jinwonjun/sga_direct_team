@@ -10,6 +10,7 @@ public:
 
 	LPCWSTR m_text;
 	RECT m_pRect;
+	D3DXCOLOR m_pColor;
 	DWORD m_drawTextFormat;
 	bool RenderingOn;
 	

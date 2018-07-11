@@ -24,7 +24,7 @@ public:
 	IUIButtonDelegate * m_pDelegate;
 	//갯수에 따라서 상태가 다르게 보이게 해주자
 	LPDIRECT3DTEXTURE9 m_aTexture[COUNT];
-
+	//void SetColor(D3DXCOLOR c) { m_color = c; }
 
 	UIButton(IUIButtonDelegate * pDelegate, LPD3DXSPRITE pSprite, int uiTag = -1);
 	~UIButton();
@@ -33,6 +33,7 @@ public:
 	virtual void Render() override;
 
 	void SetTexture(string normal, string mouseOver, string selected);
-	void SetText(LPD3DXFONT font, LPCWSTR text);
+	void SetText(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c);
+	void SetText(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c, D3DXVECTOR3 _pos);
 };
 

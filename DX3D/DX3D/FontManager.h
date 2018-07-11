@@ -6,7 +6,8 @@ namespace FONT
 {
 	enum FontType
 	{
-		NORMAL, QUEST, BASE, Item, Equiped
+		NORMAL, QUEST, BASE, Item, Equiped,
+		NameOfItem, OptionOfItem
 	};
 }
 

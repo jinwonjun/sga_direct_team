@@ -830,7 +830,7 @@ void SampleUI::FontInit()
 		GetItems->SetTexture("resources/ui/back.png",
 			"resources/ui/back.png",
 			"resources/ui/back.png");
-		GetItems->SetText(g_pFontMgr->GetFont(FONT::Item), _T("Item Get"));
+		GetItems->SetText(g_pFontMgr->GetFont(FONT::Item), _T("Item Get"),WHITE);
 		m_pRootUI->AddChild(GetItems);
 }
 
@@ -856,7 +856,7 @@ void SampleUI::FontInit2()
 		"resources/ui/btn-med-up.png.png");
 
 	temp = std::to_wstring(restBullet) + L" / 30";
-	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str(), WHITE);
 	m_pRootUI_Bullet->AddChild(BulletNum);
 
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#define NumberOfItems 10
+#define NumberOfItems 30
 #define NumberOfItemKinds 6
 
 #define g_pItem ItemManager::Get()
