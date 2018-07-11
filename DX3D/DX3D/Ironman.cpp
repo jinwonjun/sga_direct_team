@@ -83,8 +83,6 @@ void Ironman::Init()
 
 	timer = 0;//체크 타이머 초기화
 	checkTimer = false;
-
-
 }
 
 void Ironman::Update()

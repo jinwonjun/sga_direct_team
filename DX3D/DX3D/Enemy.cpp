@@ -172,8 +172,8 @@ void Enemy::Render()
 	{
 		Hp_Draw_Idx = 0;
 	}
-
-	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
+	//(m_HP > 0) &&
+	if ( (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
 						g_pCamera->GetMCenter().y <= ScreenY))
@@ -224,7 +224,7 @@ void Enemy::UpdatePosition()
 	//}
 
 	//enum4(이동) 랑 5(멈춤)로 컨트롤중
-	//보스기준 enum3이 공격 enum2가 달리기 enum1이 대기
+	//보스기준 enum4 가 사망 enum3이 공격 enum2가 달리기 enum1이 대기
 	//바운딩 박스에 닿았을때 거리가 10보다 크면 이동 -> 10보다 작으면 멈춤
 	if (D3DXVec3Length(&(m_destPos - m_pos)) > 10.f)
 	{
@@ -244,7 +244,7 @@ void Enemy::UpdatePosition()
 	{
 		if (GetEnemyNum() == 4)
 		{
-			m_pSkinnedMesh->status = 2;
+			m_pSkinnedMesh->status = 0;
 		}
 		//쫄
 		else
@@ -345,7 +345,7 @@ void Enemy::AnimationModify()
 		matTemp = matS * matRotY * matR * matT;
 		m_pSkinnedMesh->SetWorldMatrix(&matTemp);
 	}
-	//보스일때
+	//보스일때, 보스 스케일링 및 애니메이션 재설정
 	else
 	{
 		if (m_pSkinnedMesh->status == 2)
@@ -394,7 +394,7 @@ void Enemy::WorldToVP()
 	D3DVIEWPORT9 vp;
 	D3DXVECTOR3 v(0, 0, 0);
 
-	matWorld = m_matWorld;//0번 인덱스 놈의 월드 행렬 가져오기
+	matWorld = m_matWorld;//지금 생성되는 enemy의 월드 행렬값 넘겨주기
 
 	g_pDevice->GetTransform(D3DTS_VIEW, &matView);
 	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
@@ -402,29 +402,29 @@ void Enemy::WorldToVP()
 	matWVP = matWorld * matView * matProj;
 
 	D3DXVec3TransformCoord(&v, &v, &matWVP);
+	//뷰포트 정보값 가져오기
+	g_pDevice->GetViewport(&vp);
 
-	g_pDevice->GetViewport(&vp);//뷰포트 정보값 가져오기
-
-								//스크린좌표 가져오기
+	//스크린좌표 가져오기
 	ScreenX = (v.x * 0.5f + 0.5f) * vp.Width;
 	ScreenY = ((-1)*v.y * 0.5f + 0.5f) * vp.Height;
 
 	//스크린좌표 구했으니까 피통 UI를 머리 위로 올려!
-	Debug->EndLine();
-	Debug->EndLine();
-	Debug->AddText("스크린상좌표 X : ");
-	Debug->AddText(g_pCamera->GetMCenter().x);
-	Debug->AddText("  Y : ");
-	Debug->AddText(g_pCamera->GetMCenter().y);
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->AddText("스크린상좌표 X : ");
+	//Debug->AddText(g_pCamera->GetMCenter().x);
+	//Debug->AddText("  Y : ");
+	//Debug->AddText(g_pCamera->GetMCenter().y);
+	//Debug->EndLine();
+	//Debug->EndLine();
 
-	Debug->AddText("몹 스크린상좌표 X : ");
-	Debug->AddText(ScreenX);
-	Debug->AddText("  Y : ");
-	Debug->AddText(ScreenY);
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->AddText("몹 스크린상좌표 X : ");
+	//Debug->AddText(ScreenX);
+	//Debug->AddText("  Y : ");
+	//Debug->AddText(ScreenY);
+	//Debug->EndLine();
+	//Debug->EndLine();
 }
 
 void Enemy::RenderUseShader_0()
