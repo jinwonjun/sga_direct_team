@@ -385,9 +385,16 @@ void SampleUI::Update()
 	
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[1].Atk);
 
+<<<<<<< HEAD
 	
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
 
+=======
+
+
+
+	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
+>>>>>>> e4e15373f5ce46b8f92e0169455a273b6e04b635
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
@@ -829,7 +836,7 @@ void SampleUI::FontInit()
 		GetItems->SetTexture("resources/ui/back.png",
 			"resources/ui/back.png",
 			"resources/ui/back.png");
-		GetItems->SetText(g_pFontMgr->GetFont(FONT::Item), _T("Item Get"));
+		GetItems->SetText(g_pFontMgr->GetFont(FONT::Item), _T("Item Get"),WHITE);
 		m_pRootUI->AddChild(GetItems);
 }
 
@@ -855,7 +862,7 @@ void SampleUI::FontInit2()
 		"resources/ui/btn-med-up.png.png");
 
 	temp = std::to_wstring(restBullet) + L" / 30";
-	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
+	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str(), WHITE);
 	m_pRootUI_Bullet->AddChild(BulletNum);
 
 
@@ -875,9 +882,10 @@ void SampleUI::FontInit3()
 
 	for (int i = 0; i < 20; i++)
 	{
-		DamageFont[i] = new UIText(g_pFontMgr->GetFont(FONT::NORMAL), m_pSprite_Damage, UITAG_TEXTVIEW);
+		DamageFont[i] = new UIText(g_pFontMgr->GetFont(FONT::QUEST), m_pSprite_Damage, UITAG_TEXTVIEW);
 		/*WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);*/
 
+		DamageFont[i]->SetColor(RED);
 		DamageFont[i]->m_text = WeaponAtk.c_str();
 		DamageFont[i]->m_size = D3DXVECTOR2(100, 50);
 		DamageFont[i]->RenderingOn = false;

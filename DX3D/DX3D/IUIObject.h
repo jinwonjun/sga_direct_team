@@ -15,6 +15,7 @@ public:
 	D3DXVECTOR2 m_size;
 	D3DCOLOR m_color;
 	bool isRender;
+	bool Exception;
 	
 
 	bool m_bDrawBorder;

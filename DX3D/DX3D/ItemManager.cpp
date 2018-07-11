@@ -194,7 +194,177 @@ void ItemManager::ItemTable()
 		0.3f, // Y 스케일
 		false // 착용하고 있는가?		
 	};
+	// 6,7,8 장갑 
+	Items[6] = { 7,  //인덱스, 아이템 번호
+		"NogadaMokjangap", // 이름
+		5, // 공격력
+		0, // HP
+		0, // 현재 hp
+		0, // 방어력
+		"resources/images/Items/Gloves/Glove_NoMok.png", //이미지 파일이름
+		Weapon_Type_Glove, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+	Items[7] = { 8,  //인덱스, 아이템 번호
+		"K2 Glove", // 이름
+		0, // 공격력
+		0, // HP
+		0, // 현재 hp
+		5, // 방어력
+		"resources/images/Items/Gloves/K2_Glove.png", //이미지 파일이름
+		Weapon_Type_Glove, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+	Items[8] = { 9,  //인덱스, 아이템 번호
+		"Battle_Glove", // 이름
+		10, // 공격력
+		0, // HP
+		0, // 현재 hp
+		15, // 방어력
+		"resources/images/Items/Gloves/Glove_battle.png", //이미지 파일이름
+		Weapon_Type_Glove, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+	// 9,10,11 벨트
+	Items[9] = { 10,  //인덱스, 아이템 번호
+		"Black_Belt", // 이름
+		0, // 공격력
+		10, // HP
+		0, // 현재 hp
+		5, // 방어력
+		"resources/images/Items/Belt/Belt_Black.png", //이미지 파일이름
+		Weapon_Type_Belt, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+	// 9,10,11 벨트
+	Items[10] = { 11,  //인덱스, 아이템 번호
+		"TanDDee", // 이름
+		0, // 공격력
+		10, // HP
+		0, // 현재 hp
+		-5, // 방어력
+		"resources/images/Items/Belt/Belt_ArmyBelt.png", //이미지 파일이름
+		Weapon_Type_Belt, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+	// 9,10,11 벨트
+	Items[11] = { 12,  //인덱스, 아이템 번호
+		"King_God_Belt", // 이름
+		0, // 공격력
+		10, // HP
+		0, // 현재 hp
+		-5, // 방어력
+		"resources/images/Items/Belt/Belt_King_God.png", //이미지 파일이름
+		Weapon_Type_Belt, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
 
+	// 12,13,14 부츠
+	Items[12] = { 13,  //인덱스, 아이템 번호
+		"Boots_Shoe", // 이름
+		0, // 공격력
+		10, // HP
+		0, // 현재 hp
+		5, // 방어력
+		"resources/images/Items/Boots/Boots_Shoe.png", //이미지 파일이름
+		Weapon_Type_Boots, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+
+	// 12,13,14 부츠
+	Items[13] = { 14,  //인덱스, 아이템 번호
+		"Boots_Race", // 이름
+		0, // 공격력
+		10, // HP
+		0, // 현재 hp
+		15, // 방어력
+		"resources/images/Items/Boots/Boots_Race.png", //이미지 파일이름
+		Weapon_Type_Boots, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
+
+	Items[14] = { 15,  //인덱스, 아이템 번호
+		"Boots_Brown", // 이름
+		5, // 공격력
+		5, // HP
+		0, // 현재 hp
+		5, // 방어력
+		"resources/images/Items/Boots/Boots_Brown.png", //이미지 파일이름
+		Weapon_Type_Boots, // 장비 타입
+		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		0, //복사 번호
+		false, //클릭 되었는가?
+		false, // 인벤 안에 있는가?
+		(OriginX / 3) *Adjust_Display_Mode_X,// X 포지션
+		(OriginY / 2) * Adjust_Display_Mode_Y, // Y 포지션
+		0.3f, // X 스케일
+		0.3f, // Y 스케일
+		false // 착용하고 있는가?		
+	};
 	//
 	for (int i = 0; i < NumberOfItems; i++)
 	{

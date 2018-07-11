@@ -2,6 +2,7 @@
 
 #include "ItemManager.h"
 #include "UIText.h"
+#include "UIButton.h"
 
 #define INVENCORSS 6
 #define INVENVERTI 4
@@ -68,11 +69,11 @@ enum Item_Info_Names
 	ItemName,
 	ATK,
 	DEF,
-	HP,
+	MHP,
 
 };
 
-class InventoryManager : public ItemManager
+class InventoryManager : public ItemManager 
 {
 	//SINGLETON(InventoryManager)
 private:
@@ -102,20 +103,25 @@ private:
 
 	// equip 이름 
 
-	D3DXMATRIXA16	m_matWorld_Euip_Name_text;
+	D3DXMATRIXA16	m_matWorld_Euip_Name_text[6];
 	LPD3DXSPRITE m_pSprite_Equip[6];
-	UIText * Equip_Name[6];
 	IUIObject * m_pRootUI_Euip_Text[6];	
 	RECT    Equip_Name_Rect[6];
 	CString Equip_Name_Text[6];
+	UIButton * Equip_Name[6];
+	IUIButtonDelegate * m_pDelegate_Equip_Name[6];
 
 
-
-	IUIObject *		m_pRootUI_Item_Info[4];
-	LPD3DXSPRITE m_pSprite_Item_Info[4];
 	D3DXMATRIXA16	m_matWorld_Item_Info[4];
+	LPD3DXSPRITE m_pSprite_Item_Info[4];
+	IUIObject *		m_pRootUI_Item_Info[4];
 	CString			cstr_Item_Info[4];
-	UIText *		Item_Info[4];
+	UIButton * Item_Info[4];
+	IUIButtonDelegate * m_pDelegate_Item_Info[4];
+
+	float Item_Info_PositionX[4];
+	float Item_Info_PositionY[4];
+	
 
 
 	std::vector<items> inventory; //인벤토리에 아이템 넣기
@@ -145,6 +151,12 @@ private:
 	float ShopItem_Display_Mode_X;//해상도 변경에 따라 비율 조절해주는 아이
 	float ShopItem_Display_Mode_Y;//해상도 변경에 따라 비율 조절해주는 아이
 
+	//마우스 오버시 아이템 정보를 보여주는 상자의 좌표와 스케일.
+	float ItemInfoBack_PositionX;
+	float ItemInfoBack_PositionY;
+	float ItemInfoBack_ScaleX;
+	float ItemInfoBack_ScaleY;
+
 	int EmptyRcX;
 	int EmptyRcY;
 
@@ -156,6 +168,8 @@ private:
 	void Weapon_Equip_Text();
 	void Item_Info_Text();
 	void Item_Info_Description(items item);
+	
+	
 public:
 	//Inventory();
 	//~Inventory();
