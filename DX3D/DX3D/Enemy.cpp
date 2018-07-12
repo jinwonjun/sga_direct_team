@@ -215,7 +215,7 @@ void Enemy::Render()
 
 	float HP_Percent = (float)(((float)m_HP / (float)MOB_FULL_HP) * 100);
 	
-	int Hp_Draw_Idx;
+	int Hp_Draw_Idx = 0;
 	if (HP_Percent <= 100 && HP_Percent > 87.5)
 	{
 		Hp_Draw_Idx = 7;
@@ -270,7 +270,7 @@ void Enemy::Render()
 		m_pSprite->SetTransform(&matW_UI);
 		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
 		m_pSprite->End();
-	/*}*/
+	//}
 }
 
 void Enemy::UpdatePosition()

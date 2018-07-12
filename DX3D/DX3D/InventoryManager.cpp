@@ -1201,9 +1201,6 @@ void InventoryManager::Render()
 						&D3DXVECTOR3(0, 0, 0),
 						D3DCOLOR_ARGB(255, 255, 255, 255));
 
-<<<<<<< HEAD
-
-=======
 					
 					for (int i = 0; i < 4; i++)
 					{
@@ -1218,13 +1215,7 @@ void InventoryManager::Render()
 					}
 					
 				
->>>>>>> 6ab697b3aad6117838a79fe3f6f8563bbc5fbe30
-				
 				}
-			
-				
-
-				
 			}
 
 
