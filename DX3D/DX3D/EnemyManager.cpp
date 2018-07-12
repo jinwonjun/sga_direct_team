@@ -49,13 +49,20 @@ void EnemyManager::Update(void)
 
 	CollisionCheck();
 
+	for (int i = 0; i < m_vecEnemy.size(); i++)
+	{
+		if (m_vecEnemy[i]->m_HP <= 0)
+		{
+			Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
+			m_vecEnemy.erase(m_vecEnemy.begin() + i);
+		}
+	}
 }
 
 void EnemyManager::Render(void)
 {
 	for each(Enemy* e in m_vecEnemy)
 	{
-		if (e->m_HP <= 0) continue;
 		e->Render();
 	}
 }
