@@ -385,16 +385,10 @@ void SampleUI::Update()
 	
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[1].Atk);
 
-<<<<<<< HEAD
-	
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
 
-=======
-
-
-
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
->>>>>>> e4e15373f5ce46b8f92e0169455a273b6e04b635
+
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 

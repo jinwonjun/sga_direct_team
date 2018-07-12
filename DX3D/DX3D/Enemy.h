@@ -65,11 +65,6 @@ public:
 
 	void MinusHP() { m_HP -= g_pInventory->Equip[Equip_Main_Weapon_1].Atk; }
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> e4e15373f5ce46b8f92e0169455a273b6e04b635
 	int GetEnemyNum() { return m_enemyNum; }
 
 	D3DXMATRIXA16 ApplyMatWorld;//스킨매쉬에서 그리는 월드 행렬값을 여기서 가져오자.
