@@ -101,7 +101,10 @@ void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c)
 }
 void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c, D3DXVECTOR3 _pos)
 {
+
+
 	UIText * pText = new UIText(font, m_pSprite);
+	
 	pText->SetColor(_c);
 	this->AddChild(pText);
 	pText->m_text = text;

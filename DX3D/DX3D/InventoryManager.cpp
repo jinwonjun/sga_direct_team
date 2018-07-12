@@ -1083,6 +1083,7 @@ void InventoryManager::Render()
 
 					cstr_Item_Info[ItemName] = InvenArray[i][j].name;
 					cstr_Item_Info[ATK].Format(_T("ATK:  %d"), InvenArray[i][j].Atk);
+					
 					cstr_Item_Info[DEF].Format(_T("DEF:  %d"), InvenArray[i][j].Def);
 					cstr_Item_Info[MHP].Format(_T("MHP:  %d"), InvenArray[i][j].MaxHp);
 
@@ -1180,6 +1181,7 @@ void InventoryManager::Render()
 				
 					cstr_Item_Info[ItemName] = Equip[i + 1].name;
 					cstr_Item_Info[ATK].Format(_T("ATK:  %d"), Equip[i + 1].Atk);
+				//	Item_Info[ATK]->SetText(g_pFontMgr->GetFont(FONT::OptionOfItem), cstr_Item_Info[ATK], WHITE, D3DXVECTOR3(0, 0, 0));
 					cstr_Item_Info[DEF].Format(_T("DEF:  %d"), Equip[i + 1].Def);
 					cstr_Item_Info[MHP].Format(_T("MHP:  %d"), Equip[i + 1].MaxHp);
 
@@ -1548,10 +1550,10 @@ void InventoryManager::Item_Info_Text()
 	B = 185.f / 255.0f;
 	
 	//Item_Info[ItemName] = new UIText(g_pFontMgr->GetFont(FONT::NameOfItem), m_pSprite_Item_Info[ItemName]);
-	cstr_Item_Info[0] = " asdasd";
-	cstr_Item_Info[1] = " saasd";
-	cstr_Item_Info[2] = " asasd";
-	cstr_Item_Info[3] = " asasd ";
+	cstr_Item_Info[0] = " as000000000";
+	cstr_Item_Info[1] = " saasdassss";
+	cstr_Item_Info[2] = " sssssssssss";
+	cstr_Item_Info[3] = " asasd333333";
 	Item_Info[ItemName]->SetTexture("resources/images/inventory/Null_back2.png",
 		"resources/images/inventory/Null_back2.png",
 		"resources/images/inventory/Null_back2.png");
