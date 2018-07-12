@@ -930,13 +930,13 @@ void InventoryManager::Render()
 	g_pDevice->SetTexture(0, NULL);
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	for (int i = 0; i < 4; i++)
-	{
+	/*{
 		m_pSprite_Item_Info[i]->Begin(D3DXSPRITE_ALPHABLEND);
-	}
-	for (int i = 0; i < 6; i++)
+	}*/
+	/*for (int i = 0; i < 6; i++)
 	{
 		m_pSprite_Equip[i]->Begin(D3DXSPRITE_ALPHABLEND);
-	}
+	}*/
 	
 
 	if (openInven)
@@ -948,14 +948,17 @@ void InventoryManager::Render()
 		SetRect(&Inventory.m_rc, 0, 0, Inventory.m_image.Width, Inventory.m_image.Height);
 
 
-		//m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		m_pSprite->SetTransform(&matWorld[matWorld_Inven]);
 		m_pSprite->Draw(
 			Inventory.m_pTex,
 			&Inventory.m_rc,
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
-			D3DCOLOR_ARGB(180, 255, 255, 255));
+			D3DCOLOR_ARGB(50, 255, 255, 255));
+
+		m_pSprite->End();
+
 
 		//=======================================
 
@@ -974,7 +977,7 @@ void InventoryManager::Render()
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
 			D3DCOLOR_ARGB(50, 255, 255, 255));
-
+		m_pSprite->End();
 
 		SetRect(&Exit_Button.m_rc, 0, 0, Exit_Button.m_image.Width, Exit_Button.m_image.Height);
 
@@ -987,7 +990,7 @@ void InventoryManager::Render()
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
 			D3DCOLOR_ARGB(255, 255, 255, 255));
-		
+		m_pSprite->End();
 
 
 
@@ -1013,7 +1016,7 @@ void InventoryManager::Render()
 			&D3DXVECTOR3(0, 0, 0),
 			WHITE);
 		// 이 부분에 대해 물어보기
-
+		m_pSprite->End();
 
 		//윈도우 기준이 아닌, 스크린기준으로 되어있엉
 		static float fAngle = 0.0f;
@@ -1055,10 +1058,11 @@ void InventoryManager::Render()
 					&D3DXVECTOR3(0, 0, 0),
 					WHITE);
 
+				m_pSprite->End();
+
 				if (PtInRect(&InvenArray[i][j].Click_rc, mousePoint) && InvenArray[i][j].index != 0)
 				{
-					
-
+					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 					SetRect(&Item_Info_Back.m_rc, 0, 0, Item_Info_Back.m_image.Width, Item_Info_Back.m_image.Height);
 					
 
@@ -1069,7 +1073,8 @@ void InventoryManager::Render()
 						&Item_Info_Back.m_rc,
 						&D3DXVECTOR3(0, 0, 0),
 						&D3DXVECTOR3(0, 0, 0),
-						D3DCOLOR_ARGB(200, 255, 255, 255));
+						D3DCOLOR_ARGB(100, 255, 255, 255));
+					m_pSprite->End();
 
 
 					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
@@ -1080,28 +1085,38 @@ void InventoryManager::Render()
 						&D3DXVECTOR3(0, 0, 0),
 						&D3DXVECTOR3(0, 0, 0),
 						D3DCOLOR_ARGB(255, 255, 255, 255));
+					m_pSprite->End();
 
+
+					for (int i = 0; i < 4; i++)
+					{
+						m_pSprite_Item_Info[i]->Begin(D3DXSPRITE_ALPHABLEND);
+					}
 					cstr_Item_Info[ItemName] = InvenArray[i][j].name;
 					cstr_Item_Info[ATK].Format(_T("ATK:  %d"), InvenArray[i][j].Atk);
-					
 					cstr_Item_Info[DEF].Format(_T("DEF:  %d"), InvenArray[i][j].Def);
 					cstr_Item_Info[MHP].Format(_T("MHP:  %d"), InvenArray[i][j].MaxHp);
 
 					for (int i = 0; i < 4; i++)
-					{
+					{					
 						m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
-
 					}
 		
 					
 					for (int i = 0; i < 4; i++)
 					{
 						SAFE_RENDER(m_pRootUI_Item_Info[i]);
+						
+					}
+
+					for (int i = 3; i >= 0; i--)
+					{
+						m_pSprite_Item_Info[i]->End();
 					}
 				}
 			}
 		}
-
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 
 		SetRect(&Shop_Item[0].Click_rc, Shop_Item[0].PositionX
@@ -1111,8 +1126,20 @@ void InventoryManager::Render()
 
 
 		//============================================
+		// Enum Equip_Type를 i 로 대신 사용
+		
 
-	
+		for (int i = 0; i < 6; i++)
+		{
+			m_pSprite_Equip[i]->Begin(D3DXSPRITE_ALPHABLEND);
+			m_pSprite_Equip[i]->SetTransform(&m_matWorld_Euip_Name_text[i]);
+			//Equip_Name[i]->SetColor(BLACK);
+			//	Equip_Name[i]->SetPosition(&D3DXVECTOR3(Equiped_Item[i].PositionX*2.5f, Equiped_Item[i].PositionY, 0));
+			//m_pRootUI_Euip_Text[i]->m_combinedPos.x -= 100;
+			SAFE_RENDER(m_pRootUI_Euip_Text[i]);
+			m_pSprite_Equip[i]->End();
+		}
+
 		//	float PositionX_Inven, PositionY_Inven;
 		// Equip 한번 가보자으아아아아 
 		for (int i = 0; i < 6; i++)
@@ -1132,9 +1159,12 @@ void InventoryManager::Render()
 					Equiped_Item[i].PositionX + ((Equiped_Item[i].m_image.Width)*(Equiped_Item[i].ScaleX)),
 					Equiped_Item[i].PositionY + ((Equiped_Item[i].m_image.Height)*(Equiped_Item[i].ScaleY)));
 
-				m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+				//m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 				m_pSprite->SetTransform(&matWorld[matWorld_Equiped_Item + i]);
-		/*		m_pSprite->Draw(
+		
+				
+				// 얘는 죽여둔다
+			/*		m_pSprite->Draw(
 					Equiped_Item[i].m_pTex,
 					&Equiped_Item[i].m_rc,
 					&D3DXVECTOR3(0, 0, 0),
@@ -1166,13 +1196,12 @@ void InventoryManager::Render()
 					&D3DXVECTOR3(0, 0, 0),
 					&D3DXVECTOR3(0, 0, 0),
 					D3DCOLOR_ARGB(180, 255, 255, 255));
-			
+
+				m_pSprite->End();
 				
 				if (PtInRect(&Equiped_Item[i].m_rc_click, mousePoint) && Equip[i+1].index !=0)
 				{		
-
-					
-
+					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 					SetRect(&Item_Info_Back.m_rc, 0, 0, Item_Info_Back.m_image.Width, Item_Info_Back.m_image.Height);
 					
@@ -1197,7 +1226,8 @@ void InventoryManager::Render()
 						&D3DXVECTOR3(0, 0, 0),
 						&D3DXVECTOR3(0, 0, 0),
 						D3DCOLOR_ARGB(200, 255, 255, 255));
-				
+					m_pSprite->End();
+
 					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 					m_pSprite->SetTransform(&matWorld[matWorld_MouseOver]);
 					m_pSprite->Draw(
@@ -1207,9 +1237,17 @@ void InventoryManager::Render()
 						&D3DXVECTOR3(0, 0, 0),
 						D3DCOLOR_ARGB(255, 255, 255, 255));
 
-					
+					m_pSprite->End();
+
+
 					for (int i = 0; i < 4; i++)
 					{
+						m_pSprite_Item_Info[i]->Begin(D3DXSPRITE_ALPHABLEND);
+					}
+
+					for (int i = 0; i < 4; i++)
+					{
+					
 						m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
 
 					}
@@ -1218,72 +1256,25 @@ void InventoryManager::Render()
 					{
 
 						SAFE_RENDER(m_pRootUI_Item_Info[i]);
+
+					
 					}
 					
-				
+					for (int i = 3; i >= 0; i--)
+					{
+						m_pSprite_Item_Info[i]->End();
+					}
 				
 				}
-			
+
+				
 				
 
 				
 			}
 
 
-		// Enum Equip_Type를 i 로 대신 사용
-		for (int j = 0; j < 6; j++)
-		{
-			int i = j + 1;
-			int AdjustNum = matWorld_Main_Weapon - i;
-			int num = Equip.size();
-			if (Equip[i].index != 0)
-			{
-				if (i < 4)
-				{
-					Column = 1;
-				}
-				else if (i > 3)
-				{
-					Column = 2;
-				}
-				Cross = (j % 3) +1;
-
-				
-				Equip[i].PositionX = Equiped_Item_BlackBack[j].PositionX;
-				Equip[i].PositionY = Equiped_Item_BlackBack[j].PositionY;
-				Equip[i].ScaleX = .3f * Adjust_Display_Mode_X;
-				Equip[i].ScaleY = .3f * Adjust_Display_Mode_Y;
-				D3DXMatrixRotationZ(&matR, fAngle);
-				D3DXMatrixIdentity(&matT);
-				D3DXMatrixTranslation(&matT, Equip[i].PositionX, Equip[i].PositionY, 0);
-				D3DXMatrixScaling(&matS, Equip[i].ScaleX, Equip[i].ScaleY, 1);
-				matWorld[i+ AdjustNum] = matS * matR * matT;
-
-				//ItemSet
-				SetRect(&Equip[i].Item_rc, 0, 0, Equip[i].m_image_Item_Info.Width, Equip[i].m_image_Item_Info.Height);
-
-				SetRect(&Equip[i].Click_rc,
-					Equip[i].PositionX,
-					Equip[i].PositionY,
-					Equip[i].PositionX + ((Equip[i].m_image_Item_Info.Width)*(Equip[i].ScaleX)),
-					Equip[i].PositionY + ((Equip[i].m_image_Item_Info.Height)*(Equip[i].ScaleY)));
-
-				m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-				m_pSprite->SetTransform(&matWorld[i+AdjustNum]);
-
-				m_pSprite->Draw(
-					Equip[i].m_pTex_Item,
-					&Equip[i].Item_rc,
-					&D3DXVECTOR3(0, 0, 0),
-					&D3DXVECTOR3(0, 0, 0),
-					WHITE);
-
-				
-			}
-
-
-	
-		}	
+		
 
 	
 	
@@ -1311,6 +1302,7 @@ void InventoryManager::Render()
 				&D3DXVECTOR3(0, 0, 0),
 				&D3DXVECTOR3(0, 0, 0),
 				WHITE);
+			m_pSprite->End();
 		}
 
 		else
@@ -1332,6 +1324,7 @@ void InventoryManager::Render()
 				&D3DXVECTOR3(0, 0, 0),
 				&D3DXVECTOR3(0, 0, 0),
 				WHITE);
+			m_pSprite->End();
 		}
 		for (int j = 0; j < INVENVERTI; j++)
 		{
@@ -1359,21 +1352,66 @@ void InventoryManager::Render()
 						&D3DXVECTOR3(0, 0, 0),
 						&D3DXVECTOR3(0, 0, 0),
 						D3DCOLOR_ARGB(200, 255, 255, 255));
-
+					m_pSprite->End();
 				}
 			}
 		}
+		m_pSprite->End();
 
-		for (int i = 0; i < 6; i++)
+		for (int j = 0; j < 6; j++)
 		{
+			int i = j + 1;
+			int AdjustNum = matWorld_Main_Weapon - i;
+			int num = Equip.size();
+			if (Equip[i].index != 0)
+			{
+				if (i < 4)
+				{
+					Column = 1;
+				}
+				else if (i > 3)
+				{
+					Column = 2;
+				}
+				Cross = (j % 3) + 1;
 
-			m_pSprite_Equip[i]->SetTransform(&m_matWorld_Euip_Name_text[i]);
-		//Equip_Name[i]->SetColor(BLACK);
-		//	Equip_Name[i]->SetPosition(&D3DXVECTOR3(Equiped_Item[i].PositionX*2.5f, Equiped_Item[i].PositionY, 0));
-			//m_pRootUI_Euip_Text[i]->m_combinedPos.x -= 100;
-			SAFE_RENDER(m_pRootUI_Euip_Text[i]);
-	
+
+				Equip[i].PositionX = Equiped_Item_BlackBack[j].PositionX;
+				Equip[i].PositionY = Equiped_Item_BlackBack[j].PositionY;
+				Equip[i].ScaleX = .3f * Adjust_Display_Mode_X;
+				Equip[i].ScaleY = .3f * Adjust_Display_Mode_Y;
+				D3DXMatrixRotationZ(&matR, fAngle);
+				D3DXMatrixIdentity(&matT);
+				D3DXMatrixTranslation(&matT, Equip[i].PositionX, Equip[i].PositionY, 0);
+				D3DXMatrixScaling(&matS, Equip[i].ScaleX, Equip[i].ScaleY, 1);
+				matWorld[i + AdjustNum] = matS * matR * matT;
+
+				//ItemSet
+				SetRect(&Equip[i].Item_rc, 0, 0, Equip[i].m_image_Item_Info.Width, Equip[i].m_image_Item_Info.Height);
+
+				SetRect(&Equip[i].Click_rc,
+					Equip[i].PositionX,
+					Equip[i].PositionY,
+					Equip[i].PositionX + ((Equip[i].m_image_Item_Info.Width)*(Equip[i].ScaleX)),
+					Equip[i].PositionY + ((Equip[i].m_image_Item_Info.Height)*(Equip[i].ScaleY)));
+
+				m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+				m_pSprite->SetTransform(&matWorld[i + AdjustNum]);
+
+				m_pSprite->Draw(
+					Equip[i].m_pTex_Item,
+					&Equip[i].Item_rc,
+					&D3DXVECTOR3(0, 0, 0),
+					&D3DXVECTOR3(0, 0, 0),
+					WHITE);
+				m_pSprite->End();
+
+			}
+
+
+
 		}
+
 	
 	
 		
@@ -1386,18 +1424,19 @@ void InventoryManager::Render()
 
 
 
-	for (int i = 5; i >= 0; i--)
-	{
-		m_pSprite_Equip[i]->End();
-	}
-	
+	//for (int i = 5; i >= 0; i--)
+	//{
+	//	m_pSprite_Equip[i]->End();
+	//}
 
-	for (int i = 3; i >= 0; i--)
-	{
-		m_pSprite_Item_Info[i]->End();
-	}
 
-	m_pSprite->End();
+	//for (int i = 3; i >= 0; i--)
+	//{
+	//	m_pSprite_Item_Info[i]->End();
+	//}
+
+
+
 
 }
 
