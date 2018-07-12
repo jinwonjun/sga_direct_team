@@ -83,8 +83,6 @@ void Ironman::Init()
 
 	timer = 0;//체크 타이머 초기화
 	checkTimer = false;
-
-
 }
 
 void Ironman::Update()
@@ -238,13 +236,20 @@ void Ironman::Shoot()
 			if (r.CalcIntersectSphere(temp) == true)
 			{
 				intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+				
 				//printf("거리 : %f\n", intersectionDistance);
+				
 				//최소거리
 				if (intersectionDistance < minDistance)
 				{
 					minDistance = intersectionDistance;
 					//sphere = temp;
 					tempEnemy = p;
+					
+					//맞으면 플레이어 위치 목적지로 입력
+					p->SetDestPos(m_pos);
+					//맞았다 체크
+					p->SetDamage(true);
 				}
 				//거리 보정 위치값 찾기
 				BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;

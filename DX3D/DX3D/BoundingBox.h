@@ -14,27 +14,28 @@ private :
 
 	D3DXVECTOR3				m_minPos;
 	D3DXVECTOR3				m_maxPos;
-	D3DXVECTOR3				m_oriPos;	//updatePos
 
 	D3DXVECTOR3				m_size;
 public:
 	BoundingBox(D3DXVECTOR3 size);
+	BoundingBox(D3DXVECTOR3 size, D3DXVECTOR3 pos);
+	
 	~BoundingBox();
 
 	D3DXVECTOR3	GetMinPos()
 	{
 		return D3DXVECTOR3(
-			m_oriPos.x + m_minPos.x * m_size.x,
-			m_oriPos.y + m_minPos.y * m_size.y,
-			m_oriPos.z + m_minPos.z * m_size.z);
+			m_pos.x + m_minPos.x * m_size.x,
+			m_pos.y + m_minPos.y * m_size.y,
+			m_pos.z + m_minPos.z * m_size.z);
 	}
 
 	D3DXVECTOR3 GetMaxPos()
 	{
 		return D3DXVECTOR3(
-			m_oriPos.x + m_maxPos.x * m_size.x,
-			m_oriPos.y + m_maxPos.y * m_size.y,
-			m_oriPos.z + m_maxPos.z * m_size.z);
+			m_pos.x + m_maxPos.x * m_size.x,
+			m_pos.y + m_maxPos.y * m_size.y,
+			m_pos.z + m_maxPos.z * m_size.z);
 	}
 
 	bool IsIntersected(BoundingBox &box)

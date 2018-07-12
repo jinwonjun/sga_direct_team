@@ -133,6 +133,7 @@ void Gun::Render()
 {
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTransform(D3DTS_WORLD, &ApplyMatrix);
+	g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 
 	//총 매쉬로 그리기
 	for (size_t i = 0; i < m_vecMtlTex.size(); i++)

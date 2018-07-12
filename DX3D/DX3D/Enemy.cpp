@@ -10,9 +10,6 @@
 #include "SkinnedMesh.h"
 #include "Ironman.h"
 
-#define SCALE 10.00f
-#define MOB_FULL_HP 100//몹의 전체 피통
-
 Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 {
 	m_destPos = m_pos = pos;
@@ -29,13 +26,29 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 	m_filename = fileName;	// "combine_test.X";
 
 	m_radius = 1.7f;
+	m_HeadRadius = 0.5f;
+	m_CollRadius = 10.f;
 	m_SphereHeight = 7.0f;
 	m_enemyNum = enemyNum;
+
+	//충돌처리
+	m_frontHead = D3DXVECTOR3(0, 0, 1);
+	m_backHead = D3DXVECTOR3(0, 0, 1);
+	m_avoid = D3DXVECTOR3(0, 0, 0);
+	velocity = D3DXVECTOR3(0, 0, m_moveSpeed);
+	m_dynamicLength = 1.f;
+	
+	testNum = 0;
+	
+	isDamage = false;
 }
 
 
 Enemy::~Enemy()
 {
+	SAFE_RELEASE(m_pCollSphereMesh);
+	SAFE_RELEASE(m_pBackSphereMesh);
+	SAFE_RELEASE(m_pFrontSphereMesh);
 	SAFE_RELEASE(m_pSphereMesh);
 	SAFE_RELEASE(m_pBox);
 
@@ -48,12 +61,17 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
-	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 15.0f, 50.0f)); m_pBox->Init();
+	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 15.0f, 50.0f), m_pos); m_pBox->Init();
+	
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
+	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pFrontSphereMesh, NULL);
+	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pBackSphereMesh, NULL);
+	D3DXCreateSphere(g_pDevice, m_CollRadius, 10, 10, &m_pCollSphereMesh, NULL);
+
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
-	//m_renderMode = RenderMode_ShadowMapping;
-	//Shaders::Get()->AddList(this, m_renderMode);
+	m_renderMode = RenderMode_ShadowMapping;
+	Shaders::Get()->AddList(this, m_renderMode);
 	m_pSkinnedMesh = new SkinnedMesh; m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
@@ -64,6 +82,10 @@ void Enemy::Init()
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
+
+	D3DXMatrixIdentity(&m_SphereMat);
+	D3DXMatrixIdentity(&m_matFrontSphere);
+	D3DXMatrixIdentity(&m_matBackSphere);
 
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
 
@@ -107,12 +129,25 @@ void Enemy::Init()
 
 void Enemy::Update()
 {
+	if (g_pKeyboard->KeyDown(VK_F3))
+	{
+		testNum++;
+
+		if (testNum > 4)
+			testNum = 0;
+	}
+
 	UpdatePosition();
+
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
+	
 	m_pBounidngSphere->center = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z);
+	
 	D3DXMatrixTranslation(&m_SphereMat, m_pBounidngSphere->center.x, m_pBounidngSphere->center.y, m_pBounidngSphere->center.z);
-
+	D3DXMatrixTranslation(&m_matFrontSphere, m_frontHead.x, m_frontHead.y, m_frontHead.z);
+	D3DXMatrixTranslation(&m_matBackSphere, m_backHead.x, m_backHead.y, m_backHead.z);
+	
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
 
@@ -121,15 +156,51 @@ void Enemy::Update()
 
 void Enemy::Render()
 {
-	//m_pBox->Render();
+	///////////////////////// 인식 박스 그리기 ///////////////////////////
+	if (testNum > 0 && testNum != 3)
+		m_pBox->Render();
+	
 	//////////////////////////구체 그려주기//////////////////////////////
+	
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
+	g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 	g_pDevice->SetTexture(0, NULL);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_pSphereMesh->DrawSubset(0);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	////////////////////////////////////////////////////////////////////
+	
+	///////////////////////충돌 체크 구체 그리기//////////////////////////
+	
+	if (testNum > 1 && testNum != 3)
+	{
 
+		g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
+		g_pDevice->SetTexture(0, NULL);
+		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		m_pCollSphereMesh->DrawSubset(0);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
+	
+	//////////////////////////헤드 구체 그리기////////////////////////////
+	
+	if (testNum > 2)
+	{
+		//앞
+		g_pDevice->SetTransform(D3DTS_WORLD, &m_matFrontSphere);
+		g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
+		g_pDevice->SetTexture(0, NULL);
+		m_pFrontSphereMesh->DrawSubset(0);
+		//뒤
+		g_pDevice->SetTransform(D3DTS_WORLD, &m_matBackSphere);
+		g_pDevice->SetTexture(0, NULL);
+		m_pBackSphereMesh->DrawSubset(0);
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	SAFE_RENDER(m_pSkinnedMesh);
 
@@ -172,8 +243,8 @@ void Enemy::Render()
 	{
 		Hp_Draw_Idx = 0;
 	}
-
-	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
+	//(m_HP > 0) &&
+	if ( (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
 						g_pCamera->GetMCenter().y <= ScreenY))
@@ -200,63 +271,80 @@ void Enemy::Render()
 void Enemy::UpdatePosition()
 {
 	D3DXVECTOR3 targetPos;
-	D3DXMATRIXA16 matS;
+	D3DXMATRIXA16 matS, matR, matT;;
 	D3DXMatrixScaling(&matS, m_radius, m_radius, m_radius);
 
-	D3DXMATRIXA16 matT, matR;
-	float	height = 0;
-	bool isIntersected = true;
+	//이동 목적지와 몬스터의 거리
+	float MoveDist = D3DXVec3Length(&(m_destPos - m_pos));
 
-	targetPos = m_pos + m_forward  * m_moveSpeed;
+	//이동 체크용
+	//m_destPos = D3DXVECTOR3(0, 10, 0);
+	
+	///////////////// ////////status by 명훈 //////////////////////////
 
-	if (g_pCurrentMap != NULL)
+	////바운딩 박스에 닿았거나 총에 맞았다면 이동
+	if (m_isMoving == true || isDamage == true)
 	{
-		isIntersected = g_pCurrentMap->GetHeight(height, targetPos);
+		m_pSkinnedMesh->status = 3;	//이동
+
+		//박스 안에 있다면 총에 맞은거 끔 : 총맞고 벗어 났을경우 위해
+		if (m_isMoving)
+			isDamage = false;
 	}
 
-	//if (isIntersected == true)
-	//{
+	//공격 범위 까지 왔다면 공격
+	if (MoveDist <= MOVE_STOP_DISTANCE && MoveDist > D3DX_16F_EPSILON)
+	{
+		m_pSkinnedMesh->status = 1; //어택
+		m_isMoving = false;
+	}
+	//바운딩박스 밖이고 총에 맞은것도 아니라면
+	else if (m_isMoving == false && isDamage == false)
+	{
+		m_pSkinnedMesh->status = 4;
+	}
+	
+	////////////////////////////////////////////////////////////////////
 
+	//enum4(이동) 랑 5(멈춤)로 컨트롤중
+	//보스기준 enum4 가 사망 enum3이 공격 enum2가 달리기 enum1이 대기
+	//바운딩 박스에 닿았을때 거리가 10보다 크면 이동 -> 10보다 작으면 멈춤
+	//if (D3DXVec3Length(&(m_destPos - m_pos)) > 10.f)
+	//{
+	//	//보스
+	//	if (GetEnemyNum() == 4)
+	//	{
+	//		m_pSkinnedMesh->status = 1;
+	//	}
+	//	//쫄
+	//	else
+	//	{
+	//		m_pSkinnedMesh->status = 3;	//이동
+	//	}
+	//	m_isMoving = true;
 	//}
 	//else
 	//{
-	//	m_pos = targetPos;
+	//	if (GetEnemyNum() == 4)
+	//	{
+	//		m_pSkinnedMesh->status = 0;
+	//	}
+	//	//쫄
+	//	else
+	//	{
+	//		m_pSkinnedMesh->status = 4; //멈춤
+	//	}
+	//	m_isMoving = false;
 	//}
 
-	//enum4(이동) 랑 5(멈춤)로 컨트롤중
-	//보스기준 enum3이 공격 enum2가 달리기 enum1이 대기
-	//바운딩 박스에 닿았을때 거리가 10보다 크면 이동 -> 10보다 작으면 멈춤
-	if (D3DXVec3Length(&(m_destPos - m_pos)) > 10.f)
+	//충돌 해서 밀어낼 벡터 받아왔다면 방향 받고 정규화
+	if (m_avoid != D3DXVECTOR3(0, 0, 0))
 	{
-		//보스
-		if (GetEnemyNum() == 4)
-		{
-			m_pSkinnedMesh->status = 1;
-		}
-		//쫄
-		else
-		{
-			m_pSkinnedMesh->status = 3;	//이동
-		}
-		m_isMoving = true;
-	}
-	else
-	{
-		if (GetEnemyNum() == 4)
-		{
-			m_pSkinnedMesh->status = 2;
-		}
-		//쫄
-		else
-		{
-			m_pSkinnedMesh->status = 4; //멈춤
-		}
-		m_isMoving = false;
+		D3DXVec3Normalize(&m_avoid, &m_avoid);
 	}
 
-	if (m_isMoving)
+	if (m_isMoving || isDamage)
 	{
-		D3DXVECTOR3 pos;
 		D3DXVECTOR3 forward = D3DXVECTOR3(m_destPos.x - m_pos.x, 0, m_destPos.z - m_pos.z);
 		D3DXVECTOR3 forwardNormalized;
 		D3DXVec3Normalize(&forwardNormalized, &forward);
@@ -268,11 +356,8 @@ void Enemy::UpdatePosition()
 
 		float dot;		//내적의 값
 		float radian;	//내적의 값을 역코사인 해서 구한 최종 각도
-		
-		D3DXVECTOR3 m_forwardNormalized;
-		D3DXVec3Normalize(&m_forwardNormalized, &m_forward);
 
-		dot = D3DXVec3Dot(&m_forwardNormalized, &forwardNormalized);
+		dot = D3DXVec3Dot(&m_forward, &forwardNormalized);
 
 		if (dot > 1.f) dot = 1.f;
 		else if (dot < -1.f) dot = -1.f;
@@ -282,44 +367,88 @@ void Enemy::UpdatePosition()
 		Debug->AddText("Radian : " + to_string(radian));
 		Debug->EndLine();
 
-		D3DXVECTOR3 rightDir;	//우향벡터
-		D3DXVec3Cross(&rightDir, &m_forward, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+		//Debug->AddText("m_forward: " + to_string(m_forward.x) + ", " + to_string(m_forward.y) + ", " + to_string(m_forward.z));
+		//Debug->EndLine();
 
-		//우향벡터와 바라보는 벡터의 내적이 0보다 크면 왼쪽
-		//D3DXVECTOR3 rotY;
+		D3DXVECTOR3 rightDir;	//우향벡터
+		D3DXVec3Cross(&rightDir, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &m_forward);
+
+		//우향벡터와 바라보는 벡터의 내적이 0보다 크면 오른쪽
 		if (D3DXVec3Dot(&rightDir, &forwardNormalized) > 0)
 		{
-			//왼쪽			
-			m_rot.y -= radian * m_rotationSpeed;
+			//오른쪽			
+			m_rot.y += radian * m_rotationSpeed;
 		}
 		else
 		{
-			//오른쪽
-			m_rot.y += radian * m_rotationSpeed;
+			//왼쪽
+			m_rot.y -= radian * m_rotationSpeed;
 		}
 
-		D3DXMATRIXA16 matR;
+		//Debug->AddText("m_rot.y : " + to_string(m_rot.y));
+		//Debug->EndLine();
 
 		D3DXMatrixRotationY(&matR, m_rot.y);
 
-		m_pos.y = height; //+ 5.0f;
-		pos = m_pos + forwardNormalized * m_moveSpeed;
+		//거의 일직선 상이라면 
+		if (D3DXVec3Dot(&m_forward, &m_avoid) < -.959f)
+		{
+			D3DXMATRIXA16 tempRotY;
+
+			//왼쪽으로 밀리는거면 더 돌림
+			if (D3DXVec3Dot(&rightDir, &m_avoid) > 0)
+			{
+				D3DXMatrixRotationY(&tempRotY, -D3DX_PI / 2);
+			}
+			else
+			{
+				D3DXMatrixRotationY(&tempRotY, D3DX_PI / 2);
+			}
+
+			D3DXVec3TransformNormal(&m_avoid, &m_avoid, &tempRotY);
+		}
+		
+		//몬스터 최종 속도
+		velocity = m_forward * m_moveSpeed + m_avoid * MAX_AVOID_FORCE;
+
+		//충돌하고 밀려서 빨라지는거 막기
+		if (D3DXVec3Length(&velocity) > m_moveSpeed)
+		{
+			D3DXVECTOR3 nomVel;
+			D3DXVec3Normalize(&nomVel, &velocity);
+			velocity = nomVel * m_moveSpeed;
+		}
+		
+		//부딪혔을때 속도 비율로 줄이기
+		m_dynamicLength = D3DXVec3Length(&velocity) / m_moveSpeed;
+
+		//최종 이동
+		m_pos = m_pos + velocity * m_dynamicLength;
+		//m_pos = m_pos + m_forward * m_moveSpeed + m_avoid * MAX_AVOID_FORCE;
+
 		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 		m_matWorld = matS * matR * matT;
-		SetPosition(&pos);
-	}
-}
-
-void Enemy::SetDestPos(D3DXVECTOR3 & pos)
-{
-	if (m_isMoving)
+	}//m_isMoving || isDamage
+	else
 	{
-		if (m_destPos != pos)
-		{
-			m_destPos = pos;
-		}
+		velocity = D3DXVECTOR3(0, 0, 0);
+		m_destPos.y = m_pos.y;
 	}
-	m_destPos = pos;
+	//충돌 헤드 계산
+	m_frontHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
+	m_backHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD * 0.5f + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
+
+	//높이 계산
+	float height = 0;
+	bool isIntersected = true; //이건 무슨 용도지??
+
+	targetPos = m_pos + m_forward  * m_moveSpeed;
+
+	if (g_pCurrentMap != NULL)
+		isIntersected = g_pCurrentMap->GetHeight(height, targetPos);
+	
+	m_pos.y = height; //+ 5.0f;
+
 }
 
 void Enemy::MoveStop()
@@ -345,7 +474,7 @@ void Enemy::AnimationModify()
 		matTemp = matS * matRotY * matR * matT;
 		m_pSkinnedMesh->SetWorldMatrix(&matTemp);
 	}
-	//보스일때
+	//보스일때, 보스 스케일링 및 애니메이션 재설정
 	else
 	{
 		if (m_pSkinnedMesh->status == 2)
@@ -394,7 +523,7 @@ void Enemy::WorldToVP()
 	D3DVIEWPORT9 vp;
 	D3DXVECTOR3 v(0, 0, 0);
 
-	matWorld = m_matWorld;//0번 인덱스 놈의 월드 행렬 가져오기
+	matWorld = m_matWorld;//지금 생성되는 enemy의 월드 행렬값 넘겨주기
 
 	g_pDevice->GetTransform(D3DTS_VIEW, &matView);
 	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
@@ -402,29 +531,29 @@ void Enemy::WorldToVP()
 	matWVP = matWorld * matView * matProj;
 
 	D3DXVec3TransformCoord(&v, &v, &matWVP);
+	//뷰포트 정보값 가져오기
+	g_pDevice->GetViewport(&vp);
 
-	g_pDevice->GetViewport(&vp);//뷰포트 정보값 가져오기
-
-								//스크린좌표 가져오기
+	//스크린좌표 가져오기
 	ScreenX = (v.x * 0.5f + 0.5f) * vp.Width;
 	ScreenY = ((-1)*v.y * 0.5f + 0.5f) * vp.Height;
 
 	//스크린좌표 구했으니까 피통 UI를 머리 위로 올려!
-	Debug->EndLine();
-	Debug->EndLine();
-	Debug->AddText("스크린상좌표 X : ");
-	Debug->AddText(g_pCamera->GetMCenter().x);
-	Debug->AddText("  Y : ");
-	Debug->AddText(g_pCamera->GetMCenter().y);
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->AddText("스크린상좌표 X : ");
+	//Debug->AddText(g_pCamera->GetMCenter().x);
+	//Debug->AddText("  Y : ");
+	//Debug->AddText(g_pCamera->GetMCenter().y);
+	//Debug->EndLine();
+	//Debug->EndLine();
 
-	Debug->AddText("몹 스크린상좌표 X : ");
-	Debug->AddText(ScreenX);
-	Debug->AddText("  Y : ");
-	Debug->AddText(ScreenY);
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->AddText("몹 스크린상좌표 X : ");
+	//Debug->AddText(ScreenX);
+	//Debug->AddText("  Y : ");
+	//Debug->AddText(ScreenY);
+	//Debug->EndLine();
+	//Debug->EndLine();
 }
 
 void Enemy::RenderUseShader_0()

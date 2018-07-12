@@ -368,7 +368,7 @@ void SampleUI::Update()
 	//ÃÑ°ú ÃÑ¾Ë 	
 	//==========================================
 	//==========================================
-	if (spaceOn & contorller == 1)
+	if (spaceOn && contorller == 1)
 	{
 		restBullet--;
 		spaceOn = false;
@@ -383,7 +383,13 @@ void SampleUI::Update()
 	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
 	
 	
+<<<<<<< HEAD
 	
+=======
+	WeaponAtk = std::to_wstring(g_pInventory->Equip[1].Atk);
+
+	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
+>>>>>>> 71a2804102a05f3064de5fafda6eec7dbad911e0
 
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
 

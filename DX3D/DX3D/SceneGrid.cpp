@@ -181,10 +181,9 @@ void SceneGrid::Update()
 	//SAFE_UPDATE(m_pActionCube);
 	//SAFE_UPDATE(m_pFrustum);
 
+	BoundingCheck();
 
 	SAFE_UPDATE(m_pEm);
-
-	BoundingCheck();
 
 	//SAFE_UPDATE(pCube_head);
 	OnUpdateIScene();
@@ -240,19 +239,20 @@ void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void SceneGrid::BoundingCheck()
 {
 
-	Ironman* PlayerObj = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
-	EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+	//Ironman* PlayerObj = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
+	//EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
 
-	for (auto p : EnemyObj->GetVecEnemy())
+	for (auto p : m_pEm->GetVecEnemy())
 	{
-		BoundingBox* pEnemyBox = p->GetBoundingBox();
-		if (PlayerObj->GetBoundingBox()->IsIntersected(*pEnemyBox))
+		//BoundingBox* pEnemyBox = p->GetBoundingBox();
+		if (m_pCharacter->GetBoundingBox()->IsIntersected(*(p->GetBoundingBox())))
 		{
-			p->SetDestPos(PlayerObj->GetPosition());
+			p->SetDestPos(m_pCharacter->GetPosition());
+			p->SetIsMove(true);
 		}
 		else
 		{
-			p->MoveStop();
+			p->SetIsMove(false);
 		}
 	}
 }
