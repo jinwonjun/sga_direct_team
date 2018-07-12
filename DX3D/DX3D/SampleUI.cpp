@@ -381,23 +381,13 @@ void SampleUI::Update()
 
 	positionY = g_pItem->timer;
 	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
-	
-	
-	WeaponAtk = std::to_wstring(g_pInventory->Equip[1].Atk);
 
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
-
-	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
-<<<<<<< HEAD
-
-=======
->>>>>>> 71a2804102a05f3064de5fafda6eec7dbad911e0
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
 	GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((30-g_pItem->timer)), 0));
 	
-
 	
 	//DamageFont->SetPosition(&D3DXVECTOR3(500,500, 0));
 
