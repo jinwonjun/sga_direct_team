@@ -10,13 +10,10 @@ BloodParticle::BloodParticle()
 
 BloodParticle::~BloodParticle()
 {
-	//SAFE_RELEASE(m_pTex);
 }
 
 void BloodParticle::Init()
 {
-	//m_pTex = g_pTextureManager->GetTexture("resources/images/ham2.png");
-
 	//D3DXMatrixIdentity(&m_matWorld);
 
 	m_vecAtt.resize(PARTICLE_NUM);
@@ -40,11 +37,6 @@ void BloodParticle::Init()
 
 		//파티클 갯수만큼 360도 돌게끔
 		angle += 2 * D3DX_PI / PARTICLE_NUM;
-
-		//BoundingSphere* s = new BoundingSphere(
-		//	D3DXVECTOR3(GetRandomFloat(-30, 30), GetRandomFloat(-30, 30), GetRandomFloat(-30, 30)), radius);
-		//m_vecpBoundary.push_back(s);
-
 	}
 
 	//D3DUSAGE_DYNAMIC : 값을 변경해줄때 속도감소 줄임
@@ -118,6 +110,7 @@ void BloodParticle::Render()
 	if (fire)
 	{
 		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+		g_pDevice->SetTexture(0, NULL);
 		g_pDevice->SetMaterial(&DXUtil::BLOOD_MTRL);
 
 		int i = 0;

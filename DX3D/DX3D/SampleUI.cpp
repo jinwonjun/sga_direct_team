@@ -368,7 +368,7 @@ void SampleUI::Update()
 	//ÃÑ°ú ÃÑ¾Ë 	
 	//==========================================
 	//==========================================
-	if (spaceOn & contorller == 1)
+	if (spaceOn && contorller == 1)
 	{
 		restBullet--;
 		spaceOn = false;
@@ -388,7 +388,10 @@ void SampleUI::Update()
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
 
 	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 71a2804102a05f3064de5fafda6eec7dbad911e0
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
