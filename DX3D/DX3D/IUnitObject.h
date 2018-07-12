@@ -28,6 +28,13 @@ protected:
 	D3DXVECTOR3		m_finalDestPos;	//최종 목적지 노드
 	vector<int>		m_vecAStarIndex;
 
+	//===============공통 객체 변수 정리===============
+	bool			m_isDead;
+	int				m_Atk;
+	int				m_Dmg;
+	int				m_Hp;
+
+
 	IUnitObject();
 
 public:

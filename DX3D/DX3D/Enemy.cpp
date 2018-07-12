@@ -215,7 +215,7 @@ void Enemy::Render()
 
 	float HP_Percent = (float)(((float)m_HP / (float)MOB_FULL_HP) * 100);
 	
-	int Hp_Draw_Idx;
+	int Hp_Draw_Idx = 0;
 	if (HP_Percent <= 100 && HP_Percent > 87.5)
 	{
 		Hp_Draw_Idx = 7;
@@ -270,7 +270,7 @@ void Enemy::Render()
 		m_pSprite->SetTransform(&matW_UI);
 		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
 		m_pSprite->End();
-	/*}*/
+	//}
 }
 
 void Enemy::UpdatePosition()
@@ -289,7 +289,16 @@ void Enemy::UpdatePosition()
 	////바운딩 박스에 닿았거나 총에 맞았다면 이동
 	if (m_isMoving == true || isDamage == true)
 	{
-		m_pSkinnedMesh->status = 3;	//이동
+		//보스
+		if (GetEnemyNum() == 4)
+		{
+			m_pSkinnedMesh->status = 1;
+		}
+		//쫄
+		else
+		{
+			m_pSkinnedMesh->status = 3;	//이동
+		}
 
 		//박스 안에 있다면 총에 맞은거 끔 : 총맞고 벗어 났을경우 위해
 		if (m_isMoving)
@@ -299,13 +308,31 @@ void Enemy::UpdatePosition()
 	//공격 범위 까지 왔다면 공격
 	if (MoveDist <= MOVE_STOP_DISTANCE && MoveDist > D3DX_16F_EPSILON)
 	{
-		m_pSkinnedMesh->status = 1; //어택
+		//보스
+		if (GetEnemyNum() == 4)
+		{
+			m_pSkinnedMesh->status = 2;
+		}
+		//쫄
+		else
+		{
+			m_pSkinnedMesh->status = 1; //어택
+		}
 		m_isMoving = false;
 	}
 	//바운딩박스 밖이고 총에 맞은것도 아니라면
 	else if (m_isMoving == false && isDamage == false)
 	{
-		m_pSkinnedMesh->status = 4;
+		//보스
+		if (GetEnemyNum() == 4)
+		{
+			m_pSkinnedMesh->status = 0;
+		}
+		//쫄
+		else
+		{
+			m_pSkinnedMesh->status = 4;//멈춤
+		}
 	}
 	
 	////////////////////////////////////////////////////////////////////

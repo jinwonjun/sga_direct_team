@@ -388,7 +388,6 @@ void SampleUI::Update()
 
 	GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((30-g_pItem->timer)), 0));
 	
-
 	
 	//DamageFont->SetPosition(&D3DXVECTOR3(500,500, 0));
 

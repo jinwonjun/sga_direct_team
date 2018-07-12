@@ -1028,9 +1028,6 @@ void InventoryManager::Render()
 			{
 				Debug->AddText(InvenArray[i][j].index);
 
-
-
-
 				D3DXMatrixRotationZ(&matR, fAngle);
 				D3DXMatrixIdentity(&matT);
 				D3DXMatrixTranslation(&matT, InvenArray[i][j].PositionX, InvenArray[i][j].PositionY, 0);
@@ -1214,9 +1211,6 @@ void InventoryManager::Render()
 					cstr_Item_Info[DEF].Format(_T("DEF:  %d"), Equip[i + 1].Def);
 					cstr_Item_Info[MHP].Format(_T("MHP:  %d"), Equip[i + 1].MaxHp);
 
-					
-
-
 
 					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 					m_pSprite->SetTransform(&matWorld[matWorld_Item_Info]);
@@ -1260,6 +1254,7 @@ void InventoryManager::Render()
 					
 					}
 					
+<<<<<<< HEAD
 					for (int i = 3; i >= 0; i--)
 					{
 						m_pSprite_Item_Info[i]->End();
@@ -1268,6 +1263,31 @@ void InventoryManager::Render()
 				}
 
 				
+=======
+				
+				}
+			}
+
+
+		// Enum Equip_Type를 i 로 대신 사용
+		for (int j = 0; j < 6; j++)
+		{
+			int i = j + 1;
+			int AdjustNum = matWorld_Main_Weapon - i;
+			int num = Equip.size();
+			if (Equip[i].index != 0)
+			{
+				if (i < 4)
+				{
+					Column = 1;
+				}
+				else if (i > 3)
+				{
+					Column = 2;
+				}
+				Cross = (j % 3) +1;
+
+>>>>>>> b73591c93756fb1efd511034b887d0eb36da6352
 				
 
 				
@@ -1554,7 +1574,6 @@ void InventoryManager::Item_Info_Text()
 		m_pRootUI_Item_Info[i] = pImage;
 	}
 
-
 	Item_Info_PositionX[0] = Item_Info_Back.PositionX + Item_Info_Back.m_image.Width *0.5;
 	Item_Info_PositionY[0] = Item_Info_Back.PositionY + Item_Info_Back.m_image.Height *0.1;
 	Item_Info_PositionX[ATK] = Item_Info_Back.PositionX + Item_Info_Back.m_image.Width *0.45;
@@ -1579,10 +1598,6 @@ void InventoryManager::Item_Info_Text()
 	Item_Info[DEF] = new UIButton(m_pDelegate_Item_Info[DEF], m_pSprite_Item_Info[DEF], 1);
 	Item_Info[MHP] = new UIButton(m_pDelegate_Item_Info[MHP], m_pSprite_Item_Info[MHP], 1);
 
-
-
-
-	
 	float R, G, B;
 	R = 13.0f / 255.0f;
 	G = 136.f / 255.0f;
@@ -1615,6 +1630,7 @@ void InventoryManager::Item_Info_Text()
 	Item_Info[DEF]->SetText(g_pFontMgr->GetFont(FONT::OptionOfItem), cstr_Item_Info[DEF], WHITE, D3DXVECTOR3(0, 0, 0));
 	Item_Info[MHP]->SetText(g_pFontMgr->GetFont(FONT::OptionOfItem), cstr_Item_Info[MHP], WHITE, D3DXVECTOR3(0, 0, 0));
 
+
 	for (int i = 0; i < 4; i++)
 	{
 		m_pRootUI_Item_Info[i]->AddChild(Item_Info[i]);
@@ -1625,8 +1641,6 @@ void InventoryManager::Item_Info_Text()
 
 void InventoryManager::Item_Info_Description(items item)
 {
-
-
 
 
 }
