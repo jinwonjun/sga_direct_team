@@ -1170,17 +1170,7 @@ void InventoryManager::Render()
 				if (PtInRect(&Equiped_Item[i].m_rc_click, mousePoint) && Equip[i+1].index !=0)
 				{		
 
-					for (int i = 0; i < 4; i++)
-					{
-						m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
-
-					}
-
-					for (int i = 0; i < 4; i++)
-					{
-
-						SAFE_RENDER(m_pRootUI_Item_Info[i]);
-					}
+					
 
 
 					SetRect(&Item_Info_Back.m_rc, 0, 0, Item_Info_Back.m_image.Width, Item_Info_Back.m_image.Height);
@@ -1216,7 +1206,17 @@ void InventoryManager::Render()
 						D3DCOLOR_ARGB(255, 255, 255, 255));
 
 					
+					for (int i = 0; i < 4; i++)
+					{
+						m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
 
+					}
+
+					for (int i = 0; i < 4; i++)
+					{
+
+						SAFE_RENDER(m_pRootUI_Item_Info[i]);
+					}
 					
 				
 				
