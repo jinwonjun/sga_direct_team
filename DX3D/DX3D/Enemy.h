@@ -26,7 +26,7 @@ private:
 	CString					m_path;
 	CString					m_filename;
 
-	D3DXMATRIXA16			matT, matS, matR;
+	D3DXMATRIXA16			matS, matR, matT;
 
 	BoundingBox*			m_pBox;
 
@@ -86,7 +86,6 @@ public:
 	*/
 	void UpdatePosition();
 	void SetDestPos(D3DXVECTOR3& pos) { m_destPos = pos; }
-	void MoveStop();
 	void SetIsMove(bool isMove) { m_isMoving = isMove; }
 	void SetDamage(bool Damage) { isDamage = Damage; }
 

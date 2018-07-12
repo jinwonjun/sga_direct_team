@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  InventoryManager.cpp
 d:\_pp\dx3d\dx3d\inventorymanager.cpp(14): warning C4316: 'InventoryManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 d:\_pp\dx3d\dx3d\inventorymanager.cpp(210): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -72,3 +73,17 @@ d:\_pp\dx3d\dx3d\inventorymanager.cpp(1539): warning C4316: 'UIButton': 힙에 �
 d:\_pp\dx3d\dx3d\inventorymanager.cpp(1540): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 d:\_pp\dx3d\dx3d\inventorymanager.cpp(1541): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+=======
+﻿  Shaders.cpp
+d:\sga\pp\dx3d\dx3d\shaders.cpp(11): warning C4316: 'Shaders': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\shaders.cpp(38): warning C4316: 'ShadowMappingShader': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\shaders.cpp(39): warning C4316: 'LightingShader': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  Enemy.cpp
+d:\sga\pp\dx3d\dx3d\enemy.h(93): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\enemy.h(94): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\enemy.cpp(64): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\enemy.cpp(75): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  코드를 생성하고 있습니다...
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> 837064ac35a0cf6d674ae65bdf9f6f89e0c2e529
