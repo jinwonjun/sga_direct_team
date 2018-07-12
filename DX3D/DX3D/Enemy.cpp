@@ -83,6 +83,9 @@ void Enemy::Init()
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&m_matWorld);
 
+	D3DXMatrixScaling(&matS, m_radius, m_radius, m_radius);
+
+
 	D3DXMatrixIdentity(&m_SphereMat);
 	D3DXMatrixIdentity(&m_matFrontSphere);
 	D3DXMatrixIdentity(&m_matBackSphere);
@@ -271,8 +274,7 @@ void Enemy::Render()
 void Enemy::UpdatePosition()
 {
 	D3DXVECTOR3 targetPos;
-	D3DXMATRIXA16 matS, matR, matT;;
-	D3DXMatrixScaling(&matS, m_radius, m_radius, m_radius);
+	
 
 	//이동 목적지와 몬스터의 거리
 	float MoveDist = D3DXVec3Length(&(m_destPos - m_pos));
@@ -427,33 +429,29 @@ void Enemy::UpdatePosition()
 		//m_pos = m_pos + m_forward * m_moveSpeed + m_avoid * MAX_AVOID_FORCE;
 
 		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-		m_matWorld = matS * matR * matT;
 	}//m_isMoving || isDamage
 	else
 	{
 		velocity = D3DXVECTOR3(0, 0, 0);
 		m_destPos.y = m_pos.y;
 	}
+
+	m_matWorld = matS * matR * matT;
+
 	//충돌 헤드 계산
 	m_frontHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
 	m_backHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD * 0.5f + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
 
 	//높이 계산
 	float height = 0;
-	bool isIntersected = true; //이건 무슨 용도지??
 
 	targetPos = m_pos + m_forward  * m_moveSpeed;
 
 	if (g_pCurrentMap != NULL)
-		isIntersected = g_pCurrentMap->GetHeight(height, targetPos);
+		g_pCurrentMap->GetHeight(height, targetPos);
 	
 	m_pos.y = height; //+ 5.0f;
 
-}
-
-void Enemy::MoveStop()
-{
-	m_destPos = m_pos;
 }
 
 void Enemy::AnimationModify()
