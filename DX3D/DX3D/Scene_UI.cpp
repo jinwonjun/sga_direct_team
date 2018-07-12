@@ -86,7 +86,7 @@ void Scene_UI::BoundingCheck()
 		}
 		else
 		{
-			p->MoveStop();
+			//p->MoveStop();
 		}
 	}
 }
