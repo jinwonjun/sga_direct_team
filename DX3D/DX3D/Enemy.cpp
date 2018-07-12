@@ -9,6 +9,8 @@
 #include "ObjLoader.h"
 #include "SkinnedMesh.h"
 #include "Ironman.h"
+#include "Ray.h"
+
 
 Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 {
@@ -247,11 +249,11 @@ void Enemy::Render()
 		Hp_Draw_Idx = 0;
 	}
 	//(m_HP > 0) &&
-	if ( (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
-						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
-						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
-						g_pCamera->GetMCenter().y <= ScreenY))
-	{
+	//if ( (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
+	//					g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
+	//					g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
+	//					g_pCamera->GetMCenter().y <= ScreenY))
+	//{
 		SetRect(&HP_Info[Hp_Draw_Idx].m_Image_rc, 0, 0, HP_Info[Hp_Draw_Idx].m_imageInfo.Width, HP_Info[Hp_Draw_Idx].m_imageInfo.Height);
 		//D3DXMatrixRotationZ(&matR, fAngle);
 		D3DXMatrixIdentity(&matT_UI);
@@ -268,7 +270,7 @@ void Enemy::Render()
 		m_pSprite->SetTransform(&matW_UI);
 		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
 		m_pSprite->End();
-	}
+	/*}*/
 }
 
 void Enemy::UpdatePosition()
@@ -580,6 +582,8 @@ void Enemy::WorldToVP()
 	//Debug->EndLine();
 	//Debug->EndLine();
 }
+
+
 
 void Enemy::RenderUseShader_0()
 {
