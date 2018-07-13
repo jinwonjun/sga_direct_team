@@ -74,7 +74,18 @@ void Enemy::Init()
 
 	m_renderMode = RenderMode_ShadowMapping;
 	Shaders::Get()->AddList(this, m_renderMode);
-	m_pSkinnedMesh = new SkinnedMesh; m_pSkinnedMesh->SetRenderMode(m_renderMode);
+	m_pSkinnedMesh = new SkinnedMesh; 
+	m_pSkinnedMesh->SetRenderMode(m_renderMode);
+	
+	//보스 고유번호 만들기
+	if (GetEnemyNum() < 4)
+	{
+		m_pSkinnedMesh->SetRadius(0.03f);
+	}
+	else
+	{
+		m_pSkinnedMesh->SetRadius(3.0f);
+	}
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
 
@@ -208,6 +219,7 @@ void Enemy::Render()
 	
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	SAFE_RENDER(m_pSkinnedMesh);
+	m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
 
 	//UI그리기
 	////////////////////////////////////////////////////////////////////
@@ -403,8 +415,8 @@ void Enemy::UpdatePosition()
 
 		radian = (float)acos(dot);
 
-		Debug->AddText("Radian : " + to_string(radian));
-		Debug->EndLine();
+		//Debug->AddText("Radian : " + to_string(radian));
+		//Debug->EndLine();
 
 		//Debug->AddText("m_forward: " + to_string(m_forward.x) + ", " + to_string(m_forward.y) + ", " + to_string(m_forward.z));
 		//Debug->EndLine();

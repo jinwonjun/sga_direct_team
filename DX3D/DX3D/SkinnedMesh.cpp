@@ -33,7 +33,7 @@ SkinnedMesh::~SkinnedMesh()
 
 void SkinnedMesh::Init()
 {
-	D3DXCreateSphere(g_pDevice, 0.01f, 10, 10, &m_pSphereMesh, NULL);
+	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -110,6 +110,10 @@ void SkinnedMesh::Update()
 
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
+
+
+	//m_pBounidngSphere->center = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z);
+	//D3DXMatrixTranslation(&m_SphereMat, m_pBounidngSphere->center.x, m_pBounidngSphere->center.y, m_pBounidngSphere->center.z);
 }
 
 
@@ -170,17 +174,13 @@ void SkinnedMesh::UpdateFrameMatrices(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	mixamorig_LeftHand
 	*/
 	//오른손행렬값 찾아서 따로 담기
-	LPSTR hand = "mixamorig_RightHand";
+	//LPSTR hand = "mixamorig_RightHand";
+	//하드코딩 가즈아!!!!!!!!!!!!!!!32개 아무것도 아냐!
 	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHand")==0)
 	{
 		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;//* m_matWorld
 		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);
 	}
-	/*else
-	{
-
-	}*/
-
 }
 
 
@@ -194,10 +194,7 @@ void SkinnedMesh::Render()
 	Debug->AddText(_T("=====DrawFrame====="));
 	Debug->EndLine();
 	if (m_bDrawFrame)DrawFrame(m_pRootFrame);
-	
 	Debug->EndLine();
-
-
 	Debug->AddText(_T("numFrame = "));
 	Debug->AddText(m_numFrame);
 	Debug->EndLine();
@@ -211,14 +208,14 @@ void SkinnedMesh::Render()
 void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 {
 	m_numFrame++;
-	/*if (m_numFrame % 10 == 0)
-	{
-		Debug->EndLine();
-	}
-	if (pFrame->Name == NULL)
-		Debug->AddText(_T("NULL"));
-	else
-		Debug->AddText(pFrame->Name);*/
+	//if (m_numFrame % 10 == 0)
+	//{
+	//	Debug->EndLine();
+	//}
+	//if (pFrame->Name == NULL)
+	//	Debug->AddText(_T("NULL"));
+	//else
+	//	Debug->AddText(pFrame->Name);
 
 	LPD3DXMESHCONTAINER pMeshContainer = pFrame->pMeshContainer;
 	while (pMeshContainer != NULL)
@@ -233,7 +230,6 @@ void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 	{
 		DrawFrame(pFrame->pFrameSibling);
 	}
-
 	if (pFrame->pFrameFirstChild != NULL)
 	{
 		DrawFrame(pFrame->pFrameFirstChild);
@@ -323,7 +319,6 @@ void SkinnedMesh::DrawMeshContainer(LPD3DXFRAME pFrame)
 			pMeshContainerEx->pWorkMesh->DrawSubset(i);
 		}
 	}
-
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
 
@@ -380,6 +375,37 @@ void SkinnedMesh::RenderUseShader_1()
 	// if (m_pSubRootFrame) if (m_bDrawFrame)DrawFrame(m_pSubRootFrame);
 }
 
+void SkinnedMesh::DrawSphereMatrix(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
+{
+	FRAME_EX* pFrameEx = (FRAME_EX*)pFrame;
+	FRAME_EX* pParentFrameEx = (FRAME_EX*)pParent;
+
+	//원본 크기의 본 위치
+	//g_pDevice->SetTransform(D3DTS_WORLD, &(pFrameEx->CombinedTM));
+	//스킨매시 적용한 월드의 위치
+	g_pDevice->SetTransform(D3DTS_WORLD, &(pFrameEx->CombinedTM * m_matWorld));
+	g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+	g_pDevice->SetTexture(0, NULL);
+	m_pSphereMesh->DrawSubset(0);
+	
+
+	if (pFrame->pFrameSibling != NULL)
+	{
+		DrawSphereMatrix(pFrame->pFrameSibling, pParent);
+	}
+
+	if (pFrame->pFrameFirstChild != NULL)
+	{
+		DrawSphereMatrix(pFrame->pFrameFirstChild, pFrame);
+	}
+	//D3DXVECTOR3 temp;
+	//D3DXVec3TransformCoord(&temp, &temp, &(pFrameEx->CombinedTM * m_matWorld));
+	//m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(temp.x, temp.y, temp.z), 2.0f);
+	//Debug->AddText(temp);
+	//Debug->EndLine();
+	//Debug->EndLine();
+}
+
 void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 {
 	LPD3DXANIMATIONSET pNextAnimSet = NULL;
@@ -417,54 +443,48 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 
 
 
-//업데이트 부분 setAnimation 개량부분
-//인덱스4 = 기본상태 , 3 = 점프, 2 = 뒷무빙, 1 = 앞 뛰기 0 = 레이저 쏘기
-
-//if (Keyboard::Get()->KeyDown('1'))//1
-//{
-//	if (m_animIndex < m_pAnimController->GetMaxNumAnimationSets() - 1)
-//		m_animIndex++;
-
-//	SetAnimationIndex(m_animIndex, true);
-//}
-
-//방향키 가라치기, 휴면상태, idle 만들기
-
-//if (Keyboard::Get()->KeyPress('W'))
-//{
-//	//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
-//	SetAnimationIndex(1, true);
-//}
-//else if (Keyboard::Get()->KeyPress('S'))
-//{
-//	SetAnimationIndex(2, true);
-//}
-//else if (Keyboard::Get()->KeyPress(VK_SPACE))
-//{
-//	SetAnimationIndex(3, true);
-//}
-////Keyboard::Get()->KeyDown('2') ||
-//else if ( Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
-//{
-//	//if (m_animIndex > 0)//0
-//		//m_animIndex--;
-//	SetAnimationIndex(0, true);
-//}
-
-//else if (Keyboard::Get()->KeyDown(VK_F1))
-//{
-//	m_bDrawFrame = !m_bDrawFrame;
-//}
-//else if (Keyboard::Get()->KeyDown(VK_F2))
-//{
-//	m_bDrawSkeleton = !m_bDrawSkeleton;
-//}
-//else if (Keyboard::Get()->KeyDown(VK_F3))
-//{
-//	m_bWireFrame = !m_bWireFrame;
-//}
-//else//idle상태 만들기
-//{
-//	SetAnimationIndex(4, true);
-
-//}
+/*업데이트 부분 setAnimation 개량부분
+인덱스4 = 기본상태 , 3 = 점프, 2 = 뒷무빙, 1 = 앞 뛰기 0 = 레이저 쏘기
+if (Keyboard::Get()->KeyDown('1'))//1
+{
+	if (m_animIndex < m_pAnimController->GetMaxNumAnimationSets() - 1)
+		m_animIndex++;
+	SetAnimationIndex(m_animIndex, true);
+}
+방향키 가라치기, 휴면상태, idle 만들기
+if (Keyboard::Get()->KeyPress('W'))
+{
+	//m_pAnimController->KeyTrackSpeed(0,5.0f,10,20, D3DXTRANSITION_LINEAR);
+	SetAnimationIndex(1, true);
+}
+else if (Keyboard::Get()->KeyPress('S'))
+{
+	SetAnimationIndex(2, true);
+}
+else if (Keyboard::Get()->KeyPress(VK_SPACE))
+{
+	SetAnimationIndex(3, true);
+}
+//Keyboard::Get()->KeyDown('2') ||
+else if ( Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
+{
+	//if (m_animIndex > 0)//0
+		//m_animIndex--;
+	SetAnimationIndex(0, true);
+}
+else if (Keyboard::Get()->KeyDown(VK_F1))
+{
+	m_bDrawFrame = !m_bDrawFrame;
+}
+else if (Keyboard::Get()->KeyDown(VK_F2))
+{
+	m_bDrawSkeleton = !m_bDrawSkeleton;
+}
+else if (Keyboard::Get()->KeyDown(VK_F3))
+{
+	m_bWireFrame = !m_bWireFrame;
+}
+else//idle상태 만들기
+{
+	SetAnimationIndex(4, true);
+}*/

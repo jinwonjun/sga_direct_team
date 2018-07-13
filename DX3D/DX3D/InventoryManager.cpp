@@ -466,7 +466,7 @@ void InventoryManager::Init()
 
 	for (int j = 0; j < INVENVERTI; j++)
 	{
-		Debug->EndLine();
+		//Debug->EndLine();
 		for (int i = 0; i < INVENCORSS; i++)
 		{
 			//Debug->AddText(InvenArray[i][j].index);
@@ -519,12 +519,12 @@ void InventoryManager::Init()
 void InventoryManager::Update()
 {
 	//SAFE_UPDATE(m_pRootUI);
-	Debug->EndLine();
-	Debug->EndLine();
-	Debug->AddText(Equip[Weapon_Type_MainWeapons].PositionX);
-	Debug->EndLine();
-	Debug->AddText(Equip[Weapon_Type_MainWeapons].PositionY);
-	Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->EndLine();
+	//Debug->AddText(Equip[Weapon_Type_MainWeapons].PositionX);
+	//Debug->EndLine();
+	//Debug->AddText(Equip[Weapon_Type_MainWeapons].PositionY);
+	//Debug->EndLine();
 
 	if (g_pKeyboard->KeyDown('I'))
 	{
@@ -947,15 +947,15 @@ void InventoryManager::Update()
 	//}
 
 
-	for (int j = 0; j < INVENVERTI; j++)
-	{
-		Debug->EndLine();
-		for (int i = 0; i < INVENCORSS; i++)
-		{
-			Debug->AddText(InvenArray[i][j].index);
+	//for (int j = 0; j < INVENVERTI; j++)
+	//{
+	//	Debug->EndLine();
+	//	for (int i = 0; i < INVENCORSS; i++)
+	//	{
+	//		Debug->AddText(InvenArray[i][j].index);
 
-		}
-	}
+	//	}
+	//}
 
 
 	
