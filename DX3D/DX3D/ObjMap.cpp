@@ -139,6 +139,7 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 
 void ObjMap::RenderMesh()
 {
+	if (m_renderMode != RenderMode_Default) return;
 	if (surfaceMode)
 	{
 		g_pDevice->SetFVF(D3DFVF_XYZ);
@@ -255,13 +256,23 @@ void ObjMap::RenderUseShader_0()
 
 void ObjMap::RenderUseShader_1()
 {
-	for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
+	if (surfaceMode)
 	{
 		Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
-		Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
-		Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
 		Shaders::Get()->GetCurrentShader()->Commit();
-		m_pMeshMap->DrawSubset(i);
+		g_pDevice->SetFVF(D3DFVF_XYZ);
+		g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size() / 3, &m_vecVertex[0], sizeof(D3DXVECTOR3));
+	}
+	else
+	{
+		for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
+		{
+			Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
+			Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
+			Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
+			Shaders::Get()->GetCurrentShader()->Commit();
+			m_pMeshMap->DrawSubset(i);
+		}
 	}
 }
 

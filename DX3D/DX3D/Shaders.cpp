@@ -94,8 +94,8 @@ void Shaders::RenderShadowMapping()
 	{
 		pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
 	}
-	float offset = 300;
-	D3DXVECTOR4 lightPos(pos.x - offset, offset, pos.z - offset, 1);
+	float offset = 50;
+	D3DXVECTOR4 lightPos(pos.x - offset, offset + 50, pos.z - offset, 1);
 	info.WorldLightPos = lightPos;
 	//info.WorldLightPos = D3DXVECTOR4(-offset, offset, -offset, 1);
 	info.WorldCamPos = m_globalData.WorldCamPos;
