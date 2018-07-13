@@ -43,9 +43,14 @@ void Ironman::Init()
 	DamageFontNum = 0;
 	m_renderMode = RenderMode_ShadowMapping;
 	Shaders::Get()->AddList(this, m_renderMode);
+
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
-	m_pSkinnedMesh->Init(); m_pSkinnedMesh->SetRenderMode(m_renderMode);
+	m_pSkinnedMesh->SetRadius(1.5f);
+	m_pSkinnedMesh->Init(); 
+	m_pSkinnedMesh->SetRenderMode(m_renderMode);
+	
+
 	CString path = "resources/playerX/";
 	CString filename = "combine.X";
 	//CString path = "resources/zealot/";
@@ -214,6 +219,7 @@ void Ironman::Update()
 void Ironman::Render()
 {
 	SAFE_RENDER(m_pSkinnedMesh);
+	m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
 	SAFE_RENDER(m_pBlood);
 }
 

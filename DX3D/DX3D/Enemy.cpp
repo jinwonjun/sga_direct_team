@@ -74,7 +74,18 @@ void Enemy::Init()
 
 	m_renderMode = RenderMode_ShadowMapping;
 	Shaders::Get()->AddList(this, m_renderMode);
-	m_pSkinnedMesh = new SkinnedMesh; m_pSkinnedMesh->SetRenderMode(m_renderMode);
+	m_pSkinnedMesh = new SkinnedMesh; 
+	m_pSkinnedMesh->SetRenderMode(m_renderMode);
+	
+	//보스 고유번호 만들기
+	if (GetEnemyNum() < 4)
+	{
+		m_pSkinnedMesh->SetRadius(0.03f);
+	}
+	else
+	{
+		m_pSkinnedMesh->SetRadius(3.0f);
+	}
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
 
@@ -208,6 +219,7 @@ void Enemy::Render()
 	
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	SAFE_RENDER(m_pSkinnedMesh);
+	m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
 
 	//UI그리기
 	////////////////////////////////////////////////////////////////////
@@ -248,12 +260,12 @@ void Enemy::Render()
 	{
 		Hp_Draw_Idx = 0;
 	}
-	//(m_HP > 0) &&
-	//if ( (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
-	//					g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
-	//					g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
-	//					g_pCamera->GetMCenter().y <= ScreenY))
-	//{
+
+	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
+						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
+						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
+						g_pCamera->GetMCenter().y <= ScreenY))
+	{
 		SetRect(&HP_Info[Hp_Draw_Idx].m_Image_rc, 0, 0, HP_Info[Hp_Draw_Idx].m_imageInfo.Width, HP_Info[Hp_Draw_Idx].m_imageInfo.Height);
 		//D3DXMatrixRotationZ(&matR, fAngle);
 		D3DXMatrixIdentity(&matT_UI);
@@ -270,7 +282,7 @@ void Enemy::Render()
 		m_pSprite->SetTransform(&matW_UI);
 		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
 		m_pSprite->End();
-	//}
+	}
 }
 
 void Enemy::UpdatePosition()
@@ -395,8 +407,8 @@ void Enemy::UpdatePosition()
 
 		radian = (float)acos(dot);
 
-		Debug->AddText("Radian : " + to_string(radian));
-		Debug->EndLine();
+		//Debug->AddText("Radian : " + to_string(radian));
+		//Debug->EndLine();
 
 		//Debug->AddText("m_forward: " + to_string(m_forward.x) + ", " + to_string(m_forward.y) + ", " + to_string(m_forward.z));
 		//Debug->EndLine();

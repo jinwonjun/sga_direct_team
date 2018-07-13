@@ -17,6 +17,8 @@ protected:
 	int							m_numFrame;
 	int							m_numMesh;
 
+	float						m_radius;//히트 구체 그려줄 라디우스값
+
 	D3DXMATRIXA16 m_matWorld;
 	D3DXMATRIXA16 m_RightHandFrame;
 
@@ -53,6 +55,14 @@ public:
 	void RenderUseShader_0();
 	void RenderUseShader_1();
 	void SetRenderMode(IDisplayObject::RenderMode renderMode) { m_renderMode = renderMode; }
+	//구체 그리기
+	void DrawSphereMatrix(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
+	LPD3DXFRAME GetRootFrame() { return m_pRootFrame; }
+	void SetRadius(float radius) { m_radius = radius; }
+
+	//테스트용!!아아아아아아아!!!!!!!!!!!!!!!!!!!!!!!!!!
+	BoundingSphere*			m_pBounidngSphere;
+	BoundingSphere*	GetSphere() { return m_pBounidngSphere;}
 };
 
 // OnInit
@@ -60,6 +70,5 @@ public:
 
 // OnUpdate
 // pFrameEx->CombinedTM = pFrameEx->TransformationMatrix * ((FRAME_EX*)pParent)->CombinedTM;
-//
 // pMeshContainerEx->pFinalBoneMatrices[i] =
 // pMeshContainerEx->pBoneOffsetMatrices[i] * *(pMeshContainerEx->ppBoneMatrixPtrs[i]);
