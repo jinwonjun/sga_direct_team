@@ -165,6 +165,7 @@
     <ClInclude Include="BloodParticle.h" />
     <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CharacterStatus.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cubeman.h" />
     <ClInclude Include="CubemanParts.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="BloodParticle.cpp" />
     <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CharacterStatus.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Cubeman.cpp" />
     <ClCompile Include="CubemanParts.cpp" />

@@ -8,7 +8,7 @@
 #define INVENVERTI 4
 #define INVENITEMSTART_X 1000
 #define INVENITEMSTART_Y 420
-
+#define NumOfItemTextKind 6
 #define g_pInventory  InventoryManager::Get()
 
 
@@ -43,6 +43,7 @@ enum matWorld_Numbering
 {
 	matWorld_Inven,
 	matWorld_Inven_Chara,
+	matWorld_Equiped_Side,
 	matWorld_Exit_Button,
 	matWorld_Item_Info,
 	matWorld_ItemSet,
@@ -56,7 +57,7 @@ enum matWorld_Numbering
 	matWorld_Boots,
 	matWorld_MouseCursor,
 	matWorld_MouseOver,
-	matWorld_Equiped_Item, // 20까지
+	matWorld_Equiped_Item, // 21까지
 
 	matWorld_Equiped_Item_Black = 25,
 
@@ -70,7 +71,7 @@ enum Item_Info_Names
 	ATK,
 	DEF,
 	MHP,
-
+	Script,
 };
 
 class InventoryManager : public ItemManager 
@@ -93,6 +94,7 @@ private:
 	Inven_UI MouseCursor_Normal;
 	Inven_UI MousCursor_ClickedOn;
 	Inven_UI Exit_Button;
+	Inven_UI Equiped_Side;
 	Inven_UI Equiped_Item[6];
 	Inven_UI Equiped_Item_BlackBack[6];
 	Inven_UI Item_Info_Back;
@@ -112,15 +114,15 @@ private:
 	IUIButtonDelegate * m_pDelegate_Equip_Name[6];
 
 
-	D3DXMATRIXA16	m_matWorld_Item_Info[4];
-	LPD3DXSPRITE m_pSprite_Item_Info[4];
-	IUIObject *		m_pRootUI_Item_Info[4];
-	CString			cstr_Item_Info[4];
-	UIButton * Item_Info[4];
-	IUIButtonDelegate * m_pDelegate_Item_Info[4];
+	D3DXMATRIXA16	m_matWorld_Item_Info[NumOfItemTextKind];
+	LPD3DXSPRITE m_pSprite_Item_Info[NumOfItemTextKind];
+	IUIObject *		m_pRootUI_Item_Info[NumOfItemTextKind];
+	CString			cstr_Item_Info[NumOfItemTextKind];
+	UIButton * Item_Info[NumOfItemTextKind];
+	IUIButtonDelegate * m_pDelegate_Item_Info[NumOfItemTextKind];
 
-	float Item_Info_PositionX[4];
-	float Item_Info_PositionY[4];
+	float Item_Info_PositionX[NumOfItemTextKind];
+	float Item_Info_PositionY[NumOfItemTextKind];
 	
 
 
@@ -138,7 +140,7 @@ private:
 	int ItemSizeY; // 아이템 한칸당 사이즈
 
 	bool EscapeFor; //포문 탈출하기 위한 불값
-	D3DXMATRIXA16 matWorld[10];
+	D3DXMATRIXA16 matWorld[60];
 	D3DXMATRIXA16 matWorld_InvenItems[matWorld_InvenArray+INVENCORSS*INVENVERTI];
 	bool alreadyWorkedRbutton;// 아이템이 이미 착용되었는지를 체크. 
 							  // 버그를 막아줘서 넣었는데 어떻게 막았는지 사실 잘 기억 안남.

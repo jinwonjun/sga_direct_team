@@ -16,8 +16,16 @@ IDisplayObject::~IDisplayObject()
 
 void IDisplayObject::AddChild(IDisplayObject * pChild)
 {
+
 	if (pChild == NULL) return;
+
 	m_vecPChild.push_back(pChild);
+
+	//int num = m_vecPChild.size();
+	//Debug->AddText("Child가 얼마나 늘어나냐 : ");
+	//Debug->AddText(num);
+
+
 	pChild->m_pParent = this;
 }
 

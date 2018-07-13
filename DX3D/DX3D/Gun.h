@@ -30,5 +30,6 @@ public:
 	void BeamGunInit();
 	void LaserGunInit();
 	void M4GunInit();
+	void VoidInit();
 };
 

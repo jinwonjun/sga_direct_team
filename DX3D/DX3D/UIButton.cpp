@@ -7,6 +7,14 @@
 UIButton::UIButton(IUIButtonDelegate * pDelegate, LPD3DXSPRITE pSprite, int uiTag)
 	:IUIObject(pSprite, uiTag),m_pDelegate(pDelegate),m_buttonState(NORMAL)
 {
+
+
+}
+UIButton::UIButton(IUIButtonDelegate * pDelegate, LPD3DXSPRITE pSprite, LPD3DXFONT font, int uiTag)
+	: IUIObject(pSprite, uiTag), m_pDelegate(pDelegate), m_buttonState(NORMAL)
+{
+
+	//UIText * pText = new UIText(font, m_pSprite);
 }
 
 
@@ -94,21 +102,42 @@ void UIButton::SetTexture(string normal, string mouseOver, string selected)
 void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c)
 {
 	UIText * pText = new UIText(font, m_pSprite);
+
+	
 	pText->SetColor(_c);
 	this->AddChild(pText);
 	pText->m_text = text;
 	pText->m_size = m_size;
+	
 }
 void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c, D3DXVECTOR3 _pos)
-{
-
+{	
+	
 
 	UIText * pText = new UIText(font, m_pSprite);
-	
+
 	pText->SetColor(_c);
 	this->AddChild(pText);
 	pText->m_text = text;
 	pText->m_size = m_size;
 	//pText->m_pivot = _pos;
 	pText->SetPosition(&_pos);
+
+
+}
+
+void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c, D3DXVECTOR3 _pos, char word)
+{
+
+	
+	UIText * pText = new UIText(font, m_pSprite, word);
+
+	pText->SetColor(_c);
+	this->AddChild(pText);
+	pText->m_text = text;
+	pText->m_size = m_size;
+	//pText->m_pivot = _pos;
+	pText->SetPosition(&_pos);
+
+
 }

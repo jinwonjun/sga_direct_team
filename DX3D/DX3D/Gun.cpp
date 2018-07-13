@@ -46,6 +46,7 @@ void Gun::GunEqiupSet(int WeaponStatus)
 	}
 	else
 	{
+	//	VoidInit();
 		WeaponStatus = 0;
 	}
 }
@@ -104,6 +105,12 @@ void Gun::M4GunInit()
 
 	ObjLoader loader;
 	m_pMeshGun = loader.LoadF_Tri_Mesh("resources/M4a1", "guntest.obj", &ApplyMatrix, m_vecMtlTex);
+}
+
+void Gun::VoidInit()
+{
+
+
 }
 
 
