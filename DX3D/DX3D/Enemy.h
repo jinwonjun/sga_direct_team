@@ -105,6 +105,7 @@ public:
 
 
 	void WorldToVP();
+	
 	//void HpBar();
 
 	void RenderUseShader_0();

@@ -42,8 +42,6 @@ void IUIObject::Render()
 {
 	if (m_bDrawBorder) DrawBorder();
 	
-	
-		
 		for (auto p : m_vecPChild)
 		{
 			p->Render();

@@ -1025,9 +1025,6 @@ void InventoryManager::Render()
 			{
 				Debug->AddText(InvenArray[i][j].index);
 
-
-
-
 				D3DXMatrixRotationZ(&matR, fAngle);
 				D3DXMatrixIdentity(&matT);
 				D3DXMatrixTranslation(&matT, InvenArray[i][j].PositionX, InvenArray[i][j].PositionY, 0);
@@ -1083,6 +1080,7 @@ void InventoryManager::Render()
 
 					cstr_Item_Info[ItemName] = InvenArray[i][j].name;
 					cstr_Item_Info[ATK].Format(_T("ATK:  %d"), InvenArray[i][j].Atk);
+					
 					cstr_Item_Info[DEF].Format(_T("DEF:  %d"), InvenArray[i][j].Def);
 					cstr_Item_Info[MHP].Format(_T("MHP:  %d"), InvenArray[i][j].MaxHp);
 
@@ -1170,17 +1168,7 @@ void InventoryManager::Render()
 				if (PtInRect(&Equiped_Item[i].m_rc_click, mousePoint) && Equip[i+1].index !=0)
 				{		
 
-					for (int i = 0; i < 4; i++)
-					{
-						m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
-
-					}
-
-					for (int i = 0; i < 4; i++)
-					{
-
-						SAFE_RENDER(m_pRootUI_Item_Info[i]);
-					}
+					
 
 
 					SetRect(&Item_Info_Back.m_rc, 0, 0, Item_Info_Back.m_image.Width, Item_Info_Back.m_image.Height);
@@ -1190,11 +1178,9 @@ void InventoryManager::Render()
 				
 					cstr_Item_Info[ItemName] = Equip[i + 1].name;
 					cstr_Item_Info[ATK].Format(_T("ATK:  %d"), Equip[i + 1].Atk);
+				//	Item_Info[ATK]->SetText(g_pFontMgr->GetFont(FONT::OptionOfItem), cstr_Item_Info[ATK], WHITE, D3DXVECTOR3(0, 0, 0));
 					cstr_Item_Info[DEF].Format(_T("DEF:  %d"), Equip[i + 1].Def);
 					cstr_Item_Info[MHP].Format(_T("MHP:  %d"), Equip[i + 1].MaxHp);
-
-					
-
 
 
 					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
@@ -1216,15 +1202,20 @@ void InventoryManager::Render()
 						D3DCOLOR_ARGB(255, 255, 255, 255));
 
 					
+					for (int i = 0; i < 4; i++)
+					{
+						m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
 
+					}
+
+					for (int i = 0; i < 4; i++)
+					{
+
+						SAFE_RENDER(m_pRootUI_Item_Info[i]);
+					}
 					
 				
-				
 				}
-			
-				
-
-				
 			}
 
 
@@ -1513,7 +1504,6 @@ void InventoryManager::Item_Info_Text()
 		m_pRootUI_Item_Info[i] = pImage;
 	}
 
-
 	Item_Info_PositionX[0] = Item_Info_Back.PositionX + Item_Info_Back.m_image.Width *0.5;
 	Item_Info_PositionY[0] = Item_Info_Back.PositionY + Item_Info_Back.m_image.Height *0.1;
 	Item_Info_PositionX[ATK] = Item_Info_Back.PositionX + Item_Info_Back.m_image.Width *0.45;
@@ -1538,20 +1528,16 @@ void InventoryManager::Item_Info_Text()
 	Item_Info[DEF] = new UIButton(m_pDelegate_Item_Info[DEF], m_pSprite_Item_Info[DEF], 1);
 	Item_Info[MHP] = new UIButton(m_pDelegate_Item_Info[MHP], m_pSprite_Item_Info[MHP], 1);
 
-
-
-
-	
 	float R, G, B;
 	R = 13.0f / 255.0f;
 	G = 136.f / 255.0f;
 	B = 185.f / 255.0f;
 	
 	//Item_Info[ItemName] = new UIText(g_pFontMgr->GetFont(FONT::NameOfItem), m_pSprite_Item_Info[ItemName]);
-	cstr_Item_Info[0] = " asdasd";
-	cstr_Item_Info[1] = " saasd";
-	cstr_Item_Info[2] = " asasd";
-	cstr_Item_Info[3] = " asasd ";
+	cstr_Item_Info[0] = " as000000000";
+	cstr_Item_Info[1] = " saasdassss";
+	cstr_Item_Info[2] = " sssssssssss";
+	cstr_Item_Info[3] = " asasd333333";
 	Item_Info[ItemName]->SetTexture("resources/images/inventory/Null_back2.png",
 		"resources/images/inventory/Null_back2.png",
 		"resources/images/inventory/Null_back2.png");
@@ -1574,6 +1560,7 @@ void InventoryManager::Item_Info_Text()
 	Item_Info[DEF]->SetText(g_pFontMgr->GetFont(FONT::OptionOfItem), cstr_Item_Info[DEF], WHITE, D3DXVECTOR3(0, 0, 0));
 	Item_Info[MHP]->SetText(g_pFontMgr->GetFont(FONT::OptionOfItem), cstr_Item_Info[MHP], WHITE, D3DXVECTOR3(0, 0, 0));
 
+
 	for (int i = 0; i < 4; i++)
 	{
 		m_pRootUI_Item_Info[i]->AddChild(Item_Info[i]);
@@ -1584,8 +1571,6 @@ void InventoryManager::Item_Info_Text()
 
 void InventoryManager::Item_Info_Description(items item)
 {
-
-
 
 
 }
