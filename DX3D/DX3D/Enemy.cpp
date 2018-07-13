@@ -303,10 +303,18 @@ void Enemy::UpdatePosition()
 		//박스 안에 있다면 총에 맞은거 끔 : 총맞고 벗어 났을경우 위해
 		if (m_isMoving)
 			isDamage = false;
+		
+		else if(m_isMoving == false && isDamage)
+		{
+			if (MoveDist <= MOVE_STOP_DISTANCE)
+			{
+				isDamage = false;
+			}
+		}
 	}
 
 	//공격 범위 까지 왔다면 공격
-	if (MoveDist <= MOVE_STOP_DISTANCE && MoveDist > D3DX_16F_EPSILON)
+	if (MoveDist <= MOVE_STOP_DISTANCE && MoveDist > D3DX_16F_EPSILON && m_isMoving)
 	{
 		//보스
 		if (GetEnemyNum() == 4)
@@ -463,6 +471,7 @@ void Enemy::UpdatePosition()
 	{
 		velocity = D3DXVECTOR3(0, 0, 0);
 		m_destPos.y = m_pos.y;
+		//D3DXMatrixIdentity(&matR);
 	}
 
 	m_matWorld = matS * matR * matT;
