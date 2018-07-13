@@ -14,6 +14,7 @@ struct items {
 	int Hp;     // 지금 HP
 	int Def;    // 방어력
 	CString Filename;
+	char* ItemWord;
 
 	
 	int Equip_Type;  // 아이템 장착 타입. 이넘으로 숫자 부여

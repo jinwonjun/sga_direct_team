@@ -20,7 +20,7 @@ class SampleUI :public IDisplayObject, public IUIButtonDelegate
 {
 private:
 	std::wstring temp;
-	std::wstring WeaponAtk;
+	std::wstring AtkDamage;
 	LPD3DXSPRITE m_pSprite;
 	LPD3DXSPRITE m_pSprite_Bullet;
 	LPD3DXSPRITE m_pSprite_Damage;

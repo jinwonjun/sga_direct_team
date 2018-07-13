@@ -93,7 +93,7 @@ public:
 	int GetMonsterX() { return ScreenX;	}
 	int GetMonsterY() { return ScreenY; }
 
-	void MinusHP() { m_HP -= g_pInventory->Equip[Equip_Main_Weapon_1].Atk; }
+	void MinusHP() { m_HP -= g_pStatus->MyChara.EndAtk; }
 
 	int GetEnemyNum() { return m_enemyNum; }
 

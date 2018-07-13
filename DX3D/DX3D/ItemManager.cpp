@@ -89,8 +89,9 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		0, // 방어력
 		"resources/images/Items/Weapons/M4a1.png", //이미지 파일이름
+		"FPS에서 잘 보이는 그 총입니다. \n 점사로 많이 쏩니다.",
 		Weapon_Type_MainWeapons, // 장비 타입
-		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
+		false,//렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
 		false, //클릭 되었는가?
 		false, // 인벤 안에 있는가?
@@ -108,6 +109,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		5, // 방어력
 		"resources/images/Items/Weapons/Beam_Gun_MouseOver.png", //이미지 파일이름
+		"방어형 총입니다. \n 약간의 방어력을 올려줍니다.",
 		Weapon_Type_MainWeapons, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -127,6 +129,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		0, // 방어력
 		"resources/images/Items/Weapons/zod_gun.png", //이미지 파일이름
+		"약한 총입니다. \n없는것 보단 낫습니다.",
 		Weapon_Type_MainWeapons, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -140,12 +143,13 @@ void ItemManager::ItemTable()
 	};
 
 	Items[3] = { 4,  //인덱스, 아이템 번호
-		"Leather_Good_Armor", // 이름
+		"Good_Armor", // 이름
 		0, // 공격력
 		30, // HP
 		0, // 현재 hp
 		10, // 방어력
 		"resources/images/Items/Armor/Leather_Good_Armor.png", //이미지 파일이름
+		"가죽 갑옷입니다.",
 		Weapon_Type_Armor, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -159,12 +163,13 @@ void ItemManager::ItemTable()
 	};
 
 	Items[4] = { 5,  //인덱스, 아이템 번호
-		"Leather_Better_Armor", // 이름
+		"Better_Armor", // 이름
 		0, // 공격력
 		40, // HP
 		0, // 현재 hp
 		15, // 방어력
 		"resources/images/Items/Armor/Leather_Better_Armor.png", //이미지 파일이름
+		"가죽으로 만든 전투 방어구입니다.",
 		Weapon_Type_Armor, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -177,12 +182,13 @@ void ItemManager::ItemTable()
 		false // 착용하고 있는가?		
 	};
 	Items[5] = { 6,  //인덱스, 아이템 번호
-		"Leather_Great_Armor", // 이름
+		"Best_Armor", // 이름
 		0, // 공격력
 		60, // HP
 		0, // 현재 hp
 		40, // 방어력
 		"resources/images/Items/Armor/Leather_Great_Armor.png", //이미지 파일이름
+		"죽지 않는 캐릭터를 \n만들기 위한 방어구입니다.",
 		Weapon_Type_Armor, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -196,12 +202,13 @@ void ItemManager::ItemTable()
 	};
 	// 6,7,8 장갑 
 	Items[6] = { 7,  //인덱스, 아이템 번호
-		"NogadaMokjangap", // 이름
+		"노목", // 이름
 		5, // 공격력
 		0, // HP
 		0, // 현재 hp
 		0, // 방어력
 		"resources/images/Items/Gloves/Glove_NoMok.png", //이미지 파일이름
+		"옛날 그 게임에서 \n인기가 많던 장갑입니다. \n 100 % 5장이 발려있습니다.",
 		Weapon_Type_Glove, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -220,6 +227,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		5, // 방어력
 		"resources/images/Items/Gloves/K2_Glove.png", //이미지 파일이름
+		"국군이 일할때 많이 씁니다. \n작업에 필수입니다.",
 		Weapon_Type_Glove, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -238,6 +246,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		15, // 방어력
 		"resources/images/Items/Gloves/Glove_battle.png", //이미지 파일이름
+		"전투를 위한 장갑입니다. \n불편합니다.",
 		Weapon_Type_Glove, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -257,6 +266,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		5, // 방어력
 		"resources/images/Items/Belt/Belt_Black.png", //이미지 파일이름
+		"검은 벨트입니다.\n다용도로 쓰입니다.",
 		Weapon_Type_Belt, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -276,6 +286,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		-5, // 방어력
 		"resources/images/Items/Belt/Belt_ArmyBelt.png", //이미지 파일이름
+		"많은 분들이 싫어하는 그것입니다.",
 		Weapon_Type_Belt, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -289,12 +300,13 @@ void ItemManager::ItemTable()
 	};
 	// 9,10,11 벨트
 	Items[11] = { 12,  //인덱스, 아이템 번호
-		"King_God_Belt", // 이름
+		"King God Belt", // 이름
 		0, // 공격력
 		10, // HP
 		0, // 현재 hp
 		-5, // 방어력
 		"resources/images/Items/Belt/Belt_King_God.png", //이미지 파일이름
+		"왜 이런 이름이 \n붙었는지 모릅니다.",
 		Weapon_Type_Belt, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -315,6 +327,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		5, // 방어력
 		"resources/images/Items/Boots/Boots_Shoe.png", //이미지 파일이름
+		"신기 편한 신발입니다.",
 		Weapon_Type_Boots, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -335,6 +348,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		15, // 방어력
 		"resources/images/Items/Boots/Boots_Race.png", //이미지 파일이름
+		"Race에 쓰일것만같은 신발입니다.",
 		Weapon_Type_Boots, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -354,6 +368,7 @@ void ItemManager::ItemTable()
 		0, // 현재 hp
 		5, // 방어력
 		"resources/images/Items/Boots/Boots_Brown.png", //이미지 파일이름
+		"갈색신발입니다.",
 		Weapon_Type_Boots, // 장비 타입
 		false, //렉트 위에 오버되어있는가? -> 파란색 이팩트를 위해 사용 
 		0, //복사 번호
@@ -393,7 +408,6 @@ void ItemManager::ItemTable()
 			&Items[i].m_pTex_Item);   //LPDIRECT3DTEXTURE9 *ppTexture
 										// 위에서 말한 경로에서 정보를 가져와서 m_image_info에 넣고
 										// 텍스쳐도 m_pTex에 저장
-
 	}
 
 }

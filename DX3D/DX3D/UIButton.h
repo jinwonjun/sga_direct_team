@@ -19,6 +19,7 @@ private:
 	};
 	
 	ButtonState m_buttonState;
+	//static UIText * pText;
 
 public:
 	IUIButtonDelegate * m_pDelegate;
@@ -26,7 +27,11 @@ public:
 	LPDIRECT3DTEXTURE9 m_aTexture[COUNT];
 	//void SetColor(D3DXCOLOR c) { m_color = c; }
 
+
+
 	UIButton(IUIButtonDelegate * pDelegate, LPD3DXSPRITE pSprite, int uiTag = -1);
+	
+	UIButton(IUIButtonDelegate * pDelegate, LPD3DXSPRITE pSprite, LPD3DXFONT font, int uiTag = -1);
 	~UIButton();
 
 	virtual void Update() override;
@@ -35,5 +40,9 @@ public:
 	void SetTexture(string normal, string mouseOver, string selected);
 	void SetText(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c);
 	void SetText(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c, D3DXVECTOR3 _pos);
+//	void SetText_Description(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c, D3DXVECTOR3 _pos);
+	void SetText(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c, D3DXVECTOR3 _pos, char word);
+	//void SetItemInfo(LPCWSTR text) { pText->m_text = text; }
+
 };
 

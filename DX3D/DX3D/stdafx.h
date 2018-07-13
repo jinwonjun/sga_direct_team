@@ -73,6 +73,7 @@ extern HWND g_hWnd;
 #include "FontManager.h"
 #include "ItemManager.h"
 #include "InventoryManager.h"
+#include "CharacterStatus.h"
 #include "IShader.h"
 #include "Shaders.h"
 

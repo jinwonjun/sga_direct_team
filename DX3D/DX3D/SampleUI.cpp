@@ -382,7 +382,7 @@ void SampleUI::Update()
 	positionY = g_pItem->timer;
 	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
 
-	WeaponAtk = std::to_wstring(g_pInventory->Equip[Equip_Main_Weapon_1].Atk);
+	AtkDamage = std::to_wstring(g_pStatus->MyChara.EndAtk);
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
@@ -873,7 +873,7 @@ void SampleUI::FontInit3()
 		/*WeaponAtk = std::to_wstring(g_pInventory->Equip[0].Atk);*/
 
 		DamageFont[i]->SetColor(RED);
-		DamageFont[i]->m_text = WeaponAtk.c_str();
+		DamageFont[i]->m_text = AtkDamage.c_str();
 		DamageFont[i]->m_size = D3DXVECTOR2(100, 50);
 		DamageFont[i]->RenderingOn = false;
 		m_pRootUI_Damage[i]->AddChild_Damage(DamageFont[i]);

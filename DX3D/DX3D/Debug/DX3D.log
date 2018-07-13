@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  stdafx.cpp
 d:\sga_direct_team\dx3d\dx3d\cubeman_head.h(8): warning C4584: 'Cubeman_Head': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
   d:\sga_direct_team\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
@@ -246,6 +247,47 @@ d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(72): warning C4316: 'Enemy': 힙�
 d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(78): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(83): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   Enemy.cpp
+=======
+<<<<<<< HEAD
+﻿  ItemManager.cpp
+d:\_pp\dx3d\dx3d\itemmanager.cpp(11): warning C4316: 'ItemManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\itemmanager.cpp(51): warning C4101: 'rect' :참조되지 않은 지역 변수입니다.
+  SampleUI.cpp
+d:\_pp\dx3d\dx3d\sampleui.cpp(55): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\sampleui.cpp(59): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\sampleui.cpp(66): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\sampleui.cpp(47): warning C4101: 'c_int' :참조되지 않은 지역 변수입니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(497): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(502): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(529): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(604): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(604): warning C4244: '인수': 'unsigned long'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(633): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(633): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(665): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(689): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(693): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(716): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(728): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(749): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(750): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(758): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\sampleui.cpp(822): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\sampleui.cpp(840): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\sampleui.cpp(872): warning C4316: 'UIText': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  코드를 생성하고 있습니다...
+  DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+=======
+<<<<<<< HEAD
+﻿  Shaders.cpp
+d:\sga\pp\dx3d\dx3d\shaders.cpp(11): warning C4316: 'Shaders': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\shaders.cpp(38): warning C4316: 'ShadowMappingShader': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\shaders.cpp(39): warning C4316: 'LightingShader': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
+﻿  Enemy.cpp
+>>>>>>> 835a696f0a3a0a7e20c790b0375fbb8ec58462c3
 d:\sga_direct_team\dx3d\dx3d\enemy.h(93): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\sga_direct_team\dx3d\dx3d\enemy.h(94): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\sga_direct_team\dx3d\dx3d\enemy.cpp(66): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
@@ -309,3 +351,8 @@ d:\sga_direct_team\dx3d\dx3d\astar.cpp(227): warning C4018: '<': signed 또는 u
   코드를 생성하고 있습니다...
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+<<<<<<< HEAD
+=======
+>>>>>>> b73591c93756fb1efd511034b887d0eb36da6352
+>>>>>>> 9a9d87694c5e21c1f7f2c23ff16e961c89ab7b8a
+>>>>>>> 835a696f0a3a0a7e20c790b0375fbb8ec58462c3

@@ -381,6 +381,9 @@
     <ClInclude Include="BoundingBox.h">
       <Filter>소스 파일\CHARACTER&amp;MOB</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterStatus.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -619,6 +622,9 @@
     </ClCompile>
     <ClCompile Include="BoundingBox.cpp">
       <Filter>소스 파일\CHARACTER&amp;MOB</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterStatus.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
