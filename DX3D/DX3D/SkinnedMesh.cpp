@@ -118,6 +118,7 @@ void SkinnedMesh::Update()
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
 	//행렬 계산 함수 돌리기
+	//보스 , 쫄 ,플레이어에다가 구별 변수 주고 따로따로 돌리기
 	BossCalFrameMat(m_pRootFrame, NULL);
 }
 

@@ -201,7 +201,7 @@ void Enemy::Render()
 		m_pBox->Render();
 	
 	//////////////////////////구체 그려주기//////////////////////////////
-	
+	//임시구체임!
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
 	g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
