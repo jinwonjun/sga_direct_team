@@ -22,6 +22,8 @@ protected:
 	D3DXMATRIXA16 m_matWorld;
 	D3DXMATRIXA16 m_RightHandFrame;
 
+	vector <D3DXMATRIXA16> m_Boss_FrameMatrix;
+
 	IDisplayObject::RenderMode m_renderMode;
 public:
 	SkinnedMesh();
@@ -55,14 +57,16 @@ public:
 	void RenderUseShader_0();
 	void RenderUseShader_1();
 	void SetRenderMode(IDisplayObject::RenderMode renderMode) { m_renderMode = renderMode; }
-	//구체 그리기
+	//구체 그리기 & 그리기만 했음
 	void DrawSphereMatrix(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
 	LPD3DXFRAME GetRootFrame() { return m_pRootFrame; }
 	void SetRadius(float radius) { m_radius = radius; }
+	float GetRadius() { return m_radius; }
+	
+	//이름 찾는 함수화 test용
+	void BossCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
+	vector<D3DXMATRIXA16> GetBossMatrix() { return m_Boss_FrameMatrix; }
 
-	//테스트용!!아아아아아아아!!!!!!!!!!!!!!!!!!!!!!!!!!
-	BoundingSphere*			m_pBounidngSphere;
-	BoundingSphere*	GetSphere() { return m_pBounidngSphere;}
 };
 
 // OnInit

@@ -23,6 +23,10 @@ void Gun::Init()
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 
 	GetCursorPos(&mousePoint);
+
+	//ÃÑ ¼ÎÀÌ´õ¸¦ ±×·Áº¸ÀÚ
+	//m_renderMode = RenderMode_ShadowMapping;
+	//Shaders::Get()->AddList(this, m_renderMode);
 }
 /*
 No Gun = 0;

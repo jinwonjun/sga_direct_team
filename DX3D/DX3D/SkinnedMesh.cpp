@@ -36,6 +36,13 @@ void SkinnedMesh::Init()
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 
 	D3DXMatrixIdentity(&m_matWorld);
+
+	//보스 총 인덱스가 0~31 32개의 파츠 값 가져오기
+	for (int i = 0; i < 32; i++)
+	{
+		D3DXMATRIXA16 temp;
+		m_Boss_FrameMatrix.push_back(temp);
+	}
 }
 
 void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
@@ -110,10 +117,8 @@ void SkinnedMesh::Update()
 
 	UpdateAnim();
 	UpdateFrameMatrices(m_pRootFrame, NULL);
-
-
-	//m_pBounidngSphere->center = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z);
-	//D3DXMatrixTranslation(&m_SphereMat, m_pBounidngSphere->center.x, m_pBounidngSphere->center.y, m_pBounidngSphere->center.z);
+	//행렬 계산 함수 돌리기
+	BossCalFrameMat(m_pRootFrame, NULL);
 }
 
 
@@ -178,7 +183,7 @@ void SkinnedMesh::UpdateFrameMatrices(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	//하드코딩 가즈아!!!!!!!!!!!!!!!32개 아무것도 아냐!
 	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHand")==0)
 	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;//* m_matWorld
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
 		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);
 	}
 }
@@ -405,6 +410,193 @@ void SkinnedMesh::DrawSphereMatrix(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	//Debug->EndLine();
 	//Debug->EndLine();
 }
+
+//보스 행렬 계산 담기
+void SkinnedMesh::BossCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
+{
+	FRAME_EX* pFrameEx = (FRAME_EX*)pFrame;
+
+	if (pParent != NULL)
+	{
+		pFrameEx->CombinedTM = pFrameEx->TransformationMatrix * ((FRAME_EX*)pParent)->CombinedTM;
+	}
+	else
+	{
+		pFrameEx->CombinedTM = pFrameEx->TransformationMatrix;
+	}
+
+	if (pFrameEx->pFrameSibling != NULL)
+	{
+		BossCalFrameMat(pFrameEx->pFrameSibling, pParent);
+	}
+
+	if (pFrameEx->pFrameFirstChild != NULL)
+	{
+		BossCalFrameMat(pFrameEx->pFrameFirstChild, pFrameEx);
+	}
+
+	if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Hips") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[0] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Spine") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[1] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Spine1") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[2] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Spine2") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[3] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Neck") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[4] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Head") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[5] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftShoulder") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[6] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftArm") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[7] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftForeArm") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[8] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftHand") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[9] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftUpLeg") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[10] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftLeg") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[11] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftFoot") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[12] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftToeBase") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[13] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightShoulder") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[14] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightArm") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[15] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightForeArm") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[16] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHand") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[17] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb1") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[18] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb2") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[19] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb3") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[20] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb4") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[21] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandIndex1") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[22] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandIndex2") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[23] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandIndex3") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[24] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandPinky1") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[25] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandPinky2") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[26] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandPinky3") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[27] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightUpLeg") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[28] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightLeg") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[29] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightFoot") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[30] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightToeBase") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Boss_FrameMatrix[31] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+}
+
 
 void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 {

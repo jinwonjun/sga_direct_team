@@ -64,7 +64,6 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 15.0f, 50.0f), m_pos); m_pBox->Init();
-	
 	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pFrontSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pBackSphereMesh, NULL);
@@ -88,6 +87,19 @@ void Enemy::Init()
 	}
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
+
+
+	//m_vecBoundary.reserve(32);
+	if (GetEnemyNum() == 4)
+	{
+		for (int k = 0; k < (m_pSkinnedMesh->GetBossMatrix()).size(); k++)
+		{
+			BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k + 15, k + 15, k + 15), m_pSkinnedMesh->GetRadius() + 1.0f);
+			m_vecBoundary.push_back(s);
+		}
+	}
+
+
 
 	D3DXMatrixIdentity(&ApplyMatWorld);
 
@@ -168,6 +180,18 @@ void Enemy::Update()
 	SAFE_UPDATE(m_pSkinnedMesh);
 
 	WorldToVP();
+
+	//보스 행렬 업데이트 돌리기
+	if (GetEnemyNum() == 4)
+	{
+		for (int i = 0; i < m_pSkinnedMesh->GetBossMatrix().size(); i++)
+		{
+			D3DXVECTOR3 tempCenter;
+			D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetBossMatrix())[i]);
+			m_vecBoundary[i]->center = tempCenter;
+			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
+		}
+	}
 }
 
 void Enemy::Render()
@@ -179,13 +203,26 @@ void Enemy::Render()
 	//////////////////////////구체 그려주기//////////////////////////////
 	
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
-
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
 	g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 	g_pDevice->SetTexture(0, NULL);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_pSphereMesh->DrawSubset(0);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+
+	//구체 그리기 test용도
+	for (auto p : m_vecBoundary)
+	{
+		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+		D3DXMATRIXA16 mat;
+		D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
+		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+		g_pDevice->SetTexture(0, NULL);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		m_pSphereMesh->DrawSubset(0);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
+
 	
 	///////////////////////충돌 체크 구체 그리기//////////////////////////
 	
@@ -219,7 +256,8 @@ void Enemy::Render()
 	
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	SAFE_RENDER(m_pSkinnedMesh);
-	m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
+	//탁구공그리기
+	//m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
 
 	//UI그리기
 	////////////////////////////////////////////////////////////////////

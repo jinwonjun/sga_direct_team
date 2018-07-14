@@ -46,6 +46,10 @@ private:
 	//화면 좌표
 	float ScreenX, ScreenY;
 
+	//피격 구체 그려주기
+	vector<BoundingSphere*> m_vecBoundary;
+
+
 	//충돌 처리
 	float					m_CollRadius;			//충돌체크 반경
 	float					m_HeadRadius;			//헤드 크기(확인용), 연산X
@@ -102,6 +106,8 @@ public:
 
 	BoundingBox*	GetBoundingBox() { return m_pBox; }
 	BoundingSphere*	GetSphere() { return m_pBounidngSphere; }
+
+	vector<BoundingSphere*> GetBossSphere() { return m_vecBoundary; }
 
 
 	void WorldToVP();

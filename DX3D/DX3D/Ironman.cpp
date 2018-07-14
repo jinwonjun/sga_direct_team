@@ -235,33 +235,36 @@ void Ironman::Shoot()
 		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
 		BoundingSphere* temp = NULL;
 		Enemy* tempEnemy = NULL;
+
 		for (auto p : em->GetVecEnemy())
 		{
 			if (p->GetHP() <= 0) continue;
-			temp = p->GetSphere();
-			if (r.CalcIntersectSphere(temp) == true)
+			//temp = p->GetSphere();
+			//보스체크 일단 해보기
+			for (int i = 0; i < p->GetBossSphere().size(); i++)
 			{
-				intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
-				
-				//printf("거리 : %f\n", intersectionDistance);
-				
-				//최소거리
-				if (intersectionDistance < minDistance)
-				{
-					minDistance = intersectionDistance;
-					//sphere = temp;
-					tempEnemy = p;
-					
-					//맞으면 플레이어 위치 목적지로 입력
-					p->SetDestPos(m_pos);
-					//맞았다 체크
-					p->SetDamage(true);
-				}
-				//거리 보정 위치값 찾기
-				BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+				temp = (p->GetBossSphere())[i];
 
-				//적이 그리게 할 수 있는 시그널 주기
-				//return true;
+				if (r.CalcIntersectSphere(temp) == true)
+				{
+					intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+
+					//최소거리
+					if (intersectionDistance < minDistance)
+					{
+						minDistance = intersectionDistance;
+						//sphere = temp;
+						tempEnemy = p;
+
+						//맞으면 플레이어 위치 목적지로 입력
+						p->SetDestPos(m_pos);
+						//맞았다 체크
+						p->SetDamage(true);
+					}
+					//거리 보정 위치값 찾기
+					BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+
+				}
 			}
 		}
 
