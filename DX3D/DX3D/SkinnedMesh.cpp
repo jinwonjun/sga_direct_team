@@ -49,6 +49,8 @@ void SkinnedMesh::Init()
 		D3DXMATRIXA16 temp2;
 		m_Sub_FrameMatrix.push_back(temp2);
 	}
+
+	SetFrameNameInit();
 }
 
 void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
@@ -123,10 +125,9 @@ void SkinnedMesh::Update()
 
 	UpdateAnim();
 	
-	//오른손 구하는 용도
 	//UpdateFrameMatrices(m_pRootFrame, NULL);
 	//행렬 계산 함수 돌리기
-	//보스 , 쫄 ,플레이어에다가 구별 변수 주고 따로따로 돌리기
+	//보스 , 쫄 ,플레이어에다가 구별 변수 주고 따로따로 돌리기, 오른손 행렬 값도 이 함수에 넣음
 	MonsterCalFrameMat(m_pRootFrame, NULL);
 }
 
@@ -440,340 +441,31 @@ void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	{
 		MonsterCalFrameMat(pFrameEx->pFrameFirstChild, pFrameEx);
 	}
-	//하드코딩 가즈아!!!!!!!!!!!!!!!32개 아무것도 아냐!
+
 	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHand") == 0)
 	{
 		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
 		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);
 	}
 
-	if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Hips") == 0)
+	//보스 시작부분
+	for (int i = 0; i < 32; i++)
 	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[0] = ((pFrameEx->CombinedTM)* m_matWorld);
+		if (pFrame->Name != NULL && strcmp(pFrame->Name, BossFrameName[i].c_str()) == 0)
+		{
+			FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+			m_Boss_FrameMatrix[i] = ((pFrameEx->CombinedTM)* m_matWorld);
+		}
 	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Spine") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[1] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Spine1") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[2] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Spine2") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[3] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Neck") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[4] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Head") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[5] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftShoulder") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[6] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftArm") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[7] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftForeArm") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[8] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftHand") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[9] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftUpLeg") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[10] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftLeg") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[11] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftFoot") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[12] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_LeftToeBase") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[13] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightShoulder") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[14] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightArm") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[15] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightForeArm") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[16] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHand") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[17] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb1") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[18] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb2") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[19] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb3") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[20] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandThumb4") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[21] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandIndex1") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[22] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandIndex2") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[23] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandIndex3") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[24] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandPinky1") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[25] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandPinky2") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[26] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightHandPinky3") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[27] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightUpLeg") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[28] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightLeg") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[29] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightFoot") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[30] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_RightToeBase") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Boss_FrameMatrix[31] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-
 
 	//질럿 찾기
-	if (pFrame->Name != NULL && strcmp(pFrame->Name, "Main") == 0)
+	for (int i = 0; i < 33; i++)
 	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[0] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Root") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[1] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Pelvis") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[2] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone13") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[3] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone20") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[4] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone21") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[5] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Unit_Protoss_Zealot_Leg_Lower_04") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[6] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone13_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[7] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone20_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[8] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone21_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[9] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Lower_Chest") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[10] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "UpperChest") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[11] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone01") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[12] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone02") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[13] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone03") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[14] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone04") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[15] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Ribbon03") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[16] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "BoneHead") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[17] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Ribbon01") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[18] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone01_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[19] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone02_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[20] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone03_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[21] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone04_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[22] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Ribbon04") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[23] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "HitTestFuzzy") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[24] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Force01") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[25] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "HitTestTight") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[26] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Foot_Left") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[27] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone10") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[28] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Foot_Right") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[29] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone10_mirrored_") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[30] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2RibbonCharge") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[31] = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
-	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Zealot_0") == 0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_Sub_FrameMatrix[32] = ((pFrameEx->CombinedTM)* m_matWorld);
+		if (pFrame->Name != NULL && strcmp(pFrame->Name, SubMobFrameName[i].c_str()) == 0)
+		{
+			FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+			m_Sub_FrameMatrix[i] = ((pFrameEx->CombinedTM)* m_matWorld);
+		}
 	}
 }
 
@@ -813,7 +505,78 @@ void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 	SAFE_RELEASE(pNextAnimSet);
 }
 
-
+//보스 및 쫄몹 프레임 이름 값 일일이 저장해서 찾는 용도
+void SkinnedMesh::SetFrameNameInit()
+{
+	BossFrameName = new string[32]{
+		"Mutant_Hips" ,
+		"Mutant_Spine",
+		"Mutant_Spine2",
+		"Mutant_Neck",
+		"Mutant_Head",
+		"Mutant_LeftShoulder",
+		"Mutant_LeftArm",
+		"Mutant_LeftForeArm",
+		"Mutant_LeftHand",
+		"Mutant_LeftUpLeg",
+		"Mutant_LeftLeg",
+		"Mutant_LeftFoot",
+		"Mutant_LeftToeBase",
+		"Mutant_RightShoulder",
+		"Mutant_RightArm",
+		"Mutant_RightForeArm",
+		"Mutant_RightHand",
+		"Mutant_RightHandThumb1",
+		"Mutant_RightHandThumb2",
+		"Mutant_RightHandThumb3",
+		"Mutant_RightHandThumb4",
+		"Mutant_RightHandIndex1",
+		"Mutant_RightHandIndex2",
+		"Mutant_RightHandIndex3",
+		"Mutant_RightHandPinky1",
+		"Mutant_RightHandPinky2",
+		"Mutant_RightHandPinky3",
+		"Mutant_RightUpLeg",
+		"Mutant_RightLeg",
+		"Mutant_RightFoot",
+		"Mutant_RightToeBase"
+	};
+	SubMobFrameName = new string[33]{
+		"Main",
+		"Root",
+		"Pelvis",
+		"Bone13",
+		"Bone20",
+		"Bone21",
+		"Unit_Protoss_Zealot_Leg_Lower_04",
+		"Bone13_mirrored_",
+		"Bone20_mirrored_",
+		"Bone21_mirrored_",
+		"Lower_Chest",
+		"UpperChest",
+		"Bone01",
+		"Bone02",
+		"Bone03",
+		"Bone04",
+		"Star2Ribbon03",
+		"BoneHead",
+		"Star2Ribbon01",
+		"Bone01_mirrored_",
+		"Bone02_mirrored_",
+		"Bone03_mirrored_",
+		"Bone04_mirrored_",
+		"Star2Ribbon04",
+		"HitTestFuzzy",
+		"Star2Force01",
+		"HitTestTight",
+		"Foot_Left",
+		"Bone10",
+		"Foot_Right",
+		"Bone10_mirrored_",
+		"Star2RibbonCharge",
+		"Zealot_0"
+	};
+}
 
 /*업데이트 부분 setAnimation 개량부분
 인덱스4 = 기본상태 , 3 = 점프, 2 = 뒷무빙, 1 = 앞 뛰기 0 = 레이저 쏘기

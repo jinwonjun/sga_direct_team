@@ -33,4 +33,3 @@ float GetRandomFloat(float lowBound, float highBound)
 
 	return (f*(highBound - lowBound)) + lowBound;
 }
-

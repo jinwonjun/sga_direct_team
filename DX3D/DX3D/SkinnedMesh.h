@@ -25,6 +25,9 @@ protected:
 	vector <D3DXMATRIXA16>		m_Boss_FrameMatrix;//보스 계산 행렬(32개)
 	vector <D3DXMATRIXA16>		m_Sub_FrameMatrix;//쫄몹 계산 행렬(33개)
 
+	string*						BossFrameName;//보스 프레임 이름값 저장용도
+	string*						SubMobFrameName;//쫄몹 프레임 이름값 저장용도
+
 	IDisplayObject::RenderMode m_renderMode;
 public:
 	SkinnedMesh();
@@ -65,6 +68,7 @@ public:
 	float GetRadius() { return m_radius; }
 	
 	//이름 찾는 행렬 함수화
+	void SetFrameNameInit();
 	void MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
 	vector<D3DXMATRIXA16> GetBossMatrix() { return m_Boss_FrameMatrix; }
 	vector<D3DXMATRIXA16> GetSubMobMatrix() { return m_Sub_FrameMatrix; }

@@ -50,6 +50,7 @@ extern HWND g_hWnd;
 #include "Camera.h"
 //
 #include "Cube.h"
+
 #include "Cubeman_Head.h"
 #include "Cubeman_Left_leg.h"
 #include "Cubeman_Right_leg.h"
