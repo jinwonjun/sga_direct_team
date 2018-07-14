@@ -64,11 +64,12 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 15.0f, 50.0f), m_pos); m_pBox->Init();
-	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
+	
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pFrontSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pBackSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_CollRadius, 10, 10, &m_pCollSphereMesh, NULL);
 
+	//기본구!
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
 	m_renderMode = RenderMode_ShadowMapping;
@@ -79,22 +80,30 @@ void Enemy::Init()
 	//보스 고유번호 만들기
 	if (GetEnemyNum() < 4)
 	{
-		m_pSkinnedMesh->SetRadius(0.03f);
+		m_pSkinnedMesh->SetRadius(0.5f);
 	}
 	else
 	{
-		m_pSkinnedMesh->SetRadius(3.0f);
+		m_pSkinnedMesh->SetRadius(2.0f);
 	}
 	m_pSkinnedMesh->Init();
 	m_pSkinnedMesh->Load(m_path, m_filename);
 
-
-	//m_vecBoundary.reserve(32);
+	D3DXCreateSphere(g_pDevice, m_pSkinnedMesh->GetRadius(), 10, 10, &m_pSphereMesh, NULL);
+	//보스가 기준
 	if (GetEnemyNum() == 4)
 	{
 		for (int k = 0; k < (m_pSkinnedMesh->GetBossMatrix()).size(); k++)
 		{
-			BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k + 15, k + 15, k + 15), m_pSkinnedMesh->GetRadius() + 1.0f);
+			BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
+			m_vecBoundary.push_back(s);
+		}
+	}
+	else
+	{
+		for (int k = 0; k < (m_pSkinnedMesh->GetSubMobMatrix()).size(); k++)
+		{
+			BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
 			m_vecBoundary.push_back(s);
 		}
 	}
@@ -188,6 +197,16 @@ void Enemy::Update()
 		{
 			D3DXVECTOR3 tempCenter;
 			D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetBossMatrix())[i]);
+			m_vecBoundary[i]->center = tempCenter;
+			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_pSkinnedMesh->GetSubMobMatrix().size(); i++)
+		{
+			D3DXVECTOR3 tempCenter;
+			D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetSubMobMatrix())[i]);
 			m_vecBoundary[i]->center = tempCenter;
 			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 		}

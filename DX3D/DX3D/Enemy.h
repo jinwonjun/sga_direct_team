@@ -107,7 +107,7 @@ public:
 	BoundingBox*	GetBoundingBox() { return m_pBox; }
 	BoundingSphere*	GetSphere() { return m_pBounidngSphere; }
 
-	vector<BoundingSphere*> GetBossSphere() { return m_vecBoundary; }
+	vector<BoundingSphere*> GetSphereVector() { return m_vecBoundary; }
 
 
 	void WorldToVP();

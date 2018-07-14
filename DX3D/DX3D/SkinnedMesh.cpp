@@ -43,6 +43,12 @@ void SkinnedMesh::Init()
 		D3DXMATRIXA16 temp;
 		m_Boss_FrameMatrix.push_back(temp);
 	}
+	//쫄몹 총 인덱스가 0~32 33개의 파츠 값 가져오기
+	for (int k = 0; k < 33; k++)
+	{
+		D3DXMATRIXA16 temp2;
+		m_Sub_FrameMatrix.push_back(temp2);
+	}
 }
 
 void SkinnedMesh::Load(LPCTSTR path, LPCTSTR filename)
@@ -116,10 +122,12 @@ void SkinnedMesh::Update()
 	SetAnimationIndex(status, true);
 
 	UpdateAnim();
-	UpdateFrameMatrices(m_pRootFrame, NULL);
+	
+	//오른손 구하는 용도
+	//UpdateFrameMatrices(m_pRootFrame, NULL);
 	//행렬 계산 함수 돌리기
 	//보스 , 쫄 ,플레이어에다가 구별 변수 주고 따로따로 돌리기
-	BossCalFrameMat(m_pRootFrame, NULL);
+	MonsterCalFrameMat(m_pRootFrame, NULL);
 }
 
 
@@ -181,12 +189,6 @@ void SkinnedMesh::UpdateFrameMatrices(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	*/
 	//오른손행렬값 찾아서 따로 담기
 	//LPSTR hand = "mixamorig_RightHand";
-	//하드코딩 가즈아!!!!!!!!!!!!!!!32개 아무것도 아냐!
-	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHand")==0)
-	{
-		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
-		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);
-	}
 }
 
 
@@ -219,7 +221,10 @@ void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 	//	Debug->EndLine();
 	//}
 	//if (pFrame->Name == NULL)
+	//{
+	//	Debug->EndLine();
 	//	Debug->AddText(_T("NULL"));
+	//}
 	//else
 	//	Debug->AddText(pFrame->Name);
 
@@ -412,8 +417,8 @@ void SkinnedMesh::DrawSphereMatrix(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	//Debug->EndLine();
 }
 
-//보스 행렬 계산 담기
-void SkinnedMesh::BossCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
+//보스 행렬 계산 담기 && 쫄몹도 해야겠지?
+void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 {
 	FRAME_EX* pFrameEx = (FRAME_EX*)pFrame;
 
@@ -428,12 +433,18 @@ void SkinnedMesh::BossCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 
 	if (pFrameEx->pFrameSibling != NULL)
 	{
-		BossCalFrameMat(pFrameEx->pFrameSibling, pParent);
+		MonsterCalFrameMat(pFrameEx->pFrameSibling, pParent);
 	}
 
 	if (pFrameEx->pFrameFirstChild != NULL)
 	{
-		BossCalFrameMat(pFrameEx->pFrameFirstChild, pFrameEx);
+		MonsterCalFrameMat(pFrameEx->pFrameFirstChild, pFrameEx);
+	}
+	//하드코딩 가즈아!!!!!!!!!!!!!!!32개 아무것도 아냐!
+	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHand") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);
 	}
 
 	if (pFrame->Name != NULL && strcmp(pFrame->Name, "Mutant_Hips") == 0)
@@ -595,6 +606,174 @@ void SkinnedMesh::BossCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	{
 		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
 		m_Boss_FrameMatrix[31] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+
+
+	//질럿 찾기
+	if (pFrame->Name != NULL && strcmp(pFrame->Name, "Main") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[0] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Root") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[1] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Pelvis") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[2] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone13") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[3] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone20") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[4] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone21") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[5] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Unit_Protoss_Zealot_Leg_Lower_04") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[6] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone13_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[7] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone20_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[8] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone21_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[9] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Lower_Chest") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[10] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "UpperChest") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[11] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone01") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[12] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone02") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[13] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone03") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[14] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone04") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[15] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Ribbon03") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[16] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "BoneHead") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[17] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Ribbon01") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[18] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone01_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[19] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone02_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[20] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone03_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[21] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone04_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[22] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Ribbon04") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[23] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "HitTestFuzzy") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[24] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2Force01") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[25] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "HitTestTight") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[26] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Foot_Left") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[27] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone10") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[28] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Foot_Right") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[29] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Bone10_mirrored_") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[30] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Star2RibbonCharge") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[31] = ((pFrameEx->CombinedTM)* m_matWorld);
+	}
+	else if (pFrame->Name != NULL && strcmp(pFrame->Name, "Zealot_0") == 0)
+	{
+		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+		m_Sub_FrameMatrix[32] = ((pFrameEx->CombinedTM)* m_matWorld);
 	}
 }
 

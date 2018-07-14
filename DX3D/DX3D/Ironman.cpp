@@ -241,35 +241,11 @@ void Ironman::Shoot()
 			if (p->GetHP() <= 0) continue;
 			//temp = p->GetSphere();
 			//보스체크 일단 해보기
-			if (p->GetEnemyNum() == 4)
+			
+			for (int i = 0; i < p->GetSphereVector().size(); i++)
 			{
-				for (int i = 0; i < p->GetBossSphere().size(); i++)
-				{
-					temp = (p->GetBossSphere())[i];
+				temp = (p->GetSphereVector())[i];
 
-					if (r.CalcIntersectSphere(temp) == true)
-					{
-						intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
-						//최소거리
-						if (intersectionDistance < minDistance)
-						{
-							minDistance = intersectionDistance;
-							//sphere = temp;
-							tempEnemy = p;
-							//맞으면 플레이어 위치 목적지로 입력
-							p->SetDestPos(m_pos);
-							//맞았다 체크
-							p->SetDamage(true);
-						}
-						//거리 보정 위치값 찾기
-						BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
-					}
-				}
-			}
-			//보스 아닐때 <-- 이거 매핑 해야됨!!!
-			else
-			{
-				temp = p->GetSphere();
 				if (r.CalcIntersectSphere(temp) == true)
 				{
 					intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
@@ -288,7 +264,6 @@ void Ironman::Shoot()
 					BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 				}
 			}
-			
 		}
 
 		if (tempEnemy != NULL)

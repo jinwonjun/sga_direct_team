@@ -19,10 +19,11 @@ protected:
 
 	float						m_radius;//히트 구체 그려줄 라디우스값
 
-	D3DXMATRIXA16 m_matWorld;
-	D3DXMATRIXA16 m_RightHandFrame;
+	D3DXMATRIXA16				m_matWorld;
+	D3DXMATRIXA16				m_RightHandFrame;//플레이어 오른손 행렬가져오기
 
-	vector <D3DXMATRIXA16> m_Boss_FrameMatrix;
+	vector <D3DXMATRIXA16>		m_Boss_FrameMatrix;//보스 계산 행렬(32개)
+	vector <D3DXMATRIXA16>		m_Sub_FrameMatrix;//쫄몹 계산 행렬(33개)
 
 	IDisplayObject::RenderMode m_renderMode;
 public:
@@ -63,10 +64,10 @@ public:
 	void SetRadius(float radius) { m_radius = radius; }
 	float GetRadius() { return m_radius; }
 	
-	//이름 찾는 함수화 test용
-	void BossCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
+	//이름 찾는 행렬 함수화
+	void MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent);
 	vector<D3DXMATRIXA16> GetBossMatrix() { return m_Boss_FrameMatrix; }
-
+	vector<D3DXMATRIXA16> GetSubMobMatrix() { return m_Sub_FrameMatrix; }
 };
 
 // OnInit
