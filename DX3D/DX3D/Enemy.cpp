@@ -76,7 +76,7 @@ void Enemy::Init()
 	Shaders::Get()->AddList(this, m_renderMode);
 	m_pSkinnedMesh = new SkinnedMesh; 
 	m_pSkinnedMesh->SetRenderMode(m_renderMode);
-	
+	m_pSkinnedMesh->Init();
 	//보스 고유번호 만들기
 	if (GetEnemyNum() < 4)
 	{
@@ -86,13 +86,18 @@ void Enemy::Init()
 	{
 		m_pSkinnedMesh->SetRadius(2.0f);
 	}
-	m_pSkinnedMesh->Init();
+	
 	m_pSkinnedMesh->Load(m_path, m_filename);
 
+	//기본 구체 그리기
 	D3DXCreateSphere(g_pDevice, m_pSkinnedMesh->GetRadius(), 10, 10, &m_pSphereMesh, NULL);
+	
+	//특수구체 머리 부분
+
 	//보스가 기준
 	if (GetEnemyNum() == 4)
 	{
+		//머리 부분이 4번 인덱스 Mutant_Head
 		for (int k = 0; k < (m_pSkinnedMesh->GetBossMatrix()).size(); k++)
 		{
 			BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
@@ -103,8 +108,8 @@ void Enemy::Init()
 	{
 		for (int k = 0; k < (m_pSkinnedMesh->GetSubMobMatrix()).size(); k++)
 		{
-			BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
-			m_vecBoundary.push_back(s);
+			BoundingSphere* t = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
+			m_vecBoundary.push_back(t);
 		}
 	}
 
@@ -239,6 +244,7 @@ void Enemy::Render()
 		g_pDevice->SetTexture(0, NULL);
 		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 		m_pSphereMesh->DrawSubset(0);
+		
 		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	}
 

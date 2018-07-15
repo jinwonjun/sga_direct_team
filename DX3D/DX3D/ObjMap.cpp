@@ -122,11 +122,23 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 			&rayPos, &rayDir, NULL, NULL, &distance))
 		{
 			tmpHeight = rayPos.y - distance;
-
+			//이게 이제 최저값(밑바닥)을 기준으로 계산해서 무적권 높이를 돌려주는 코드
+			//계산된 값을 최저값 대신 삼고, 높이값 리턴
 			if (tmpHeight > highest + FLT_EPSILON)
 			{
 				highest = tmpHeight;
 				height = tmpHeight;
+
+				//언덕위로 올라가려는 행위
+				//if (height < tmpHeight)
+				//{
+				//	static_cast <IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY))->SetMoveStatus(false);
+				//	int i = 0;
+				//}
+				//else
+				//{
+				//	height = tmpHeight;
+				//}
 			}
 		}
 	}

@@ -53,5 +53,7 @@ public:
 	void UpdatePosition();
 
 	D3DXVECTOR3 GetForward() { return m_forward; }
+	bool GetMoveStatus() { return m_isMoving; }
+	void SetMoveStatus(bool moving) { m_isMoving = moving; }
 };
 

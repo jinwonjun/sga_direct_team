@@ -400,7 +400,6 @@ void SkinnedMesh::DrawSphereMatrix(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	g_pDevice->SetTexture(0, NULL);
 	m_pSphereMesh->DrawSubset(0);
 	
-
 	if (pFrame->pFrameSibling != NULL)
 	{
 		DrawSphereMatrix(pFrame->pFrameSibling, pParent);
@@ -410,15 +409,9 @@ void SkinnedMesh::DrawSphereMatrix(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	{
 		DrawSphereMatrix(pFrame->pFrameFirstChild, pFrame);
 	}
-	//D3DXVECTOR3 temp;
-	//D3DXVec3TransformCoord(&temp, &temp, &(pFrameEx->CombinedTM * m_matWorld));
-	//m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(temp.x, temp.y, temp.z), 2.0f);
-	//Debug->AddText(temp);
-	//Debug->EndLine();
-	//Debug->EndLine();
 }
 
-//보스 행렬 계산 담기 && 쫄몹도 해야겠지?
+//보스 && 쫄 행렬 계산 담기
 void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 {
 	FRAME_EX* pFrameEx = (FRAME_EX*)pFrame;
@@ -431,7 +424,6 @@ void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	{
 		pFrameEx->CombinedTM = pFrameEx->TransformationMatrix;
 	}
-
 	if (pFrameEx->pFrameSibling != NULL)
 	{
 		MonsterCalFrameMat(pFrameEx->pFrameSibling, pParent);
@@ -441,7 +433,7 @@ void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	{
 		MonsterCalFrameMat(pFrameEx->pFrameFirstChild, pFrameEx);
 	}
-
+	//플레이어 오른손 행렬 좌표 구하기
 	if (pFrame->Name != NULL && strcmp(pFrame->Name, "mixamorig_RightHand") == 0)
 	{
 		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
@@ -468,7 +460,6 @@ void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 		}
 	}
 }
-
 
 void SkinnedMesh::SetAnimationIndex(int nIndex, bool isBlend)
 {

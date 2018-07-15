@@ -8,22 +8,14 @@
 #include "Enemy.h"
 #include "BloodEffect.h"
 
-//0.05f
+//무기의 장착 상태 가져오는 용도
+#include "Gun.h"
+
 #define SCALE 0.1f
 
 Ironman::Ironman()
 {
-	//m_baseRotY = D3DX_PI;
 
-	//m_pRootFrame = NULL;
-	//m_pAnimController = NULL;
-	//m_fBlendTime = 0.3f;
-	//m_fPassedBlendTime = 0.0f;
-	//m_animIndex = 0;
-	//m_bWireFrame = false;
-	//m_bDrawFrame = true;
-	//m_bDrawSkeleton = false;
-	//status = 4;
 }
 
 
@@ -52,10 +44,7 @@ void Ironman::Init()
 	
 
 	CString path = "resources/playerX/";
-	CString filename = "combine.X";
-	//CString path = "resources/zealot/";
-	//CString filename = "combine_test.X";
-
+	CString filename = "combine_All.X";
 	m_pSkinnedMesh->Load(path, filename);
 
 	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
@@ -64,11 +53,6 @@ void Ironman::Init()
 
 	//위치 초기화
 	BloodCalPos = D3DXVECTOR3(0, 0, 0);
-
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixIdentity(&matS);
-	D3DXMatrixIdentity(&matR);
-	D3DXMatrixIdentity(&m_matWorld);
 
 	keyPress = false;
 
@@ -85,6 +69,8 @@ void Ironman::Init()
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matTemp);
+	D3DXMatrixIdentity(&m_matWorld);
+	D3DXMatrixScaling(&matS, 0.25f, 0.25f, 0.25f);
 
 	timer = 0;//체크 타이머 초기화
 	checkTimer = false;
@@ -96,8 +82,8 @@ void Ironman::Update()
 	{
 		DamageFontNum = 0;
 	}
-
 	/*
+	인덱스 열람
 	idle = 1;
 	shot = 2;
 	run = 3;
@@ -106,6 +92,16 @@ void Ironman::Update()
 	jump = 6;
 	reload = 7;
 	back = 8;
+	===========no_weapons=========
+	no_idle = 9;
+	no_shot = 10;
+	no_run = 11;
+	no_left = 12;
+	no_right = 13;
+	no_jump = 14;
+	no_back = 15;
+
+	맨손일때는 리로드 애니가 없음!
 	*/
 	if (Keyboard::Get()->KeyDown('I'))
 	{
@@ -116,96 +112,30 @@ void Ironman::Update()
 	{
 		IUnitObject::UpdateKeyboardState();
 		IUnitObject::UpdatePosition();
+
+		AnimationModify();
+		AnimationKeySetting();
+		SAFE_UPDATE(m_pSkinnedMesh);
+
+		//오른손 좌표 가져오기 - 무기를 착용할때만 돌리기
+		if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+		{
+			RightHand = m_pSkinnedMesh->GetHandMatrix();
+		}
+		//임시 방편의 산물!, 크기를 없애서 안보이게 만든다!
+		else
+		{
+			D3DXMatrixIdentity(&RightHand);
+			RightHand._11 = 0;
+			RightHand._22 = 0;
+			RightHand._33 = 0;
+		}
 	}
-
-	AnimationModify();
-	SAFE_UPDATE(m_pSkinnedMesh);
-
-	//오른손 좌표 가져오기
-	RightHand = m_pSkinnedMesh->GetHandMatrix();
 
 	D3DXTRACK_DESC track;
 	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
 	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
 	m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
-	//pCurrAnimSet->GetPeriod(); //전체 시간
-	//Debug->EndLine();
-	//Debug->EndLine();
-	//Debug->AddText("전체 시간 : ");
-	//Debug->AddText(pCurrAnimSet->GetPeriod());
-	//Debug->EndLine();
-	//Debug->AddText("현재 시간 : ");
-	//pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
-	//Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
-	//Debug->EndLine();
-	//Debug->EndLine();
-	//위아래 짝꿍
-	//해제하기
-	//pCurrAnimSet->Release();
-
-	//if (m_animIndex > 0)//0
-	//m_animIndex--;
-
-	if (!OpenUI)
-	{
-		if (Keyboard::Get()->KeyPress('W'))
-		{
-			checkTimer = true;
-			m_pSkinnedMesh->status = 2;
-		}
-		else if (Keyboard::Get()->KeyPress('S'))
-		{
-			checkTimer = true;
-			m_pSkinnedMesh->status = 7;
-		}
-		else if (Keyboard::Get()->KeyPress('A'))
-		{
-			checkTimer = true;
-			m_pSkinnedMesh->status = 3;
-		}
-		else if (Keyboard::Get()->KeyPress('D'))
-		{
-			checkTimer = true;
-			m_pSkinnedMesh->status = 4;
-		}
-		else if (Keyboard::Get()->KeyPress('R'))
-		{
-			checkTimer = true;
-			timer = -0.17f;
-			m_pSkinnedMesh->status = 6;
-			m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
-		}
-		else if (Keyboard::Get()->KeyDown(VK_SPACE))
-		{
-			checkTimer = true;
-			timer = -0.055f;
-			m_pSkinnedMesh->status = 5;
-		}
-		else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
-		{
-			checkTimer = true;
-			timer = 0.015f;
-			m_pSkinnedMesh->status = 1;
-		}
-		if (checkTimer)
-		{
-			timer += 0.001f;
-			if (timer > 0.025f)
-			{
-				checkTimer = false;
-				timer = 0;
-			}
-		}
-		else
-		{
-			m_pSkinnedMesh->status = 0;
-		}
-	}
-
-	//Debug->AddText("타이머 체크 : ");
-	//Debug->AddText(timer);
-	//Debug->EndLine();
-	//Debug->EndLine();
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
@@ -294,8 +224,15 @@ void Ironman::AnimationModify()
 
 	D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	//D3DXMatrixRotationY(&matR, D3DX_PI);
-	D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+
+	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+	{
+		D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
+	}
+	else
+	{
+		D3DXMatrixScaling(&matS, 0.25f, 0.25f, 0.25f);
+	}
 
 	//카메라 고도 경사를 어떻게 해야되나!
 	D3DXMatrixRotationX(&matRotX, (-1)*g_pCamera->m_rotX * (0.5f));
@@ -313,6 +250,124 @@ void Ironman::AnimationModify()
 	m_pSkinnedMesh->SetWorldMatrix(&m_matWorld);
 }
 
+//플레이어 키에 따른 키값 셋팅
+void Ironman::AnimationKeySetting()
+{
+	if (!OpenUI)
+	{
+		if (Keyboard::Get()->KeyPress('W'))
+		{
+			checkTimer = true;
+			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
+			{
+				m_pSkinnedMesh->status = 10;
+			}
+			else
+			{
+				m_pSkinnedMesh->status = 2;
+			}
+		}
+		else if (Keyboard::Get()->KeyPress('S'))
+		{
+			checkTimer = true;
+			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
+			{
+				m_pSkinnedMesh->status = 14;
+			}
+			else
+			{
+				m_pSkinnedMesh->status = 7;
+			}
+		}
+		else if (Keyboard::Get()->KeyPress('A'))
+		{
+			checkTimer = true;
+			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
+			{
+				m_pSkinnedMesh->status = 11;
+			}
+			else
+			{
+				m_pSkinnedMesh->status = 3;
+			}
+		}
+		else if (Keyboard::Get()->KeyPress('D'))
+		{
+			checkTimer = true;
+			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
+			{
+				m_pSkinnedMesh->status = 12;
+			}
+			else
+			{
+				m_pSkinnedMesh->status = 4;
+			}
+		}
+		else if (Keyboard::Get()->KeyPress('R') && static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+		{
+			checkTimer = true;
+			timer = -0.17f;
+			m_pSkinnedMesh->status = 6;
+			m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
+		}
+		else if (Keyboard::Get()->KeyDown(VK_SPACE))
+		{
+			checkTimer = true;
+			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
+			{
+				timer = -0.02f;
+				m_pSkinnedMesh->status = 13;
+				m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
+			}
+			else
+			{
+				timer = -0.055f;
+				m_pSkinnedMesh->status = 5;
+			}
+		}
+		else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
+		{
+			checkTimer = true;
+			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
+			{
+				timer = -0.02f;
+				m_pSkinnedMesh->status = 9;
+				m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
+			}
+			else
+			{
+				timer = 0.015f;
+				m_pSkinnedMesh->status = 1;
+			}
+		}
+		if (checkTimer)
+		{
+			timer += 0.001f;
+			if (timer > 0.025f)
+			{
+				checkTimer = false;
+				timer = 0;
+			}
+		}
+		else
+		{
+			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
+			{
+				m_pSkinnedMesh->status = 8;
+			}
+			else
+			{
+				m_pSkinnedMesh->status = 0;
+			}
+		}
+	}
+
+	Debug->AddText("총 인덱스 값 찍어보기 :");
+	Debug->AddText(static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus());
+	Debug->EndLine();
+	Debug->EndLine();
+}
+
 void Ironman::RenderUseShader_0()
 {
 	m_pSkinnedMesh->RenderUseShader_0();
@@ -323,3 +378,18 @@ void Ironman::RenderUseShader_1()
 	m_pSkinnedMesh->RenderUseShader_1();
 }
 
+
+//pCurrAnimSet->GetPeriod(); //전체 시간
+//Debug->EndLine();
+//Debug->EndLine();
+//Debug->AddText("전체 시간 : ");
+//Debug->AddText(pCurrAnimSet->GetPeriod());
+//Debug->EndLine();
+//Debug->AddText("현재 시간 : ");
+//pCurrAnimSet->GetPeriodicPosition(track.Position); //현재 시간
+//Debug->AddText(pCurrAnimSet->GetPeriodicPosition(track.Position));
+//Debug->EndLine();
+//Debug->EndLine();
+//위아래 짝꿍
+//해제하기
+//pCurrAnimSet->Release();

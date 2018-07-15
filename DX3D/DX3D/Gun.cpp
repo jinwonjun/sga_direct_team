@@ -20,7 +20,8 @@ void Gun::Init()
 
 	m_radius = 5.0f;
 
-	D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
+	//손목에 구체 달아보기
+	//D3DXCreateSphere(g_pDevice, m_radius, 10, 10, &m_pSphereMesh, NULL);
 
 	GetCursorPos(&mousePoint);
 
@@ -48,15 +49,17 @@ void Gun::GunEqiupSet(int WeaponStatus)
 	{
 		LaserGunInit();
 	}
+	//맨손
 	else
 	{
-	//	VoidInit();
+		VoidInit();
 		WeaponStatus = 0;
 	}
 }
 
 void Gun::BeamGunInit()
 {
+	WeaponStatus = 2;
 	D3DXMatrixIdentity(&ApplyMatrix);
 	D3DXMatrixIdentity(&CalPrevMat);
 
@@ -75,6 +78,7 @@ void Gun::BeamGunInit()
 
 void Gun::LaserGunInit()
 {
+	WeaponStatus = 3;
 	D3DXMatrixIdentity(&ApplyMatrix);
 	D3DXMatrixIdentity(&CalPrevMat);
 
@@ -92,6 +96,7 @@ void Gun::LaserGunInit()
 
 void Gun::M4GunInit()
 {
+	WeaponStatus = 1;
 	D3DXMatrixIdentity(&ApplyMatrix);
 	D3DXMatrixIdentity(&CalPrevMat);
 
@@ -113,27 +118,12 @@ void Gun::M4GunInit()
 
 void Gun::VoidInit()
 {
-
-
+	WeaponStatus = 0;
 }
 
 
 void Gun::Update()
 {
-
-	//if (g_pKeyboard->KeyDown('1'))
-	//{
-	//	GunEqiupSet(1);
-	//}
-	//if (g_pKeyboard->KeyDown('2'))
-	//{
-	//	GunEqiupSet(2);
-	//}
-	//if (g_pKeyboard->KeyDown('3'))
-	//{
-	//	GunEqiupSet(3);
-	//}
-
 	D3DXMATRIXA16 matT;
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 
@@ -154,10 +144,10 @@ void Gun::Render()
 		m_pMeshGun->DrawSubset(i);
 	}
 
-	g_pDevice->SetTransform(D3DTS_WORLD, &static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand);
-	g_pDevice->SetTexture(0, NULL);
-	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	m_pSphereMesh->DrawSubset(0);
-	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	//g_pDevice->SetTransform(D3DTS_WORLD, &static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand);
+	//g_pDevice->SetTexture(0, NULL);
+	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//m_pSphereMesh->DrawSubset(0);
+	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 }
