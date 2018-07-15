@@ -46,8 +46,14 @@ void SkinnedMesh::Init()
 	//쫄몹 총 인덱스가 0~32 33개의 파츠 값 가져오기
 	for (int k = 0; k < 33; k++)
 	{
-		D3DXMATRIXA16 temp2;
-		m_Sub_FrameMatrix.push_back(temp2);
+		D3DXMATRIXA16 temp;
+		m_Sub_FrameMatrix.push_back(temp);
+	}
+	//플레이어 인덱스가 0~51 52개의 파츠값 가져오기
+	for (int j = 0; j < 52; j++)
+	{
+		D3DXMATRIXA16 temp;
+		m_Player_FrameMatrix.push_back(temp);
 	}
 
 	SetFrameNameInit();
@@ -439,6 +445,15 @@ void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 		FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
 		m_RightHandFrame = ((pFrameEx->CombinedTM)* m_matWorld);
 	}
+	//플레이어 시작부분
+	for (int i = 0; i < 52; i++)
+	{
+		if (pFrame->Name != NULL && strcmp(pFrame->Name, PlayerFrameName[i].c_str()) == 0)
+		{
+			FRAME_EX * pFrameEx = (FRAME_EX *)pFrame;
+			m_Player_FrameMatrix[i] = ((pFrameEx->CombinedTM)* m_matWorld);
+		}
+	}
 
 	//보스 시작부분
 	for (int i = 0; i < 32; i++)
@@ -566,6 +581,60 @@ void SkinnedMesh::SetFrameNameInit()
 		"Bone10_mirrored_",
 		"Star2RibbonCharge",
 		"Zealot_0"
+	};
+	PlayerFrameName = new string[52]{
+		"mixamorig_Hips",
+		"mixamorig_Spine",
+		"mixamorig_Spine1",
+		"mixamorig_Spine2",
+		"mixamorig_Neck",
+		"mixamorig_Head",
+		"mixamorig_LeftShoulder",
+		"mixamorig_LeftArm",
+		"mixamorig_LeftForeArm",
+		"mixamorig_LeftHand",
+		"mixamorig_LeftHandThumb1",
+		"mixamorig_LeftHandThumb2",
+		"mixamorig_LeftHandThumb3",
+		"mixamorig_LeftHandIndex1",
+		"mixamorig_LeftHandIndex2",
+		"mixamorig_LeftHandIndex3",
+		"mixamorig_LeftHandMiddle1",
+		"mixamorig_LeftHandMiddle2",
+		"mixamorig_LeftHandMiddle3",
+		"mixamorig_LeftHandRing1",
+		"mixamorig_LeftHandRing2",
+		"mixamorig_LeftHandRing3",
+		"mixamorig_LeftHandPinky1",
+		"mixamorig_LeftHandPinky2",
+		"mixamorig_LeftHandPinky3",
+		"mixamorig_RightShoulder",
+		"mixamorig_RightArm",
+		"mixamorig_RightForeArm",
+		"mixamorig_RightHand",
+		"mixamorig_RightHandThumb1",
+		"mixamorig_RightHandThumb2",
+		"mixamorig_RightHandThumb3",
+		"mixamorig_RightHandIndex1",
+		"mixamorig_RightHandIndex2",
+		"mixamorig_RightHandIndex3",
+		"mixamorig_RightHandMiddle1",
+		"mixamorig_RightHandMiddle2",
+		"mixamorig_RightHandMiddle3",
+		"mixamorig_RightHandRing1",
+		"mixamorig_RightHandRing2",
+		"mixamorig_RightHandRing3",
+		"mixamorig_RightHandPinky1",
+		"mixamorig_RightHandPinky2",
+		"mixamorig_RightHandPinky3",
+		"mixamorig_LeftUpLeg",
+		"mixamorig_LeftLeg",
+		"mixamorig_LeftFoot",
+		"mixamorig_LeftToeBase",
+		"mixamorig_RightUpLeg",
+		"mixamorig_RightLeg",
+		"mixamorig_RightFoot",
+		"mixamorig_RightToeBase"
 	};
 }
 

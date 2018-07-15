@@ -167,6 +167,11 @@ void Enemy::Init()
 	D3DXMatrixIdentity(&matS_UI);
 	D3DXMatrixIdentity(&matR_UI);
 	D3DXMatrixIdentity(&matW_UI);
+
+	//죽음 변수 사용하기
+	m_isDead = false;
+	timer = 0;//체크 타이머 초기화
+	checkTimer = false;
 }
 
 void Enemy::Update()
@@ -234,7 +239,7 @@ void Enemy::Render()
 	m_pSphereMesh->DrawSubset(0);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
-	//구체 그리기 test용도
+	//구체 그리기
 	for (auto p : m_vecBoundary)
 	{
 		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
@@ -418,38 +423,27 @@ void Enemy::UpdatePosition()
 		}
 	}
 	
-	////////////////////////////////////////////////////////////////////
+	//사망모션 타이머 표현
+	if (GetEnemyNum() == 4 && m_HP <= 0)
+	{
+		checkTimer = true;
+		m_pSkinnedMesh->status = 3;//사망 모션
+	}
+	if (checkTimer)
+	{
+		//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
+		m_isMoving = false;
 
+		timer += 0.001f;
+		if (timer > 0.170f)
+		{
+			checkTimer = false;
+			timer = 0;
+			m_isDead = true;
+		}
+	}
 	//enum4(이동) 랑 5(멈춤)로 컨트롤중
 	//보스기준 enum4 가 사망 enum3이 공격 enum2가 달리기 enum1이 대기
-	//바운딩 박스에 닿았을때 거리가 10보다 크면 이동 -> 10보다 작으면 멈춤
-	//if (D3DXVec3Length(&(m_destPos - m_pos)) > 10.f)
-	//{
-	//	//보스
-	//	if (GetEnemyNum() == 4)
-	//	{
-	//		m_pSkinnedMesh->status = 1;
-	//	}
-	//	//쫄
-	//	else
-	//	{
-	//		m_pSkinnedMesh->status = 3;	//이동
-	//	}
-	//	m_isMoving = true;
-	//}
-	//else
-	//{
-	//	if (GetEnemyNum() == 4)
-	//	{
-	//		m_pSkinnedMesh->status = 0;
-	//	}
-	//	//쫄
-	//	else
-	//	{
-	//		m_pSkinnedMesh->status = 4; //멈춤
-	//	}
-	//	m_isMoving = false;
-	//}
 
 	//충돌 해서 밀어낼 벡터 받아왔다면 방향 받고 정규화
 	if (m_avoid != D3DXVECTOR3(0, 0, 0))

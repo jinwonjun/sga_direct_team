@@ -49,6 +49,9 @@ private:
 	//피격 구체 그려주기
 	vector<BoundingSphere*> m_vecBoundary;
 
+	//사망 모션 타이머 및 체크
+	float					timer;
+	bool					checkTimer;
 
 	//충돌 처리
 	float					m_CollRadius;			//충돌체크 반경

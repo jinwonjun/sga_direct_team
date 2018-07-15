@@ -10,7 +10,6 @@ CharacterStatus * CharacterStatus::Get()
 	if (instance == NULL)
 		instance = new CharacterStatus();
 
-
 	return instance;
 }
 

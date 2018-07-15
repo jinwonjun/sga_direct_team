@@ -382,7 +382,7 @@
       <Filter>소스 파일\CHARACTER&amp;MOB</Filter>
     </ClInclude>
     <ClInclude Include="CharacterStatus.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -624,7 +624,7 @@
       <Filter>소스 파일\CHARACTER&amp;MOB</Filter>
     </ClCompile>
     <ClCompile Include="CharacterStatus.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

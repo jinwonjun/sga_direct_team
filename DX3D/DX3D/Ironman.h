@@ -13,6 +13,11 @@ private:
 	float timer;
 	bool checkTimer;
 
+	//피격 구체 그려주기
+	vector<BoundingSphere*> m_vecBoundary;
+	LPD3DXMESH				m_pSphereMesh;
+
+
 public:
 	Ironman();
 	~Ironman();

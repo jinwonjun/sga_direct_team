@@ -38,10 +38,17 @@ void Ironman::Init()
 
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
-	m_pSkinnedMesh->SetRadius(1.5f);
+	m_pSkinnedMesh->SetRadius(0.1f);
 	m_pSkinnedMesh->Init(); 
 	m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	
+	//기본 구체 그리기
+	D3DXCreateSphere(g_pDevice, m_pSkinnedMesh->GetRadius(), 10, 10, &m_pSphereMesh, NULL);
+	for (int k = 0; k < (m_pSkinnedMesh->GetPlayerMatrix()).size(); k++)
+	{
+		BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
+		m_vecBoundary.push_back(s);
+	}
 
 	CString path = "resources/playerX/";
 	CString filename = "combine_All.X";
@@ -53,7 +60,6 @@ void Ironman::Init()
 
 	//위치 초기화
 	BloodCalPos = D3DXVECTOR3(0, 0, 0);
-
 	keyPress = false;
 
 	//시작위치 조정
@@ -82,27 +88,7 @@ void Ironman::Update()
 	{
 		DamageFontNum = 0;
 	}
-	/*
-	인덱스 열람
-	idle = 1;
-	shot = 2;
-	run = 3;
-	left = 4;
-	right = 5;
-	jump = 6;
-	reload = 7;
-	back = 8;
-	===========no_weapons=========
-	no_idle = 9;
-	no_shot = 10;
-	no_run = 11;
-	no_left = 12;
-	no_right = 13;
-	no_jump = 14;
-	no_back = 15;
 
-	맨손일때는 리로드 애니가 없음!
-	*/
 	if (Keyboard::Get()->KeyDown('I'))
 	{
 		OpenUI = !OpenUI;
@@ -144,13 +130,36 @@ void Ironman::Update()
 
 	//혈흔
 	SAFE_UPDATE(m_pBlood);
+
+	//구체 위치 행렬 받아서 업데이트 해주기
+	for (int i = 0; i < m_pSkinnedMesh->GetPlayerMatrix().size(); i++)
+	{
+		D3DXVECTOR3 tempCenter;
+		D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetPlayerMatrix())[i]);
+		m_vecBoundary[i]->center = tempCenter;
+		tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
+	}
 }
 
 void Ironman::Render()
 {
 	SAFE_RENDER(m_pSkinnedMesh);
-	m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
+	//m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
 	SAFE_RENDER(m_pBlood);
+
+	//구체 그리기
+	for (auto p : m_vecBoundary)
+	{
+		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+		D3DXMATRIXA16 mat;
+		D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
+		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+		g_pDevice->SetTexture(0, NULL);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		m_pSphereMesh->DrawSubset(0);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+	}
 }
 
 void Ironman::Shoot()
@@ -248,11 +257,32 @@ void Ironman::AnimationModify()
 
 	//skinnedMesh에서 X파일 위치 및 스케일 조정부분.
 	m_pSkinnedMesh->SetWorldMatrix(&m_matWorld);
+	D3DXMatrixScaling(&matS, 0, 0, 0);
 }
 
 //플레이어 키에 따른 키값 셋팅
 void Ironman::AnimationKeySetting()
 {
+	/*
+	인덱스 열람
+	idle = 1;
+	shot = 2;
+	run = 3;
+	left = 4;
+	right = 5;
+	jump = 6;
+	reload = 7;
+	back = 8;
+	===========no_weapons=========
+	no_idle = 9;
+	no_shot = 10;
+	no_run = 11;
+	no_left = 12;
+	no_right = 13;
+	no_jump = 14;
+	no_back = 15;
+	맨손일때는 리로드 애니가 없음!
+	*/
 	if (!OpenUI)
 	{
 		if (Keyboard::Get()->KeyPress('W'))
@@ -317,13 +347,13 @@ void Ironman::AnimationKeySetting()
 			{
 				timer = -0.02f;
 				m_pSkinnedMesh->status = 13;
-				m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
 			}
 			else
 			{
 				timer = -0.055f;
 				m_pSkinnedMesh->status = 5;
 			}
+			m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
 		}
 		else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
 		{
@@ -361,11 +391,10 @@ void Ironman::AnimationKeySetting()
 			}
 		}
 	}
-
-	Debug->AddText("총 인덱스 값 찍어보기 :");
-	Debug->AddText(static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus());
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->AddText("총 인덱스 값 찍어보기 :");
+	//Debug->AddText(static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus());
+	//Debug->EndLine();
+	//Debug->EndLine();
 }
 
 void Ironman::RenderUseShader_0()
