@@ -170,7 +170,7 @@ void Enemy::Init()
 
 	//죽음 변수 사용하기
 	m_isDead = false;
-	timer = 0;//체크 타이머 초기화
+	timer = 0.0f;//체크 타이머 초기화
 	checkTimer = false;
 }
 
@@ -426,20 +426,20 @@ void Enemy::UpdatePosition()
 	//사망모션 타이머 표현
 	if (GetEnemyNum() == 4 && m_HP <= 0)
 	{
+		//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
+		m_isMoving = false;
+		isDamage = false;
 		checkTimer = true;
 		m_pSkinnedMesh->status = 3;//사망 모션
 	}
 	if (checkTimer)
 	{
-		//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
-		m_isMoving = false;
-
 		timer += 0.001f;
-		if (timer > 0.170f)
+		if (timer > 0.160f)
 		{
+			m_isDead = true;
 			checkTimer = false;
 			timer = 0;
-			m_isDead = true;
 		}
 	}
 	//enum4(이동) 랑 5(멈춤)로 컨트롤중
