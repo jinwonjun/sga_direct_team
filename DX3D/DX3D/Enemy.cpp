@@ -252,11 +252,12 @@ void Enemy::Render()
 		D3DXMATRIXA16 mat;
 		D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
 		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 		g_pDevice->SetTexture(0, NULL);
 		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 		m_pSphereMesh->DrawSubset(0);
-		
 		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 	}
 
 	
@@ -291,6 +292,7 @@ void Enemy::Render()
 	////////////////////////////////////////////////////////////////////
 	
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+	if(!m_isDead)
 	SAFE_RENDER(m_pSkinnedMesh);
 	//Å¹±¸°ø±×¸®±â
 	//m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
@@ -444,8 +446,11 @@ void Enemy::UpdatePosition()
 		if (timer > 0.160f)
 		{
 			m_isDead = true;
-			checkTimer = false;
-			timer = 0;
+			if (m_isDead)
+			{
+				checkTimer = false;
+				timer = 0;
+			}
 		}
 	}
 	//enum4(ÀÌµ¿) ¶û 5(¸ØÃã)·Î ÄÁÆ®·ÑÁß

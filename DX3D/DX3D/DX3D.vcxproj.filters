@@ -390,8 +390,13 @@
     <ClInclude Include="UIManager.h">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Shop.h">
       <Filter>소스 파일\UI_CLASS\SHOP</Filter>
+=======
+    <ClInclude Include="SoundManager.h">
+      <Filter>소스 파일\MANAGER</Filter>
+>>>>>>> aaac6c7f853b698e5d9049c6f279f5462b2a829f
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -638,8 +643,13 @@
     <ClCompile Include="UIManager.cpp">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Shop.cpp">
       <Filter>소스 파일\UI_CLASS\SHOP</Filter>
+=======
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>소스 파일\MANAGER</Filter>
+>>>>>>> aaac6c7f853b698e5d9049c6f279f5462b2a829f
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

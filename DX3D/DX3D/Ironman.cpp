@@ -65,8 +65,6 @@ void Ironman::Init()
 	//시작위치 조정
 	m_pos.y = 10;
 
-
-
 	m_Hp = 100;
 	m_MaxHp = 100;
 	m_Def = 5;
@@ -92,6 +90,9 @@ void Ironman::Update()
 	{
 		DamageFontNum = 0;
 	}
+
+	if (!g_pInventory->Get()->openInven)
+
 
 
 
@@ -163,6 +164,7 @@ void Ironman::Render()
 		D3DXMATRIXA16 mat;
 		D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
 		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 		g_pDevice->SetTexture(0, NULL);
 		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 		m_pSphereMesh->DrawSubset(0);
