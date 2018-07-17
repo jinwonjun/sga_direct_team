@@ -204,11 +204,8 @@ void Camera::Update()
 	//}
 
 
-	if (g_pKeyboard->KeyDown('I'))
-	{
-		UIopen = !UIopen;
-	}
-	if (UIopen)
+
+	if (g_pInventory->openInven)
 	{
 		ShowCursor(true);
 	}
@@ -225,10 +222,10 @@ void Camera::Update()
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	//printf("ÀÌÀüxÁÂÇ¥ : %d, ÀÌÀüyÁÂÇ¥ : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
-	if (UIopen)
+	if (g_pInventory->openInven)
 	{
 
-
+	
 		POINT currPoint;
 		switch (message)
 		{

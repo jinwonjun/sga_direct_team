@@ -2,7 +2,7 @@
 #include "SampleUI.h"
 #include "IUIObject.h"
 #include "UIImage.h"
-
+#include "Gun.h"
 #include <cstring>
 
 enum
@@ -530,19 +530,24 @@ void SampleUI::Render()
 	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
 	matWorld = matS * matT;  // 젤 끝에서 시작점으로 이동하는것
 
-	// 회전중점, 위치이동 따로따로 있따.       에임
-	SetRect(&Cross_Hair.m_Image_rc, 0, 0, Cross_Hair.m_imageInfo.Width, Cross_Hair.m_imageInfo.Height);
-	//D3DXSPRITE_ALPHABLEND
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(
-		Cross_Hair.m_pTex,
-		&Cross_Hair.m_Image_rc,
-		&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
+
+	if (g_pInventory->Equip[1].index != 0)
+	{
+		// 회전중점, 위치이동 따로따로 있따.       에임
+		SetRect(&Cross_Hair.m_Image_rc, 0, 0, Cross_Hair.m_imageInfo.Width, Cross_Hair.m_imageInfo.Height);
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			Cross_Hair.m_pTex,
+			&Cross_Hair.m_Image_rc,
+			&D3DXVECTOR3(0, 0, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+
+	}
 	//580 -500
 	//=======================================================
 
