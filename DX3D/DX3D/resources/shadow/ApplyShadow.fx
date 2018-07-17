@@ -18,6 +18,8 @@ float4 gWorldLightPos = float4(500.00, 500.00, -500.00, 1.00);
 float4 gWorldCameraPos : ViewPosition;
 float gPower = float(20.0f);
 
+float gSpecularConst = float(0.0f);
+
 texture ShadowMap_Tex;
 sampler2D ShadowSampler = sampler_state
 {
@@ -108,7 +110,7 @@ float4 ApplyShadow_PS_main(PS_INPUT Input) : COLOR0
     {
         specular = saturate(dot(reflection, -viewDir));
         specular = pow(specular, gPower);
-        //specular = specular * albedo.rgb * 4;
+        specular = specular * albedo.rgb * gSpecularConst;
     }
     diffuse = diffuse * albedo.rgb;
     float3 ambient = float3(0.1f, 0.1f, 0.1f) * albedo.rgb;

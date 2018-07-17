@@ -25,6 +25,8 @@ public:
 	void Init();
 	void Update();
 	void Render();
+	void RenderUseShader_0();
+	void RenderUseShader_1();
 
 	void GunEqiupSet(int WeaponStatus);
 	int GetWeaponStatus(){return WeaponStatus;}

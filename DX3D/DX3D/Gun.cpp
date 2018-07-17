@@ -15,6 +15,8 @@ Gun::~Gun()
 void Gun::Init()
 {
 	g_pObjMgr->AddToTagList(TAG_GUN, this);
+	m_renderMode = RenderMode_ShadowMapping;
+	Shaders::Get()->AddList(this, m_renderMode);
 	//무기 초기화
 	WeaponStatus = 0;
 
@@ -150,4 +152,28 @@ void Gun::Render()
 	//m_pSphereMesh->DrawSubset(0);
 	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+}
+
+void Gun::RenderUseShader_0()
+{
+	for (size_t i = 0; i < m_vecMtlTex.size(); i++)
+	{
+		Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&ApplyMatrix);
+		Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
+		Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
+		Shaders::Get()->GetCurrentShader()->Commit();
+		m_pMeshGun->DrawSubset(i);
+	}
+}
+
+void Gun::RenderUseShader_1()
+{
+	for (size_t i = 0; i < m_vecMtlTex.size(); i++)
+	{
+		Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&ApplyMatrix);
+		Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
+		Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
+		Shaders::Get()->GetCurrentShader()->Commit();
+		m_pMeshGun->DrawSubset(i);
+	}
 }

@@ -34,6 +34,7 @@ void Ironman::Init()
 
 	DamageFontNum = 0;
 	m_renderMode = RenderMode_ShadowMapping;
+	m_specular = 10.0f;
 	Shaders::Get()->AddList(this, m_renderMode);
 
 	//매쉬 캐릭터 올리기

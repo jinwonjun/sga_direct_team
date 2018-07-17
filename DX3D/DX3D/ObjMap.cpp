@@ -28,6 +28,7 @@ void ObjMap::Init()
 	g_pMapManager->SetCurrentMap("ObjMap");
 
 	m_renderMode = RenderMode_ShadowMapping;
+	m_specular = 0.0f;
 	Shaders::Get()->AddList(this, m_renderMode);
 
 }
