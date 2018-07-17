@@ -11,6 +11,8 @@ static D3DXHANDLE hWorldCamPos = "gWorldCameraPos";
 static D3DXHANDLE hShadowMapTex = "ShadowMap_Tex";
 static D3DXHANDLE hDiffuseMapTex = "DiffuseMap_Tex";
 
+//추가한 부분
+static D3DXHANDLE hSpecularConst = "gSpecularConst";
 ShadowMappingShader::ShadowMappingShader()
 {
 	
@@ -115,6 +117,7 @@ void ShadowMappingShader::Render()
 
 		for (auto p : m_pList)
 		{
+			Shaders::Get()->GetCurrentShader()->SetSpecularConst(p->GetSpecular());
 			p->RenderUseShader_1();
 		}
 
@@ -151,4 +154,9 @@ void ShadowMappingShader::Commit()
 	{
 		m_pApplyEffect->CommitChanges();
 	}
+}
+
+void ShadowMappingShader::SetSpecularConst(float gSpecularConst)
+{
+	m_pApplyEffect->SetFloat(hSpecularConst, gSpecularConst);
 }

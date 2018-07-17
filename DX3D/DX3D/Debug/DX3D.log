@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 ﻿  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
+﻿  Gun.cpp
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> a769dd7fc06f85852e577211cb2c08cbefcb69be

@@ -7,6 +7,7 @@ IDisplayObject::IDisplayObject()
 	m_pParent = NULL;
 	D3DXMatrixIdentity(&m_matWorld);
 	m_renderMode = RenderMode_Default;
+	m_specular = 1.0f;
 }
 
 
