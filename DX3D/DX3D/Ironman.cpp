@@ -65,8 +65,12 @@ void Ironman::Init()
 	//시작위치 조정
 	m_pos.y = 10;
 
+<<<<<<< HEAD
 	//UI 열리면 캐릭터 이동 막기
 	//OpenUI = false;
+=======
+
+>>>>>>> bc4e3ed637a8e1af9fcd1f412c631ab7c523e158
 
 	m_Hp = 100;
 	m_MaxHp = 100;
@@ -93,8 +97,15 @@ void Ironman::Update()
 	{
 		DamageFontNum = 0;
 	}
+<<<<<<< HEAD
 	
 	if (!g_pInventory->Get()->openInven)
+=======
+
+
+
+	if (!g_pInventory->openInven)
+>>>>>>> bc4e3ed637a8e1af9fcd1f412c631ab7c523e158
 	{
 		IUnitObject::UpdateKeyboardState();
 		IUnitObject::UpdatePosition();
