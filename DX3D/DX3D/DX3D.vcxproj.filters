@@ -387,6 +387,9 @@
     <ClInclude Include="UIManager.h">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>소스 파일\MANAGER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -631,6 +634,9 @@
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>소스 파일\MANAGER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

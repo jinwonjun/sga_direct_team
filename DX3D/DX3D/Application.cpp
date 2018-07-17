@@ -17,6 +17,7 @@ void Application::Init()
 	g_pMouse->SetHandle(g_hWnd);
 	g_pCamera->Init();
 	Shaders::Get()->Init();
+	g_pSoundManager->Init();
 	g_pSceneManager->Init();
 	//g_pItem->ItemTable();
 	g_pUIManager->Init();
@@ -44,6 +45,7 @@ void Application::Destroy()
 	g_pInventory->Delete();
 	//g_pStatus->Delete();
 	g_pUIManager->Delete();
+	g_pSoundManager->Destroy();
 }
 
 void Application::Update()
@@ -54,12 +56,14 @@ void Application::Update()
 	g_pMouse->Update();
 	g_pKeyboard->Update();
 	g_pSceneManager->Update();
-	
+	g_pSoundManager->Update();
+
 	//카메라 업데이트를 여기서 돌림
 	g_pCamera->Update();
 	g_pInventory->Update();
 	g_pUIManager->Update();
 //	g_pStatus->Update();
+
 }
 
 void Application::Render()
