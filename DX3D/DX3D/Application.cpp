@@ -46,11 +46,11 @@ void Application::Destroy()
 	g_pInventory->Delete();
 	//g_pStatus->Delete();
 	g_pUIManager->Delete();
-<<<<<<< HEAD
+
 	g_pShop->Delete();
-=======
+
 	g_pSoundManager->Destroy();
->>>>>>> aaac6c7f853b698e5d9049c6f279f5462b2a829f
+
 }
 
 void Application::Update()
