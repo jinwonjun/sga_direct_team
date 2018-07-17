@@ -21,7 +21,7 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 
 	m_forward = D3DXVECTOR3(0, 0, 1);
 	m_isMoving = false;
-	m_HP = MOB_FULL_HP;//갱신되는 몹의 체력을 매크로에서 받아오기
+	m_Hp = MOB_FULL_HP;//갱신되는 몹의 체력을 매크로에서 받아오기
 	m_ItemDrop = false;
 
 	m_path = path;			// "resources/zealot/";
@@ -200,6 +200,12 @@ void Enemy::Update()
 
 	WorldToVP();
 
+
+	//Debug->EndLine();
+
+	//Debug->AddText("당신의 체력은...?:");
+	//Debug->AddText(m_Hp);
+
 	//보스 행렬 업데이트 돌리기
 	if (GetEnemyNum() == 4)
 	{
@@ -293,7 +299,7 @@ void Enemy::Render()
 	////////////////////////////////////////////////////////////////////
 	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
 
-	float HP_Percent = (float)(((float)m_HP / (float)MOB_FULL_HP) * 100);
+	float HP_Percent = (float)(((float)m_Hp / (float)MOB_FULL_HP) * 100);
 	
 	int Hp_Draw_Idx = 0;
 	if (HP_Percent <= 100 && HP_Percent > 87.5)
@@ -329,7 +335,7 @@ void Enemy::Render()
 		Hp_Draw_Idx = 0;
 	}
 
-	if ((m_HP > 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
+	if ((m_Hp> 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
 						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
 						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
 						g_pCamera->GetMCenter().y <= ScreenY))
@@ -424,7 +430,7 @@ void Enemy::UpdatePosition()
 	}
 	
 	//사망모션 타이머 표현
-	if (GetEnemyNum() == 4 && m_HP <= 0)
+	if (GetEnemyNum() == 4 && m_Hp <= 0)
 	{
 		//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
 		m_isMoving = false;

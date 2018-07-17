@@ -52,7 +52,7 @@ void EnemyManager::Update(void)
 	for (int i = 0; i < m_vecEnemy.size(); i++)
 	{
 		//&& m_vecEnemy[i]->m_isDead
-		if (m_vecEnemy[i]->m_HP <= 0 && m_vecEnemy[i]->m_isDead)
+		if (m_vecEnemy[i]->m_Hp <= 0 && m_vecEnemy[i]->m_isDead)
 		{
 			Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
 			m_vecEnemy.erase(m_vecEnemy.begin() + i);

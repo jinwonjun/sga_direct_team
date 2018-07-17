@@ -16,6 +16,8 @@ IUnitObject::IUnitObject()
 	m_currGravity = 0.0f;
 
 	m_maxStepHeight = 2.0f;
+	m_isDead = false;
+
 }
 
 
@@ -329,4 +331,28 @@ void IUnitObject::UpdatePosition()
 		m_isMoving = true;
 	else
 		m_isMoving = false;
+}
+
+void IUnitObject::DamageCalcul(int Atk)
+{		
+	if (m_Def >= Atk)
+	{
+		m_Hp--;
+		g_pUIManager->AnswerDmg = 1;
+	}
+
+	else
+	{
+		m_Hp = m_Hp - (Atk - m_Def);	
+		//m_Hp -= 5;
+		g_pUIManager->AnswerDmg = (Atk-m_Def);
+	}
+
+	
+}
+
+void IUnitObject::AttackCalcultate(IUnitObject * DamagedUnit)
+{
+	DamagedUnit->DamageCalcul(m_Atk);
+	
 }

@@ -68,8 +68,6 @@ void CharacterStatus::Render()
 
 void CharacterStatus::Initialize_Adds()
 {
-
-
 	AddAtk = 0;
 	AddHp = 0;
 	AddMaxHp = 0;
@@ -78,8 +76,7 @@ void CharacterStatus::Initialize_Adds()
 }
 
 void CharacterStatus::Change_Equip()
-{
-	
+{	
 
 	//아이템에 의한 추가 옵션 계산
 		for (int i = 1; i < 7; i++)

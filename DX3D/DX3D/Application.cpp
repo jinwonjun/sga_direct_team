@@ -19,8 +19,10 @@ void Application::Init()
 	Shaders::Get()->Init();
 	g_pSceneManager->Init();
 	//g_pItem->ItemTable();
+	g_pUIManager->Init();
 	g_pInventory->Init();
-	g_pStatus->Init();
+
+	//g_pStatus->Init();
 
 	
 }
@@ -40,8 +42,8 @@ void Application::Destroy()
 	Debug->Destroy();
 	g_pDeviceManager->Destroy();
 	g_pInventory->Delete();
-	g_pStatus->Delete();
-
+	//g_pStatus->Delete();
+	g_pUIManager->Delete();
 }
 
 void Application::Update()
@@ -56,7 +58,8 @@ void Application::Update()
 	//카메라 업데이트를 여기서 돌림
 	g_pCamera->Update();
 	g_pInventory->Update();
-	g_pStatus->Update();
+	g_pUIManager->Update();
+//	g_pStatus->Update();
 }
 
 void Application::Render()
@@ -70,7 +73,8 @@ void Application::Render()
 	Debug->Print();
 
 	g_pInventory->Render();
-	g_pStatus->Render();
+	g_pUIManager->Render();
+//	g_pStatus->Render();
 
 	if (GetAsyncKeyState('M') & 0x0001)
 	{
