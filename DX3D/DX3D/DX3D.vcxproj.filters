@@ -121,6 +121,9 @@
     <Filter Include="소스 파일\SHADER">
       <UniqueIdentifier>{72b693a8-7a1c-4187-897c-f1b9fbc79e6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\UI_CLASS\SHOP">
+      <UniqueIdentifier>{81464e81-dc9b-4004-9cd5-c1575064e898}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -387,6 +390,9 @@
     <ClInclude Include="UIManager.h">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
     </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>소스 파일\UI_CLASS\SHOP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -631,6 +637,9 @@
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>소스 파일\UI_CLASS\UI_EXAMPLE</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>소스 파일\UI_CLASS\SHOP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

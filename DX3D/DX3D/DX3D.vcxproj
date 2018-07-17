@@ -224,6 +224,7 @@
     <ClInclude Include="Scene_UI.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="ShadowMappingShader.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="SkinnedMesh.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stdafx.h" />
@@ -310,6 +311,7 @@
     <ClCompile Include="Scene_UI.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="ShadowMappingShader.cpp" />
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="SkinnedMesh.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -370,7 +370,14 @@ void SampleUI::Update()
 	//==========================================
 	if (spaceOn && contorller == 1)
 	{
-		restBullet--;
+		if (restBullet <= 0)
+		{
+			restBullet = 0;
+		}
+		else
+		{
+			restBullet--;
+		}
 		spaceOn = false;
 	}
 
@@ -407,11 +414,7 @@ void SampleUI::Update()
 		restBullet = 30;
 	}
 
-	if (restBullet < 0)
-	{
-		restBullet = 0;
-	}
-	
+
 
 	if (g_pKeyboard->KeyDown('G'))
 	{
