@@ -66,7 +66,7 @@ void Ironman::Init()
 	m_pos.y = 10;
 
 	//UI 열리면 캐릭터 이동 막기
-	OpenUI = false;
+	//OpenUI = false;
 
 	m_Hp = 100;
 	m_MaxHp = 100;
@@ -93,13 +93,8 @@ void Ironman::Update()
 	{
 		DamageFontNum = 0;
 	}
-
-	if (Keyboard::Get()->KeyDown('I'))
-	{
-		OpenUI = !OpenUI;
-	}
-
-	if (!OpenUI)
+	
+	if (!g_pInventory->Get()->openInven)
 	{
 		IUnitObject::UpdateKeyboardState();
 		IUnitObject::UpdatePosition();
@@ -320,7 +315,7 @@ void Ironman::AnimationKeySetting()
 	no_back = 15;
 	맨손일때는 리로드 애니가 없음!
 	*/
-	if (!OpenUI)
+	if (!g_pInventory->openInven)
 	{
 		if (Keyboard::Get()->KeyPress('W'))
 		{
