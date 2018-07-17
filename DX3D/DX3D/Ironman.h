@@ -52,9 +52,6 @@ public:
 	//애니메이션 테스트용 변수 아직 못함
 	bool keyPress;
 
-	//UI 열었을 시 캐릭터 이동 제한
-	//bool OpenUI;
-
 	//damagefont를 위한 숫자
 	int DamageFontNum;
 

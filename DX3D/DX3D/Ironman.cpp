@@ -65,13 +65,6 @@ void Ironman::Init()
 	//시작위치 조정
 	m_pos.y = 10;
 
-<<<<<<< HEAD
-	//UI 열리면 캐릭터 이동 막기
-	//OpenUI = false;
-=======
-
->>>>>>> bc4e3ed637a8e1af9fcd1f412c631ab7c523e158
-
 	m_Hp = 100;
 	m_MaxHp = 100;
 	m_Def = 5;
@@ -97,15 +90,13 @@ void Ironman::Update()
 	{
 		DamageFontNum = 0;
 	}
-<<<<<<< HEAD
-	
+
 	if (!g_pInventory->Get()->openInven)
-=======
+
 
 
 
 	if (!g_pInventory->openInven)
->>>>>>> bc4e3ed637a8e1af9fcd1f412c631ab7c523e158
 	{
 		IUnitObject::UpdateKeyboardState();
 		IUnitObject::UpdatePosition();
@@ -173,6 +164,7 @@ void Ironman::Render()
 		D3DXMATRIXA16 mat;
 		D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
 		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 		g_pDevice->SetTexture(0, NULL);
 		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 		m_pSphereMesh->DrawSubset(0);
