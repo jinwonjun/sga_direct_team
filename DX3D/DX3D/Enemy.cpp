@@ -73,6 +73,7 @@ void Enemy::Init()
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
 	m_renderMode = RenderMode_ShadowMapping;
+	m_specular = 3.0f;
 	Shaders::Get()->AddList(this, m_renderMode);
 	m_pSkinnedMesh = new SkinnedMesh; 
 	m_pSkinnedMesh->SetRenderMode(m_renderMode);

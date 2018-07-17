@@ -26,6 +26,7 @@ protected:
 	vector<VERTEX_PC> m_vecVertex;
 
 	RenderMode				m_renderMode;
+	float					m_specular;
 public:
 	IDisplayObject();
 	virtual ~IDisplayObject();
@@ -52,5 +53,6 @@ public:
 
 	vector<VERTEX_PC> GetCubeVertex() { return m_vecVertex; }
 
+	float			GetSpecular() { return m_specular; }
 };
 

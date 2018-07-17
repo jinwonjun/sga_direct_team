@@ -15,6 +15,8 @@ public:
 	virtual void SetMaterial(D3DMATERIAL9* pMtl) {}
 	virtual void Commit() {}
 
+	virtual void SetSpecularConst(float gSpecularConst) {}
+
 	virtual void SetUseOutLine(bool value) { }
 protected:
 	const D3DXHANDLE hWorldMatrix = "gWorldMatrix";

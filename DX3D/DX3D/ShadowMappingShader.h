@@ -37,5 +37,7 @@ public:
 	void SetWorldMatrix(D3DXMATRIXA16* pWorldMatrix);
 	void SetTexture(LPDIRECT3DTEXTURE9 pTexture);
 	void Commit();
+
+	void SetSpecularConst(float gSpecularConst);
 };
 
