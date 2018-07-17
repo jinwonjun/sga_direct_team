@@ -68,6 +68,11 @@ void Ironman::Init()
 	//UI 열리면 캐릭터 이동 막기
 	OpenUI = false;
 
+	m_Hp = 100;
+	m_MaxHp = 100;
+	m_Def = 5;
+	m_Atk = 5;
+	
 
 	D3DXMatrixIdentity(&matRotY);
 	D3DXMatrixIdentity(&matRotX);
@@ -118,6 +123,7 @@ void Ironman::Update()
 		}
 	}
 
+
 	D3DXTRACK_DESC track;
 	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
 	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
@@ -126,7 +132,12 @@ void Ironman::Update()
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
 
+	// 아이템을착용하면 스텟이 변해야지
+	Status();
+
 	Shoot();
+
+
 
 	//혈흔
 	SAFE_UPDATE(m_pBlood);
@@ -139,6 +150,8 @@ void Ironman::Update()
 		m_vecBoundary[i]->center = tempCenter;
 		tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 	}
+
+
 }
 
 void Ironman::Render()
@@ -208,15 +221,39 @@ void Ironman::Shoot()
 		if (tempEnemy != NULL)
 		{
 			g_pItem->MonsterDamaged(DamageFontNum);
+
+
 			DamageFontNum++;
+
 			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
 			
-			tempEnemy->MinusHP();
+			//tempEnemy->MinusHP();
+			AttackCalcultate(tempEnemy);
+
 			m_pBlood->Fire(BloodCalPos, -m_forward);
 			//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
 			//break;
 		}
 	}
+}
+
+void Ironman::Status()
+{
+	AddAtk = 0;
+	AddMaxHp = 0;
+	AddDef = 0;
+
+	for (int i = 1; i < 7; i++)
+	{
+		AddAtk += g_pInventory->Equip[i].Atk;
+		AddMaxHp += g_pInventory->Equip[i].MaxHp;
+		AddDef += g_pInventory->Equip[i].Def;
+	}
+
+	m_MaxHp = 100 + AddMaxHp;
+	m_Def = 5+ AddDef;
+	m_Atk = 5+ AddAtk; 
+
 }
 
 void Ironman::AnimationModify()

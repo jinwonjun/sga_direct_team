@@ -531,9 +531,16 @@ void InventoryManager::Update()
 		openInven = !openInven;
 		// I를 누르면 인벤토리가 열렸다 꺼졌다 그래요
 	}
+	
+
 
 	if (openInven)
 	{
+		//ESC누르면 꺼짐
+		if (g_pKeyboard->KeyDown(VK_ESCAPE))
+		{
+			openInven = !openInven;
+		}
 		//Debug->AddText(pressOn);
 		//Debug->EndLine();
 
@@ -567,7 +574,7 @@ void InventoryManager::Update()
 					alreadyWorkedRbutton = true;
 					static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(0);
 
-					g_pStatus->isChangeEquip = true;
+					//g_pStatus->isChangeEquip = true;
 				}
 			}
 
@@ -591,7 +598,7 @@ void InventoryManager::Update()
 								//InvenArray[i][j].index = 0;
 								Equip[Weapon_Type_MainWeapons].isEquiped = true;
 								InvenArray[i][j] = Void_Item[0][0];
-								g_pStatus->isChangeEquip = true;
+								//g_pStatus->isChangeEquip = true;
 								static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(Equip[Weapon_Type_MainWeapons].index);
 
 							}
@@ -601,7 +608,7 @@ void InventoryManager::Update()
 								Equip[Weapon_Type_MainWeapons].isEquiped = true;
 
 								InvenArray[i][j].isEquiped = false;
-								g_pStatus->isChangeEquip = true;
+								//g_pStatus->isChangeEquip = true;
 								static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(Equip[Weapon_Type_MainWeapons].index);
 							}
 						
@@ -617,14 +624,14 @@ void InventoryManager::Update()
 
 								Equip[Equip_Armor].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
-								g_pStatus->isChangeEquip = true;
+								//g_pStatus->isChangeEquip = true;
 							}
 							else
 							{
 								swap(Equip[Equip_Armor], InvenArray[i][j]);
 								Equip[Equip_Armor].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
-								g_pStatus->isChangeEquip = true;
+								//g_pStatus->isChangeEquip = true;
 							}
 							break;
 
@@ -636,14 +643,14 @@ void InventoryManager::Update()
 
 								Equip[Equip_Glove].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
-								g_pStatus->isChangeEquip = true;
+							//	g_pStatus->isChangeEquip = true;
 							}
 							else
 							{
 								swap(Equip[Equip_Glove], InvenArray[i][j]);
 								Equip[Equip_Glove].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
-								g_pStatus->isChangeEquip = true;
+								//g_pStatus->isChangeEquip = true;
 							}
 							break;
 
@@ -655,14 +662,14 @@ void InventoryManager::Update()
 
 								Equip[Equip_Belt].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
-								g_pStatus->isChangeEquip = true;
+							//	g_pStatus->isChangeEquip = true;
 							}
 							else
 							{
 								swap(Equip[Equip_Belt], InvenArray[i][j]);
 								Equip[Equip_Belt].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
-								g_pStatus->isChangeEquip = true;
+							//	g_pStatus->isChangeEquip = true;
 							}
 							break;
 
@@ -674,14 +681,14 @@ void InventoryManager::Update()
 
 								Equip[Equip_Boots].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
-								g_pStatus->isChangeEquip = true;
+							//	g_pStatus->isChangeEquip = true;
 							}
 							else
 							{
 								swap(Equip[Equip_Boots], InvenArray[i][j]);
 								Equip[Equip_Boots].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
-								g_pStatus->isChangeEquip = true;
+							//	g_pStatus->isChangeEquip = true;
 							}
 							break;
 						default:

@@ -36,7 +36,7 @@ private:
 
 	SkinnedMesh*			m_pSkinnedMesh;
 
-	int						m_HP;
+	//int						m_HP;
 	bool					m_ItemDrop;
 	float					m_radius;				//피격 구체 반지름
 
@@ -96,11 +96,11 @@ public:
 	void SetIsMove(bool isMove) { m_isMoving = isMove; }
 	void SetDamage(bool Damage) { isDamage = Damage; }
 
-	int GetHP() { return m_HP; }
+	int GetHP() { return m_Hp; }
 	int GetMonsterX() { return ScreenX;	}
 	int GetMonsterY() { return ScreenY; }
 
-	void MinusHP() { m_HP -= g_pStatus->MyChara.EndAtk; }
+	void MinusHP() { m_Hp -= g_pInventory->Equip[1].Atk; }
 
 	int GetEnemyNum() { return m_enemyNum; }
 

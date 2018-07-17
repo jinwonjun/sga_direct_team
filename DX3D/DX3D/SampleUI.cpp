@@ -382,7 +382,7 @@ void SampleUI::Update()
 	positionY = g_pItem->timer;
 	//GetItems->SetPosition(&D3DXVECTOR3(0, -200 - ((400 - positionY) / 8), 0));
 
-	AtkDamage = std::to_wstring(g_pStatus->MyChara.EndAtk);
+	AtkDamage = std::to_wstring(g_pUIManager->AnswerDmg);
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 

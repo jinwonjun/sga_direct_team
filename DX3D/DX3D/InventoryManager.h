@@ -171,7 +171,9 @@ private:
 	void Item_Info_Text();
 	void Item_Info_Description(items item);
 	
+
 	
+
 public:
 	//Inventory();
 	//~Inventory();
@@ -224,5 +226,8 @@ public:
 
 	void MovingItem(items* a, items* b); // 인벤토리 내에서 아이템 옮기기 하지만 실패 ...
 	
+
+	 //IUnit쪽 데미지 공식에 의한 결과값
+	int AnswerDmg;
 };
 

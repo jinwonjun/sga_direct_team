@@ -32,8 +32,12 @@ protected:
 	bool			m_isDead;
 	int				m_Atk;
 	int				m_Dmg;
+	int				m_Def;
+	int				m_MaxHp;
 	int				m_Hp;
 
+
+	
 
 	IUnitObject();
 
@@ -51,6 +55,11 @@ public:
 	//실제 위치 적용시켜줄 함수
 	void ApplyTargetPosition(D3DXVECTOR3 & targetPos);
 	void UpdatePosition();
+
+	void DamageCalcul(int Atk);
+
+	void AttackCalcultate(IUnitObject * DamagedUnit);
+	
 
 	D3DXVECTOR3 GetForward() { return m_forward; }
 	bool GetMoveStatus() { return m_isMoving; }

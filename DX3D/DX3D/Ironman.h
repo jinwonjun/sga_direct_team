@@ -18,6 +18,11 @@ private:
 	LPD3DXMESH				m_pSphereMesh;
 
 
+	int AddAtk; // 장비로 인한 추가공격력
+	int AddMaxHp;// 장비로 인한 맥스 HP
+	int AddDef;// 장비로 인한 추가방어력
+
+
 public:
 	Ironman();
 	~Ironman();
@@ -42,6 +47,7 @@ public:
 	D3DXMATRIXA16 RightHand;
 
 	void Shoot();
+	void Status();
 
 	//애니메이션 테스트용 변수 아직 못함
 	bool keyPress;
