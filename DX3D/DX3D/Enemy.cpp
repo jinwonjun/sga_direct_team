@@ -285,6 +285,7 @@ void Enemy::Render()
 	////////////////////////////////////////////////////////////////////
 	
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+	if(!m_isDead)
 	SAFE_RENDER(m_pSkinnedMesh);
 	//Å¹±¸°ø±×¸®±â
 	//m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
@@ -438,8 +439,11 @@ void Enemy::UpdatePosition()
 		if (timer > 0.160f)
 		{
 			m_isDead = true;
-			checkTimer = false;
-			timer = 0;
+			if (m_isDead)
+			{
+				checkTimer = false;
+				timer = 0;
+			}
 		}
 	}
 	//enum4(ÀÌµ¿) ¶û 5(¸ØÃã)·Î ÄÁÆ®·ÑÁß
