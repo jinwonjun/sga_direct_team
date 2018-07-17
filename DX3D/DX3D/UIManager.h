@@ -21,7 +21,7 @@ public:
 	static UIManager* Get();
 	static void Delete();
 
-	int AnswerDmg; //데미지 공식에 의해 산출된 값을 저장
+	int AnswerDmg;
 
 
 	void Init();

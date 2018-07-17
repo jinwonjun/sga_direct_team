@@ -78,11 +78,15 @@ extern HWND g_hWnd;
 
 #include "IShader.h"
 #include "Shaders.h"
+<<<<<<< HEAD
 
 #include "Shop.h"
 
 #include "SoundManager.h"
 
+=======
+#include "SoundManager.h"
+>>>>>>> 3e9b8c268d459c0467327312df0af7caf80f46af
 
 //#define WINSIZEX 1560
 //#define WINSIZEY 990

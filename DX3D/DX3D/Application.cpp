@@ -22,7 +22,6 @@ void Application::Init()
 	//g_pItem->ItemTable();
 	g_pUIManager->Init();
 	g_pInventory->Init();
-	g_pShop->Init();
 
 	//g_pStatus->Init();
 
@@ -46,11 +45,15 @@ void Application::Destroy()
 	g_pInventory->Delete();
 	//g_pStatus->Delete();
 	g_pUIManager->Delete();
+<<<<<<< HEAD
 
 	g_pShop->Delete();
 
 	g_pSoundManager->Destroy();
 
+=======
+	g_pSoundManager->Destroy();
+>>>>>>> 3e9b8c268d459c0467327312df0af7caf80f46af
 }
 
 void Application::Update()
@@ -67,7 +70,6 @@ void Application::Update()
 	g_pCamera->Update();
 	g_pInventory->Update();
 	g_pUIManager->Update();
-	g_pShop->Update();
 //	g_pStatus->Update();
 
 }
@@ -84,7 +86,6 @@ void Application::Render()
 
 	g_pInventory->Render();
 	g_pUIManager->Render();
-	g_pShop->Render();
 //	g_pStatus->Render();
 
 	if (GetAsyncKeyState('M') & 0x0001)
