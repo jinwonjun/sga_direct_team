@@ -49,7 +49,7 @@ void InventoryManager::Init()
 	EmptyRcX = ItemSizeX - 5;
 	EmptyRcY = ItemSizeY - 5;
 	static float fAngle = 0.0f;
-
+	isEquipItemChanged = true;
 	GetClientRect(g_hWnd, &clientRect);
 
 	//해상도 변환에 따른 비율을 만든다. 
@@ -574,6 +574,8 @@ void InventoryManager::Update()
 					alreadyWorkedRbutton = true;
 					static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(0);
 
+
+					isEquipItemChanged = true;
 					//g_pStatus->isChangeEquip = true;
 				}
 			}
@@ -600,7 +602,7 @@ void InventoryManager::Update()
 								InvenArray[i][j] = Void_Item[0][0];
 								//g_pStatus->isChangeEquip = true;
 								static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(Equip[Weapon_Type_MainWeapons].index);
-
+								isEquipItemChanged = true;
 							}
 							else
 							{
@@ -610,6 +612,7 @@ void InventoryManager::Update()
 								InvenArray[i][j].isEquiped = false;
 								//g_pStatus->isChangeEquip = true;
 								static_cast<Gun*>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GunEqiupSet(Equip[Weapon_Type_MainWeapons].index);
+								isEquipItemChanged = true;
 							}
 						
 
@@ -625,6 +628,7 @@ void InventoryManager::Update()
 								Equip[Equip_Armor].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
 								//g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							else
 							{
@@ -632,6 +636,7 @@ void InventoryManager::Update()
 								Equip[Equip_Armor].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
 								//g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							break;
 
@@ -644,6 +649,7 @@ void InventoryManager::Update()
 								Equip[Equip_Glove].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
 							//	g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							else
 							{
@@ -651,6 +657,7 @@ void InventoryManager::Update()
 								Equip[Equip_Glove].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
 								//g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							break;
 
@@ -663,6 +670,7 @@ void InventoryManager::Update()
 								Equip[Equip_Belt].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
 							//	g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							else
 							{
@@ -670,6 +678,7 @@ void InventoryManager::Update()
 								Equip[Equip_Belt].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
 							//	g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							break;
 
@@ -682,6 +691,7 @@ void InventoryManager::Update()
 								Equip[Equip_Boots].isEquiped = true;
 								InvenArray[i][j] = Void_Item[i][j];
 							//	g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							else
 							{
@@ -689,6 +699,7 @@ void InventoryManager::Update()
 								Equip[Equip_Boots].isEquiped = true;
 								InvenArray[i][j].isEquiped = false;
 							//	g_pStatus->isChangeEquip = true;
+								isEquipItemChanged = true;
 							}
 							break;
 						default:
