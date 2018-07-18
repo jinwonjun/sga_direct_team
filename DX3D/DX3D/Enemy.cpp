@@ -242,6 +242,7 @@ void Enemy::Update()
 			check = -1;
 			for (int i = 0; i < m_vecBoundary.size(); i++)
 			{
+				//찾았으면 초기화하기
 				m_vecBoundary[i]->isPicked = false;
 			}
 		}
@@ -623,7 +624,7 @@ void Enemy::AnimationModify()
 		D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRot);
 		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 		D3DXMatrixRotationY(&matR, D3DX_PI);
-		D3DXMatrixScaling(&matS, SCALE, SCALE, SCALE);
+		D3DXMatrixScaling(&matS, MOB_SCALE, MOB_SCALE, MOB_SCALE);
 
 		D3DXMATRIXA16 matTemp;
 		matTemp = matS * matRotY * matR * matT;

@@ -8,7 +8,7 @@
 #define MAX_AVOID_FORCE 0.5
 #define MOVE_STOP_DISTANCE 10
 
-#define SCALE 10.00f
+#define MOB_SCALE 15.00f
 #define MOB_FULL_HP 100//몹의 전체 피통
 
 class BoundingBox;

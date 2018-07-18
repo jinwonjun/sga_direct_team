@@ -578,9 +578,9 @@ void SkinnedMesh::SetFrameNameInit()
 		"Foot_Left",
 		"Bone10",
 		"Foot_Right",
-		"Bone10_mirrored_",
-		"Star2RibbonCharge",
-		"Zealot_0"
+		"Bone10_mirrored_",//30
+		"Star2RibbonCharge",//31
+		"Zealot_0"//32
 	};
 	PlayerFrameName = new string[52]{
 		"mixamorig_Hips",
