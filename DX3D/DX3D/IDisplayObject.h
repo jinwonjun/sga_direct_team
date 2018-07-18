@@ -17,6 +17,8 @@ protected:
 	D3DXMATRIXA16			m_matWorld;
 	D3DXMATRIXA16			m_matWorld_Bullet;
 	D3DXMATRIXA16			m_matWorld_DamageFont;
+	D3DXMATRIXA16			m_matWorld_StatAtk;
+	D3DXMATRIXA16			m_matWorld_StatDef;
 
 	IDisplayObject*			m_pParent;
 

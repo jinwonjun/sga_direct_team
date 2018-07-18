@@ -37,6 +37,8 @@ void SampleUI::Init()
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
 	D3DXCreateSprite(g_pDevice, &m_pSprite_Bullet);
 	D3DXCreateSprite(g_pDevice, &m_pSprite_Damage);
+	D3DXCreateSprite(g_pDevice, &m_pSprite_Atk);
+	D3DXCreateSprite(g_pDevice, &m_pSprite_Def);
 	for (int i = 0; i < 20; i++)
 	{
 		g_pItem->FontController[i] = false;
@@ -69,7 +71,16 @@ void SampleUI::Init()
 			
 			m_pRootUI_Damage[i] = pImage;
 		}
+	}
 
+	{
+		UIImage * pImage = new UIImage(m_pSprite_Atk);
+		m_pRootUI_Atk = pImage;
+	}
+
+	{
+		UIImage * pImage = new UIImage(m_pSprite_Def);
+		m_pRootUI_Def = pImage;
 	}
 
 	////텍스트 추가
@@ -352,14 +363,14 @@ void SampleUI::Init()
 		//m_pRootUI->AddChild3(pButton);
 	}
 
+	GetClientRect(g_hWnd, &clientRect);
 
 	FontInit();
 	FontInit2();
 	FontInit3();
+	Font_Stat_Atk();
+	Font_Stat_Def();
 
-
-
-	GetClientRect(g_hWnd, &clientRect);
 
 }
 
@@ -388,7 +399,25 @@ void SampleUI::Update()
 
 	GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((30-g_pItem->timer)), 0));
 	
-	
+
+	// 십의 자리 숫자로 맞추기 위해서 사용
+	if (g_pUIManager->IronMan_Atk < 10)
+	{
+		Str_StatAtk = L"ATK :0" + std::to_wstring(g_pUIManager->IronMan_Atk);
+	}
+	else
+	{
+		Str_StatAtk = L"ATK :" + std::to_wstring(g_pUIManager->IronMan_Atk);
+	}
+
+	if (g_pUIManager->IronMan_Def < 10)
+	{
+		Str_StatDef = L"DEF :0" + std::to_wstring(g_pUIManager->IronMan_Def);
+	}
+	else
+	{
+		Str_StatDef = L"DEF :" + std::to_wstring(g_pUIManager->IronMan_Def);
+	}
 	//DamageFont->SetPosition(&D3DXVECTOR3(500,500, 0));
 
 	
@@ -424,42 +453,6 @@ void SampleUI::Update()
 	}
 	PercentOfHp = (float)CurrHp / (float)MaxHp;
 
-	//==========================================
-	//==========================================
-
-	//HP bar
-	//{
-
-	//	//D3DXMATRIXA16 matS;
-	//	//D3DXMatrixScaling(&matS, 0.7f, 0.7f, 1);
-	//	//D3DXMATRIXA16 matT;
-	//	//D3DXMatrixTranslation(&matT, 150, 150, 0);
-	//	//m_matWorld = matS * matT;
-
-
-	//	PercentOfHp = CurrHp / MaxHp;
-
-	//	UIButton * HpBar = new UIButton(this, m_pSprite, UITAG_BUTTON4);
-	//	m_pRootUI->AddChild(HpBar);
-	//	HpBar->SetPosition(&D3DXVECTOR3(WINSIZEX - 1850, (WINSIZEY / 3), 0));
-	//	HpBar->SetTexture("resources/ui/panel-info.png.png",
-	//		"resources/ui/panel-info.png.png",
-	//		"resources/ui/panel-info.png.png");
-
-	//	temp = std::to_wstring(restBullet) + L" ";
-	//	HpBar->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str());
-	//}
-	//UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON4);
-	//m_pRootUI->AddChild(pButton);
-	//pButton->SetPosition(&D3DXVECTOR3(WINSIZEX - 450, (WINSIZEY / 3), 0));
-	//pButton->SetTexture("resources/ui/btn-med-up.png.png",
-	//	"resources/ui/btn-med-over.png.png",
-	//	"resources/ui/btn-med-down.png.png");
-
-
-
-
-
 
 
 	//플레이어의 월드 행렬 가져오기
@@ -485,6 +478,9 @@ void SampleUI::Update()
 		SAFE_UPDATE(m_pRootUI_Damage[i]);
 	}
 
+	//스테이터스 atk과 def
+	SAFE_UPDATE(m_pRootUI_Atk);
+	SAFE_UPDATE(m_pRootUI_Def);
 }
 void SampleUI::DamagePositionUpdate(int fontNum)
 {
@@ -513,10 +509,11 @@ void SampleUI::Render()
 
 	g_pDevice->SetTexture(0, NULL); // 다른 색이 뭍어나와서 흰색이 주황색으로
 	//스프라이트는 비긴이랑 엔드 사이에서 그려준다.
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+//	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	m_pSprite_Bullet->Begin(D3DXSPRITE_ALPHABLEND);
 	m_pSprite_Damage->Begin(D3DXSPRITE_ALPHABLEND);
 	
+
 
 
 	D3DXMATRIXA16 matR, matT, matWorld;
@@ -533,6 +530,8 @@ void SampleUI::Render()
 
 	if (g_pInventory->Equip[1].index != 0)
 	{
+
+	
 		// 회전중점, 위치이동 따로따로 있따.       에임
 		SetRect(&Cross_Hair.m_Image_rc, 0, 0, Cross_Hair.m_imageInfo.Width, Cross_Hair.m_imageInfo.Height);
 		//D3DXSPRITE_ALPHABLEND
@@ -546,7 +545,7 @@ void SampleUI::Render()
 			//&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 0, 0),
 			WHITE);
-
+		m_pSprite->End();
 	}
 	//580 -500
 	//=======================================================
@@ -555,8 +554,22 @@ void SampleUI::Render()
 	m_pSprite->SetTransform(&m_matWorld_DamageFont);
 	m_pSprite->SetTransform(&m_matWorld_Bullet);
 
+	m_pSprite_Atk->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite_Atk->SetTransform(&m_matWorld_StatAtk);
+	SAFE_RENDER(m_pRootUI_Atk);
+	m_pSprite_Atk->End();
+	
+	m_pSprite_Def->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite_Def->SetTransform(&m_matWorld_StatDef);
+	SAFE_RENDER(m_pRootUI_Def);
+	m_pSprite_Def->End();
+
+
+
+
 	if (g_pItem->timer > 0)
 	{
+
 		SAFE_RENDER(m_pRootUI);
 		g_pItem->timer--;
 		Debug->AddText(g_pItem->timer);
@@ -622,7 +635,7 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
-
+	m_pSprite->End();
 	//m_pSprite->SetTransform(&m_matWorld);
 
 	//m_pSprite->SetTransform(&matWorld);
@@ -654,7 +667,7 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
-
+	m_pSprite->End();
 	//m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
 
@@ -684,9 +697,14 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
+	m_pSprite->End();
 
 	m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
+
+
+
+
 
 
 
@@ -712,6 +730,7 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
+	m_pSprite->End();
 
 	//미니맵 그리기
 	SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
@@ -735,7 +754,7 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
-
+	m_pSprite->End();
 
 	//fAngle -= 0.01;
 	float Rotscale = g_pCamera->m_rotY;
@@ -765,12 +784,14 @@ void SampleUI::Render()
 		//&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
+	m_pSprite->End();
 
 
 
 
 
 
+	//SAFE_RENDER(m_pRootUI_Def);
 	//SAFE_RENDER(m_pRootUI);
 	m_pSprite_Damage->End();
 	m_pSprite_Bullet->End();
@@ -891,5 +912,59 @@ void SampleUI::FontInit3()
 	//	pText->m_text = _T("(Push the Button)");
 	//	pText->m_size = D3DXVECTOR2(312, 200);
 	//	pText->SetPosition(&D3DXVECTOR3(100, 100, 0));
+}
+
+void SampleUI::Font_Stat_Atk()
+{
+	ScaleX_StatAtk = 1.f;
+	ScaleY_StatAtk = 1.f;
+	D3DXMATRIXA16 matS;
+	D3DXMatrixScaling(&matS, ScaleX_StatAtk, ScaleY_StatAtk, 1);
+	D3DXMATRIXA16 matT;
+	D3DXMatrixTranslation(&matT, 0,0, 0);
+	m_matWorld_StatAtk = matS * matT;
+
+	Stat_Atk = new UIButton(this, m_pSprite_Atk, UITAG_BUTTON4);
+	Stat_Atk->SetPosition(&D3DXVECTOR3(clientRect.right * 0.14, clientRect.bottom *0.9, 0));
+
+	//BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
+	//	"resources/ui/btn-med-over.png.png",
+	//	"resources/ui/btn-med-down.png.png");
+
+	Stat_Atk->SetTexture("resources/images/inventory/Null_back_ATK.png",
+		"resources/images/inventory/Null_back_ATK.png",
+		"resources/images/inventory/Null_back_ATK.png");
+
+	Str_StatAtk = L"ATK : " + std::to_wstring(g_pUIManager->IronMan_Atk);
+	Stat_Atk->SetText(g_pFontMgr->GetFont(FONT::NORMAL), Str_StatAtk.c_str(), WHITE);
+	m_pRootUI_Atk->AddChild(Stat_Atk);
+		
+}
+
+void SampleUI::Font_Stat_Def()
+{
+	ScaleX_StatDef = 1.f;
+	ScaleY_StatDef = 1.f;
+	D3DXMATRIXA16 matS;
+	D3DXMatrixScaling(&matS, ScaleX_StatDef, ScaleY_StatDef, 1);
+	D3DXMATRIXA16 matT;
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	m_matWorld_StatDef = matS * matT;
+
+	Stat_Def = new UIButton(this, m_pSprite_Def, UITAG_BUTTON4);
+	Stat_Def->SetPosition(&D3DXVECTOR3(clientRect.right * 0.21, clientRect.bottom *0.9, 0));
+
+	//BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
+	//	"resources/ui/btn-med-over.png.png",
+	//	"resources/ui/btn-med-down.png.png");
+
+	Stat_Def->SetTexture("resources/images/inventory/Null_back_ATK.png",
+		"resources/images/inventory/Null_back_ATK.png",
+		"resources/images/inventory/Null_back_ATK.png");
+
+	Str_StatDef = L"DEF : " + std::to_wstring(g_pUIManager->IronMan_Def);
+	Stat_Def->SetText(g_pFontMgr->GetFont(FONT::NORMAL), Str_StatDef.c_str(), WHITE);
+	m_pRootUI_Def->AddChild(Stat_Def);
+
 }
 

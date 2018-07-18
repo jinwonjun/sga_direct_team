@@ -92,6 +92,14 @@ void Ironman::Update()
 		DamageFontNum = 0;
 	}
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> 6682ff4a0fd96f3df1c9bc1d78a0fe2f3d60c232
 	if (!g_pInventory->openInven)
 	{
 		IUnitObject::UpdateKeyboardState();
@@ -126,7 +134,18 @@ void Ironman::Update()
 	m_pBox->SetPosition(&m_pos);
 
 	// 아이템을착용하면 스텟이 변해야지
-	Status();
+	if (g_pInventory->isEquipItemChanged)
+	{
+		Status();
+
+		g_pUIManager->Get_IronManAtk(m_Atk);
+		g_pUIManager->Get_IronManDef(m_Def);
+
+		g_pInventory->isEquipItemChanged = false;
+	}
+	Debug->EndLine();
+	Debug->AddText("아이언맨의 공격력은?");
+	Debug->AddText(g_pUIManager->IronMan_Atk);
 
 	Shoot();
 
@@ -244,9 +263,16 @@ void Ironman::Status()
 		AddDef += g_pInventory->Equip[i].Def;
 	}
 
-	m_MaxHp = 100 + AddMaxHp;
-	m_Def = 5+ AddDef;
-	m_Atk = 5+ AddAtk; 
+	int tempAtk = AddAtk;
+	int tempMaxHp = AddMaxHp;
+	int tempDef = AddDef;
+
+	m_MaxHp = 100 + tempMaxHp;
+	m_Def = 5+ tempDef;
+	m_Atk = 5+ tempAtk;
+
+
+
 
 }
 

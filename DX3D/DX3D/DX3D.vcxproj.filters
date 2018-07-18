@@ -109,9 +109,6 @@
     <Filter Include="소스 파일\CHARACTER&amp;MOB\IRONMAN">
       <UniqueIdentifier>{c0ff0c67-db17-4f7a-861c-08169e6720da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\UI_CLASS\UI_EXAMPLE">
-      <UniqueIdentifier>{ba37517d-9cb5-4616-96e8-a923875192de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\UI_CLASS\INVEN">
       <UniqueIdentifier>{d493c5c7-6dba-4bc9-8c1e-870d1d80ea72}</UniqueIdentifier>
     </Filter>
@@ -120,6 +117,12 @@
     </Filter>
     <Filter Include="소스 파일\SHADER">
       <UniqueIdentifier>{72b693a8-7a1c-4187-897c-f1b9fbc79e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\UI_CLASS\SHOP">
+      <UniqueIdentifier>{b14873d0-32c3-41b4-bd95-fa2a1e3eaab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\UI_CLASS\UI_EXAMPLE">
+      <UniqueIdentifier>{ba37517d-9cb5-4616-96e8-a923875192de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -390,6 +393,9 @@
     <ClInclude Include="SoundManager.h">
       <Filter>소스 파일\MANAGER</Filter>
     </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>소스 파일\UI_CLASS\SHOP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -637,6 +643,9 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>소스 파일\MANAGER</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>소스 파일\UI_CLASS\SHOP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

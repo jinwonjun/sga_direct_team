@@ -229,5 +229,8 @@ public:
 
 	 //IUnit쪽 데미지 공식에 의한 결과값
 	int AnswerDmg;
+
+	//아이템 공식 계산을 한번만 하기 위해 사용하는 불값
+	bool isEquipItemChanged;
 };
 

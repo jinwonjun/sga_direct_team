@@ -25,9 +25,11 @@ private:
 	LPD3DXSPRITE m_pSprite_Bullet;
 	LPD3DXSPRITE m_pSprite_Damage;
 
+
 	IUIObject * m_pRootUI;
 	IUIObject * m_pRootUI_Bullet;
 	IUIObject * m_pRootUI_Damage[20];
+
 	//D3DXMATRIXA16 matWorld_2;
 
 	HUD_Ui Cross_Hair;
@@ -43,6 +45,20 @@ private:
 	UIButton * GetItems;
 	UIText * DamageFont[20];
 
+
+
+	LPD3DXSPRITE m_pSprite_Atk;
+	LPD3DXSPRITE m_pSprite_Def;
+	IUIObject * m_pRootUI_Atk;
+	IUIObject * m_pRootUI_Def;
+	UIButton * Stat_Atk;
+	UIButton * Stat_Def;
+	std::wstring Str_StatAtk;
+	std::wstring Str_StatDef;
+	float ScaleX_StatAtk;
+	float ScaleY_StatAtk;
+	float ScaleX_StatDef;
+	float ScaleY_StatDef;
 
 	int LifeLoss;
 	int positionY;
@@ -87,6 +103,9 @@ public:
 	void FontInit();
 	void FontInit2();
 	void FontInit3();
+
+	void Font_Stat_Atk();
+	void Font_Stat_Def();
 	
 	void DamagePositionUpdate(int fontNum);
 
