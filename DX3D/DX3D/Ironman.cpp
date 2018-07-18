@@ -92,11 +92,14 @@ void Ironman::Update()
 		DamageFontNum = 0;
 	}
 
+<<<<<<< HEAD
+=======
 
 
 
 
 
+>>>>>>> 6682ff4a0fd96f3df1c9bc1d78a0fe2f3d60c232
 	if (!g_pInventory->openInven)
 	{
 		IUnitObject::UpdateKeyboardState();
@@ -445,10 +448,6 @@ void Ironman::AnimationKeySetting()
 			}
 		}
 	}
-	//Debug->AddText("ÃÑ ÀÎµ¦½º °ª Âï¾îº¸±â :");
-	//Debug->AddText(static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus());
-	//Debug->EndLine();
-	//Debug->EndLine();
 }
 
 void Ironman::RenderUseShader_0()

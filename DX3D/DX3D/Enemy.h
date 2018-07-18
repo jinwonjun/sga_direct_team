@@ -8,7 +8,7 @@
 #define MAX_AVOID_FORCE 0.5
 #define MOVE_STOP_DISTANCE 10
 
-#define SCALE 10.00f
+#define MOB_SCALE 15.00f
 #define MOB_FULL_HP 100//몹의 전체 피통
 
 class BoundingBox;
@@ -76,6 +76,9 @@ private:
 	vector<HUD_Ui> HP_Info;
 	LPD3DXSPRITE m_pSprite;
 	D3DXMATRIXA16 matT_UI, matS_UI, matR_UI,matW_UI;
+
+	int check;//구체 그리는거 체크용 함수
+	bool SphereDrawRender;
 
 public:
 	Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum);

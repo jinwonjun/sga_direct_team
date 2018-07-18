@@ -44,7 +44,7 @@ void SkinnedMesh::Init()
 		m_Boss_FrameMatrix.push_back(temp);
 	}
 	//ÂÌ¸÷ ÃÑ ÀÎµ¦½º°¡ 0~32 33°³ÀÇ ÆÄÃ÷ °ª °¡Á®¿À±â
-	for (int k = 0; k < 33; k++)
+	for (int k = 0; k < 32; k++)
 	{
 		D3DXMATRIXA16 temp;
 		m_Sub_FrameMatrix.push_back(temp);
@@ -239,7 +239,7 @@ void SkinnedMesh::DrawFrame(LPD3DXFRAME pFrame)
 	while (pMeshContainer != NULL)
 	{
 		m_numMesh++;
-		Debug->AddText(_T("(MESH)"));
+		//Debug->AddText(_T("(MESH)"));
 		DrawMeshContainer(pFrame);
 		pMeshContainer = pMeshContainer->pNextMeshContainer;
 	}
@@ -466,7 +466,7 @@ void SkinnedMesh::MonsterCalFrameMat(LPD3DXFRAME pFrame, LPD3DXFRAME pParent)
 	}
 
 	//Áú·µ Ã£±â
-	for (int i = 0; i < 33; i++)
+	for (int i = 0; i < 32; i++)
 	{
 		if (pFrame->Name != NULL && strcmp(pFrame->Name, SubMobFrameName[i].c_str()) == 0)
 		{
@@ -578,9 +578,9 @@ void SkinnedMesh::SetFrameNameInit()
 		"Foot_Left",
 		"Bone10",
 		"Foot_Right",
-		"Bone10_mirrored_",
-		"Star2RibbonCharge",
-		"Zealot_0"
+		"Bone10_mirrored_",//30
+		"Star2RibbonCharge",//31
+		"Zealot_0"//32
 	};
 	PlayerFrameName = new string[52]{
 		"mixamorig_Hips",

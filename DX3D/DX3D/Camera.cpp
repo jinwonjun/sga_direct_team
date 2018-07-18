@@ -217,6 +217,20 @@ void Camera::Update()
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
 	g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
+
+	if (g_pKeyboard->KeyDown('K'))
+	{
+		m_distance -= 3.0f;
+		if (m_distance <= 0.5f) m_distance = 0.5f;
+	}
+	else if (g_pKeyboard->KeyDown('L'))
+	{
+		m_distance += 3.0f;
+		if (m_distance >= 100) m_distance = 100;
+	}
+
+	Debug->AddText("Camera Distance : " + to_string(m_distance));
+	Debug->EndLine();
 }
 
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -224,8 +238,6 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//printf("이전x좌표 : %d, 이전y좌표 : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
 	if (g_pInventory->openInven)
 	{
-
-	
 		POINT currPoint;
 		switch (message)
 		{
@@ -238,7 +250,6 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 
 	}
-
 	else
 	{
 		POINT currPoint;
@@ -248,7 +259,6 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//이전 값 계속 받기
 			//m_ptPrevMouse.x = LOWORD(lParam);
 			//m_ptPrevMouse.y = HIWORD(lParam);
-
 			//case WM_LBUTTONDOWN:
 			//{
 			//	m_isLbuttonDown = true;
@@ -308,42 +318,8 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					m_rotX = D3DX_PI * 0.4f - D3DX_16F_EPSILON;
 					//m_rotX = -m_rotX;
 				}
-
-				//m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
-				//m_distance -= m_rotX;
-
-				//X회전 성분에 대한 수치값은 나중에 하자
-
-				//if (m_rotX <= -D3DX_PI * 0.3f + D3DX_16F_EPSILON)
-				//{
-				//	m_rotX = -D3DX_PI * 0.3f + D3DX_16F_EPSILON;
-				//	// = -m_rotX;
-				//}
-				////if (m_rotX <= -0.5f)
-				////{
-				////	m_rotX = -0.5f;
-				////}
-				//if (m_rotX >= D3DX_PI * 0.3f - D3DX_16F_EPSILON)
-				//{
-				//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
-				//	//m_rotX = -m_rotX;
-				//}
-				//if ((currPoint.y >= mRc.bottom))
-				//{
-				//	SetCursorPos(currPoint.y, mCenter.y);//780 445
-				//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
-				//	mRCCollCheck = true;
-				//}
-				//else if (currPoint.y <= mRc.top)
-				//{
-				//	SetCursorPos(currPoint.y, mCenter.y);//780 445
-				//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
-				//	mRCCollCheck = true;
-				//}
-
 				//커서 초기화
 				m_ptPrevMouse = currPoint;
-
 
 				// || (currPoint.y <= 0 || currPoint.y >= WINSIZEY - 250)
 
@@ -380,6 +356,38 @@ void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 	}
 }
+
+//m_rotX += (currPoint.y - m_ptPrevMouse.y) / mSensY;
+//m_distance -= m_rotX;
+
+//X회전 성분에 대한 수치값은 나중에 하자
+
+//if (m_rotX <= -D3DX_PI * 0.3f + D3DX_16F_EPSILON)
+//{
+//	m_rotX = -D3DX_PI * 0.3f + D3DX_16F_EPSILON;
+//	// = -m_rotX;
+//}
+////if (m_rotX <= -0.5f)
+////{
+////	m_rotX = -0.5f;
+////}
+//if (m_rotX >= D3DX_PI * 0.3f - D3DX_16F_EPSILON)
+//{
+//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
+//	//m_rotX = -m_rotX;
+//}
+//if ((currPoint.y >= mRc.bottom))
+//{
+//	SetCursorPos(currPoint.y, mCenter.y);//780 445
+//	m_rotX = -D3DX_PI * 0.5f + D3DX_16F_EPSILON;
+//	mRCCollCheck = true;
+//}
+//else if (currPoint.y <= mRc.top)
+//{
+//	SetCursorPos(currPoint.y, mCenter.y);//780 445
+//	m_rotX = D3DX_PI * 0.3f - D3DX_16F_EPSILON;
+//	mRCCollCheck = true;
+//}
 
 //case WM_MOUSEWHEEL:
 //	if (GetAsyncKeyState(VK_TAB))

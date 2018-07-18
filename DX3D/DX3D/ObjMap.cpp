@@ -204,7 +204,7 @@ void ObjMap::Init_cs_italy()
 
 	ObjLoader loader;
 	m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
-	loader.CreateSurface(m_vecVertex);
+	loader.CreateSurface(m_vecVertex);//정점 정보들을 가지고 바닥 생성
 }
 
 void ObjMap::Init_cs_assault()
