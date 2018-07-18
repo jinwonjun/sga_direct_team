@@ -77,6 +77,9 @@ private:
 	LPD3DXSPRITE m_pSprite;
 	D3DXMATRIXA16 matT_UI, matS_UI, matR_UI,matW_UI;
 
+	int check;//구체 그리는거 체크용 함수
+	bool SphereDrawRender;
+
 public:
 	Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum);
 	virtual ~Enemy();

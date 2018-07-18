@@ -92,11 +92,6 @@ void Ironman::Update()
 		DamageFontNum = 0;
 	}
 
-	if (!g_pInventory->Get()->openInven)
-
-
-
-
 	if (!g_pInventory->openInven)
 	{
 		IUnitObject::UpdateKeyboardState();
@@ -427,10 +422,6 @@ void Ironman::AnimationKeySetting()
 			}
 		}
 	}
-	//Debug->AddText("ÃÑ ÀÎµ¦½º °ª Âï¾îº¸±â :");
-	//Debug->AddText(static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus());
-	//Debug->EndLine();
-	//Debug->EndLine();
 }
 
 void Ironman::RenderUseShader_0()

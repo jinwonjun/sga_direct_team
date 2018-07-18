@@ -43,6 +43,9 @@ Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 	testNum = 0;
 	
 	isDamage = false;
+
+	check = -1;
+	SphereDrawRender = false;
 }
 
 
@@ -228,6 +231,25 @@ void Enemy::Update()
 			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 		}
 	}
+	//추가된거 확인용도
+	//&& m_vecBoundary.size() > check
+	if (g_pKeyboard->KeyDown('N'))
+	{
+		check++;
+		m_vecBoundary[check]->isPicked = true;
+		if (m_vecBoundary.size()-1 == check)
+		{
+			check = -1;
+			for (int i = 0; i < m_vecBoundary.size(); i++)
+			{
+				m_vecBoundary[i]->isPicked = false;
+			}
+		}
+	}
+	Debug->AddText("현재인덱스 확인 :");
+	Debug->AddText(check);
+	Debug->EndLine();
+	Debug->EndLine();
 }
 
 void Enemy::Render()
@@ -246,20 +268,36 @@ void Enemy::Render()
 	m_pSphereMesh->DrawSubset(0);
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
-	//구체 그리기
-	for (auto p : m_vecBoundary)
+	if (g_pKeyboard->KeyDown(VK_F4))
 	{
-		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
-		D3DXMATRIXA16 mat;
-		D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
-		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
-		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
-		g_pDevice->SetTexture(0, NULL);
-		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		m_pSphereMesh->DrawSubset(0);
-		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-		g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+		SphereDrawRender = !SphereDrawRender;
 	}
+	//구체 그리기
+	if (SphereDrawRender)
+	{
+		for (auto p : m_vecBoundary)
+		{
+			g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+			D3DXMATRIXA16 mat;
+			D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
+			g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+			//g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);	
+			if (p->isPicked == true)
+			{
+				g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
+			}
+			else
+			{
+				g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+			}
+			g_pDevice->SetTexture(0, NULL);
+			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+			m_pSphereMesh->DrawSubset(0);
+			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+			g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+		}
+	}
+	
 
 	
 	///////////////////////충돌 체크 구체 그리기//////////////////////////

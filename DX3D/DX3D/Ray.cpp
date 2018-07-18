@@ -47,7 +47,6 @@ Ray Ray::RayAtWorldSpace(int x, int y)
 	D3DXVec3Normalize(&ray.m_dir, &ray.m_dir);
 
 	return ray;
-
 }
 
 bool Ray::CalcIntersectSphere(BoundingSphere * pSphere)
@@ -78,8 +77,8 @@ bool Ray::CalcIntersectSphere(BoundingSphere * pSphere)
 
 	//calculate.push_back(caltemp);
 	//printf("%d\n", calculate.size());
-
 	return qv* qv - (qq - rr) >= 0;
+
 }
 
 bool Ray::CalcIntersectTri(D3DXVECTOR3 * pStart, float * distance)
