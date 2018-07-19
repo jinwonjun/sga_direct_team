@@ -13,6 +13,8 @@ public:
 	LPDIRECT3DTEXTURE9 GetTexture(string fullPath);
 	LPDIRECT3DTEXTURE9 GetTexture(CString fullPath);
 
+
+	LPDIRECT3DTEXTURE9 GetTexture(string fullPath, D3DXIMAGE_INFO info);
 	void Destroy();
 };
 

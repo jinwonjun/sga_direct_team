@@ -1,3 +1,18 @@
+<<<<<<< HEAD
 ﻿  ObjMap.cpp
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
+﻿  IntroUI.cpp
+d:\_pp\dx3d\dx3d\introui.cpp(27): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\introui.cpp(31): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\introui.cpp(35): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\introui.cpp(122): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\introui.cpp(123): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\introui.cpp(177): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\introui.cpp(191): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\introui.cpp(192): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+d:\_pp\dx3d\dx3d\introui.cpp(212): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\introui.cpp(225): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+>>>>>>> 5c2114478ef76f35e1ca313f061d0f7566d7c977

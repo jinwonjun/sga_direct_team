@@ -1656,6 +1656,7 @@ void InventoryManager::Item_Info_Text()
 	Item_Info[DEF] = new UIButton(m_pDelegate_Item_Info[DEF], m_pSprite_Item_Info[DEF], 1);
 	Item_Info[MHP] = new UIButton(m_pDelegate_Item_Info[MHP], m_pSprite_Item_Info[MHP], 1);
 	Item_Info[Script] = new UIButton(m_pDelegate_Item_Info[Script], m_pSprite_Item_Info[Script], g_pFontMgr->GetFont(FONT::DescriptionOfItem), 1);
+	//Item_Info[Script] = new UIButton(m_pDelegate_Item_Info[Script], m_pSprite_Item_Info[Script], g_pFontMgr->GetFont(FONT::DescriptionOfItem), 1);
 
 	float R, G, B;
 	R = 13.0f / 255.0f;

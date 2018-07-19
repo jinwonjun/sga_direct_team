@@ -866,9 +866,6 @@ void SampleUI::FontInit2()
 	BulletNum = new UIButton(this, m_pSprite_Bullet, UITAG_BUTTON4);
 	BulletNum->SetPosition(&D3DXVECTOR3(((WINSIZEX / 5) * 4)  , ((WINSIZEY / 32) * 25) , 0));
 
-	//BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
-	//	"resources/ui/btn-med-over.png.png",
-	//	"resources/ui/btn-med-down.png.png");
 
 	BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 		"resources/ui/btn-med-up.png.png",

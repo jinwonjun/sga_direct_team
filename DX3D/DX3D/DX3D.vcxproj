@@ -196,6 +196,7 @@
     <ClInclude Include="IActionObject.h" />
     <ClInclude Include="IDisplayObject.h" />
     <ClInclude Include="IMap.h" />
+    <ClInclude Include="IntroUI.h" />
     <ClInclude Include="InventoryManager.h" />
     <ClInclude Include="Ironman.h" />
     <ClInclude Include="IScene.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="SceneHeightmap.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneObjMap.h" />
+    <ClInclude Include="Scene_Intro.h" />
     <ClInclude Include="Scene_UI.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="ShadowMappingShader.h" />
@@ -287,6 +289,7 @@
     <ClCompile Include="IAction.cpp" />
     <ClCompile Include="IActionObject.cpp" />
     <ClCompile Include="IDisplayObject.cpp" />
+    <ClCompile Include="IntroUI.cpp" />
     <ClCompile Include="InventoryManager.cpp" />
     <ClCompile Include="Ironman.cpp" />
     <ClCompile Include="ItemImage.cpp" />
@@ -309,6 +312,7 @@
     <ClCompile Include="SceneHeightmap.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneObjMap.cpp" />
+    <ClCompile Include="Scene_Intro.cpp" />
     <ClCompile Include="Scene_UI.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="ShadowMappingShader.cpp" />
@@ -341,6 +345,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram21.cd" />
+    <None Include="ClassDiagram22.cd" />
+    <None Include="ClassDiagram23.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
