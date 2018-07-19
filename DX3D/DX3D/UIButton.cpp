@@ -88,13 +88,15 @@ void UIButton::Render()
 void UIButton::SetTexture(string normal, string mouseOver, string selected)
 {
 	D3DXIMAGE_INFO info;
-	m_aTexture[NORMAL] = g_pTextureManager->GetTexture(normal);
-	m_aTexture[MOUSEOVER] = g_pTextureManager->GetTexture(mouseOver);
-	m_aTexture[SELECTED] = g_pTextureManager->GetTexture(selected);
+
 
 	//텍스쳐는 3개 받아오고, 인포는 1개 받아왔는데, 목적은 크기를 얻어오는 거니까, 3개 텍스쳐의 크기가 같으면
 	//1개만 이용해서 쓰면 되는거니까!
 	D3DXGetImageInfoFromFileA(normal.c_str(), &info);
+
+	m_aTexture[NORMAL] = g_pTextureManager->GetTexture(normal,info);
+	m_aTexture[MOUSEOVER] = g_pTextureManager->GetTexture(mouseOver, info);
+	m_aTexture[SELECTED] = g_pTextureManager->GetTexture(selected, info);
 
 	m_size.x = info.Width;
 	m_size.y = info.Height;
@@ -121,7 +123,6 @@ void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c, D3DXVECTOR3
 	this->AddChild(pText);
 	pText->m_text = text;
 	pText->m_size = m_size;
-	//pText->m_pivot = _pos;
 	pText->SetPosition(&_pos);
 
 
@@ -137,7 +138,6 @@ void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c, D3DXVECTOR3
 	this->AddChild(pText);
 	pText->m_text = text;
 	pText->m_size = m_size;
-	//pText->m_pivot = _pos;
 	pText->SetPosition(&_pos);
 
 

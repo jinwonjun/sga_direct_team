@@ -19,22 +19,26 @@ IntroUI::~IntroUI()
 void IntroUI::Init()
 {
 	GetClientRect(g_hWnd, &clientRect);
-	D3DXCreateSprite(g_pDevice, &temp.m_pSprite);
-	D3DXCreateSprite(g_pDevice, &temp2.m_pSprite);
+	D3DXCreateSprite(g_pDevice, &IntroPage.m_pSprite);
+	D3DXCreateSprite(g_pDevice, &PlayButton.m_pSprite);
+	D3DXCreateSprite(g_pDevice, &QuitButton.m_pSprite);
+
 	{
-		UIImage * pImage = new UIImage(temp.m_pSprite);
-		temp.m_pRootUI = pImage;
+		UIImage * pImage = new UIImage(IntroPage.m_pSprite);
+		IntroPage.m_pRootUI = pImage;
 	}
 	{
-		UIImage * pImage = new UIImage(temp2.m_pSprite);
-		temp2.m_pRootUI = pImage;
+		UIImage * pImage = new UIImage(PlayButton.m_pSprite);
+		PlayButton.m_pRootUI = pImage;
 	}
-
-
+	{
+		UIImage * pImage = new UIImage(QuitButton.m_pSprite);
+		QuitButton.m_pRootUI = pImage;
+	}
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/Gun_.png"),   //LPCTSTR pSrcFile,
+		_T("resources/ui/Intro/IntroPage.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -44,18 +48,65 @@ void IntroUI::Init()
 		D3DX_FILTER_NONE,   //DWORD Filter
 		D3DX_DEFAULT,      //DWORD MipFilter
 		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&temp.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		&IntroPage.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
-		&temp.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+		&IntroPage.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
-	FontInit2();
+	PlayButtonInit();
+	QuitButtonInit();
 }
 
 void IntroUI::Update()
 {
-	SAFE_UPDATE(temp2.m_pRootUI);
-	//SAFE_UPDATE(temp.m_pRootUI);
+	GetCursorPos(&mousePoint);
+	ScreenToClient(g_hWnd, &mousePoint);
+
+	if (PtInRect(&PlayButton.rect, mousePoint))
+	{
+		if ((g_pMouse->ButtonUp(Mouse::LBUTTON)))
+		{
+			g_pSceneManager->SetCurrentScene(SCENE_GRID);
+		}
+	}
+
+	if (PtInRect(&QuitButton.rect, mousePoint))
+	{
+		if ((g_pMouse->ButtonUp(Mouse::LBUTTON)))
+		{
+			DestroyWindow(g_hWnd);
+		}
+	}
+	Debug->AddText("Left¿Í Top");
+
+	Debug->AddText(PlayButton.rect.left);
+
+	Debug->AddText(" , ");
+	Debug->AddText(PlayButton.rect.top);
+
+	Debug->AddText("Right¿Í Bottom");
+	Debug->AddText(PlayButton.rect.right);
+	Debug->AddText(" , ");
+	Debug->AddText(PlayButton.rect.bottom);
+
+	Debug->EndLine();
+	Debug->AddText("X¿Í Y");
+
+	Debug->AddText(mousePoint.x);
+
+	Debug->AddText(" , ");
+	Debug->AddText(mousePoint.y);
+
+	Debug->EndLine();
+
+
+	SAFE_UPDATE(PlayButton.m_pRootUI);
+
+	SAFE_UPDATE(QuitButton.m_pRootUI);
+
+
+
+
 }
 
 void IntroUI::Render()
@@ -64,36 +115,48 @@ void IntroUI::Render()
 	D3DXMATRIXA16 matR, matT;
 	D3DXMATRIXA16 matS;
 
-	temp2.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-
-	temp2.m_pSprite->SetTransform(&temp2.matWorld);
-	SAFE_RENDER(temp2.m_pRootUI);
-
-	temp2.m_pSprite->End();
-
-
-
-	SetRect(&temp.m_Image_rc, 0, 0, temp.m_imageInfo.Width, temp.m_imageInfo.Height);
+	SetRect(&IntroPage.m_Image_rc, 0, 0, IntroPage.m_imageInfo.Width, IntroPage.m_imageInfo.Height);
+	IntroPage.ScaleX = clientRect.right/ OriginX;
+	IntroPage.ScaleY = clientRect.bottom / OriginY;
 
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT,  100,250, 0);
-	D3DXMatrixScaling(&matS, 1.f, .8f, 1);
-	temp.matWorld = matS * matT;
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	D3DXMatrixScaling(&matS, IntroPage.ScaleX, IntroPage.ScaleY, 1);
+	IntroPage.matWorld = matS * matT;
 
 	//D3DXSPRITE_ALPHABLEND
-	temp.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	temp.m_pSprite->SetTransform(&temp.matWorld);
-	temp.m_pSprite->Draw(
-		temp.m_pTex,
-		&temp.m_Image_rc,
+	IntroPage.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	IntroPage.m_pSprite->SetTransform(&IntroPage.matWorld);
+	IntroPage.m_pSprite->Draw(
+		IntroPage.m_pTex,
+		&IntroPage.m_Image_rc,
 		&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
-	temp.m_pSprite->End();
+	IntroPage.m_pSprite->End();
 
 
-	//SAFE_RENDER(temp.m_pRootUI);
+
+	QuitButton.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	QuitButton.m_pSprite->SetTransform(&QuitButton.matWorld);
+	QuitButton.m_pButton->GetFinalRect(&QuitButton.rect);
+	SAFE_RENDER(QuitButton.m_pRootUI);
+
+	QuitButton.m_pSprite->End();
+
+	
+
+
+	PlayButton.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	PlayButton.m_pSprite->SetTransform(&PlayButton.matWorld);
+	PlayButton.m_pButton->GetFinalRect(&PlayButton.rect);
+	SAFE_RENDER(PlayButton.m_pRootUI);
+	PlayButton.m_pSprite->End();
+
+
+
+	SAFE_RENDER(IntroPage.m_pRootUI);
 	
 	
 
@@ -102,30 +165,73 @@ void IntroUI::Render()
 void IntroUI::OnClick(UIButton * pSender)
 {
 }
-void IntroUI::FontInit2()
+void IntroUI::PlayButtonInit()
 {
-	float ScaleX_BulletNum, ScaleY_BulletNum;
-	ScaleX_BulletNum = 1.f;
-	ScaleY_BulletNum = 1.f;
-	D3DXMATRIXA16 matS;
-	D3DXMatrixScaling(&matS, 1.f, 1.f, 1);
-	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, 0, 0, 0);
-	temp2.matWorld = matS * matT;
-
-	temp2.m_pButton = new UIButton(this, temp2.m_pSprite, 1);
-	temp2.m_pButton->SetPosition(&D3DXVECTOR3(0,0, 0));
 	
 
-	temp2.m_pButton->SetTexture("resources/ui/Gameplay_Button_Up.png.png",
-		"resources/ui/Gameplay_Button_Over.png.png",
-		"resources/ui/Gameplay_Button_Down.png.png");
 
-	//temp2.m_pButton->SetTexture("resources/ui/Gameplay_Button_Up.png.png",
-	//	"resources/ui/Gameplay_Button_Over.png.png",
-	//	"resources/ui/Gameplay_Button_Down.png.png");
-	//temp2.m_pButton->SetText(g_pFontMgr->GetFont(FONT::NORMAL), L"FINE", WHITE);
-	temp2.m_pRootUI->AddChild(temp2.m_pButton);
 
+
+	PlayButton.m_pButton = new UIButton(this, PlayButton.m_pSprite, 1);
+	PlayButton.m_pButton->SetPosition(&D3DXVECTOR3(0,0, 0));
+
+
+	PlayButton.m_pButton->SetTexture("resources/ui/Intro/Gameplay_Button_Up.png",
+		"resources/ui/Intro/Gameplay_Button_Over.png",
+		"resources/ui/Intro/Gameplay_Button_Down.png");
+
+	PlayButton.m_pRootUI->AddChild(PlayButton.m_pButton);
+
+
+
+	PlayButton.ScaleX = .7f;
+	PlayButton.ScaleY = .7f;
+	PlayButton.PointX = (OriginX *0.86) - (PlayButton.m_pButton->m_size.x / 2);
+	PlayButton.PointY = (OriginY * 0.6);
+	//PlayButton.PointX = 0;
+	//PlayButton.PointY = 0;
+	D3DXMATRIXA16 matS;
+	//D3DXMatrixIdentity(&matS);
+	D3DXMatrixScaling(&matS, PlayButton.ScaleX, PlayButton.ScaleY, 1);
+
+	D3DXMATRIXA16 matT;
+	//	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, PlayButton.PointX, PlayButton.PointY, 0);
+	PlayButton.matWorld = matS * matT;
+	//PlayButton.m_pSprite->SetTransform(&PlayButton.matWorld);
+	//PlayButton.m_pButton->GetFinalRect(&PlayButton.rect);
+
+}
+
+void IntroUI::QuitButtonInit()
+{
+
+
+	QuitButton.m_pButton = new UIButton(this, QuitButton.m_pSprite, 1);
+	QuitButton.m_pButton->SetPosition(&D3DXVECTOR3(0, 0, 0));
+
+
+	QuitButton.m_pButton->SetTexture("resources/ui/Intro/Quit_Button_Up.png",
+		"resources/ui/Intro/Quit_Button_Over.png",
+		"resources/ui/Intro/Quit_Button_Down.png");
+
+	QuitButton.m_pRootUI->AddChild(QuitButton.m_pButton);
+
+
+	QuitButton.ScaleX = .7f;
+	QuitButton.ScaleY = .7f;
+	QuitButton.PointX = (OriginX *0.86) - (QuitButton.m_pButton->m_size.x / 2);
+	QuitButton.PointY = (OriginY * 0.75);
+	D3DXMATRIXA16 matS;
+	D3DXMatrixIdentity(&matS);
+
+
+	D3DXMatrixScaling(&matS, QuitButton.ScaleX, QuitButton.ScaleY, 1);
+
+	D3DXMATRIXA16 matT;
+	D3DXMatrixIdentity(&matT);
+
+	D3DXMatrixTranslation(&matT, QuitButton.PointX, QuitButton.PointY, 0);
+	QuitButton.matWorld = matS * matT;
 
 }

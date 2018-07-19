@@ -29,7 +29,9 @@ void ItemImage::SetTexture(string fullPath)
 {
 	D3DXIMAGE_INFO info;
 
+	//m_pTex_Item_img = g_pTextureManager->GetTexture(fullPath);
 	m_pTex_Item_img = g_pTextureManager->GetTexture(fullPath);
+
 	D3DXGetImageInfoFromFileA(fullPath.c_str(), &info);
 
 	m_size.x = info.Width;
