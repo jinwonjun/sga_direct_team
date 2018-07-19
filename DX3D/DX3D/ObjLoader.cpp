@@ -17,7 +17,7 @@ void ObjLoader::Load(const char * filePath, const char * fileName, D3DXMATRIXA16
 	vector<D3DXVECTOR3> vecP;
 	vector<D3DXVECTOR3> vecN;
 	vector<D3DXVECTOR2> vecT;
-	vector<VERTEX_PNT> vecPNT;
+	//vector<VERTEX_PNT> vecPNT;
 	//string mtlName;
 	//char szToken[TOKEN_SIZE];
 
@@ -114,6 +114,14 @@ void ObjLoader::Load(const char * filePath, const char * fileName, D3DXMATRIXA16
 
 	m_mapMtlTex.clear();
 	fin.close();
+
+	for (int i = 0; i < vecPNT.size(); i++)
+	{
+		m_surfaceVertices.push_back(vecPNT[i].p);
+	}
+
+	CreateSurface(m_surfaceVertices);
+	vecPNT.clear();
 }
 
 void ObjLoader::CreateSurface(OUT vector<D3DXVECTOR3>& vecVertex)
@@ -414,7 +422,7 @@ LPD3DXMESH ObjLoader::LoadMesh(const char * filePath, const char * fileName, D3D
 	//매쉬를 생성 및 정보 채우기, 최적화해보기
 	LPD3DXMESH pMesh = NULL;
 	//(비어있는)매쉬 생성하기
-	D3DXCreateMeshFVF(vecPNT.size() / 3, vecPNT.size(), D3DXMESH_MANAGED, VERTEX_PNT::FVF, g_pDevice, &pMesh);
+	D3DXCreateMeshFVF(vecPNT.size() / 3, vecPNT.size(), D3DXMESH_MANAGED | D3DXMESH_32BIT, VERTEX_PNT::FVF, g_pDevice, &pMesh);
 
 	VERTEX_PNT * pV = NULL;
 	DWORD flags = 0;
@@ -422,7 +430,7 @@ LPD3DXMESH ObjLoader::LoadMesh(const char * filePath, const char * fileName, D3D
 	memcpy(pV, &vecPNT[0], vecPNT.size() * sizeof(VERTEX_PNT));
 	pMesh->UnlockVertexBuffer();
 
-	WORD * pI = NULL;
+	DWORD * pI = NULL;
 	pMesh->LockIndexBuffer(flags, (LPVOID*)& pI);
 	for (size_t i = 0; i < vecPNT.size(); i++)
 	{
@@ -521,7 +529,7 @@ LPD3DXMESH ObjLoader::LoadF_Tri_Mesh(const char * filePath, const char * fileNam
 	vector<D3DXVECTOR3> vecP;
 	vector<D3DXVECTOR3> vecN;
 	vector<D3DXVECTOR2> vecT;
-	vector<VERTEX_PNT> vecPNT;
+	//vector<VERTEX_PNT> vecPNT;
 	vector<DWORD> vecAttBuf;//어트리뷰트 정보를 담아줄거임
 							//머테리얼이름
 	string mtlName;

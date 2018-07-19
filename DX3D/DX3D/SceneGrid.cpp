@@ -208,7 +208,7 @@ void SceneGrid::Render()
 	//g_pDevice->SetTexture(0, NULL);
 
 	//스카이박스!!!
-	//m_pSky->Render();
+	m_pSky->Render();
 
 	//큐브 그리기
 	//pCube->Render();
