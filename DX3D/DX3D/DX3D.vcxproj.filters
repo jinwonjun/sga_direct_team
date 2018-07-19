@@ -124,6 +124,9 @@
     <Filter Include="소스 파일\UI_CLASS\UI_EXAMPLE">
       <UniqueIdentifier>{ba37517d-9cb5-4616-96e8-a923875192de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\SCENE_CONTROL\Scene_Intro">
+      <UniqueIdentifier>{9a370670-4526-4862-a3f8-f7fee1d99cad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -396,6 +399,12 @@
     <ClInclude Include="Shop.h">
       <Filter>소스 파일\UI_CLASS\SHOP</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_Intro.h">
+      <Filter>소스 파일\SCENE_CONTROL\Scene_Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroUI.h">
+      <Filter>소스 파일\SCENE_CONTROL\Scene_Intro</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -647,6 +656,12 @@
     <ClCompile Include="Shop.cpp">
       <Filter>소스 파일\UI_CLASS\SHOP</Filter>
     </ClCompile>
+    <ClCompile Include="IntroUI.cpp">
+      <Filter>소스 파일\SCENE_CONTROL\Scene_Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Intro.cpp">
+      <Filter>소스 파일\SCENE_CONTROL\Scene_Intro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX3D.rc">
@@ -663,5 +678,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram21.cd" />
+    <None Include="ClassDiagram22.cd" />
+    <None Include="ClassDiagram23.cd" />
   </ItemGroup>
 </Project>

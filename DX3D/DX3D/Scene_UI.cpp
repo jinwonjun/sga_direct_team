@@ -26,6 +26,8 @@ void Scene_UI::Init()
 	pObj = new SampleUI;
 	pObj->Init();
 	AddSimpleDisplayObj(pObj);
+	
+
 
 	m_pObjMAp = new ObjMap;
 	m_pObjMAp->Init();

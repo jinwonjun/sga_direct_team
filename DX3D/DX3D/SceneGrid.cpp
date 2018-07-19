@@ -173,7 +173,7 @@ void SceneGrid::Init()
 	//왜곡 줄이기, 맵이 밝아지는 효과가 생기네?!
 	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 
-		g_pSoundManager->Play("gameScene", 1.0f);
+	g_pSoundManager->Play("gameScene", 1.0f);
 }
 
 void SceneGrid::Update()

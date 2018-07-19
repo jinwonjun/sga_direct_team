@@ -79,7 +79,8 @@ void UIButton::Render()
 		SetRect(&rect, 0, 0, m_size.x, m_size.y);
 
 		m_pSprite->Draw(m_aTexture[m_buttonState], &rect, &m_pivot, &m_combinedPos, m_color);
-	
+	//	m_pSprite->Draw(m_aTexture[m_buttonState], NULL, &m_pivot, &m_combinedPos, m_color);
+
 	}
 	IUIObject::Render();
 }

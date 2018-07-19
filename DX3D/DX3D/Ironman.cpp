@@ -92,14 +92,6 @@ void Ironman::Update()
 		DamageFontNum = 0;
 	}
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> 6682ff4a0fd96f3df1c9bc1d78a0fe2f3d60c232
 	if (!g_pInventory->openInven)
 	{
 		IUnitObject::UpdateKeyboardState();
