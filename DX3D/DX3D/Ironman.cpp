@@ -65,6 +65,8 @@ void Ironman::Init()
 
 	//½ÃÀÛÀ§Ä¡ Á¶Á¤
 	m_pos.y = 10;
+	m_pos.x = 0;
+	m_pos.z = 0;
 
 	m_Hp = 100;
 	m_MaxHp = 100;
@@ -140,8 +142,6 @@ void Ironman::Update()
 	Debug->AddText(g_pUIManager->IronMan_Atk);
 
 	Shoot();
-
-
 
 	//Ç÷Èç
 	SAFE_UPDATE(m_pBlood);

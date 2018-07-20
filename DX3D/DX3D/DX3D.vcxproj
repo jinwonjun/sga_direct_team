@@ -213,6 +213,7 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="ObjMap.h" />
+    <ClInclude Include="UIOperator.h" />
     <ClInclude Include="ParticleTest.h" />
     <ClInclude Include="Picking.h" />
     <ClInclude Include="Ray.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="ObjMap.cpp" />
+    <ClCompile Include="UIOperator.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="Picking.cpp" />
     <ClCompile Include="Ray.cpp" />

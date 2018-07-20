@@ -20,8 +20,10 @@
 #include "ironman.h"
 #include "Gun.h"
 
-//인벤토리 넣어보기
+//인벤토리, UI
 #include "InventoryManager.h"
+#include "UIOperator.h"
+
 
 SceneGrid::SceneGrid()
 {
@@ -82,6 +84,10 @@ void SceneGrid::Init()
 	pObj->Init();
 	AddSimpleDisplayObj(pObj);
 
+
+	m_pUIOperator = new UIOperator;
+	m_pUIOperator->Init();
+	AddSimpleDisplayObj(m_pUIOperator);
 
 	//m_pGrid = new TeachGrid;
 	//m_pGrid->Init();
@@ -208,7 +214,7 @@ void SceneGrid::Render()
 	//g_pDevice->SetTexture(0, NULL);
 
 	//스카이박스!!!
-	//m_pSky->Render();
+	m_pSky->Render();
 
 	//큐브 그리기
 	//pCube->Render();

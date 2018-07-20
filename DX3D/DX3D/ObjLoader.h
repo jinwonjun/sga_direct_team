@@ -9,7 +9,8 @@ public:
 	string m_filePath;
 	map<string, MTLTEX * > m_mapMtlTex;
 	vector<VERTEX_PNT>		vecPNT;
-
+	//드로잉 그룹에서 서피스 만들어줄 벡터용
+	vector<D3DXVECTOR3>	m_surfaceVertices;
 
 	ObjLoader();
 	~ObjLoader();

@@ -1,7 +1,8 @@
 #pragma once
 #include "IMap.h"
+#include "ObjLoader.h"
 class DrawingGroup;
-
+class ObjLoader;
 class ObjMap : public IMap
 {
 private:
@@ -28,7 +29,10 @@ public:
 	void RenderDrawingGroup();
 	void Init_cs_italy();
 	void Init_cs_assault();
+	void Init_cs_havana();
 	void Init_pk_stadium();
+	void Init_float_city();
+	void Init_old_town();
 
 	// IMap을(를) 통해 상속됨
 	virtual bool CalcPickedPosition(D3DXVECTOR3 & vOut, WORD screenX, WORD screenY) override { return true; }

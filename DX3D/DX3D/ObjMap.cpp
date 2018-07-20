@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ObjMap.h"
 #include "DrawingGroup.h"
-#include "ObjLoader.h"
+//#include "ObjLoader.h"
 
 ObjMap::ObjMap()
 {
@@ -20,9 +20,18 @@ ObjMap::~ObjMap()
 void ObjMap::Init()
 {
 	surfaceMode = false;
-	//Init_cs_italy();
-	Init_cs_assault();
+	Init_cs_italy();
+	//돌격
+	//Init_cs_assault();
+	//폐허가된 마을?
+	//Init_cs_havana();
+	//원형경기장
 	//Init_pk_stadium();
+	//시가전 느낌
+	//Init_old_town();
+	
+	//이 맵은 봉인, 프레임 드랍 심각함
+	//Init_float_city();
 	//OBJ맵 적용하기
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");
@@ -39,79 +48,48 @@ void ObjMap::Update()
 	{
 		surfaceMode = !surfaceMode;
 	}
+	//맵 셀렉트
+	if (g_pKeyboard->KeyDown('1'))
+	{
+		Init_cs_italy();
+	}
+	if (g_pKeyboard->KeyDown('2'))
+	{
+		Init_cs_havana();
+	}
+	if (g_pKeyboard->KeyDown('3'))
+	{
+		Init_cs_assault();
+	}
+	if (g_pKeyboard->KeyDown('4'))
+	{
+		Init_pk_stadium();
+	}
+	if (g_pKeyboard->KeyDown('5'))
+	{
+		Init_old_town();
+	}
+	Debug->EndLine();
+	Debug->AddText("렉의 이유1 : ");
+	Debug->AddText((int)m_vecVertex.size());
+	Debug->EndLine();
+	Debug->EndLine();
 }
 
 void ObjMap::Render()
 {
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+
 	//렌더링 함수 
 	//RenderDrawingGroup();
 	//매쉬 함수
 	RenderMesh();
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
-	//D3DXCreateSphere(g_pDevice,1.5,);
-
-	//D3DXCreateBox(g_pDevice,5.5f,5.5f,5.5f,m_pMeshMap->CloneMesh,adja)
-
-	//두 함수 돌려서 시간 체크 해보기
-	//float start = 0, end = 0, time_data = 0;
-	//start = GetTickCount();
-	//for (int i = 0; i < 100; i++)
-	//{
-	//	RenderDrawingGroup();
-	//}
-	//end = GetTickCount();
-
-	//time_data = end - start;
-	//printf("드로잉 렌더 : %f\n", time_data);
-
-	//start = 0;
-	//end = 0;
-	//float time_data_1 = 0;
-	//start = GetTickCount();
-	//for (int i = 0; i < 100; i++)
-	//{
-	//	RenderMesh();
-	//}
-	//end = GetTickCount();
-	//time_data_1 = end - start;
-	//printf("매쉬 렌더 : %f\n", time_data_1);
 }
 
 bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 {
-	//m_vecVertex
-	//함수 호출시 좌표 3개 찍어주고 그 것들로 삼각형을 만들어줌. rayPos(좌표)지점에서 rayDir(방향)으로 광선을 쏜다
-	//	D3DXIntersectTri(position0, position1, position2, rayPos, rayDir, 0, 0, distance);
-
-	//D3DXVECTOR3 temp;
-	//temp = pos;
-	//temp.y += 5;
-	//for (int i = 0; i < m_vecVertex.size(); i += 3)
-	//{
-	//	if (D3DXIntersectTri(&m_vecVertex[i], &m_vecVertex[i + 1], &m_vecVertex[i + 2], &temp, &D3DXVECTOR3(0, -1, 0), 0, 0, &height)) return true;
-	//}
-	//return false;
-
-	//원본 코드 있던 자리
-	/*
-	D3DXVECTOR3 rayPos(pos.x, pos.y + m_rayOffsetY, pos.z);
-	D3DXVECTOR3 rayDir(0, -1, 0);
-	float distance;
-
-	for (size_t i = 0; i < m_vecVertex.size(); i+=3)
-	{
-		//충돌하면(true) distance를 함수가 알아서 계산해서 값을 준다!
-		if (D3DXIntersectTri(&m_vecVertex[i], &m_vecVertex[i + 1], &m_vecVertex[i + 2], &rayPos, &rayDir, 0, 0, &distance))
-		{
-			height = rayPos.y - distance;
-			return true;
-		}
-	}
-	return false;
-	*/
-
 	D3DXVECTOR3 rayPos(pos.x, pos.y + m_rayOffsetY, pos.z);
 	D3DXVECTOR3 rayDir(0, -1, 0);
 	float distance;
@@ -129,17 +107,6 @@ bool ObjMap::GetHeight(OUT float & height, const D3DXVECTOR3 & pos)
 			{
 				highest = tmpHeight;
 				height = tmpHeight;
-
-				//언덕위로 올라가려는 행위
-				//if (height < tmpHeight)
-				//{
-				//	static_cast <IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY))->SetMoveStatus(false);
-				//	int i = 0;
-				//}
-				//else
-				//{
-				//	height = tmpHeight;
-				//}
 			}
 		}
 	}
@@ -172,26 +139,25 @@ void ObjMap::RenderMesh()
 
 void ObjMap::RenderDrawingGroup()
 {
-
 	for (auto p : m_vecDrawingGroup)
 	{
-		//p->Render();
-	}
-	static int nSubSet = 0;
-
-	if (GetAsyncKeyState(VK_F1) & 0x0001)
-	{
-		--nSubSet;
-		if (nSubSet < 0) nSubSet = 0;
-	}
-	else if (GetAsyncKeyState(VK_F2) & 0x0001)
-	{
-		++nSubSet;
-		if (nSubSet > m_vecDrawingGroup.size() - 1) nSubSet = m_vecDrawingGroup.size() - 1;
+		p->Render();
 	}
 
+	//static int nSubSet = 0;
 
-	m_vecDrawingGroup[nSubSet]->Render();
+	//if (GetAsyncKeyState(VK_F1) & 0x0001)
+	//{
+	//	--nSubSet;
+	//	if (nSubSet < 0) nSubSet = 0;
+	//}
+	//else if (GetAsyncKeyState(VK_F2) & 0x0001)
+	//{
+	//	++nSubSet;
+	//	if (nSubSet > m_vecDrawingGroup.size() - 1) nSubSet = m_vecDrawingGroup.size() - 1;
+	//}
+
+	//m_vecDrawingGroup[nSubSet]->Render();
 }
 
 void ObjMap::Init_cs_italy()
@@ -203,8 +169,15 @@ void ObjMap::Init_cs_italy()
 	localMatrix = matS * matRY * matT;
 
 	ObjLoader loader;
-	m_pMeshMap = loader.LoadMesh("resources/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
+	m_pMeshMap = loader.LoadMesh("resources/Maps/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
+
+	//서피스 그리기 전에 이전 정보 싹지우기
+	m_vecVertex.clear();
+
 	loader.CreateSurface(m_vecVertex);//정점 정보들을 가지고 바닥 생성
+
+	g_pMapManager->AddMap("ObjMap", this);
+	g_pMapManager->SetCurrentMap("ObjMap");
 }
 
 void ObjMap::Init_cs_assault()
@@ -216,8 +189,33 @@ void ObjMap::Init_cs_assault()
 	localMatrix = matS * matRY * matT;
 
 	ObjLoader loader;
-	m_pMeshMap = loader.LoadMesh("resources/cs_assault", "cs_assault.obj", &localMatrix, m_vecMtlTex);
+	m_pMeshMap = loader.LoadMesh("resources/Maps/cs_assault", "cs_assault.obj", &localMatrix, m_vecMtlTex);
+
+	m_vecVertex.clear();
+
 	loader.CreateSurface(m_vecVertex);
+
+	g_pMapManager->AddMap("ObjMap", this);
+	g_pMapManager->SetCurrentMap("ObjMap");
+}
+
+void ObjMap::Init_cs_havana()
+{
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 0.4f, 0.4f, 0.4f);
+	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	localMatrix = matS * matRY * matT;
+
+	ObjLoader loader;
+	m_pMeshMap = loader.LoadMesh("resources/Maps/cs_havana", "cs_havana.obj", &localMatrix, m_vecMtlTex);
+
+	m_vecVertex.clear();
+
+	loader.CreateSurface(m_vecVertex);
+
+	g_pMapManager->AddMap("ObjMap", this);
+	g_pMapManager->SetCurrentMap("ObjMap");
 }
 
 void ObjMap::Init_pk_stadium()
@@ -227,9 +225,12 @@ void ObjMap::Init_pk_stadium()
 	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
 	D3DXMatrixTranslation(&matT, 0, 0, 0);
 	localMatrix = matS * matRY * matT;
-
 	ObjLoader loader;
-	m_pMeshMap = loader.LoadMesh("resources/stadium", "stadium.obj", &localMatrix, m_vecMtlTex);
+	m_pMeshMap = loader.LoadMesh("resources/Maps/stadium", "stadium.obj", &localMatrix, m_vecMtlTex);
+
+	//서피스 그리기 전에 이전 정보 싹지우기
+	m_vecVertex.clear();
+
 	loader.CreateSurface(m_vecVertex);
 
 	D3DXVECTOR3 dir = D3DXVECTOR3(0, -1, 0);
@@ -250,6 +251,50 @@ void ObjMap::Init_pk_stadium()
 	//bool 값에 따라서 0번으로 지시한 광원을 껐다 켰다 컨트롤 해보기
 	g_pDevice->LightEnable(9, true);
 	g_pDevice->LightEnable(10, true);
+
+	g_pMapManager->AddMap("ObjMap", this);
+	g_pMapManager->SetCurrentMap("ObjMap");
+}
+
+//일단 봉인
+void ObjMap::Init_float_city()
+{
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 2.0f, 2.0, 2.0);
+	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	localMatrix = matS * matRY * matT;
+
+	//loader.Load("resources/Maps/floatcity_ver2", "city_ver2.obj", &localMatrix, m_vecDrawingGroup);
+	ObjLoader loader;
+	m_pMeshMap = loader.LoadMesh("resources/Maps/floatcity_ver2", "city_ver2.obj", &localMatrix, m_vecMtlTex);
+
+	//서피스 그리기 전에 이전 정보 싹지우기
+	m_vecVertex.clear();
+
+	loader.CreateSurface(m_vecVertex);
+
+	g_pMapManager->AddMap("ObjMap", this);
+	g_pMapManager->SetCurrentMap("ObjMap");
+}
+
+void ObjMap::Init_old_town()
+{
+	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
+	D3DXMatrixScaling(&matS, 0.08f, 0.08f, 0.08f);
+	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
+	D3DXMatrixTranslation(&matT, 0, -500, 0);
+	localMatrix = matS * matRY * matT;
+	ObjLoader loader;
+	m_pMeshMap = loader.LoadMesh("resources/Maps/oldTown", "oldTown.obj", &localMatrix, m_vecMtlTex);
+
+	//서피스 그리기 전에 이전 정보 싹지우기
+	m_vecVertex.clear();
+
+	loader.CreateSurface(m_vecVertex);
+
+	g_pMapManager->AddMap("ObjMap", this);
+	g_pMapManager->SetCurrentMap("ObjMap");
 }
 
 
@@ -300,3 +345,35 @@ void ObjMap::RenderUseShader_1()
 //m_pMeshMap = loader.CreateSurface()
 //loader.LoadNoneMtl("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
 //m_pMeshMap = loader.LoadMesh("resources/obj", "UED_SCV_V1.obj", &matWorld, m_vecMtlTex);
+
+
+//m_vecVertex
+//함수 호출시 좌표 3개 찍어주고 그 것들로 삼각형을 만들어줌. rayPos(좌표)지점에서 rayDir(방향)으로 광선을 쏜다
+//	D3DXIntersectTri(position0, position1, position2, rayPos, rayDir, 0, 0, distance);
+
+//D3DXVECTOR3 temp;
+//temp = pos;
+//temp.y += 5;
+//for (int i = 0; i < m_vecVertex.size(); i += 3)
+//{
+//	if (D3DXIntersectTri(&m_vecVertex[i], &m_vecVertex[i + 1], &m_vecVertex[i + 2], &temp, &D3DXVECTOR3(0, -1, 0), 0, 0, &height)) return true;
+//}
+//return false;
+
+//원본 코드 있던 자리
+/*
+D3DXVECTOR3 rayPos(pos.x, pos.y + m_rayOffsetY, pos.z);
+D3DXVECTOR3 rayDir(0, -1, 0);
+float distance;
+
+for (size_t i = 0; i < m_vecVertex.size(); i+=3)
+{
+//충돌하면(true) distance를 함수가 알아서 계산해서 값을 준다!
+if (D3DXIntersectTri(&m_vecVertex[i], &m_vecVertex[i + 1], &m_vecVertex[i + 2], &rayPos, &rayDir, 0, 0, &distance))
+{
+height = rayPos.y - distance;
+return true;
+}
+}
+return false;
+*/

@@ -130,6 +130,7 @@ void Gun::Update()
 	matT = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->RightHand;
 
 	ApplyMatrix = CalPrevMat *  matT;
+
 }
 
 void Gun::Render()
