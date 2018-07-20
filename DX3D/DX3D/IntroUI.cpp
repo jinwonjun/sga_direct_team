@@ -77,27 +77,27 @@ void IntroUI::Update()
 			DestroyWindow(g_hWnd);
 		}
 	}
-	Debug->AddText("Left人 Top");
+	//Debug->AddText("Left人 Top");
 
-	Debug->AddText(PlayButton.rect.left);
+	//Debug->AddText(PlayButton.rect.left);
 
-	Debug->AddText(" , ");
-	Debug->AddText(PlayButton.rect.top);
+	//Debug->AddText(" , ");
+	//Debug->AddText(PlayButton.rect.top);
 
-	Debug->AddText("Right人 Bottom");
-	Debug->AddText(PlayButton.rect.right);
-	Debug->AddText(" , ");
-	Debug->AddText(PlayButton.rect.bottom);
+	//Debug->AddText("Right人 Bottom");
+	//Debug->AddText(PlayButton.rect.right);
+	//Debug->AddText(" , ");
+	//Debug->AddText(PlayButton.rect.bottom);
 
-	Debug->EndLine();
-	Debug->AddText("X人 Y");
+	//Debug->EndLine();
+	//Debug->AddText("X人 Y");
 
-	Debug->AddText(mousePoint.x);
+	//Debug->AddText(mousePoint.x);
 
-	Debug->AddText(" , ");
-	Debug->AddText(mousePoint.y);
+	//Debug->AddText(" , ");
+	//Debug->AddText(mousePoint.y);
 
-	Debug->EndLine();
+	//Debug->EndLine();
 
 
 	SAFE_UPDATE(PlayButton.m_pRootUI);
