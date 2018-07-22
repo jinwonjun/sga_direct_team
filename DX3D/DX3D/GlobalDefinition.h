@@ -185,7 +185,7 @@ struct BoundingSphere
 
 	BoundingSphere() :isPicked(false) {}
 	BoundingSphere(D3DXVECTOR3 _center, float _radius) :center(_center),
-		radius(_radius), isPicked(false) {}
+		radius(_radius), isPicked(false), isDamaged(false) {}
 };
 //RHW의 역수라는 의미랜다 W값에 의해서 같은 차원이냐 아니냐를 구분하는데 행렬 계산 할때 w 1주고서 계산한다
 
