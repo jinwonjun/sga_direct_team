@@ -20,8 +20,10 @@
 #include "ironman.h"
 #include "Gun.h"
 
-//인벤토리 넣어보기
+//인벤토리, UI
 #include "InventoryManager.h"
+#include "UIOperator.h"
+
 
 SceneGrid::SceneGrid()
 {
@@ -82,6 +84,10 @@ void SceneGrid::Init()
 	pObj->Init();
 	AddSimpleDisplayObj(pObj);
 
+
+	m_pUIOperator = new UIOperator;
+	m_pUIOperator->Init();
+	AddSimpleDisplayObj(m_pUIOperator);
 
 	//m_pGrid = new TeachGrid;
 	//m_pGrid->Init();

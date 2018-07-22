@@ -790,7 +790,7 @@ void SampleUI::Render()
 
 
 
-
+	int a = clientRect.right;
 
 
 	//SAFE_RENDER(m_pRootUI_Def);

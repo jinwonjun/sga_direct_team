@@ -22,13 +22,13 @@
     <ProjectGuid>{318797B4-98FA-42CB-9E2C-9F47BA015126}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DX3D</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -213,6 +213,7 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="ObjMap.h" />
+    <ClInclude Include="UIOperator.h" />
     <ClInclude Include="ParticleTest.h" />
     <ClInclude Include="Picking.h" />
     <ClInclude Include="Ray.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="ObjMap.cpp" />
+    <ClCompile Include="UIOperator.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="Picking.cpp" />
     <ClCompile Include="Ray.cpp" />

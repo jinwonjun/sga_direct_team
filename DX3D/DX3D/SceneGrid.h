@@ -14,6 +14,8 @@ class EnemyManager;
 class Ironman;
 class Gun;
 
+class UIOperator;
+
 class SceneGrid : public IScene
 {
 	//각 정점의 칼라값까지 넣어줄 수도 있는 기능을 한다.
@@ -63,6 +65,8 @@ public:
 	HeightMap *		m_pHeightMap;
 
 	EnemyManager * m_pEm;
+
+	UIOperator * m_pUIOperator;
 
 	IDisplayObject *m_Inventory;
 	// 이거 바꿀수 있을까?

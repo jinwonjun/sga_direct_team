@@ -127,6 +127,9 @@
     <Filter Include="소스 파일\SCENE_CONTROL\Scene_Intro">
       <UniqueIdentifier>{9a370670-4526-4862-a3f8-f7fee1d99cad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\UI_CLASS\Operator">
+      <UniqueIdentifier>{13630b7f-d9f6-4388-a7c4-2f1144fd4086}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -405,6 +408,9 @@
     <ClInclude Include="IntroUI.h">
       <Filter>소스 파일\SCENE_CONTROL\Scene_Intro</Filter>
     </ClInclude>
+    <ClInclude Include="UIOperator.h">
+      <Filter>소스 파일\UI_CLASS\Operator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -661,6 +667,9 @@
     </ClCompile>
     <ClCompile Include="Scene_Intro.cpp">
       <Filter>소스 파일\SCENE_CONTROL\Scene_Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="UIOperator.cpp">
+      <Filter>소스 파일\UI_CLASS\Operator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
