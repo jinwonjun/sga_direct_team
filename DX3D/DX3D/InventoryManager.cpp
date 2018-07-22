@@ -66,14 +66,7 @@ void InventoryManager::Init()
 
 	
 
-	for (int i = 0; i < NumberOfItems; i++)
-	{
-		if (g_pItem->Items[i].index == NULL)
-		{
-			continue;
-		}
-		Shop_Item.push_back(g_pItem->Items[i]);
-	}
+
 
 
 
@@ -436,21 +429,9 @@ void InventoryManager::Init()
 	matWorld[matWorld_Item_Info] = matS * matR * matT;
 
 
-	for (int i = 0; i < NumberOfItems; i++)
-	{
-		if (g_pItem->Items[i].index == NULL)
-		{
-			continue;
-		}
-		Shop_Item[i].Item_rc = RectMake(0, 0, Shop_Item[i].m_image_Item_Info.Width, Shop_Item[i].m_image_Item_Info.Height);
-	}
 
-	D3DXMatrixRotationZ(&matR, fAngle);
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT,
-		Shop_Item[0].PositionX,
-		Shop_Item[0].PositionY,
-		0);
+
+
 
 	float temp1 = .3f;
 
@@ -513,7 +494,6 @@ void InventoryManager::Init()
 		Equip.push_back(Void_Item[0][0]);
 	}
 
-
 }
 
 void InventoryManager::Update()
@@ -559,7 +539,7 @@ void InventoryManager::Update()
 		}
 */
 		//아이템 착용
-		if (g_pMouse->ButtonDown(Mouse::RBUTTON))
+		if (g_pMouse->ButtonDown(Mouse::RBUTTON) && g_pShop->buyItems == false)
 		{
 
 			for (int i = 1; i < 7; i++)
@@ -726,27 +706,71 @@ void InventoryManager::Update()
 
 
 			alreadyWorkedRbutton = false; // 오른쪽 버튼이 한번만 사용되게 하기 위해서 사용
-		}
+			g_pShop->buyItems = false;
+
+			}
 
 		//불로 어떻게 하면 될꺼 같은데 2
 		else if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 		{
-
-
-
-			if (PtInRect(&Shop_Item[0].Click_rc, mousePoint))
+						
+		/*	if (PtInRect(&Shop_Item[0].Click_rc, mousePoint))
 			{
 				addIndex(Shop_Item[0]);
 			}
-
-
-
-			/*		else if (PtInRect(&Shop_Item[1].Click_rc, mousePoint))
-					{
-						addIndex(Shop_Item[1]);
-					}*/
-			else
+			else if (PtInRect(&Shop_Item[2].Click_rc, mousePoint))
 			{
+				addIndex(Shop_Item[2]);
+			}
+			else if (PtInRect(&Shop_Item[3].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[3]);
+			}
+			else if (PtInRect(&Shop_Item[4].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[4]);
+			}
+			else if (PtInRect(&Shop_Item[5].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[5]);
+			}
+			else if (PtInRect(&Shop_Item[6].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[6]);
+			}
+			else if (PtInRect(&Shop_Item[7].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[7]);
+			}
+			else if (PtInRect(&Shop_Item[8].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[8]);
+			}
+			else if (PtInRect(&Shop_Item[9].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[9]);
+			}
+			else if (PtInRect(&Shop_Item[10].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[10]);
+			}
+			else if (PtInRect(&Shop_Item[11].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[11]);
+			}
+			else if (PtInRect(&Shop_Item[12].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[12]);
+			}
+			else if (PtInRect(&Shop_Item[13].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[13]);
+			}
+			else if (PtInRect(&Shop_Item[14].Click_rc, mousePoint))
+			{
+				addIndex(Shop_Item[14]);
+			}*/
+			
 				for (int j = 0; j < INVENVERTI; j++)
 				{
 					for (int i = 0; i < INVENCORSS; i++)
@@ -771,7 +795,7 @@ void InventoryManager::Update()
 					}
 				} // for문 끝
 				Endfor = false;
-			}
+			
 
 		}
 
@@ -1065,20 +1089,6 @@ void InventoryManager::Render()
 			//===========================
 			//Item
 
-
-			SetRect(&Shop_Item[0].Item_rc, 0, 0, 0 + (Shop_Item[0].m_image_Item_Info.Width), 0 + (Shop_Item[0].m_image_Item_Info.Height /**temp*/));
-
-			m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-			m_pSprite->SetTransform(&matWorld[matWorld_ShopItem_1]);
-			m_pSprite->Draw(
-				Shop_Item[0].m_pTex_Item,
-				&Shop_Item[0].Item_rc,
-				&D3DXVECTOR3(0, 0, 0),
-				&D3DXVECTOR3(0, 0, 0),
-				WHITE);
-			// 이 부분에 대해 물어보기
-			m_pSprite->End();
-
 			//윈도우 기준이 아닌, 스크린기준으로 되어있엉
 			static float fAngle = 0.0f;
 
@@ -1120,75 +1130,14 @@ void InventoryManager::Render()
 
 					if (PtInRect(&InvenArray[i][j].Click_rc, mousePoint) && InvenArray[i][j].index != 0)
 					{
-						m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-						SetRect(&Item_Info_Back.m_rc, 0, 0, Item_Info_Back.m_image.Width, Item_Info_Back.m_image.Height);
-
-
-						m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-						m_pSprite->SetTransform(&matWorld[matWorld_Item_Info]);
-						m_pSprite->Draw(
-							Item_Info_Back.m_pTex,
-							&Item_Info_Back.m_rc,
-							&D3DXVECTOR3(0, 0, 0),
-							&D3DXVECTOR3(0, 0, 0),
-							D3DCOLOR_ARGB(100, 255, 255, 255));
-						m_pSprite->End();
-
-
-						m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-						m_pSprite->SetTransform(&matWorld[matWorld_MouseOver]);
-						m_pSprite->Draw(
-							InvenArray[i][j].m_pTex_Item,
-							&InvenArray[i][j].Item_rc,
-							&D3DXVECTOR3(0, 0, 0),
-							&D3DXVECTOR3(0, 0, 0),
-							D3DCOLOR_ARGB(255, 255, 255, 255));
-						m_pSprite->End();
-
-
-						for (int i = 0; i < NumOfItemTextKind; i++)
-						{
-							m_pSprite_Item_Info[i]->Begin(D3DXSPRITE_ALPHABLEND);
-						}
-						cstr_Item_Info[ItemName] = InvenArray[i][j].name;
-
-
-						cstr_Item_Info[ATK].Format(_T("ATK:  %d"), InvenArray[i][j].Atk);
-						cstr_Item_Info[DEF].Format(_T("DEF:  %d"), InvenArray[i][j].Def);
-						cstr_Item_Info[MHP].Format(_T("MHP:  %d"), InvenArray[i][j].MaxHp);
-
-
-						cstr_Item_Info[Script] = InvenArray[i][j].ItemWord;
-						//Item_Info[Script]->SetText(g_pFontMgr->GetFont(FONT::DescriptionOfItem), cstr_Item_Info[Script], BLACK, D3DXVECTOR3(0, 0, 0));
-						
-
-						for (int i = 0; i < NumOfItemTextKind; i++)
-						{
-							m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
-						}
-
-
-						for (int i = 0; i <NumOfItemTextKind; i++)
-						{
-							SAFE_RENDER(m_pRootUI_Item_Info[i]);
-
-						}
-
-						for (int i = NumOfItemTextKind -1; i >= 0; i--)
-						{
-							m_pSprite_Item_Info[i]->End();
-						}
+						ShowItemInfo(InvenArray[i][j]);
 					}
 				}
 			}
 			//m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 
-			SetRect(&Shop_Item[0].Click_rc, Shop_Item[0].PositionX
-				, Shop_Item[0].PositionY
-				, Shop_Item[0].PositionX + ((Shop_Item[0].m_image_Item_Info.Width)*ShopItem_Display_Mode_X)
-				, Shop_Item[0].PositionY + ((Shop_Item[0].m_image_Item_Info.Height)*ShopItem_Display_Mode_Y));
-
+		
 
 			//============================================
 			// Enum Equip_Type를 i 로 대신 사용
@@ -1266,77 +1215,7 @@ void InventoryManager::Render()
 
 				if (PtInRect(&Equiped_Item[i].m_rc_click, mousePoint) && Equip[i + 1].index != 0)
 				{
-					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-
-					SetRect(&Item_Info_Back.m_rc, 0, 0, Item_Info_Back.m_image.Width, Item_Info_Back.m_image.Height);
-
-
-
-
-					cstr_Item_Info[ItemName] = Equip[i + 1].name;
-					cstr_Item_Info[ATK].Format(_T("ATK:  %d" ),  Equip[i + 1].Atk);
-					cstr_Item_Info[DEF].Format(_T("DEF:  %d"), Equip[i + 1].Def);
-					cstr_Item_Info[MHP].Format(_T("MHP:  %d"), Equip[i + 1].MaxHp);
-					cstr_Item_Info[Script] = Equip[i + 1].ItemWord;
-
-				/*	cstr_Item_Info[ItemName] = Equip[i + 1].name;
-					cstr_Item_Info[ATK] = "ATK: " + Equip[i + 1].Atk;
-					cstr_Item_Info[DEF] = "DEF: " + Equip[i + 1].Def;
-					cstr_Item_Info[MHP] = "MHP: " + Equip[i + 1].MaxHp;
-					cstr_Item_Info[Script] = Equip[i + 1].ItemWord;*/
-				//	Item_Info[Script]->SetText(g_pFontMgr->GetFont(FONT::OptionOfItem), cstr_Item_Info[Script], WHITE, D3DXVECTOR3(0, 0, 0));
-
-					
-
-					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-					m_pSprite->SetTransform(&matWorld[matWorld_Item_Info]);
-					m_pSprite->Draw(
-						Item_Info_Back.m_pTex,
-						&Item_Info_Back.m_rc,
-						&D3DXVECTOR3(0, 0, 0),
-						&D3DXVECTOR3(0, 0, 0),
-						D3DCOLOR_ARGB(100, 255, 255, 255));
-					m_pSprite->End();
-
-					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-					m_pSprite->SetTransform(&matWorld[matWorld_MouseOver]);
-					m_pSprite->Draw(
-						Equip[i + 1].m_pTex_Item,
-						&Equip[i + 1].Item_rc,
-						&D3DXVECTOR3(0, 0, 0),
-						&D3DXVECTOR3(0, 0, 0),
-						D3DCOLOR_ARGB(255, 255, 255, 255));
-
-					m_pSprite->End();
-
-
-					for (int i = 0; i <NumOfItemTextKind; i++)
-					{
-						m_pSprite_Item_Info[i]->Begin(D3DXSPRITE_ALPHABLEND);
-					}
-
-					for (int i = 0; i <NumOfItemTextKind; i++)
-					{
-
-						m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
-
-					}
-
-					for (int i = 0; i < NumOfItemTextKind; i++)
-					{
-
-						SAFE_RENDER(m_pRootUI_Item_Info[i]);
-
-
-					}
-
-
-					for (int i = NumOfItemTextKind -1; i >= 0; i--)
-					{
-						m_pSprite_Item_Info[i]->End();
-					}
-
-
+					ShowItemInfo(Equip[i+1]);			
 				}
 
 
@@ -1542,6 +1421,70 @@ void InventoryManager::MovingItem(items *a, items* b)
 	swap(a, b);
 }
 
+void InventoryManager::ShowItemInfo(items picked)
+{
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+
+	SetRect(&Item_Info_Back.m_rc, 0, 0, Item_Info_Back.m_image.Width, Item_Info_Back.m_image.Height);
+
+
+	cstr_Item_Info[ItemName] = picked.name;
+	cstr_Item_Info[ATK].Format(_T("ATK:  %d"), picked.Atk);
+	cstr_Item_Info[DEF].Format(_T("DEF:  %d"), picked.Def);
+	cstr_Item_Info[MHP].Format(_T("MHP:  %d"), picked.MaxHp);
+	cstr_Item_Info[Script] = picked.ItemWord;
+	
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld[matWorld_Item_Info]);
+	m_pSprite->Draw(
+		Item_Info_Back.m_pTex,
+		&Item_Info_Back.m_rc,
+		&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		D3DCOLOR_ARGB(100, 255, 255, 255));
+	m_pSprite->End();
+
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	m_pSprite->SetTransform(&matWorld[matWorld_MouseOver]);
+	m_pSprite->Draw(
+		picked.m_pTex_Item,
+		&picked.Item_rc,
+		&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	m_pSprite->End();
+
+
+	for (int i = 0; i <NumOfItemTextKind; i++)
+	{
+		m_pSprite_Item_Info[i]->Begin(D3DXSPRITE_ALPHABLEND);
+	}
+
+	for (int i = 0; i <NumOfItemTextKind; i++)
+	{
+
+		m_pSprite_Item_Info[i]->SetTransform(&m_matWorld_Item_Info[i]);
+
+	}
+
+	for (int i = 0; i < NumOfItemTextKind; i++)
+	{
+
+		SAFE_RENDER(m_pRootUI_Item_Info[i]);
+
+
+	}
+
+
+	for (int i = NumOfItemTextKind - 1; i >= 0; i--)
+	{
+		m_pSprite_Item_Info[i]->End();
+	}
+
+
+}
+
 
 
 void InventoryManager::Weapon_Equip_Text()
@@ -1661,7 +1604,7 @@ void InventoryManager::Item_Info_Text()
 	cstr_Item_Info[1] = " saasdassss";
 	cstr_Item_Info[2] = " sssssssssss";
 	cstr_Item_Info[3] = " asasd333333";
-	cstr_Item_Info[Script] = "Initiation 이거슨 초기화 입니다.\n ㄱ 좀 됬으면 좋겠다.";
+	cstr_Item_Info[Script] = "Initiation 이거슨 초기화 입니다.\n ㄱ 좀 됬으면 좋겠다. \n 왜 안초기화됨요?";
 
 	Item_Info[ItemName]->SetTexture("resources/images/inventory/Null_back2.png",
 		"resources/images/inventory/Null_back2.png",

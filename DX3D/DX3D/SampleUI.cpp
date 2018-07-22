@@ -86,15 +86,7 @@ void SampleUI::Init()
 		m_pRootUI_Def = pImage;
 	}
 
-	////텍스트 추가
-	//{
-	//	//폰트 관리 클래스 만들기
-	//	UIText * pText = new UIText(g_pFontMgr->GetFont(FONT::NORMAL), m_pSprite, UITAG_TEXTVIEW);
-	//	m_pRootUI->AddChild(pText);
-	//	pText->m_text = _T("(Push the Button)");
-	//	pText->m_size = D3DXVECTOR2(312, 200);
-	//	pText->SetPosition(&D3DXVECTOR3(100, 100, 0));
-	//}
+
 
 	//버튼1
 	{
@@ -804,23 +796,22 @@ void SampleUI::Render()
 
 void SampleUI::OnClick(UIButton * pSender)
 {
-	if (pSender->m_uiTag == UITAG_BUTTON1)
-	{
-		UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
-		pText->m_text = _T("Button1 pushed");
+	//if (pSender->m_uiTag == UITAG_BUTTON1)
+	//{
+	//	UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
+	//	pText->m_text = _T("Button1 pushed");
+	//}
+	//else if (pSender->m_uiTag == UITAG_BUTTON2)
+	//{
+	//	UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
+	//	pText->m_text = _T("Button2 pushed");
+	//}
 
-	}
-	else if (pSender->m_uiTag == UITAG_BUTTON2)
-	{
-		UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
-		pText->m_text = _T("Button2 pushed");
-	}
-
-	else if (pSender->m_uiTag == UITAG_BUTTON3)
-	{
-		UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
-		pText->m_text = _T("Button3 pushed");
-	}
+	//else if (pSender->m_uiTag == UITAG_BUTTON3)
+	//{
+	//	UIText* pText = (UIText*)m_pRootUI->FindChildByUITag(UITAG_TEXTVIEW);
+	//	pText->m_text = _T("Button3 pushed");
+	//}
 }
 
 wstring SampleUI::s2ws(const string & s)

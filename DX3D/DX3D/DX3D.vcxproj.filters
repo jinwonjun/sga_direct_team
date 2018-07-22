@@ -372,9 +372,6 @@
     <ClInclude Include="InventoryManager.h">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
-    </ClInclude>
     <ClInclude Include="IShader.h">
       <Filter>소스 파일\SHADER</Filter>
     </ClInclude>
@@ -410,6 +407,9 @@
     </ClInclude>
     <ClInclude Include="UIOperator.h">
       <Filter>소스 파일\UI_CLASS\Operator</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -632,9 +632,6 @@
     <ClCompile Include="InventoryManager.cpp">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>소스 파일\UI_CLASS\INVEN</Filter>
-    </ClCompile>
     <ClCompile Include="Enemyman.cpp">
       <Filter>소스 파일\TEACH\TEACH_CUBE_MAN</Filter>
     </ClCompile>
@@ -670,6 +667,9 @@
     </ClCompile>
     <ClCompile Include="UIOperator.cpp">
       <Filter>소스 파일\UI_CLASS\Operator</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
