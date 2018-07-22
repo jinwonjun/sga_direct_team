@@ -84,7 +84,7 @@ void Enemy::Init()
 	//보스 고유번호 만들기
 	if (GetEnemyNum() < 4)
 	{
-		m_pSkinnedMesh->SetRadius(0.5f);
+		m_pSkinnedMesh->SetRadius(1.0f);
 	}
 	else
 	{
@@ -230,6 +230,8 @@ void Enemy::Update()
 			m_vecBoundary[i]->center = tempCenter;
 			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 		}
+		//캐릭터 히트 판정 함수
+		Hit_Mob();
 	}
 	//추가된거 확인용도
 	//&& m_vecBoundary.size() > check
@@ -713,6 +715,62 @@ void Enemy::WorldToVP()
 }
 
 
+
+void Enemy::Hit_Mob()
+{
+	float minDistance = FLT_MAX;
+	Ironman* ironman_vec = static_cast <Ironman *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER));
+	BoundingSphere* temp = NULL;
+	Enemy* tempEnemy = NULL;
+
+	//오른손만 돌리자!
+	//피통 감소를 한번만 해줘야함!!!!
+	//true일때 피통 까이는거 계속 걸림!!!
+	for (int i = 15; i < 24; i++)
+	{
+		for (auto p : ironman_vec->GetVecBoundary())
+		{
+			if (SphereCollideCheck(*m_vecBoundary[i], *p) == true)
+			{
+				p->isPicked = true;
+				p->isDamaged = true;
+			}
+			//거리 보정 위치값 찾기
+			//BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+		}
+	}
+
+	for (auto p : ironman_vec->GetVecBoundary())
+	{
+		if (p->isDamaged == true && p->isPicked == true)
+		{
+			//피통 줄이는거 ui 접근
+			static_cast<SampleUI *>(g_pObjMgr->FindObjectByTag(TAG_UI))->CurrHp -= 1;
+			p->isDamaged = false;
+		}
+	}
+}
+
+void Enemy::Hit_Boss()
+{
+}
+
+bool Enemy::SphereCollideCheck(BoundingSphere player, BoundingSphere Monster)
+{
+	float SumRadius;
+	SumRadius = (player.radius + Monster.radius);
+
+	D3DXVECTOR3 difference = player.center - Monster.center;
+
+	float TwoDistance;
+	TwoDistance = D3DXVec3Length(&difference);
+	if (SumRadius >= TwoDistance)
+	{
+		return true;
+	}
+
+	return false;
+}
 
 void Enemy::RenderUseShader_0()
 {

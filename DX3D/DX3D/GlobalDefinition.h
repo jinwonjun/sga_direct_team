@@ -46,7 +46,8 @@ enum TAG_DISPLAYOBJECT {
 	TAG_ENEMY,
 	TAG_INVEN,
 	TAG_PARTICLE,
-	TAG_GUN
+	TAG_GUN,
+	TAG_UI
 };
 
 struct KEYBOARD_STATE
@@ -180,6 +181,7 @@ struct BoundingSphere
 	D3DXVECTOR3 center;
 	float		radius;
 	bool		isPicked;
+	bool		isDamaged;
 
 	BoundingSphere() :isPicked(false) {}
 	BoundingSphere(D3DXVECTOR3 _center, float _radius) :center(_center),

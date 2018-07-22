@@ -39,7 +39,7 @@ void Ironman::Init()
 
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
-	m_pSkinnedMesh->SetRadius(0.1f);
+	m_pSkinnedMesh->SetRadius(0.5f);
 	m_pSkinnedMesh->Init(); 
 	m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	
@@ -48,6 +48,7 @@ void Ironman::Init()
 	for (int k = 0; k < (m_pSkinnedMesh->GetPlayerMatrix()).size(); k++)
 	{
 		BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
+		s->isDamaged = false;
 		m_vecBoundary.push_back(s);
 	}
 
@@ -85,6 +86,8 @@ void Ironman::Init()
 
 	timer = 0;//체크 타이머 초기화
 	checkTimer = false;
+	check = -1;
+	SphereDrawRender = false;
 }
 
 void Ironman::Update()
@@ -137,11 +140,18 @@ void Ironman::Update()
 
 		g_pInventory->isEquipItemChanged = false;
 	}
-	Debug->EndLine();
-	Debug->AddText("아이언맨의 공격력은?");
-	Debug->AddText(g_pUIManager->IronMan_Atk);
 
-	Shoot();
+	//무기 들었을때
+	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+	{
+		Shoot();
+	}
+	else
+	{
+		Hit();
+	}
+
+
 
 	//혈흔
 	SAFE_UPDATE(m_pBlood);
@@ -154,8 +164,6 @@ void Ironman::Update()
 		m_vecBoundary[i]->center = tempCenter;
 		tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 	}
-
-
 }
 
 void Ironman::Render()
@@ -164,19 +172,35 @@ void Ironman::Render()
 	//m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
 	SAFE_RENDER(m_pBlood);
 
-	//구체 그리기
-	for (auto p : m_vecBoundary)
+	if (g_pKeyboard->KeyDown(VK_F4))
 	{
-		g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
-		D3DXMATRIXA16 mat;
-		D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
-		g_pDevice->SetTransform(D3DTS_WORLD, &mat);
-		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
-		g_pDevice->SetTexture(0, NULL);
-		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		m_pSphereMesh->DrawSubset(0);
-		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-		g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+		SphereDrawRender = !SphereDrawRender;
+	}
+	//구체 그리기
+	if (SphereDrawRender)
+	{
+		//구체 그리기
+		for (auto p : m_vecBoundary)
+		{
+			g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+			D3DXMATRIXA16 mat;
+			D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
+			g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+			//g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+			if (p->isPicked == true)
+			{
+				g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
+			}
+			else
+			{
+				g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+			}
+			g_pDevice->SetTexture(0, NULL);
+			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+			m_pSphereMesh->DrawSubset(0);
+			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+			g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+		}
 	}
 }
 
@@ -242,6 +266,64 @@ void Ironman::Shoot()
 	}
 }
 
+//m_vecBoundary 벡터에서 28~43 인덱스 부분이 오른손이야!
+void Ironman::Hit()
+{
+	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
+	{
+		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
+		float minDistance = FLT_MAX;
+		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+		BoundingSphere* temp = NULL;
+		Enemy* tempEnemy = NULL;
+
+		//오른손만 돌리자!
+		for(int i = 28; i < 44;i++)
+		{ 
+			for (auto p : em->GetVecEnemy())
+			{
+				if (p->GetHP() <= 0) continue;
+
+				for (int i = 0; i < p->GetSphereVector().size(); i++)
+				{
+					//적 임시 변수
+					temp = (p->GetSphereVector())[i];
+
+					if (SphereCollideCheck(*m_vecBoundary[i], *temp) == true)
+					{
+						tempEnemy = p;
+						//맞으면 플레이어 위치 목적지로 입력
+						p->SetDestPos(m_pos);
+						//맞았다 체크
+						p->SetDamage(true);
+
+						temp->isPicked = true;
+					}
+					//거리 보정 위치값 찾기
+					BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+				}
+			}
+		}
+		
+
+		if (tempEnemy != NULL)
+		{
+			g_pItem->MonsterDamaged(DamageFontNum);
+
+			DamageFontNum++;
+
+			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
+
+			//tempEnemy->MinusHP();
+			AttackCalcultate(tempEnemy);
+
+			m_pBlood->Fire(BloodCalPos, -m_forward);
+			//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
+			//break;
+		}
+	}
+}
+
 void Ironman::Status()
 {
 	AddAtk = 0;
@@ -262,10 +344,23 @@ void Ironman::Status()
 	m_MaxHp = 100 + tempMaxHp;
 	m_Def = 5+ tempDef;
 	m_Atk = 5+ tempAtk;
+}
 
+bool Ironman::SphereCollideCheck(BoundingSphere player, BoundingSphere Monster)
+{
+	float SumRadius;
+	SumRadius = (player.radius + Monster.radius);
 
+	D3DXVECTOR3 difference = player.center - Monster.center;
 
+	float TwoDistance;
+	TwoDistance = D3DXVec3Length(&difference);
+	if (SumRadius >= TwoDistance)
+	{
+		return true;
+	}
 
+	return false;
 }
 
 void Ironman::AnimationModify()
@@ -467,3 +562,19 @@ void Ironman::RenderUseShader_1()
 //위아래 짝꿍
 //해제하기
 //pCurrAnimSet->Release();
+
+//플레이어 행렬 인덱스 확인용
+//if (g_pKeyboard->KeyDown('N'))
+//{
+//	check++;
+//	m_vecBoundary[check]->isPicked = true;
+//	if (m_vecBoundary.size() - 1 == check)
+//	{
+//		check = -1;
+//		for (int i = 0; i < m_vecBoundary.size(); i++)
+//		{
+//			//찾았으면 초기화하기
+//			m_vecBoundary[i]->isPicked = false;
+//		}
+//	}
+//}

@@ -12,11 +12,11 @@ class Ironman :
 private:
 	float timer;
 	bool checkTimer;
+	int check;//구체 그리는거 체크용 함수
 
 	//피격 구체 그려주기
 	vector<BoundingSphere*> m_vecBoundary;
 	LPD3DXMESH				m_pSphereMesh;
-
 
 	int AddAtk; // 장비로 인한 추가공격력
 	int AddMaxHp;// 장비로 인한 맥스 HP
@@ -47,7 +47,12 @@ public:
 	D3DXMATRIXA16 RightHand;
 
 	void Shoot();
+	void Hit();
 	void Status();
+	bool SphereCollideCheck(BoundingSphere player, BoundingSphere Monster);
+	vector<BoundingSphere*> GetVecBoundary() { return m_vecBoundary; }
+
+	bool SphereDrawRender;
 
 	//애니메이션 테스트용 변수 아직 못함
 	bool keyPress;

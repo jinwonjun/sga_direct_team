@@ -145,7 +145,6 @@ void ObjMap::RenderDrawingGroup()
 	}
 
 	//static int nSubSet = 0;
-
 	//if (GetAsyncKeyState(VK_F1) & 0x0001)
 	//{
 	//	--nSubSet;
@@ -156,7 +155,6 @@ void ObjMap::RenderDrawingGroup()
 	//	++nSubSet;
 	//	if (nSubSet > m_vecDrawingGroup.size() - 1) nSubSet = m_vecDrawingGroup.size() - 1;
 	//}
-
 	//m_vecDrawingGroup[nSubSet]->Render();
 }
 

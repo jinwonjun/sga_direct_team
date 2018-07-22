@@ -34,6 +34,9 @@ SampleUI::~SampleUI()
 
 void SampleUI::Init()
 {
+	//외부에서 피통 조절하는 용도
+	g_pObjMgr->AddToTagList(TAG_UI,this);
+
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
 	D3DXCreateSprite(g_pDevice, &m_pSprite_Bullet);
 	D3DXCreateSprite(g_pDevice, &m_pSprite_Damage);
@@ -442,15 +445,16 @@ void SampleUI::Update()
 	}
 	
 
-	if (g_pKeyboard->KeyDown('G'))
+	//if (g_pKeyboard->KeyDown('G'))
+	//{
+	//	CurrHp = CurrHp - 5;
+	//	//컨트롤 막기
+	//}
+	if (CurrHp < 0)
 	{
-		CurrHp = CurrHp - 5;
-		//컨트롤 막기
-		if (CurrHp < 0)
-		{
-			CurrHp = 0;
-		}
+		CurrHp = 0;
 	}
+
 	PercentOfHp = (float)CurrHp / (float)MaxHp;
 
 
@@ -527,11 +531,9 @@ void SampleUI::Render()
 	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
 	matWorld = matS * matT;  // 젤 끝에서 시작점으로 이동하는것
 
-
+	//에임은 총을 들었을때만 켜주자
 	if (g_pInventory->Equip[1].index != 0)
 	{
-
-	
 		// 회전중점, 위치이동 따로따로 있따.       에임
 		SetRect(&Cross_Hair.m_Image_rc, 0, 0, Cross_Hair.m_imageInfo.Width, Cross_Hair.m_imageInfo.Height);
 		//D3DXSPRITE_ALPHABLEND

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  ActionCube.cpp
 d:\_pp\dx3d\dx3d\actioncube.cpp(35): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
   Cubeman_Left_arm.cpp
@@ -22,4 +23,33 @@ d:\_pp\dx3d\dx3d\sceneheightmap.cpp(56): warning C4316: 'ParticleTest': 힙에 �
 d:\_pp\dx3d\dx3d\sceneheightmap.cpp(59): warning C4316: 'VertexBlending': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 d:\_pp\dx3d\dx3d\sceneheightmap.cpp(63): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
   코드를 생성하고 있습니다...
+=======
+<<<<<<< HEAD
+﻿  Enemy.cpp
+d:\sga_direct_team\dx3d\dx3d\enemy.h(103): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.h(104): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(69): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(81): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(105): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(107): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(113): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(115): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(216): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(226): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(245): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+=======
+﻿  UIOperator.cpp
+d:\_pp\dx3d\dx3d\uioperator.cpp(29): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\uioperator.cpp(33): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\uioperator.cpp(37): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_pp\dx3d\dx3d\uioperator.cpp(92): warning C4244: '=': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\uioperator.cpp(94): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\uioperator.cpp(95): warning C4244: '=': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\uioperator.cpp(175): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\uioperator.cpp(180): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_pp\dx3d\dx3d\uioperator.cpp(264): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+>>>>>>> 805067314b4373c27376b6e5d9d5c47802e11d29
   DX3D.vcxproj -> D:\_pp\DX3D\Debug\DX3D.exe
+>>>>>>> 27caae0653730e5465e0d8851cb06eb463a9e860
