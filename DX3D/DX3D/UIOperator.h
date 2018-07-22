@@ -3,9 +3,11 @@
 #include "UIButton.h"
 #include "UIText.h"
 
+#define g_pUIOperator UIOperator::Get()
+
 class IUIObject;
 
-struct Draw_UI
+struct Draw_UI_
 {
 
 	RECT m_Image_rc;
@@ -27,14 +29,36 @@ struct Draw_UI
 	bool ScreenOn = false;
 };
 
-class UIOperator :
-	public IDisplayObject, public IUIButtonDelegate
+struct Button_UI_
+{
+	RECT rect;
+
+	IUIObject * m_pRootUI;
+	UIButton * m_pButton;
+	LPD3DXSPRITE m_pSprite;
+	D3DXMATRIXA16 matWorld;
+	wstring Str_; // 이미지 네임 받아줄 str
+
+	float ScaleX; // 이미지 X 스케일
+	float ScaleY; // 이미지 Y 스케일
+	float PointX; // 이미지 시작 X 좌표
+	float PointY; // 이미지 시작 Y 좌표
+
+	int timer = 0;
+	bool ScreenOn = false;
+};
+
+class UIOperator 
 {
 private:
+
+	static UIOperator* instance;
+
 	RECT clientRect;
 	POINT mousePoint;
 	D3DXMATRIXA16 matR, matT,matS;
 
+	LPD3DXSPRITE pSprite;
 
 	bool CrossHeadMoving; // 머리 이미지 이동하기 위한 트리거
 	bool ShutCrossHeadMoving;
@@ -42,36 +66,53 @@ private:
 	bool ScaleHeadMoving;
 	bool ShutScaleHeadMoving;
 
-	float SizeofImage;
-
-public:
-	UIOperator();
-	~UIOperator();
+	float SizeofImage_Width;
+	float SizeofImage_Height;
 
 
-	Draw_UI Valkire;
-	Draw_UI Zealot;
-	Draw_UI Mutant;
-
-
-	void CrossHeadMovingFunction(Draw_UI &Chara);
-	void SacleHeadMovingFunction(Draw_UI &Chara);
-	
-
-	void ShutDownCrossHeadMovingFunction(Draw_UI &Chara);
-	void ShutDownSacleHeadMovingFunction(Draw_UI &Chara);
-
-
+	void InitValkire();
+	void InitZealot();
+	void InitMutant();
 	void DrawValkire();
 	void DrawZealot();
 	void DrawMutant();
+	void Init_TextBar_Frame();
+	void Init_TextBar_Background();
+	void Draw_TextBar_Background();
+
+
+public:
+
+	static UIOperator* Get();
+	static void Delete();
+
+
+	Draw_UI_ Valkire;
+	Draw_UI_ Zealot;
+	Draw_UI_ Mutant;
+
+	Button_UI_ Text_Bar_Frame;
+	IUIButtonDelegate * Text_Bar_Frame_Dele;
+
+	Draw_UI_ Text_Bar_BackGround;
+
+	void CrossHeadMovingFunction(Draw_UI_ &Chara);
+	void SacleHeadMovingFunction(Draw_UI_ &Chara);
+	
+
+	void ShutDownCrossHeadMovingFunction(Draw_UI_ &Chara);
+	void ShutDownSacleHeadMovingFunction(Draw_UI_ &Chara);
+
+
+
+
 
 	// IDisplayObject을(를) 통해 상속됨
-	virtual void Init() override;
-	virtual void Update() override;
-	virtual void Render() override;
+	void Init();
+	void Update();
+	void Render();
 
 	// IUIButtonDelegate을(를) 통해 상속됨
-	virtual void OnClick(UIButton * pSender) override;
+	//virtual void OnClick(UIButton * pSender) override;
 };
 

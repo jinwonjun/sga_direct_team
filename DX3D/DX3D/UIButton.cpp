@@ -102,6 +102,23 @@ void UIButton::SetTexture(string normal, string mouseOver, string selected)
 	m_size.y = info.Height;
 }
 
+void UIButton::SetTexture(string normal, string mouseOver, string selected, int Alpha)
+{
+	D3DXIMAGE_INFO info;
+
+
+	//텍스쳐는 3개 받아오고, 인포는 1개 받아왔는데, 목적은 크기를 얻어오는 거니까, 3개 텍스쳐의 크기가 같으면
+	//1개만 이용해서 쓰면 되는거니까!
+	D3DXGetImageInfoFromFileA(normal.c_str(), &info);
+
+	m_aTexture[NORMAL] = g_pTextureManager->GetTexture(normal, info, Alpha);
+	m_aTexture[MOUSEOVER] = g_pTextureManager->GetTexture(mouseOver, info, Alpha);
+	m_aTexture[SELECTED] = g_pTextureManager->GetTexture(selected, info, Alpha);
+
+	m_size.x = info.Width;
+	m_size.y = info.Height;
+}
+
 void UIButton::SetText(LPD3DXFONT font, LPCWSTR  text, D3DXCOLOR _c)
 {
 	UIText * pText = new UIText(font, m_pSprite);

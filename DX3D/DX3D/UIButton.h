@@ -38,6 +38,7 @@ public:
 	virtual void Render() override;
 
 	void SetTexture(string normal, string mouseOver, string selected);
+	void SetTexture(string normal, string mouseOver, string selected, int Alpha);
 	void SetText(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c);
 	void SetText(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c, D3DXVECTOR3 _pos);
 //	void SetText_Description(LPD3DXFONT font, LPCWSTR text, D3DXCOLOR _c, D3DXVECTOR3 _pos);

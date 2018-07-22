@@ -85,29 +85,7 @@ void SceneGrid::Init()
 	AddSimpleDisplayObj(pObj);
 
 
-	m_pUIOperator = new UIOperator;
-	m_pUIOperator->Init();
-	AddSimpleDisplayObj(m_pUIOperator);
 
-	//m_pGrid = new TeachGrid;
-	//m_pGrid->Init();
-
-	//m_pCubeman = new Cubeman();
-	//m_pCubeman->Init();
-
-	/*m_pWalls = new Walls();
-	m_pWalls->Init();*/
-
-
-	//m_pHexagon = new Hexagon();
-	//m_pHexagon->Init();
-
-	//m_pActionCube = new ActionCube();
-	//m_pActionCube->Init();
-
-
-	//m_pFrustum = new Frustum();
-	//m_pFrustum->Init();
 
 	m_pEm = new EnemyManager();
 	m_pEm->Init();

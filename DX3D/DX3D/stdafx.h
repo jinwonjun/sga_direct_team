@@ -61,6 +61,7 @@ extern HWND g_hWnd;
 #include "KeyboardManager.h"
 #include "IMap.h"
 #include "IUnitObject.h"
+
 #include "IAction.h"
 #include "Debug.h"
 
@@ -75,6 +76,7 @@ extern HWND g_hWnd;
 #include "FontManager.h"
 #include "ItemManager.h"
 #include "InventoryManager.h"
+#include "UIOperator.h"
 #include "UIManager.h"
 //#include "CharacterStatus.h"
 #include "IShader.h"

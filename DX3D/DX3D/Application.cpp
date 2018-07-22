@@ -22,7 +22,7 @@ void Application::Init()
 	//g_pItem->ItemTable();
 	g_pUIManager->Init();
 	g_pInventory->Init();
-
+	g_pUIOperator->Init();
 	//g_pStatus->Init();
 
 	
@@ -43,6 +43,7 @@ void Application::Destroy()
 	Debug->Destroy();
 	g_pDeviceManager->Destroy();
 	g_pInventory->Delete();
+	g_pUIOperator->Delete();
 	//g_pStatus->Delete();
 	g_pUIManager->Delete();
 	g_pSoundManager->Destroy();
@@ -62,6 +63,7 @@ void Application::Update()
 	g_pCamera->Update();
 	g_pInventory->Update();
 	g_pUIManager->Update();
+	g_pUIOperator->Update();
 //	g_pStatus->Update();
 
 }
@@ -77,6 +79,7 @@ void Application::Render()
 	Debug->Print();
 
 	g_pInventory->Render();
+	g_pUIOperator->Render();
 	g_pUIManager->Render();
 //	g_pStatus->Render();
 

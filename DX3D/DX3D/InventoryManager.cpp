@@ -983,14 +983,7 @@ void InventoryManager::Render()
 {
 	g_pDevice->SetTexture(0, NULL);
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-	//for (int i = 0; i < 4; i++)
-	/*{
-		m_pSprite_Item_Info[i]->Begin(D3DXSPRITE_ALPHABLEND);
-	}*/
-	/*for (int i = 0; i < 6; i++)
-	{
-		m_pSprite_Equip[i]->Begin(D3DXSPRITE_ALPHABLEND);
-	}*/
+
 	
 
 		if (openInven)
@@ -1188,7 +1181,7 @@ void InventoryManager::Render()
 					}
 				}
 			}
-			m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+			//m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 
 			SetRect(&Shop_Item[0].Click_rc, Shop_Item[0].PositionX
