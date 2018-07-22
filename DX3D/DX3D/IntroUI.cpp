@@ -154,12 +154,7 @@ void IntroUI::Render()
 	SAFE_RENDER(PlayButton.m_pRootUI);
 	PlayButton.m_pSprite->End();
 
-
-
 	SAFE_RENDER(IntroPage.m_pRootUI);
-	
-	
-
 }
 
 void IntroUI::OnClick(UIButton * pSender)

@@ -117,8 +117,13 @@ public:
 
 
 	void WorldToVP();
-	
-	//void HpBar();
+
+	//고민좀 더 해보자 IUnitObject에 싹 넣어서 전체관리하는게 나을거같은데...
+	//일단 구현
+	// 구체 충돌 및 공격 계산부분
+	void Hit_Mob();//쫄몹이 때릴 때
+	void Hit_Boss();//보스가 때릴 때
+	bool SphereCollideCheck(BoundingSphere player, BoundingSphere Monster);
 
 	void RenderUseShader_0();
 	void RenderUseShader_1();
