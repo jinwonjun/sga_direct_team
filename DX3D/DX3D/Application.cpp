@@ -22,7 +22,10 @@ void Application::Init()
 	//g_pItem->ItemTable();
 	g_pUIManager->Init();
 	g_pInventory->Init();
+	g_pItem->init();
 	g_pUIOperator->Init();
+	g_pShop->Init();
+
 	//g_pStatus->Init();
 
 	
@@ -44,8 +47,11 @@ void Application::Destroy()
 	g_pDeviceManager->Destroy();
 	g_pInventory->Delete();
 	g_pUIOperator->Delete();
+	g_pShop->Delete();
+
 	//g_pStatus->Delete();
 	g_pUIManager->Delete();
+
 	g_pSoundManager->Destroy();
 }
 
@@ -58,6 +64,7 @@ void Application::Update()
 	g_pKeyboard->Update();
 	g_pSceneManager->Update();
 	g_pSoundManager->Update();
+	g_pShop->Update();
 
 	//카메라 업데이트를 여기서 돌림
 	g_pCamera->Update();
@@ -81,6 +88,8 @@ void Application::Render()
 	g_pInventory->Render();
 	g_pUIOperator->Render();
 	g_pUIManager->Render();
+	g_pShop->Render();
+
 //	g_pStatus->Render();
 
 	if (GetAsyncKeyState('M') & 0x0001)

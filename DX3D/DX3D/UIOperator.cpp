@@ -44,37 +44,8 @@ void UIOperator::Init()
 	ScaleHeadMoving = false;
 	ShutCrossHeadMoving = true;
 	ShutScaleHeadMoving = true;
-
-	D3DXCreateTextureFromFileEx(
-		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/Operator/Text_Bar2.png"),   //LPCTSTR pSrcFile,
-		D3DX_DEFAULT_NONPOW2,   //UINT Width,
-		D3DX_DEFAULT_NONPOW2,   //UINT Height,
-		D3DX_DEFAULT,      //UINT MipLevels,
-		0,               //DWORD Usage,
-		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-		D3DPOOL_MANAGED,   //D3DPOOL Pool
-		D3DX_FILTER_NONE,   //DWORD Filter
-		D3DX_DEFAULT,      //DWORD MipFilter
-		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&Text_Bar_BackGround.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
-		NULL,         //PALETTEENTRY *pPalette
-		&Text_Bar_BackGround.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
-
-	Text_Bar_BackGround.ScaleX = 1.f;
-	Text_Bar_BackGround.ScaleY = 1.f;
-	Text_Bar_BackGround.PointX = clientRect.right * 0.02 + (SizeofImage_Width);
-	Text_Bar_BackGround.PointY = (OriginY / 2);
-	//D3DXMATRIXA16 matS;
-	D3DXMatrixIdentity(&matS);
-
-	D3DXMatrixScaling(&matS, Text_Bar_BackGround.ScaleX, Text_Bar_BackGround.ScaleY, 1);
-
-	//D3DXMATRIXA16 matT;
-	D3DXMatrixIdentity(&matT);
-
-	D3DXMatrixTranslation(&matT, Text_Bar_BackGround.PointX, Text_Bar_BackGround.PointY, 0);
-	Text_Bar_BackGround.matWorld = matS * matT;
+	TextBar_Rendering = false;
+	
 }
 
 void UIOperator::Update()
@@ -84,7 +55,9 @@ void UIOperator::Update()
 
 	if (g_pKeyboard->KeyDown('C'))
 	{
+		TextBar_Rendering = true;
 		CrossHeadMoving = true;
+		Text_Bar_Frame.Str_ = L"이동을 위해서 \n W A S D 를 눌러보세요";
 	}
 	if (CrossHeadMoving)
 	{
@@ -93,7 +66,9 @@ void UIOperator::Update()
 
 	if (g_pKeyboard->KeyDown('V'))
 	{
+		TextBar_Rendering = true;
 		ScaleHeadMoving = true;
+		Text_Bar_Frame.Str_ = L"적을 소멸시켜라!";
 	}
 	if (ScaleHeadMoving)
 	{
@@ -111,12 +86,9 @@ void UIOperator::Update()
 
 		ShutDownCrossHeadMovingFunction(Zealot);
 	}
-
-	//SAFE_UPDATE(Valkire.m_pRootUI);
-	//SAFE_UPDATE(Zealot.m_pRootUI);
-	//SAFE_UPDATE(Mutant.m_pRootUI);
+	
 	SAFE_UPDATE(Text_Bar_Frame.m_pRootUI);
-	//SAFE_UPDATE(Text_Bar_BackGround.m_pRootUI);
+
 }
 
 void UIOperator::Render()
@@ -132,28 +104,21 @@ void UIOperator::Render()
 
 	DrawValkire();
 	DrawZealot();
-
-	Text_Bar_Frame.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	Text_Bar_Frame.m_pSprite->SetTransform(&Text_Bar_Frame.matWorld);
-	Text_Bar_Frame.m_pButton->GetFinalRect(&Text_Bar_Frame.rect);
-	SAFE_RENDER(Text_Bar_Frame.m_pRootUI);
-	Text_Bar_Frame.m_pSprite->End();
+	DrawMutant();
 
 
-	//Draw_TextBar_Background();
+	if (TextBar_Rendering)
+	{
 
-	SetRect(&Text_Bar_BackGround.m_Image_rc, 0, 0, Text_Bar_BackGround.m_imageInfo.Width, Text_Bar_BackGround.m_imageInfo.Height);
+		Text_Bar_Frame.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		Text_Bar_Frame.m_pSprite->SetTransform(&Text_Bar_Frame.matWorld);
+		Text_Bar_Frame.m_pButton->GetFinalRect(&Text_Bar_Frame.rect);
+		SAFE_RENDER(Text_Bar_Frame.m_pRootUI);
+		Text_Bar_Frame.m_pSprite->End();
+		Draw_TextBar_Background();
+	}
 
-	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	pSprite->SetTransform(&Text_Bar_BackGround.matWorld);
-	pSprite->Draw(
-		Text_Bar_BackGround.m_pTex,
-		&Text_Bar_BackGround.m_Image_rc,
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		D3DCOLOR_ARGB(105, 255, 255, 255));
 
-	pSprite->End();
 	//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 
 	
@@ -212,6 +177,7 @@ void UIOperator::ShutDownCrossHeadMovingFunction(Draw_UI_ & Chara)
 
 			Chara.ScreenOn = false;
 			Chara.timer = 0;
+			TextBar_Rendering = false;
 			return;
 		}
 	}
@@ -234,6 +200,7 @@ void UIOperator::ShutDownSacleHeadMovingFunction(Draw_UI_ & Chara)
 		{
 			Chara.ScreenOn = false;
 			Chara.timer = 0;
+			TextBar_Rendering = false;
 			return;
 		}
 	}
@@ -328,6 +295,12 @@ void UIOperator::InitMutant()
 		&Mutant.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&Mutant.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+	Mutant.PointX = clientRect.right * 0.02 + (SizeofImage_Width/2);
+	Mutant.PointY = OriginY / 2 + SizeofImage_Height / 2;
+	Mutant.ScaleX = 1.0f;
+	Mutant.ScaleY = 1.0f;
+
 }
 
 void UIOperator::DrawValkire()
@@ -339,19 +312,7 @@ void UIOperator::DrawValkire()
 	D3DXMatrixTranslation(&matT, Valkire.PointX, Valkire.PointY, 0);
 	D3DXMatrixScaling(&matS, Valkire.ScaleX, Valkire.ScaleY, 1);
 	Valkire.matWorld = matS * matT;
-
-	//D3DXSPRITE_ALPHABLEND
-	//Valkire.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	//Valkire.m_pSprite->SetTransform(&Valkire.matWorld);
-	//Valkire.m_pSprite->Draw(
-	//	Valkire.m_pTex,
-	//	&Valkire.m_Image_rc,
-	//	&D3DXVECTOR3(Valkire.m_imageInfo.Width/2, Valkire.m_imageInfo.Height / 2, 0),
-	//	&D3DXVECTOR3(0, 0, 0),
-	//	WHITE);
-	//Valkire.m_pSprite->End();
-
-
+	
 	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	pSprite->SetTransform(&Valkire.matWorld);
 	pSprite->Draw(
@@ -373,16 +334,6 @@ void UIOperator::DrawZealot()
 	D3DXMatrixScaling(&matS, Zealot.ScaleX, Zealot.ScaleY, 1);
 	Zealot.matWorld = matS * matT;
 
-	//D3DXSPRITE_ALPHABLEND
-	//Zealot.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	//Zealot.m_pSprite->SetTransform(&Zealot.matWorld);
-	//Zealot.m_pSprite->Draw(
-	//	Zealot.m_pTex,
-	//	&Zealot.m_Image_rc,
-	//	&D3DXVECTOR3(0, 0, 0),
-	//	&D3DXVECTOR3(0, 0, 0),
-	//	WHITE);
-	//Zealot.m_pSprite->End();
 
 	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	pSprite->SetTransform(&Zealot.matWorld);
@@ -397,6 +348,25 @@ void UIOperator::DrawZealot()
 
 void UIOperator::DrawMutant()
 {
+
+	SetRect(&Mutant.m_Image_rc, 0, 0, Mutant.m_imageInfo.Width, Mutant.m_imageInfo.Height);
+
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, Mutant.PointX, Mutant.PointY, 0);
+	D3DXMatrixScaling(&matS, Mutant.ScaleX, Mutant.ScaleY, 1);
+	Mutant.matWorld = matS * matT;
+
+
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	pSprite->SetTransform(&Mutant.matWorld);
+	pSprite->Draw(
+		Mutant.m_pTex,
+		&Mutant.m_Image_rc,
+		&D3DXVECTOR3(Mutant.m_imageInfo.Width / 2, Mutant.m_imageInfo.Height / 2, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+	pSprite->End();
+
 }
 
 void UIOperator::Init_TextBar_Frame()
@@ -414,8 +384,8 @@ void UIOperator::Init_TextBar_Frame()
 		"resources/images/Operator/Text_Bar1.png",
 		"resources/images/Operator/Text_Bar1.png");
 
-
-	//Text_Bar_Frame.Str_ = L"DEF : " + std::to_wstring(g_pUIManager->IronMan_Def);
+	Text_Bar_Frame.Str_ = L"초기화를 위한 \n 입력입니다. 0000000000000000";
+	//Text_Bar_Frame.Str_ = std::to_wstring(g_pUIManager->IronMan_Def);
 
 	Text_Bar_Frame.m_pButton->SetText(g_pFontMgr->GetFont(FONT::NORMAL), Text_Bar_Frame.Str_.c_str(), WHITE);
 
@@ -441,47 +411,55 @@ void UIOperator::Init_TextBar_Frame()
 void UIOperator::Init_TextBar_Background()
 {
 
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/Operator/Text_Bar2.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Text_Bar_BackGround.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Text_Bar_BackGround.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-	
-	//UIImage * pImage = new UIImage(Text_Bar_BackGround.m_pSprite);
-	//Text_Bar_BackGround.m_pRootUI = pImage;
-	
-	//D3DXCreateTextureFromFileEx(
-	//	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-	//	_T("resources/images/Operator/Text_Bar2.png"),   //LPCTSTR pSrcFile,
-	//	D3DX_DEFAULT_NONPOW2,   //UINT Width,
-	//	D3DX_DEFAULT_NONPOW2,   //UINT Height,
-	//	D3DX_DEFAULT,      //UINT MipLevels,
-	//	0,               //DWORD Usage,
-	//	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-	//	D3DPOOL_MANAGED,   //D3DPOOL Pool
-	//	D3DX_FILTER_NONE,   //DWORD Filter
-	//	D3DX_DEFAULT,      //DWORD MipFilter
-	//	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-	//	&Text_Bar_BackGround.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
-	//	NULL,         //PALETTEENTRY *pPalette
-	//	&Text_Bar_BackGround.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
-
-	//Text_Bar_BackGround.ScaleX = 1.f;
-	//Text_Bar_BackGround.ScaleY = 1.f;
-	//Text_Bar_BackGround.PointX = clientRect.right * 0.02 + (SizeofImage_Width);
-	//Text_Bar_BackGround.PointY = (OriginY / 2);
+	Text_Bar_BackGround.ScaleX = 1.f;
+	Text_Bar_BackGround.ScaleY = 1.f;
+	Text_Bar_BackGround.PointX = clientRect.right * 0.02 + (SizeofImage_Width);
+	Text_Bar_BackGround.PointY = (OriginY / 2);
 	//D3DXMATRIXA16 matS;
-	//D3DXMatrixIdentity(&matS);
+	D3DXMatrixIdentity(&matS);
 
-	//D3DXMatrixScaling(&matS, Text_Bar_BackGround.ScaleX, Text_Bar_BackGround.ScaleY, 1);
+	D3DXMatrixScaling(&matS, Text_Bar_BackGround.ScaleX, Text_Bar_BackGround.ScaleY, 1);
 
 	//D3DXMATRIXA16 matT;
-	//D3DXMatrixIdentity(&matT);
+	D3DXMatrixIdentity(&matT);
 
-	//D3DXMatrixTranslation(&matT, Text_Bar_BackGround.PointX, Text_Bar_BackGround.PointY, 0);
-	//Text_Bar_BackGround.matWorld = matS * matT;
+	D3DXMatrixTranslation(&matT, Text_Bar_BackGround.PointX, Text_Bar_BackGround.PointY, 0);
+	Text_Bar_BackGround.matWorld = matS * matT;
+		
 }
 
 void UIOperator::Draw_TextBar_Background()
 {
 
+	
+	SetRect(&Text_Bar_BackGround.m_Image_rc, 0, 0, Text_Bar_BackGround.m_imageInfo.Width, Text_Bar_BackGround.m_imageInfo.Height);
 
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	pSprite->SetTransform(&Text_Bar_BackGround.matWorld);
+	pSprite->Draw(
+		Text_Bar_BackGround.m_pTex,
+		&Text_Bar_BackGround.m_Image_rc,
+		&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		D3DCOLOR_ARGB(105, 255, 255, 255));
+
+	pSprite->End();
 
 
 	//SetRect(&Text_Bar_BackGround.m_Image_rc, 0, 0, Text_Bar_BackGround.m_imageInfo.Width, Text_Bar_BackGround.m_imageInfo.Height);
