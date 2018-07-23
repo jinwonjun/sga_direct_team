@@ -3,6 +3,10 @@
 #include "ObjLoader.h"
 class DrawingGroup;
 class ObjLoader;
+
+class Walls;
+class BoundingBox;
+
 class ObjMap : public IMap
 {
 private:
@@ -12,6 +16,9 @@ private:
 	//맵 층의 높이값을 저장해둘 변수 선언하기
 	float m_rayOffsetY;
 	bool surfaceMode;
+
+	Walls *			m_pWalls;
+	BoundingBox *	m_pBox;
 
 public:
 	ObjMap();

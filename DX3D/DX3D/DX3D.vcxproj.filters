@@ -626,9 +626,6 @@
     <ClCompile Include="BloodEffect.cpp">
       <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
-    <ClCompile Include="Gun.cpp">
-      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
-    </ClCompile>
     <ClCompile Include="InventoryManager.cpp">
       <Filter>소스 파일\UI_CLASS\INVEN</Filter>
     </ClCompile>
@@ -671,6 +668,9 @@
     <ClCompile Include="UIOperator.cpp">
       <Filter>소스 파일\UI_CLASS\Operator</Filter>
     </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>소스 파일\CHARACTER&amp;MOB\IRONMAN</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX3D.rc">
@@ -684,11 +684,5 @@
     <Image Include="DX3D.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram2.cd" />
-    <None Include="ClassDiagram21.cd" />
-    <None Include="ClassDiagram22.cd" />
-    <None Include="ClassDiagram23.cd" />
   </ItemGroup>
 </Project>

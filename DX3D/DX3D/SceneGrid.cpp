@@ -23,8 +23,6 @@
 //인벤토리, UI
 #include "InventoryManager.h"
 #include "UIOperator.h"
-
-
 SceneGrid::SceneGrid()
 {
 	m_pCubeman = NULL;
@@ -116,7 +114,6 @@ void SceneGrid::Init()
 	m_pGun = new Gun;
 	m_pGun->Init();
 	AddSimpleDisplayObj(m_pGun);
-
 
 	//헤이트맵 올리기
 	//D3DXMATRIXA16 matS, matT, matRX, matRY, matWorld;

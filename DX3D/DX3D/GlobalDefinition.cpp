@@ -11,14 +11,14 @@ WORD g_aCubeIndex[36] = {
 };
 
 D3DXVECTOR3 g_aCubeVertex[8] = {
-	D3DXVECTOR3(-1.0f, -1.0f, -1.0f),
-	D3DXVECTOR3(-1.0f,  1.0f, -1.0f),
-	D3DXVECTOR3(1.0f,  1.0f, -1.0f),
-	D3DXVECTOR3(1.0f, -1.0f, -1.0f),
-	D3DXVECTOR3(-1.0f, -1.0f,  1.0f),
-	D3DXVECTOR3(-1.0f,  1.0f,  1.0f),
-	D3DXVECTOR3(1.0f,  1.0f,  1.0f),
-	D3DXVECTOR3(1.0f, -1.0f,  1.0f)
+	D3DXVECTOR3(-1.0f, -1.0f, -1.0f),//0
+	D3DXVECTOR3(-1.0f,  1.0f, -1.0f),//1
+	D3DXVECTOR3(1.0f,  1.0f, -1.0f),//2
+	D3DXVECTOR3(1.0f, -1.0f, -1.0f),//3
+	D3DXVECTOR3(-1.0f, -1.0f,  1.0f),//4
+	D3DXVECTOR3(-1.0f,  1.0f,  1.0f),//5
+	D3DXVECTOR3(1.0f,  1.0f,  1.0f),//6
+	D3DXVECTOR3(1.0f, -1.0f,  1.0f)//7
 };
 
 DWORD FtoDw(float f)
