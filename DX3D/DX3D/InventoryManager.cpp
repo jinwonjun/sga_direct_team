@@ -628,68 +628,7 @@ void InventoryManager::Update()
 		//불로 어떻게 하면 될꺼 같은데 2
 		else if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 		{
-<<<<<<< HEAD
-=======
-						
-		/*	if (PtInRect(&Shop_Item[0].Click_rc, mousePoint))
-			{
-				g_pSoundManager->Play("buyItem_inventory", 1.0f);
-				addIndex(Shop_Item[0]);
-			}
-			else if (PtInRect(&Shop_Item[2].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[2]);
-			}
-			else if (PtInRect(&Shop_Item[3].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[3]);
-			}
-			else if (PtInRect(&Shop_Item[4].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[4]);
-			}
-			else if (PtInRect(&Shop_Item[5].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[5]);
-			}
-			else if (PtInRect(&Shop_Item[6].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[6]);
-			}
-			else if (PtInRect(&Shop_Item[7].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[7]);
-			}
-			else if (PtInRect(&Shop_Item[8].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[8]);
-			}
-			else if (PtInRect(&Shop_Item[9].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[9]);
-			}
-			else if (PtInRect(&Shop_Item[10].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[10]);
-			}
-			else if (PtInRect(&Shop_Item[11].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[11]);
-			}
-			else if (PtInRect(&Shop_Item[12].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[12]);
-			}
-			else if (PtInRect(&Shop_Item[13].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[13]);
-			}
-			else if (PtInRect(&Shop_Item[14].Click_rc, mousePoint))
-			{
-				addIndex(Shop_Item[14]);
-			}*/
->>>>>>> 5edd2654c19f403578863448a984d75038eb20c6
-			
+
 				for (int j = 0; j < INVENVERTI; j++)
 				{
 					for (int i = 0; i < INVENCORSS; i++)
