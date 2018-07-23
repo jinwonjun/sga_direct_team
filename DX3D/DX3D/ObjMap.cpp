@@ -3,6 +3,9 @@
 #include "DrawingGroup.h"
 //#include "ObjLoader.h"
 
+#include "Walls.h"
+#include "BoundingBox.h"
+
 ObjMap::ObjMap()
 {
 	m_rayOffsetY = 4;
@@ -33,6 +36,11 @@ void ObjMap::Init()
 	//이 맵은 봉인, 프레임 드랍 심각함
 	//Init_float_city();
 	//OBJ맵 적용하기
+
+	m_pWalls = new Walls;
+	m_pWalls->Init();
+	m_pBox = new BoundingBox(D3DXVECTOR3(3.0f, 15.0f, 3.0f), m_pos); m_pBox->Init();
+
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");
 
@@ -74,6 +82,9 @@ void ObjMap::Update()
 	Debug->AddText((int)m_vecVertex.size());
 	Debug->EndLine();
 	Debug->EndLine();
+
+	m_pBox->Update();
+	m_pBox->SetPosition(&m_pos);
 }
 
 void ObjMap::Render()
@@ -85,6 +96,10 @@ void ObjMap::Render()
 	//RenderDrawingGroup();
 	//매쉬 함수
 	RenderMesh();
+
+	m_pWalls->Render();
+	m_pBox->Render();
+
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 }
 

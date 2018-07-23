@@ -9,7 +9,7 @@
 #define MOVE_STOP_DISTANCE 10
 
 #define MOB_SCALE 15.00f
-#define MOB_FULL_HP 100//몹의 전체 피통
+#define MOB_FULL_HP 1//몹의 전체 피통
 
 class BoundingBox;
 class SkinnedMesh;

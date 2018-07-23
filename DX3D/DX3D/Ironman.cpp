@@ -88,6 +88,9 @@ void Ironman::Init()
 	checkTimer = false;
 	check = -1;
 	SphereDrawRender = false;
+
+	//사운드를 위해 만든 bool 변수들
+	isRun = false;
 }
 
 void Ironman::Update()
@@ -104,6 +107,7 @@ void Ironman::Update()
 
 		AnimationModify();
 		AnimationKeySetting();
+		SoundSetting();
 		SAFE_UPDATE(m_pSkinnedMesh);
 
 		//오른손 좌표 가져오기 - 무기를 착용할때만 돌리기
@@ -164,6 +168,8 @@ void Ironman::Update()
 		m_vecBoundary[i]->center = tempCenter;
 		tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 	}
+
+
 }
 
 void Ironman::Render()
@@ -208,6 +214,10 @@ void Ironman::Shoot()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
+		if (!g_pInventory->openInven
+			&& (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 1))
+			g_pSoundManager->Play("m4al_1", 0.3f);
+
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
 		BoundingSphere* sphere = NULL;
@@ -431,6 +441,7 @@ void Ironman::AnimationKeySetting()
 	{
 		if (Keyboard::Get()->KeyPress('W'))
 		{
+			isRun = true;	//뛰는소리
 			checkTimer = true;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
@@ -443,6 +454,7 @@ void Ironman::AnimationKeySetting()
 		}
 		else if (Keyboard::Get()->KeyPress('S'))
 		{
+			isRun = true;	//뛰는소리
 			checkTimer = true;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
@@ -455,6 +467,7 @@ void Ironman::AnimationKeySetting()
 		}
 		else if (Keyboard::Get()->KeyPress('A'))
 		{
+			isRun = true;	//뛰는소리
 			checkTimer = true;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
@@ -467,6 +480,7 @@ void Ironman::AnimationKeySetting()
 		}
 		else if (Keyboard::Get()->KeyPress('D'))
 		{
+			isRun = true;	//뛰는소리
 			checkTimer = true;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
@@ -479,6 +493,7 @@ void Ironman::AnimationKeySetting()
 		}
 		else if (Keyboard::Get()->KeyPress('R') && static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
 		{
+			g_pSoundManager->Play("m4a1_reload", 0.3f);
 			checkTimer = true;
 			timer = -0.17f;
 			m_pSkinnedMesh->status = 6;
@@ -504,6 +519,7 @@ void Ironman::AnimationKeySetting()
 			checkTimer = true;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
+				g_pSoundManager->Play("swing", 1.0f);
 				timer = -0.02f;
 				m_pSkinnedMesh->status = 9;
 				m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
@@ -534,6 +550,27 @@ void Ironman::AnimationKeySetting()
 				m_pSkinnedMesh->status = 0;
 			}
 		}
+	}
+}
+
+void Ironman::SoundSetting()
+{
+
+	//KeyPress 때문에 사운드를 재생하기 위해서는 bool변수를 둬서 한번만 재생하도록 해주기 위함
+	//KeyPress에서 true로 만들고, KeyUp에서 false처리
+	if (Keyboard::Get()->KeyUp('W')
+		|| Keyboard::Get()->KeyUp('S')
+		|| Keyboard::Get()->KeyUp('A')
+		|| Keyboard::Get()->KeyUp('D')
+		)
+	{
+		isRun = false;
+		g_pSoundManager->Stop("footstep");
+	}
+
+	if (isRun == true && g_pSoundManager->IsPlaySound("footstep") == false)
+	{
+		g_pSoundManager->Play("footstep", 1.0f);
 	}
 }
 

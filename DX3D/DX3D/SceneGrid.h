@@ -13,7 +13,6 @@ class HeightMap;
 class EnemyManager;
 class Ironman;
 class Gun;
-
 class UIOperator;
 
 class SceneGrid : public IScene
@@ -22,7 +21,7 @@ class SceneGrid : public IScene
 	vector <VERTEX_PC> m_vecVertex;
 
 	//큐브 파츠 그리는 부분의 VERTEX_PC를 VERTEX_PT로 바꾸고, 좌표를 수정해주자
-	
+
 	vector<VERTEX_PT> vecPTVertex;
 
 	LPDIRECT3DTEXTURE9 tex;
@@ -73,7 +72,5 @@ public:
 
 	Ironman * m_pCharacter;
 	Gun * m_pGun;
-
-	
 };
 
