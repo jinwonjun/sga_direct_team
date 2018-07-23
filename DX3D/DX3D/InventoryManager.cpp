@@ -589,6 +589,8 @@ void InventoryManager::Update()
 					// 
 					if (PtInRect(&InvenArray[i][j].Click_rc, mousePoint) && alreadyWorkedRbutton == false)
 					{
+						g_pSoundManager->Play("clothEquip_inventory", 1.0f);
+
 						alreadyWorkedRbutton = true;
 
 						switch (InvenArray[i][j].Equip_Type)
@@ -736,6 +738,7 @@ void InventoryManager::Update()
 
 			if (PtInRect(&Shop_Item[0].Click_rc, mousePoint))
 			{
+				g_pSoundManager->Play("buyItem_inventory", 1.0f);
 				addIndex(Shop_Item[0]);
 			}
 
