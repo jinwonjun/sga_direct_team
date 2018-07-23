@@ -1390,7 +1390,7 @@ void InventoryManager::Render()
 
 
 
-void InventoryManager::addIndex(items a)
+void InventoryManager::addIndex(items& a)
 {
 
 	D3DXMATRIXA16 matR, matT, matWorld;
@@ -1424,7 +1424,7 @@ void InventoryManager::MovingItem(items *a, items* b)
 	swap(a, b);
 }
 
-void InventoryManager::ShowItemInfo(items picked)
+void InventoryManager::ShowItemInfo(items& picked)
 {
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -1645,7 +1645,7 @@ void InventoryManager::Item_Info_Text()
 
 
 
-void InventoryManager::Item_Info_Description(items item)
+void InventoryManager::Item_Info_Description(items& item)
 {
 
 

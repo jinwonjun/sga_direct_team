@@ -48,9 +48,9 @@ void SceneGrid::Release()
 	SAFE_RELEASE(m_pHeightMap);
 	//m_pSky->~SkyBox();
 	SAFE_RELEASE(m_pEm);
-	
+
 	//SAFE_RELEASE(m_Inventory);
-	
+
 	SAFE_RELEASE(m_pCharacter);
 
 	BaseObject::Release();
@@ -90,10 +90,9 @@ void SceneGrid::Init()
 
 	// 인벤토리
 
-
 	//m_Inventory = new Inventory;
 	//m_Inventory->Init();
-	
+
 
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 0, 0), D3DXVECTOR2(0, 1)));//7
 	vecPTVertex.push_back(VERTEX_PT(D3DXVECTOR3(0, 1, 0), D3DXVECTOR2(0, 0)));//6
@@ -105,7 +104,6 @@ void SceneGrid::Init()
 
 	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/ham1.png"), &tex);
 	//D3DXCreateTextureFromFile(g_pDevice, _T("ham1.png"), &tex);
-
 	//매쉬 캐릭터 올리기
 	m_pCharacter = new Ironman;
 	m_pCharacter->Init();

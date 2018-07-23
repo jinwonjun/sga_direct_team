@@ -3,7 +3,6 @@
 #include "ObjLoader.h"
 class DrawingGroup;
 class ObjLoader;
-
 class Walls;
 class BoundingBox;
 
@@ -17,8 +16,8 @@ private:
 	float m_rayOffsetY;
 	bool surfaceMode;
 
-	Walls *			m_pWalls;
-	BoundingBox *	m_pBox;
+	Walls * m_pWalls;
+	BoundingBox * m_pBox;
 
 public:
 	ObjMap();

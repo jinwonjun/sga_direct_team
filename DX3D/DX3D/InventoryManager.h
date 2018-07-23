@@ -168,7 +168,7 @@ private:
 
 	void Weapon_Equip_Text();
 	void Item_Info_Text();
-	void Item_Info_Description(items item);
+	void Item_Info_Description(items& item);
 	
 
 	
@@ -223,7 +223,7 @@ public:
 	bool Endfor;
 	// 포문 종결을 선언한다.
 
-	void addIndex(items a); // 인벤토리에 아이템 넣기
+	void addIndex(items& a); // 인벤토리에 아이템 넣기
 	//void addIndex(items a, int b); // 인벤토리에 아이템 넣기
 
 	void MovingItem(items* a, items* b); // 인벤토리 내에서 아이템 옮기기 하지만 실패 ...
@@ -236,7 +236,7 @@ public:
 	bool isEquipItemChanged;
 
 	
-	void ShowItemInfo(items picked);
+	void ShowItemInfo(items& picked);
 
 };
 

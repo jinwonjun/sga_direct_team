@@ -5,6 +5,7 @@
 
 #include "Walls.h"
 #include "BoundingBox.h"
+
 ObjMap::ObjMap()
 {
 	m_rayOffsetY = 4;
@@ -38,7 +39,7 @@ void ObjMap::Init()
 
 	m_pWalls = new Walls;
 	m_pWalls->Init();
-	m_pBox = new BoundingBox(D3DXVECTOR3(3.0f, 50.0f, 3.0f), m_pos); m_pBox->Init();
+	m_pBox = new BoundingBox(D3DXVECTOR3(3.0f, 15.0f, 3.0f), m_pos); m_pBox->Init();
 
 	g_pMapManager->AddMap("ObjMap", this);
 	g_pMapManager->SetCurrentMap("ObjMap");

@@ -51,7 +51,7 @@ void Walls::Init()
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, 3, 3, 3);
-	D3DXMatrixTranslation(&matT, 0, 15, 0);
+	D3DXMatrixTranslation(&matT, 0, 10, 0);
 
 	for (size_t i = 0; i < m_vecWall0.size(); i++)
 	{
@@ -80,7 +80,7 @@ void Walls::Render()
 	//D3DRS_NORMALIZENORMALS : 뷰변환에서 모든 법선을 정규화시킨다. 왜곡을 막기위해 쓰는 상태, 다만 연산량 때문에 느려질 수 있다.
 
 	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
-	
+
 	//환경광 효과 주기
 	//g_pDevice->SetRenderState(D3DRS_AMBIENT, 0x00309030);
 
@@ -94,5 +94,5 @@ void Walls::Render()
 	g_pDevice->SetMaterial(&DXUtil::GREEN_MTRL);
 
 	g_pDevice->SetFVF(VERTEX_PN::FVF);
-	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,m_vecWall0.size() / 3,&m_vecWall0[0], sizeof(VERTEX_PN));
+	g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecWall0.size() / 3, &m_vecWall0[0], sizeof(VERTEX_PN));
 }
