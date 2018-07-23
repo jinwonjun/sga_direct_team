@@ -78,34 +78,38 @@ void Shop::Update()
 	GetCursorPos(&mousePoint);
 	ScreenToClient(g_hWnd, &mousePoint);
 
-	if (ShopOpen)
+	if (g_pKeyboard->KeyDown('P'))
+	{
+		g_pEquip->EquipScreenOn = false;
+		ShopOpen = !ShopOpen;
+	}
+
+	if (ShopOpen == false)
+	{
+		buyItems = false;
+	}
+	else
 	{
 
 		
-			for (int i = 0; i < CopiedItemNum; i++)
+		for (int i = 0; i < CopiedItemNum; i++)
+		{
+			if (PtInRect(&Shop_Items[i].Click_rc, mousePoint))
 			{
-				if (PtInRect(&Shop_Items[i].Click_rc, mousePoint))
+				if (g_pMouse->ButtonDown(Mouse::RBUTTON))
 				{
-					if (g_pMouse->ButtonDown(Mouse::RBUTTON))
-					{
-						g_pInventory->addIndex(Shop_Items[i]);
-						buyItems = true;
-					}
+					g_pInventory->addIndex(Shop_Items[i]);
+					buyItems = true;
 				}
 			}
-
-			
+		}
 		
-
 	}
 }
 
 void Shop::Render()
 {
-	if (g_pKeyboard->KeyDown('P'))
-	{
-		ShopOpen = !ShopOpen;
-	}
+
 
 	if (ShopOpen)
 	{

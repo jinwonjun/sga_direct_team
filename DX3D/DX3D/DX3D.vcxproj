@@ -184,6 +184,9 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemyman.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Equip.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="GlobalDefinition.h" />
@@ -279,6 +282,9 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemyman.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Equip.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GlobalDefinition.cpp" />

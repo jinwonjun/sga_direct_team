@@ -94,9 +94,11 @@ private:
 	Inven_UI MouseCursor_Normal;
 	Inven_UI MousCursor_ClickedOn;
 	Inven_UI Exit_Button;
-	Inven_UI Equiped_Side;
-	Inven_UI Equiped_Item[6];
-	Inven_UI Equiped_Item_BlackBack[6];
+
+	//0723 주석
+	//Inven_UI Equiped_Side;
+	//Inven_UI Equiped_Item[6];
+	//Inven_UI Equiped_Item_BlackBack[6];
 	Inven_UI Item_Info_Back;
 
 	//해당 인벤토리에 올라갈 것 같을때는 이것을
@@ -105,13 +107,13 @@ private:
 
 	// equip 이름 
 
-	D3DXMATRIXA16	m_matWorld_Euip_Name_text[6];
-	LPD3DXSPRITE m_pSprite_Equip[6];
-	IUIObject * m_pRootUI_Euip_Text[6];	
-	RECT    Equip_Name_Rect[6];
-	CString Equip_Name_Text[6];
-	UIButton * Equip_Name[6];
-	IUIButtonDelegate * m_pDelegate_Equip_Name[6];
+	//D3DXMATRIXA16	m_matWorld_Euip_Name_text[6];
+	//LPD3DXSPRITE m_pSprite_Equip[6];
+	//IUIObject * m_pRootUI_Euip_Text[6];	
+	//RECT    Equip_Name_Rect[6];
+	//CString Equip_Name_Text[6];
+	//UIButton * Equip_Name[6];
+	//IUIButtonDelegate * m_pDelegate_Equip_Name[6];
 
 
 	D3DXMATRIXA16	m_matWorld_Item_Info[NumOfItemTextKind];
@@ -145,8 +147,7 @@ private:
 							  // 버그를 막아줘서 넣었는데 어떻게 막았는지 사실 잘 기억 안남.
 							  // 아마 우측 
 
-	float Adjust_Display_Mode_X; //해상도 변경에 따라 비율 조절해주는 아이
-	float Adjust_Display_Mode_Y; //해상도 변경에 따라 비율 조절해주는 아이
+
 	float Basic_ScaleX;
 	float Basic_ScaleY;
 	float ShopItem_Display_Mode_X;//해상도 변경에 따라 비율 조절해주는 아이
@@ -166,7 +167,7 @@ private:
 	int fitstColumn;
 	int SecondColumn;
 
-	void Weapon_Equip_Text();
+	//void Weapon_Equip_Text();
 	void Item_Info_Text();
 	void Item_Info_Description(items item);
 	
@@ -182,12 +183,16 @@ public:
 	static void Delete();
 
 //	LPD3DXSPRITE Get_m_pSprite_Equip() { return m_pSprite_Equip; }
-	CString Get_Equip_Name_Text(int i) { return Equip_Name_Text[i];	}
-	RECT Get_Equip_Rect(int i) {	return Equip_Name_Rect[i];	}
+//CString Get_Equip_Name_Text(int i) { return Equip_Name_Text[i];	}
+//RECT Get_Equip_Rect(int i) {	return Equip_Name_Rect[i];	}
 	bool GetalreadyWorkedRbutton() { return alreadyWorkedRbutton;  }
 	//void SetalreadyWorkedRbutton(bool acb) { alreadyWorkedRbutton = acb; }
 	// 겟 셋 헷갈령
 	
+	float Adjust_Display_Mode_X; //해상도 변경에 따라 비율 조절해주는 아이
+	float Adjust_Display_Mode_Y; //해상도 변경에 따라 비율 조절해주는 아이
+
+
 	// IDisplayObject을(를) 통해 상속됨
 	void Init();
 	void Update();

@@ -45,6 +45,8 @@ void UIOperator::Init()
 	ShutCrossHeadMoving = true;
 	ShutScaleHeadMoving = true;
 	TextBar_Rendering = false;
+
+	Mutant.ScreenOn = false;
 	
 }
 
@@ -69,6 +71,11 @@ void UIOperator::Update()
 		TextBar_Rendering = true;
 		ScaleHeadMoving = true;
 		Text_Bar_Frame.Str_ = L"적을 소멸시켜라!";
+	}
+
+	if (g_pKeyboard->KeyDown('B'))
+	{
+		Mutant.ScreenOn = !Mutant.ScreenOn;
 	}
 	if (ScaleHeadMoving)
 	{
@@ -104,10 +111,13 @@ void UIOperator::Render()
 
 	DrawValkire();
 	DrawZealot();
-	DrawMutant();
 
+	if (Mutant.ScreenOn)
+	{
+		DrawMutant();
+	}
 
-	if (TextBar_Rendering)
+	if (TextBar_Rendering || Mutant.ScreenOn)
 	{
 
 		Text_Bar_Frame.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
