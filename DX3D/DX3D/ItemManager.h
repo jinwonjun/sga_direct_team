@@ -38,12 +38,16 @@ struct items {
 	RECT Click_rc;   // 클릭으로 반응하는 렉트
 	RECT isInven_rc;
 	RECT isInven_show_rc;
+	
+
+	D3DXMATRIXA16 m_matWorld;
 
 	D3DXIMAGE_INFO		 m_image_Item_Info; // 이미지 정보
 	D3DXIMAGE_INFO		 m_image_InvenOver_Info;
 
 	LPDIRECT3DTEXTURE9	 m_pTex_Item;       // 텍스쳐 정보
 	LPDIRECT3DTEXTURE9	 m_pTex_InvenOver;
+	LPD3DXSPRITE m_pSprite;
 };
 
 // 이넘문으로 1부터 6까지 선언해준다.
@@ -107,6 +111,7 @@ public:
 	int FontNum;
 	bool FontController[20];
 
+	void init();
 	void ItemTable();
 	void ItemGet(int a);
 	void render(int a);

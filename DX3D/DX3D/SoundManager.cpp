@@ -29,8 +29,32 @@ HRESULT SoundManager::Init(void)
 
 	//사용할 사운드 등록 AddSound("키이름", "위치", "BGM여부", "루프여부");
 	//												-> 기본으로 false, false
+	//BGM
 	AddSound("gameScene", "resources/sound/warFrame.mp3", true, true);
-	AddSound("gunFire", "resources/sound/AK47_SW_Fire.mp3", false, false);
+
+
+
+
+	//Effect
+	AddSound("swing", "resources/sound/swing.mp3", false, false);
+
+	AddSound("m4al_1", "resources/sound/m4a1_1.mp3", false, false);
+	//AddSound("m4a1_2", "resources/sound/m4a1_2.mp3", false, false);
+	AddSound("m4a1_reload", "resources/sound/m4a1_reload.mp3", false, false);
+	AddSound("m4a1_reload2", "resources/sound/m4a1_reload2.mp3", false, false);
+
+	AddSound("footstep", "resources/sound/footstep.mp3", false, false);
+
+	AddSound("clothEquip_inventory", "resources/sound/clothEquip_inventory.mp3", false, false);
+	AddSound("buyItem_inventory", "resources/sound/buyItem_inventory.mp3", false, false);
+
+	AddSound("Zealot_Death00", "resources/sound/Zealot_Death00.mp3", false, false);
+	AddSound("Zealot_Death02", "resources/sound/Zealot_Death02.mp3", false, false);
+	AddSound("Zealot_Death03", "resources/sound/Zealot_Death03.mp3", false, false);
+	AddSound("Zealot_Death04", "resources/sound/Zealot_Death04.mp3", false, false);
+
+	AddSound("zealot_death", "resources/sound/zealot_death.mp3", false, false);
+	AddSound("zealot_attack", "resources/sound/zealot_attack.mp3", false, false);
 
 	return S_OK;
 }

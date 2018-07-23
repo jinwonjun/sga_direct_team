@@ -79,7 +79,7 @@ private:
 	void Init_TextBar_Frame();
 	void Init_TextBar_Background();
 	void Draw_TextBar_Background();
-
+	bool TextBar_Rendering;
 
 public:
 

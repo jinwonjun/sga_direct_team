@@ -22,7 +22,8 @@ private:
 	int AddMaxHp;// 장비로 인한 맥스 HP
 	int AddDef;// 장비로 인한 추가방어력
 
-
+	//사운드를 위해 만든 bool 변수
+	bool isRun;
 public:
 	Ironman();
 	~Ironman();
@@ -63,7 +64,7 @@ public:
 
 	void AnimationModify();//X파일 위치 및 스케일 조정부분.
 	void AnimationKeySetting();//키입력에 따른 애니메이션 출력만들기
-
+	void SoundSetting();
 
 	//매인 캐릭터의 계산된 월드 행렬을 가져오자
 	D3DXMATRIXA16 matRotY, matRotX, matT, matR, matS, matTemp;

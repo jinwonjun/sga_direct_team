@@ -65,6 +65,16 @@ void ItemManager::render(int a)
 
 
 
+void ItemManager::init()
+{
+	ItemTable();
+
+	for (int i = 0; i < 15; i++)
+	{
+		g_pInventory->addIndex(Items[i]);
+	}
+}
+
 void ItemManager::ItemTable()
 {
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
@@ -143,7 +153,7 @@ void ItemManager::ItemTable()
 	};
 
 	Items[3] = { 4,  //인덱스, 아이템 번호
-		"Good_Armor", // 이름
+		"G.Armor", // 이름
 		0, // 공격력
 		30, // HP
 		0, // 현재 hp
@@ -163,7 +173,7 @@ void ItemManager::ItemTable()
 	};
 
 	Items[4] = { 5,  //인덱스, 아이템 번호
-		"Better_Armor", // 이름
+		"B.Armor", // 이름
 		0, // 공격력
 		40, // HP
 		0, // 현재 hp
@@ -182,7 +192,7 @@ void ItemManager::ItemTable()
 		false // 착용하고 있는가?		
 	};
 	Items[5] = { 6,  //인덱스, 아이템 번호
-		"Best_Armor", // 이름
+		"K.Armor", // 이름
 		0, // 공격력
 		60, // HP
 		0, // 현재 hp
@@ -221,7 +231,7 @@ void ItemManager::ItemTable()
 		false // 착용하고 있는가?		
 	};
 	Items[7] = { 8,  //인덱스, 아이템 번호
-		"K2 Glove", // 이름
+		"K2Glove", // 이름
 		0, // 공격력
 		0, // HP
 		0, // 현재 hp
@@ -240,7 +250,7 @@ void ItemManager::ItemTable()
 		false // 착용하고 있는가?		
 	};
 	Items[8] = { 9,  //인덱스, 아이템 번호
-		"Battle_Glove", // 이름
+		"B.Glove", // 이름
 		10, // 공격력
 		0, // HP
 		0, // 현재 hp
@@ -260,7 +270,7 @@ void ItemManager::ItemTable()
 	};
 	// 9,10,11 벨트
 	Items[9] = { 10,  //인덱스, 아이템 번호
-		"Black_Belt", // 이름
+		"B.Belt", // 이름
 		0, // 공격력
 		10, // HP
 		0, // 현재 hp
@@ -280,7 +290,7 @@ void ItemManager::ItemTable()
 	};
 	// 9,10,11 벨트
 	Items[10] = { 11,  //인덱스, 아이템 번호
-		"TanDDee", // 이름
+		"TanDDe", // 이름
 		0, // 공격력
 		10, // HP
 		0, // 현재 hp
@@ -300,7 +310,7 @@ void ItemManager::ItemTable()
 	};
 	// 9,10,11 벨트
 	Items[11] = { 12,  //인덱스, 아이템 번호
-		"King God Belt", // 이름
+		"K.G.Belt", // 이름
 		0, // 공격력
 		10, // HP
 		0, // 현재 hp
@@ -321,7 +331,7 @@ void ItemManager::ItemTable()
 
 	// 12,13,14 부츠
 	Items[12] = { 13,  //인덱스, 아이템 번호
-		"Boots_Shoe", // 이름
+		"Boots.S", // 이름
 		0, // 공격력
 		10, // HP
 		0, // 현재 hp
@@ -342,7 +352,7 @@ void ItemManager::ItemTable()
 
 	// 12,13,14 부츠
 	Items[13] = { 14,  //인덱스, 아이템 번호
-		"Boots_Race", // 이름
+		"Boots.R", // 이름
 		0, // 공격력
 		10, // HP
 		0, // 현재 hp
@@ -362,7 +372,7 @@ void ItemManager::ItemTable()
 	};
 
 	Items[14] = { 15,  //인덱스, 아이템 번호
-		"Boots_Brown", // 이름
+		"Boots.B", // 이름
 		5, // 공격력
 		5, // HP
 		0, // 현재 hp

@@ -136,8 +136,7 @@ private:
 	int CrossX;  // 가로축
 	int VertiY;  // 세로축 
 
-	int ItemSizeX; // 아이템 한칸당 사이즈
-	int ItemSizeY; // 아이템 한칸당 사이즈
+
 
 	bool EscapeFor; //포문 탈출하기 위한 불값
 	D3DXMATRIXA16 matWorld[60];
@@ -194,6 +193,9 @@ public:
 	void Update();
 	void Render() ;
 
+	int ItemSizeX; // 아이템 한칸당 사이즈
+	int ItemSizeY; // 아이템 한칸당 사이즈
+
 
 	int EquipData;
 	// IUIButtonDelegate을(를) 통해 상속됨
@@ -232,5 +234,9 @@ public:
 
 	//아이템 공식 계산을 한번만 하기 위해 사용하는 불값
 	bool isEquipItemChanged;
+
+	
+	void ShowItemInfo(items picked);
+
 };
 
