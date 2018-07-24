@@ -9,7 +9,7 @@
 #define MOVE_STOP_DISTANCE 10
 
 #define MOB_SCALE 15.00f
-#define MOB_FULL_HP 1//몹의 전체 피통
+#define MOB_FULL_HP 100//몹의 전체 피통
 
 class BoundingBox;
 class SkinnedMesh;
@@ -20,7 +20,6 @@ private:
 	friend class EnemyManager;
 
 	int						testNum;				//F3누르면 모드 변경
-
 	int						m_enemyNum;				//Enemy식별넘버
 
 	CString					m_path;
@@ -33,7 +32,6 @@ private:
 	BoundingSphere*			m_pBounidngSphere;
 	LPD3DXMESH				m_pSphereMesh;
 	LPD3DXMESH				m_pCollSphereMesh;
-
 	SkinnedMesh*			m_pSkinnedMesh;
 
 	//int						m_HP;
