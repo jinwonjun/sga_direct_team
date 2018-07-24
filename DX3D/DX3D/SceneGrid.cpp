@@ -82,9 +82,6 @@ void SceneGrid::Init()
 	pObj->Init();
 	AddSimpleDisplayObj(pObj);
 
-
-
-
 	m_pEm = new EnemyManager();
 	m_pEm->Init();
 

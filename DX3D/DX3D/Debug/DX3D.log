@@ -1,3 +1,51 @@
-﻿  Walls.cpp
+﻿  Scene_UI.cpp
+d:\sga_direct_team\dx3d\dx3d\enemy.h(101): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.h(102): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\scene_ui.cpp(26): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scene_ui.cpp(32): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scene_ui.cpp(37): warning C4316: 'Ironman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scene_ui.cpp(41): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  SceneGrid.cpp
+d:\sga_direct_team\dx3d\dx3d\enemy.h(101): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.h(102): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(81): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(85): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(105): warning C4316: 'Ironman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(109): warning C4316: 'Gun': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(137): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  Ironman.cpp
+d:\sga_direct_team\dx3d\dx3d\enemy.h(101): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.h(102): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(41): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(48): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(50): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(59): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(61): warning C4316: 'BloodEffect': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(164): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(236): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\ironman.cpp(297): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  EnemyManager.cpp
+d:\sga_direct_team\dx3d\dx3d\enemy.h(101): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.h(102): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(52): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(74): warning C4316: 'Enemy': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(80): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemymanager.cpp(85): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Enemy.cpp
+d:\sga_direct_team\dx3d\dx3d\enemy.h(101): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.h(102): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(69): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(81): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(105): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(107): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(113): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(115): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(216): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(226): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\sga_direct_team\dx3d\dx3d\enemy.cpp(245): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
+  건너뛰고 있습니다... (관련된 변경 내용 없음)
+  Cubeman.cpp
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
