@@ -22,13 +22,13 @@
     <ProjectGuid>{318797B4-98FA-42CB-9E2C-9F47BA015126}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DX3D</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -184,6 +184,9 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemyman.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Equip.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="GlobalDefinition.h" />
@@ -279,6 +282,9 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemyman.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Equip.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GlobalDefinition.cpp" />

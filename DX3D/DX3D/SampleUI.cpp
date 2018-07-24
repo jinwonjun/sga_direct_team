@@ -189,10 +189,6 @@ void SampleUI::Init()
 
 
 	}
-
-
-
-
 	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/Gun.png"), &m_pTex);
 
 	D3DXCreateTextureFromFileEx(
