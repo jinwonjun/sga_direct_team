@@ -54,7 +54,7 @@ HRESULT SoundManager::Init(void)
 	AddSound("Zealot_Death04", "resources/sound/Zealot_Death04.mp3", false, false);
 
 	AddSound("zealot_death", "resources/sound/zealot_death.mp3", false, false);
-	AddSound("zealot_attack", "resources/sound/zealot_attack.mp3", false, false);
+	AddSound("zealot_attack", "resources/sound/zealot_attack2.mp3", false, false);
 
 	return S_OK;
 }
