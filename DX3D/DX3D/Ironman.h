@@ -5,25 +5,34 @@ class SkinnedMesh;
 class BoundingBox;
 class BloodEffect;
 
+#define SCALE 0.1f
+
 class Ironman :
 	public IUnitObject
 {
 
 private:
-	float timer;
-	bool checkTimer;
-	int check;//구체 그리는거 체크용 함수
+	float	timer;
+	bool	checkTimer;
+	int		check;		//구체 그리는거 체크용 함수
 
 	//피격 구체 그려주기
 	vector<BoundingSphere*> m_vecBoundary;
 	LPD3DXMESH				m_pSphereMesh;
 
-	int AddAtk; // 장비로 인한 추가공격력
-	int AddMaxHp;// 장비로 인한 맥스 HP
-	int AddDef;// 장비로 인한 추가방어력
+	int AddAtk;		// 장비로 인한 추가공격력
+	int AddMaxHp;	// 장비로 인한 맥스 HP
+	int AddDef;		// 장비로 인한 추가방어력
 
 	//사운드를 위해 만든 bool 변수
 	bool isRun;
+
+	//총 반동
+	bool	isShoot;	//총을 쐈는지
+	int		shootTime;	//쏜시점 시간 증가
+	int		endTime;	//반동 종료 시간 : 클수록 천천히 오래
+	float	recoilPower;//반동 파워
+
 public:
 	Ironman();
 	~Ironman();

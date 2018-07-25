@@ -11,7 +11,6 @@
 //무기의 장착 상태 가져오는 용도
 #include "Gun.h"
 
-#define SCALE 0.1f
 
 Ironman::Ironman()
 {
@@ -91,6 +90,12 @@ void Ironman::Init()
 
 	//사운드를 위해 만든 bool 변수들
 	isRun = false;
+
+	//반동 변수들
+	isShoot = false;
+	shootTime = 0;
+	endTime = 10;
+	recoilPower = 0.02f;
 }
 
 void Ironman::Update()
@@ -149,6 +154,15 @@ void Ironman::Update()
 	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
 	{
 		Shoot();
+
+		if (shootTime > endTime) isShoot = false;
+
+		if (isShoot)
+		{
+			// Y = b - aX  : ( Y = m_rotX, X = shootTime , b = recoilPower, a = 2b / endTime)
+			g_pCamera->m_rotX -= (recoilPower - 2 * recoilPower / endTime * shootTime);
+			shootTime++;
+		}
 	}
 	else
 	{
@@ -273,6 +287,10 @@ void Ironman::Shoot()
 			//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
 			//break;
 		}
+
+		//총 반동 온
+		isShoot = true;
+		shootTime = 0;
 	}
 }
 
