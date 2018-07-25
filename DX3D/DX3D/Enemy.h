@@ -47,9 +47,13 @@ private:
 	//피격 구체 그려주기
 	vector<BoundingSphere*> m_vecBoundary;
 
+	//어택 모션 타이머 및 체크
+	float					AtkTimer;
+	bool					AtkCheck;
+
 	//사망 모션 타이머 및 체크
-	float					timer;
-	bool					DeathcheckTimer;
+	float					DeathTimer;
+	bool					DeathCheck;
 
 	//충돌 처리
 	float					m_CollRadius;			//충돌체크 반경
@@ -115,6 +119,7 @@ public:
 
 
 	void WorldToVP();
+	void UpdateFrameMatrix();
 
 	//고민좀 더 해보자 IUnitObject에 싹 넣어서 전체관리하는게 나을거같은데...
 	//일단 구현
@@ -122,6 +127,10 @@ public:
 	void Hit_Mob();//쫄몹이 때릴 때
 	void Hit_Boss();//보스가 때릴 때
 	bool SphereCollideCheck(BoundingSphere player, BoundingSphere Monster);
+	
+	void DrawRenderSphere();
+	void DrawRenderMobHp();
+	void MonsterCollideCheckRender();
 
 	void RenderUseShader_0();
 	void RenderUseShader_1();

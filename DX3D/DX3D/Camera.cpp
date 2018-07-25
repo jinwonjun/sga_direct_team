@@ -218,12 +218,12 @@ void Camera::Update()
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
 	g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
 
-	if (g_pKeyboard->KeyDown('K'))
+	if (g_pKeyboard->KeyDown('H'))
 	{
 		m_distance -= 3.0f;
 		if (m_distance <= 0.5f) m_distance = 0.5f;
 	}
-	else if (g_pKeyboard->KeyDown('L'))
+	else if (g_pKeyboard->KeyDown('J'))
 	{
 		m_distance += 3.0f;
 		if (m_distance >= 100) m_distance = 100;

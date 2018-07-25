@@ -67,12 +67,21 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 15.0f, 50.0f), m_pos); m_pBox->Init();
-	
+	//충돌 체크 부분 보스, 쫄 구분해서 초기화하기
+	if (GetEnemyNum() < 4)
+	{
+		m_CollRadius = 10.f;
+	}
+	else
+	{
+		m_CollRadius = 30.f;
+	}
+
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pFrontSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pBackSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_CollRadius, 10, 10, &m_pCollSphereMesh, NULL);
 
-	//기본구!
+	//기본구체
 	m_pBounidngSphere = new BoundingSphere(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_radius);
 
 	m_renderMode = RenderMode_ShadowMapping;
@@ -116,8 +125,6 @@ void Enemy::Init()
 			m_vecBoundary.push_back(t);
 		}
 	}
-
-
 
 	D3DXMatrixIdentity(&ApplyMatWorld);
 
@@ -172,10 +179,14 @@ void Enemy::Init()
 	D3DXMatrixIdentity(&matR_UI);
 	D3DXMatrixIdentity(&matW_UI);
 
-	//죽음 변수 사용하기
+	//사망 체크 변수 초기화
 	m_isDead = false;
-	timer = 0.0f;//체크 타이머 초기화
-	DeathcheckTimer = false;
+	DeathTimer = 0.0f;
+	DeathCheck = false;
+
+	//공격 체크 변수 초기화
+	AtkTimer = 0.0f;
+	AtkCheck = false;
 }
 
 void Enemy::Update()
@@ -202,210 +213,36 @@ void Enemy::Update()
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
 
+	//월드 좌표를 뷰포트로 가져오기
 	WorldToVP();
-
-
-	//Debug->EndLine();
-
-	//Debug->AddText("당신의 체력은...?:");
-	//Debug->AddText(m_Hp);
-
-	//보스 행렬 업데이트 돌리기
-	if (GetEnemyNum() == 4)
-	{
-		for (int i = 0; i < m_pSkinnedMesh->GetBossMatrix().size(); i++)
-		{
-			D3DXVECTOR3 tempCenter;
-			D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetBossMatrix())[i]);
-			m_vecBoundary[i]->center = tempCenter;
-			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
-		}
-	}
-	else
-	{
-		for (int i = 0; i < m_pSkinnedMesh->GetSubMobMatrix().size(); i++)
-		{
-			D3DXVECTOR3 tempCenter;
-			D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetSubMobMatrix())[i]);
-			m_vecBoundary[i]->center = tempCenter;
-			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
-		}
-	}
-	//추가된거 확인용도
-	//&& m_vecBoundary.size() > check
-	if (g_pKeyboard->KeyDown('N'))
-	{
-		check++;
-		m_vecBoundary[check]->isPicked = true;
-		if (m_vecBoundary.size()-1 == check)
-		{
-			check = -1;
-			for (int i = 0; i < m_vecBoundary.size(); i++)
-			{
-				//찾았으면 초기화하기
-				m_vecBoundary[i]->isPicked = false;
-			}
-		}
-	}
-	Debug->AddText("현재인덱스 확인 :");
-	Debug->AddText(check);
-	Debug->EndLine();
-	Debug->EndLine();
+	//몹의 행렬 업데이트
+	UpdateFrameMatrix();
 }
 
 void Enemy::Render()
 {
-	///////////////////////// 인식 박스 그리기 ///////////////////////////
-	if (testNum > 0 && testNum != 3)
-		m_pBox->Render();
-	
-	//////////////////////////구체 그려주기//////////////////////////////
-	//임시구체임!
+	//조명
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
-	g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
-	g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
-	g_pDevice->SetTexture(0, NULL);
-	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	m_pSphereMesh->DrawSubset(0);
-	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	//몹끼리 충돌 판정체크 그려주기
+	MonsterCollideCheckRender();
+	//몹 구성 구체 그려주기
+	DrawRenderSphere();
 
-	if (g_pKeyboard->KeyDown(VK_F4))
-	{
-		SphereDrawRender = !SphereDrawRender;
-	}
-	//구체 그리기
-	if (SphereDrawRender)
-	{
-		for (auto p : m_vecBoundary)
-		{
-			g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
-			D3DXMATRIXA16 mat;
-			D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
-			g_pDevice->SetTransform(D3DTS_WORLD, &mat);
-			//g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);	
-			if (p->isPicked == true)
-			{
-				g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
-			}
-			else
-			{
-				g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
-			}
-			g_pDevice->SetTexture(0, NULL);
-			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-			m_pSphereMesh->DrawSubset(0);
-			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-			g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
-		}
-	}
-	
+	//셋월드는 왜쓴거지
+	//g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 
-	
-	///////////////////////충돌 체크 구체 그리기//////////////////////////
-	
-	if (testNum > 1 && testNum != 3)
-	{
-
-		g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
-		g_pDevice->SetTexture(0, NULL);
-		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
-		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		m_pCollSphereMesh->DrawSubset(0);
-		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	}
-	
-	//////////////////////////헤드 구체 그리기////////////////////////////
-	
-	if (testNum > 2)
-	{
-		//앞
-		g_pDevice->SetTransform(D3DTS_WORLD, &m_matFrontSphere);
-		g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
-		g_pDevice->SetTexture(0, NULL);
-		m_pFrontSphereMesh->DrawSubset(0);
-		//뒤
-		g_pDevice->SetTransform(D3DTS_WORLD, &m_matBackSphere);
-		g_pDevice->SetTexture(0, NULL);
-		m_pBackSphereMesh->DrawSubset(0);
-	}
-	
-	////////////////////////////////////////////////////////////////////
-	
-	g_pDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	if(!m_isDead)
 	SAFE_RENDER(m_pSkinnedMesh);
-	//탁구공그리기
-	//m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
+	//몹 피통 그려주기
+	DrawRenderMobHp();
 
-	//UI그리기
-	////////////////////////////////////////////////////////////////////
-	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
-
-	float HP_Percent = (float)(((float)m_Hp / (float)MOB_FULL_HP) * 100);
-	
-	int Hp_Draw_Idx = 0;
-	if (HP_Percent <= 100 && HP_Percent > 87.5)
-	{
-		Hp_Draw_Idx = 7;
-	}
-	else if (HP_Percent <= 87.5 && HP_Percent > 75)
-	{
-		Hp_Draw_Idx = 6;
-	}
-	else if (HP_Percent <= 75 && HP_Percent > 62.5)
-	{
-		Hp_Draw_Idx = 5;
-	}
-	else if (HP_Percent <= 62.5 && HP_Percent > 50)
-	{
-		Hp_Draw_Idx = 4;
-	}
-	else if (HP_Percent <= 50 && HP_Percent > 37.5)
-	{
-		Hp_Draw_Idx = 3;
-	}
-	else if (HP_Percent <= 37.5 && HP_Percent > 25)
-	{
-		Hp_Draw_Idx = 2;
-	}
-	else if (HP_Percent <= 25 && HP_Percent > 12.5)
-	{
-		Hp_Draw_Idx = 1;
-	}
-	else if (HP_Percent <= 12.5 && HP_Percent > 0)
-	{
-		Hp_Draw_Idx = 0;
-	}
-
-	if ((m_Hp> 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
-						g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
-						g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
-						g_pCamera->GetMCenter().y <= ScreenY))
-	{
-		SetRect(&HP_Info[Hp_Draw_Idx].m_Image_rc, 0, 0, HP_Info[Hp_Draw_Idx].m_imageInfo.Width, HP_Info[Hp_Draw_Idx].m_imageInfo.Height);
-		//D3DXMatrixRotationZ(&matR, fAngle);
-		D3DXMatrixIdentity(&matT_UI);
-		D3DXMatrixTranslation(&matT_UI, ScreenX - HP_Info[Hp_Draw_Idx].m_imageInfo.Width / 2, ScreenY, 0);
-		//D3DXMatrixTranslation(&matT,0, 0, 0);
-	
-		//250, 850, 0
-		D3DXMatrixScaling(&matS_UI, 1.0f, 1.0f, 1);
-	
-		matW_UI = matS_UI* matR_UI * matT_UI;
-	
-		//D3DXSPRITE_ALPHABLEND
-		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-		m_pSprite->SetTransform(&matW_UI);
-		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
-		m_pSprite->End();
-	}
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 }
 
 void Enemy::UpdatePosition()
 {
 	D3DXVECTOR3 targetPos;
 	
-
 	//이동 목적지와 몬스터의 거리
 	float MoveDist = D3DXVec3Length(&(m_destPos - m_pos));
 
@@ -486,19 +323,19 @@ void Enemy::UpdatePosition()
 		//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
 		m_isMoving = false;
 		isDamage = false;
-		DeathcheckTimer = true;
+		DeathCheck = true;
 		m_pSkinnedMesh->status = 3;//사망 모션
 	}
-	if (DeathcheckTimer)
+	if (DeathCheck)
 	{
-		timer += 0.001f;
-		if (timer > 0.160f)
+		DeathTimer += 0.001f;
+		if (DeathTimer > 0.160f)
 		{
 			m_isDead = true;
 			if (m_isDead)
 			{
-				DeathcheckTimer = false;
-				timer = 0;
+				DeathCheck = false;
+				DeathTimer = 0;
 			}
 		}
 	}
@@ -620,7 +457,7 @@ void Enemy::UpdatePosition()
 	m_pos.y = height; //+ 5.0f;
 
 }
-
+//보스 및 쫄 애니매이션 스케일링->월드좌표 스킨매쉬에 반영
 void Enemy::AnimationModify()
 {
 	//쫄몹
@@ -675,7 +512,7 @@ void Enemy::AnimationModify()
 		}
 	}
 }
-
+//월드좌표 -> 뷰포트 변환
 void Enemy::WorldToVP()
 {
 	//월드좌표 -> 뷰 좌표 -> 프로젝션 -> 뷰포트 
@@ -720,9 +557,52 @@ void Enemy::WorldToVP()
 	//Debug->EndLine();
 	//Debug->EndLine();
 }
-
-
-
+//프레임 행렬 연산 값 업데이트
+void Enemy::UpdateFrameMatrix()
+{
+	//보스 행렬 업데이트 돌리기
+	if (GetEnemyNum() == 4)
+	{
+		for (int i = 0; i < m_pSkinnedMesh->GetBossMatrix().size(); i++)
+		{
+			D3DXVECTOR3 tempCenter;
+			D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetBossMatrix())[i]);
+			m_vecBoundary[i]->center = tempCenter;
+			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_pSkinnedMesh->GetSubMobMatrix().size(); i++)
+		{
+			D3DXVECTOR3 tempCenter;
+			D3DXVec3TransformCoord(&tempCenter, &tempCenter, &(m_pSkinnedMesh->GetSubMobMatrix())[i]);
+			m_vecBoundary[i]->center = tempCenter;
+			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
+		}
+	}
+	//추가된거 확인용도
+	//&& m_vecBoundary.size() > check
+	if (g_pKeyboard->KeyDown('N'))
+	{
+		check++;
+		m_vecBoundary[check]->isPicked = true;
+		if (m_vecBoundary.size() - 1 == check)
+		{
+			check = -1;
+			for (int i = 0; i < m_vecBoundary.size(); i++)
+			{
+				//찾았으면 초기화하기
+				m_vecBoundary[i]->isPicked = false;
+			}
+		}
+	}
+	Debug->AddText("현재인덱스 확인 :");
+	Debug->AddText(check);
+	Debug->EndLine();
+	Debug->EndLine();
+}
+//몹 피격 구체 렌더및 체크
 void Enemy::Hit_Mob()
 {
 	float minDistance = FLT_MAX;
@@ -761,8 +641,12 @@ void Enemy::Hit_Mob()
 
 void Enemy::Hit_Boss()
 {
-}
 
+
+
+
+}
+//구체 충돌 판정 함수
 bool Enemy::SphereCollideCheck(BoundingSphere player, BoundingSphere Monster)
 {
 	float SumRadius;
@@ -779,7 +663,148 @@ bool Enemy::SphereCollideCheck(BoundingSphere player, BoundingSphere Monster)
 
 	return false;
 }
+//몹의 구체를 그려주기 함수
+void Enemy::DrawRenderSphere()
+{
+	//////////////////////////구체 그려주기//////////////////////////////
+	//임시구체임!
+	//g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+	//g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
+	//g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+	//g_pDevice->SetTexture(0, NULL);
+	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//m_pSphereMesh->DrawSubset(0);
+	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	if (g_pKeyboard->KeyDown(VK_F4))
+	{
+		SphereDrawRender = !SphereDrawRender;
+	}
+	//구체 그리기
+	if (SphereDrawRender)
+	{
+		for (auto p : m_vecBoundary)
+		{
+			
+			D3DXMATRIXA16 mat;
+			D3DXMatrixTranslation(&mat, p->center.x, p->center.y, p->center.z);
+			g_pDevice->SetTransform(D3DTS_WORLD, &mat);
+			//g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);	
+			if (p->isPicked == true)
+			{
+				g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
+			}
+			else
+			{
+				g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+			}
+			g_pDevice->SetTexture(0, NULL);
+			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+			m_pSphereMesh->DrawSubset(0);
+			g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+			
+		}
+	}
 
+}
+//몹의 체력바 그려주기 함수
+void Enemy::DrawRenderMobHp()
+{
+	//UI그리기
+	////////////////////////////////////////////////////////////////////
+	//m_HP = 8 로 잡고 이걸 인덱스로 삼자.
+
+	float HP_Percent = (float)(((float)m_Hp / (float)MOB_FULL_HP) * 100);
+
+	int Hp_Draw_Idx = 0;
+	if (HP_Percent <= 100 && HP_Percent > 87.5)
+	{
+		Hp_Draw_Idx = 7;
+	}
+	else if (HP_Percent <= 87.5 && HP_Percent > 75)
+	{
+		Hp_Draw_Idx = 6;
+	}
+	else if (HP_Percent <= 75 && HP_Percent > 62.5)
+	{
+		Hp_Draw_Idx = 5;
+	}
+	else if (HP_Percent <= 62.5 && HP_Percent > 50)
+	{
+		Hp_Draw_Idx = 4;
+	}
+	else if (HP_Percent <= 50 && HP_Percent > 37.5)
+	{
+		Hp_Draw_Idx = 3;
+	}
+	else if (HP_Percent <= 37.5 && HP_Percent > 25)
+	{
+		Hp_Draw_Idx = 2;
+	}
+	else if (HP_Percent <= 25 && HP_Percent > 12.5)
+	{
+		Hp_Draw_Idx = 1;
+	}
+	else if (HP_Percent <= 12.5 && HP_Percent > 0)
+	{
+		Hp_Draw_Idx = 0;
+	}
+
+	if ((m_Hp> 0) && (g_pCamera->GetMCenter().x >= ScreenX - 20.0f &&
+		g_pCamera->GetMCenter().x <= ScreenX + 20.0f &&
+		g_pCamera->GetMCenter().y >= ScreenY - 80.0f &&
+		g_pCamera->GetMCenter().y <= ScreenY))
+	{
+		SetRect(&HP_Info[Hp_Draw_Idx].m_Image_rc, 0, 0, HP_Info[Hp_Draw_Idx].m_imageInfo.Width, HP_Info[Hp_Draw_Idx].m_imageInfo.Height);
+		//D3DXMatrixRotationZ(&matR, fAngle);
+		D3DXMatrixIdentity(&matT_UI);
+		D3DXMatrixTranslation(&matT_UI, ScreenX - HP_Info[Hp_Draw_Idx].m_imageInfo.Width / 2, ScreenY, 0);
+		//D3DXMatrixTranslation(&matT,0, 0, 0);
+
+		//250, 850, 0
+		D3DXMatrixScaling(&matS_UI, 1.0f, 1.0f, 1);
+
+		matW_UI = matS_UI* matR_UI * matT_UI;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matW_UI);
+		m_pSprite->Draw(HP_Info[Hp_Draw_Idx].m_pTex, &HP_Info[Hp_Draw_Idx].m_Image_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0), WHITE);
+		m_pSprite->End();
+	}
+}
+//몹끼리 충돌 체크 함수
+void Enemy::MonsterCollideCheckRender()
+{
+
+	///////////////////////// 인식 박스 그리기 ///////////////////////////
+	if (testNum > 0 && testNum != 3)
+		m_pBox->Render();
+	///////////////////////충돌 체크 구체 그리기//////////////////////////
+	if (testNum > 1 && testNum != 3)
+	{
+
+		g_pDevice->SetTransform(D3DTS_WORLD, &m_SphereMat);
+		g_pDevice->SetTexture(0, NULL);
+		g_pDevice->SetMaterial(&DXUtil::WHITE_MTRL);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		m_pCollSphereMesh->DrawSubset(0);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
+	//////////////////////////헤드 구체 그리기////////////////////////////
+	if (testNum > 2)
+	{
+		//앞
+		g_pDevice->SetTransform(D3DTS_WORLD, &m_matFrontSphere);
+		g_pDevice->SetMaterial(&DXUtil::RED_MTRL);
+		g_pDevice->SetTexture(0, NULL);
+		m_pFrontSphereMesh->DrawSubset(0);
+		//뒤
+		g_pDevice->SetTransform(D3DTS_WORLD, &m_matBackSphere);
+		g_pDevice->SetTexture(0, NULL);
+		m_pBackSphereMesh->DrawSubset(0);
+	}
+}
+//셰이더 렌더링
 void Enemy::RenderUseShader_0()
 {
 	m_pSkinnedMesh->RenderUseShader_0();
