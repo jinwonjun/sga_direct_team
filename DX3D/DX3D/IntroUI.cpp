@@ -53,8 +53,11 @@ void IntroUI::Init()
 		&IntroPage.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
+	gameStartCheck = false;
+
 	PlayButtonInit();
 	QuitButtonInit();
+	IntroPage.m_Color = WHITE;
 }
 
 void IntroUI::Update()
@@ -65,6 +68,14 @@ void IntroUI::Update()
 	if (PtInRect(&PlayButton.rect, mousePoint))
 	{
 		if ((g_pMouse->ButtonUp(Mouse::LBUTTON)))
+		{
+			gameStartCheck = true;
+		}
+	}
+	if (gameStartCheck)
+	{
+		IntroPage.m_Color.a -= 0.01f;
+		if (IntroPage.m_Color.a <= 0.0f)
 		{
 			g_pSceneManager->SetCurrentScene(SCENE_GRID);
 		}
@@ -133,10 +144,8 @@ void IntroUI::Render()
 		&IntroPage.m_Image_rc,
 		&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
+		IntroPage.m_Color);
 	IntroPage.m_pSprite->End();
-
-
 
 	QuitButton.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	QuitButton.m_pSprite->SetTransform(&QuitButton.matWorld);
@@ -144,8 +153,6 @@ void IntroUI::Render()
 	SAFE_RENDER(QuitButton.m_pRootUI);
 
 	QuitButton.m_pSprite->End();
-
-	
 
 
 	PlayButton.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);

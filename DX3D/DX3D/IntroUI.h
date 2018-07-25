@@ -22,6 +22,8 @@ struct Draw_UI
 	float ScaleY; // 이미지 Y 스케일
 	float PointX; // 이미지 시작 X 좌표
 	float PointY; // 이미지 시작 Y 좌표
+
+	D3DXCOLOR m_Color;//경혁아 메인 페이지좀 건드려볼게
 };
 
 struct Button_UI
@@ -53,6 +55,10 @@ private:
 	Button_UI PlayButton;
 	Button_UI QuitButton;
 	POINT mousePoint;
+
+	Draw_UI LoadingPage;//로딩씬 준비!
+
+	bool gameStartCheck;//게임 스타트 체크 신호!
 
 public:
 	IntroUI();

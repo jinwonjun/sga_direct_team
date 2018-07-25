@@ -99,7 +99,7 @@ void Camera::Update()
 
 	D3DXMATRIXA16 matRotX, matRotY, matRot;
 
-	if (GetAsyncKeyState('O') & 0x0001)
+	if (GetAsyncKeyState('K') & 0x0001)
 	{
 		if (sensLevel > 1)
 		{
@@ -108,7 +108,7 @@ void Camera::Update()
 			sensLevel--;
 		}
 	}
-	else if (GetAsyncKeyState('P') & 0x0001)
+	else if (GetAsyncKeyState('L') & 0x0001)
 	{
 		if (sensLevel < 10)
 		{

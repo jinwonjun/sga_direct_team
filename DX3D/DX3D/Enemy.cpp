@@ -88,7 +88,7 @@ void Enemy::Init()
 	}
 	else
 	{
-		m_pSkinnedMesh->SetRadius(2.0f);
+		m_pSkinnedMesh->SetRadius(6.0f);
 	}
 	
 	m_pSkinnedMesh->Load(m_path, m_filename);
@@ -175,7 +175,7 @@ void Enemy::Init()
 	//죽음 변수 사용하기
 	m_isDead = false;
 	timer = 0.0f;//체크 타이머 초기화
-	checkTimer = false;
+	DeathcheckTimer = false;
 }
 
 void Enemy::Update()
@@ -230,8 +230,6 @@ void Enemy::Update()
 			m_vecBoundary[i]->center = tempCenter;
 			tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 		}
-		//캐릭터 히트 판정 함수
-		Hit_Mob();
 	}
 	//추가된거 확인용도
 	//&& m_vecBoundary.size() > check
@@ -455,6 +453,10 @@ void Enemy::UpdatePosition()
 		else
 		{
 			m_pSkinnedMesh->status = 1; //어택
+			//캐릭터 히트 판정 함수
+			Hit_Mob();
+			//거리는 계속 따라오는데, 공격모션 하면 공격 모션을 하고나서 따라와야되는데, 공격 도중에 거리가 벌어지면,
+			//그 거리를 좁히기 위해 공격 모션을 씹고 움직인다는 건데, 공격 모션을 다 하고 나서 움직여야되는거지?
 		}
 		m_isMoving = false;
 	}
@@ -472,6 +474,11 @@ void Enemy::UpdatePosition()
 			m_pSkinnedMesh->status = 4;//멈춤
 		}
 	}
+	//쫄 어택 시간 타이머 체크하기
+
+
+
+
 	
 	//사망모션 타이머 표현
 	if (GetEnemyNum() == 4 && m_Hp <= 0)
@@ -479,10 +486,10 @@ void Enemy::UpdatePosition()
 		//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
 		m_isMoving = false;
 		isDamage = false;
-		checkTimer = true;
+		DeathcheckTimer = true;
 		m_pSkinnedMesh->status = 3;//사망 모션
 	}
-	if (checkTimer)
+	if (DeathcheckTimer)
 	{
 		timer += 0.001f;
 		if (timer > 0.160f)
@@ -490,7 +497,7 @@ void Enemy::UpdatePosition()
 			m_isDead = true;
 			if (m_isDead)
 			{
-				checkTimer = false;
+				DeathcheckTimer = false;
 				timer = 0;
 			}
 		}
@@ -734,6 +741,7 @@ void Enemy::Hit_Mob()
 			{
 				p->isPicked = true;
 				p->isDamaged = true;
+				break;
 			}
 			//거리 보정 위치값 찾기
 			//BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
