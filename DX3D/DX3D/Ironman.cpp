@@ -53,6 +53,7 @@ void Ironman::Init()
 
 	CString path = "resources/playerX/";
 	CString filename = "combine_All.X";
+
 	m_pSkinnedMesh->Load(path, filename);
 
 	m_pBox = new BoundingBox(D3DXVECTOR3(2.0f, 1.0f, 2.0f)); m_pBox->Init();
@@ -129,12 +130,6 @@ void Ironman::Update()
 			RightHand._33 = 0;
 		}
 	}
-
-
-	D3DXTRACK_DESC track;
-	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(0, &track);
-	LPD3DXANIMATIONSET pCurrAnimSet = NULL;
-	m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(0, &pCurrAnimSet);
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
@@ -455,6 +450,7 @@ void Ironman::AnimationKeySetting()
 	no_back = 15;
 	맨손일때는 리로드 애니가 없음!
 	*/
+
 	if (!g_pInventory->openInven)
 	{
 		if (Keyboard::Get()->KeyPress('W'))
@@ -551,7 +547,7 @@ void Ironman::AnimationKeySetting()
 		if (checkTimer)
 		{
 			timer += 0.001f;
-			if (timer > 0.025f)
+			if (timer >0.025f)
 			{
 				checkTimer = false;
 				timer = 0;

@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
-
+#include "Boss.h"
+#include "SubMonster.h"
 EnemyManager::EnemyManager()
 {
 }
-
 
 EnemyManager::~EnemyManager()
 {
@@ -71,8 +71,17 @@ void EnemyManager::Render(void)
 
 void EnemyManager::AddEnemy(D3DXVECTOR3 & pos, CString path, CString fileName, int enemyNum)
 {
-	Enemy* pEnemy = new Enemy(pos, path, fileName, enemyNum); pEnemy->Init();
-	m_vecEnemy.push_back(pEnemy);
+	//Enemy* pEnemy = new Enemy(pos, path, fileName, enemyNum); pEnemy->Init();
+	if (enemyNum < 4)
+	{
+		Enemy* pEnemy = new SubMonster(pos, path, fileName, enemyNum); pEnemy->Init();
+		m_vecEnemy.push_back(pEnemy);
+	}
+	else
+	{
+		Enemy* pEnemy = new Boss(pos, path, fileName, enemyNum); pEnemy->Init();
+		m_vecEnemy.push_back(pEnemy);
+	}
 }
 
 void EnemyManager::CollisionCheck()

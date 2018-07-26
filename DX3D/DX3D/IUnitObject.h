@@ -36,16 +36,12 @@ protected:
 	int				m_MaxHp;
 	int				m_Hp;
 
-
-	
-
 	IUnitObject();
 
 public:
 
 
 	virtual ~IUnitObject();
-
 
 	void SetDestination(const D3DXVECTOR3 &pos);
 	void UpdateKeyboardState();
