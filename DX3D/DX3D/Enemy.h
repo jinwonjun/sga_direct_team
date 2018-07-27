@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IUnitObject.h"
-#include "BoundingBox.h"
 #include "SampleUI.h"
 
 #define MAX_SEE_HEAD 10
@@ -17,7 +16,8 @@ class Enemy : public IUnitObject
 {
 private:
 	friend class EnemyManager;
-public:
+
+protected:
 	int						testNum;				//F3누르면 모드 변경
 	int						m_enemyNum;				//Enemy식별넘버
 
@@ -34,7 +34,7 @@ public:
 
 	SkinnedMesh*			m_pSkinnedMesh;
 
-	//int						m_HP;
+	//int					m_HP;
 	bool					m_ItemDrop;
 	float					m_radius;				//피격 구체 반지름
 

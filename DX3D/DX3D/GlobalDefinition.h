@@ -194,6 +194,7 @@ struct Particle
 	D3DXVECTOR3 _position;	//구체 중점
 	float		_expand;	//확장도
 	float		_angle;		//시작 위치 영향 주는 각도
+	D3DXCOLOR	_color;		
 };
 
 struct VERTEX_RHWC

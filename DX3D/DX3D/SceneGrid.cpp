@@ -11,10 +11,12 @@
 #include "ActionCube.h"
 #include "Frustum.h"
 
-#include"SkyBox.h"
+#include "SkyBox.h"
 #include "HeightMap.h"
+#include "BoundingBox.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
+#include "PortalEffect.h"
 
 //맵에 스킨매쉬 올려보기
 #include "ironman.h"
@@ -52,6 +54,8 @@ void SceneGrid::Release()
 	//SAFE_RELEASE(m_Inventory);
 
 	SAFE_RELEASE(m_pCharacter);
+
+	SAFE_RELEASE(m_pPortalEffect);
 
 	BaseObject::Release();
 }
@@ -137,6 +141,11 @@ void SceneGrid::Init()
 	ObjMap* pMap = new ObjMap();
 	pMap->Init();
 	AddSimpleDisplayObj((pMap));
+
+	m_pPortalEffect = new PortalEffect();
+	m_pPortalEffect->Init();
+	AddSimpleDisplayObj(m_pPortalEffect);
+
 
 	//조명!
 	D3DXVECTOR3 dir(1.0f, -1.0f, 1.0f);
@@ -233,4 +242,10 @@ void SceneGrid::BoundingCheck()
 			p->SetIsMove(false);
 		}
 	}
+
+	if (m_pCharacter->GetBoundingBox()->IsIntersected(*(m_pPortalEffect->GetBoundingBox())))
+	{
+		//보스맵으로 변경
+	}
+
 }

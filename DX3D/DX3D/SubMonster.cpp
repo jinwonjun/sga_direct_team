@@ -53,7 +53,7 @@ SubMonster::~SubMonster()
 
 void SubMonster::Init()
 {
-	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 15.0f, 50.0f), m_pos); m_pBox->Init();
+	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 30.0f, 50.0f), m_pos); m_pBox->Init();
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pFrontSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pBackSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_CollRadius, 10, 10, &m_pCollSphereMesh, NULL);
@@ -175,6 +175,7 @@ void SubMonster::Update()
 
 void SubMonster::Render()
 {
+
 	//조명
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	//몹끼리 충돌 판정체크 그려주기
@@ -641,6 +642,9 @@ void SubMonster::MonsterCollideCheckRender()
 	///////////////////////// 인식 박스 그리기 ///////////////////////////
 	if (testNum > 0 && testNum != 3)
 		m_pBox->Render();
+
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+
 	///////////////////////충돌 체크 구체 그리기//////////////////////////
 	if (testNum > 1 && testNum != 3)
 	{

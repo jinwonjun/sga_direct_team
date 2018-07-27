@@ -587,6 +587,9 @@ void Boss::MonsterCollideCheckRender()
 	///////////////////////// 인식 박스 그리기 ///////////////////////////
 	if (testNum > 0 && testNum != 3)
 		m_pBox->Render();
+	
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
+
 	///////////////////////충돌 체크 구체 그리기//////////////////////////
 	if (testNum > 1 && testNum != 3)
 	{
