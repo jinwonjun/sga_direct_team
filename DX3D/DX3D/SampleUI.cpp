@@ -285,7 +285,7 @@ void SampleUI::Init()
 	// ¹Ì´Ï¸Ê-ÂÌ¸÷
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/minimap/MiniMap_.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/minimap/MiniMap__.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -767,6 +767,35 @@ void SampleUI::Render()
 			&D3DXVECTOR3(0, 0, 0),
 			WHITE);
 		m_pSprite->End();
+
+
+		D3DXMATRIXA16 matRZ, matRY;
+		D3DXMatrixIdentity(&matRZ);
+		float Rotscale = g_pCamera->m_rotY;
+		//¹Ì´Ï¸Ê Ä³¸¯ÅÍ Ç¥½Ã
+
+		SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
+
+		D3DXMatrixRotationZ(&matRZ, Rotscale);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width / 2) + ((CalPlayerPos._41 / 9.f)) + 80, (MiniCHAR.m_imageInfo.Height / 2) + (CalPlayerPos._43 / 6.8f)*(-1) + 180, 0);
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+		matWorld = matS * matRZ * matT;
+
+		//MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.3f;
+		//MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.3f;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			MiniCHAR.m_pTex,
+			&MiniCHAR.m_Image_rc,
+			&D3DXVECTOR3(MiniCHAR.m_imageInfo.Width / 2, MiniCHAR.m_imageInfo.Height*(0.75f), 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
 	}
 	else//º¸½º¸Ê ¹Ì´Ï¸Ê ±×·ÁÁÖ±â
 	{
@@ -793,41 +822,36 @@ void SampleUI::Render()
 			&D3DXVECTOR3(0, 0, 0),
 			WHITE);
 		m_pSprite->End();
+
+		D3DXMATRIXA16 matRZ, matRY;
+		D3DXMatrixIdentity(&matRZ);
+		float Rotscale = g_pCamera->m_rotY;
+		//¹Ì´Ï¸Ê Ä³¸¯ÅÍ Ç¥½Ã
+
+		SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
+
+		D3DXMatrixRotationZ(&matRZ, Rotscale);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width / 2) + ((CalPlayerPos._41 / 3.f)) + 90, (MiniCHAR.m_imageInfo.Height / 2) + (CalPlayerPos._43 / 3.f)*(-1) + 130, 0);
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+		matWorld = matS * matRZ * matT;
+
+		//MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.3f;
+		//MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.3f;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			MiniCHAR.m_pTex,
+			&MiniCHAR.m_Image_rc,
+			&D3DXVECTOR3(MiniCHAR.m_imageInfo.Width / 2, MiniCHAR.m_imageInfo.Height*(0.75f), 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
 	}
 
-	//fAngle -= 0.01;
-	float Rotscale = g_pCamera->m_rotY;
-
-	//¹Ì´Ï¸Ê Ä³¸¯ÅÍ Ç¥½Ã
-	SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
-
-	D3DXMatrixRotationZ(&matR, D3DX_PI/-2 + Rotscale);
-	D3DXMatrixIdentity(&matT);
-	//D3DXMatrixTranslation(&matT, 10, 10, 0);
-	D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width /2) + ((CalPlayerPos._43 / 8.f)*(-1)) +180 , (MiniCHAR.m_imageInfo.Height / 2) +(CalPlayerPos._41 / 6.f) +90, 0);
-	D3DXMatrixScaling(&matS, .5f, .5f, 1);
-
-	matWorld = matS* matR * matT;
-
-	MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.5f;
-	MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.5f;
-
-	//D3DXSPRITE_ALPHABLEND
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(
-		MiniCHAR.m_pTex,
-		&MiniCHAR.m_Image_rc,
-		&D3DXVECTOR3(MiniCHAR.m_imageInfo.Width/2, MiniCHAR.m_imageInfo.Height*(0.75f), 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
-	m_pSprite->End();
-
-
-
-	int a = clientRect.right;
 
 
 	//SAFE_RENDER(m_pRootUI_Def);
