@@ -195,7 +195,6 @@ void SceneGrid::BoundingCheck()
 {
 	for (auto p : m_pEm->GetVecEnemy())
 	{
-		//BoundingBox* pEnemyBox = p->GetBoundingBox();
 		if (m_pCharacter->GetBoundingBox()->IsIntersected(*(p->GetBoundingBox())))
 		{
 			p->SetDestPos(m_pCharacter->GetPosition());
@@ -210,11 +209,10 @@ void SceneGrid::BoundingCheck()
 	if (m_pCharacter->GetBoundingBox()->IsIntersected(*(m_pPortalEffect->GetBoundingBox())))
 	{
 		//보스맵으로 변경
-		static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->Init_cs_assault();
+		static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->Init_old_town();
 		static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->SetMapChangeSignal(true);
 		m_pCharacter->SetPosition(&D3DXVECTOR3(0, 0, 0));
 	}
-
 }
 
 //g_pMapManager->SetCurrentMap("Assult");
