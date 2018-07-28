@@ -31,7 +31,7 @@ HRESULT SoundManager::Init(void)
 	//												-> 기본으로 false, false
 	//BGM
 	AddSound("gameScene", "resources/sound/warFrame.mp3", true, true);
-
+	AddSound("bossScene", "resources/sound/boss_theme.mp3", true, true);
 
 
 
@@ -43,19 +43,30 @@ HRESULT SoundManager::Init(void)
 	AddSound("m4a1_reload", "resources/sound/m4a1_reload.mp3", false, false);
 	AddSound("m4a1_reload2", "resources/sound/m4a1_reload2.mp3", false, false);
 
+	AddSound("zod_gun", "resources/sound/zod_gun.mp3", false, false);
+
+	//AddSound("laser_gun", "resources/sound/laser.mp3", false, false);
+	AddSound("laser_gun", "resources/sound/laser2.mp3", false, false);
+
 	AddSound("footstep", "resources/sound/footstep.mp3", false, false);
+	AddSound("teleport", "resources/sound/teleport.mp3", false, false);
 
 	AddSound("clothEquip_inventory", "resources/sound/clothEquip_inventory.mp3", false, false);
 	AddSound("buyItem_inventory", "resources/sound/buyItem_inventory.mp3", false, false);
 
+	AddSound("zealot_apply", "resources/sound/zealot_apply.mp3", false, false);
 	AddSound("Zealot_Death00", "resources/sound/Zealot_Death00.mp3", false, false);
 	AddSound("Zealot_Death02", "resources/sound/Zealot_Death02.mp3", false, false);
 	AddSound("Zealot_Death03", "resources/sound/Zealot_Death03.mp3", false, false);
-	AddSound("Zealot_Death04", "resources/sound/Zealot_Death04.mp3", false, false);
 
 	AddSound("zealot_death", "resources/sound/zealot_death.mp3", false, false);
-	AddSound("zealot_attack", "resources/sound/zealot_attack2.mp3", false, false);
+	//AddSound("zealot_attack", "resources/sound/zealot_attack.mp3", false, false);
+	AddSound("zealot_attack", "resources/sound/zealot_attack3.mp3", false, false);
 
+
+
+	AddSound("boss_apply", "resources/sound/boss_apply.mp3", false, false);
+	AddSound("boss_death", "resources/sound/Zealot_Death04.mp3", false, false);
 	return S_OK;
 }
 

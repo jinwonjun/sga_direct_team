@@ -225,9 +225,18 @@ void Ironman::Shoot()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
-		if ( (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 1))
-			g_pSoundManager->Play("m4al_1", 0.3f);
-
+		if (!g_pInventory->openInven)
+		{
+			switch (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus())
+			{
+			case 1: g_pSoundManager->Play("m4al_1", 0.3f);
+				break;
+			case 2:  g_pSoundManager->Play("laser_gun", 0.5f);
+				break;
+			case 3:g_pSoundManager->Play("zod_gun", 0.3f);
+				break;
+			}
+		}
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
 		BoundingSphere* sphere = NULL;
@@ -270,13 +279,15 @@ void Ironman::Shoot()
 		if (tempEnemy != NULL)
 		{
 			g_pItem->MonsterDamaged(DamageFontNum);
+			if (g_pUIOperator->BattleOn_Zealot == false) g_pSoundManager->Play("zealot_apply", 1.0f);
 			g_pUIOperator->BattleOn_Zealot = true;
 
 			if (tempEnemy->GetEnemyNum() == 4)
 			{
+				if (g_pUIOperator->BattleOn_Mutant == false) g_pSoundManager->Play("boss_apply", 1.0f);
 				g_pUIOperator->BattleOn_Mutant = true;
 			}
-			
+
 			DamageFontNum++;
 
 			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
@@ -512,7 +523,7 @@ void Ironman::AnimationKeySetting()
 				m_pSkinnedMesh->status = 4;
 			}
 		}
-		else if (Keyboard::Get()->KeyPress('R') && static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+		else if (Keyboard::Get()->KeyDown('R') && static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
 		{
 			g_pSoundManager->Play("m4a1_reload", 0.3f);
 			checkTimer = true;

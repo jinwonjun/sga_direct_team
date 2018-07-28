@@ -84,6 +84,11 @@ protected:
 
 	D3DXMATRIXA16 ApplyMatWorld;//스킨매쉬에서 그리는 월드 행렬값을 여기서 가져오자.
 
+
+	//공격 애니메이션 초기화할 변수
+	bool					m_isAniAttack;
+	//공격 애니메이션 소리 낼 조건을 위한 변수
+	bool					m_isAniSoundAttack;
 public:
 	Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum);
 	virtual ~Enemy();

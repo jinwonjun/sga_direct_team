@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿  UIOperator.cpp
 d:\_포폴\git\dx3d\dx3d\uioperator.cpp(14): warning C4316: 'UIOperator': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
 d:\_포폴\git\dx3d\dx3d\uioperator.cpp(350): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -400,3 +401,16 @@ d:\sga_direct_team\dx3d\dx3d\equip.cpp(311): warning C4316: 'UIButton': 힙에 �
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
 >>>>>>> f9de2e93f25afc9201a4c4f939a719b721ea0169
+=======
+﻿  SoundManager.cpp
+  SceneGrid.cpp
+c:\project\dx3d\dx3d\scenegrid.cpp(85): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\scenegrid.cpp(89): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\scenegrid.cpp(109): warning C4316: 'Ironman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\scenegrid.cpp(113): warning C4316: 'Gun': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\scenegrid.cpp(141): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\scenegrid.cpp(145): warning C4316: 'PortalEffect': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  코드를 생성하고 있습니다...
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> 97deef2b0a7136d3b8ca17048a0573a0d81312a4
