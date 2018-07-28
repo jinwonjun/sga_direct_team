@@ -298,6 +298,19 @@ void ObjMap::Init_old_town()
 	g_pMapManager->SetCurrentMap("Town");
 }
 
+//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+//안개를 적용 시키자!!!!
+//g_pDevice->SetRenderState(D3DRS_FOGENABLE, true);
+//g_pDevice->SetRenderState(D3DRS_FOGCOLOR, 0xffbbbbbb);
+//g_pDevice->SetRenderState(D3DRS_FOGDENSITY, FtoDw(0.1f));//강도 0~1f 
+////안개 적용 최소 거리
+//g_pDevice->SetRenderState(D3DRS_FOGSTART, FtoDw(20.0f));
+////안개 최대치로 적용되는거리
+//g_pDevice->SetRenderState(D3DRS_FOGEND, FtoDw(40.0f));
+//g_pDevice->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);
+
+//랜더 끝나면 꺼주기
+//g_pDevice->SetRenderState(D3DRS_FOGENABLE, false);
 
 void ObjMap::RenderUseShader_0()
 {

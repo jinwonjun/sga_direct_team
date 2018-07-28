@@ -17,8 +17,8 @@ PortalEffect::~PortalEffect()
 
 void PortalEffect::Release()
 {
-	SAFE_RELEASE(m_pVB);
 	SAFE_RELEASE(m_pTex);
+	SAFE_RELEASE(m_pVB);
 	SAFE_RELEASE(m_pBox);
 }
 

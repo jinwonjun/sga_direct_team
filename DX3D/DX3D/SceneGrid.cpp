@@ -215,11 +215,14 @@ void SceneGrid::BoundingCheck()
 			static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->SetMapChangeSignal(true);
 
 			m_pPortalEffect->isPortal = false;
-			m_pCharacter->SetPosition(&D3DXVECTOR3(0, 0, 0));
-			m_pEm->AddEnemy(D3DXVECTOR3(145, 0, 30), "resources/Boss_test/", "Mutant.X", 4);
-
+			m_pCharacter->SetPosition(&D3DXVECTOR3(-37, -30, -310));//-37 -30  310
+			m_pEm->AddEnemy(D3DXVECTOR3(270, 0, 0), "resources/Boss_test/", "Mutant.X", 4);
 		}
 	}
+	Debug->AddText("캐릭터 위치 : ");
+	Debug->AddText(m_pCharacter->GetPosition());
+	Debug->EndLine();
+	Debug->EndLine();
 }
 
 //g_pMapManager->SetCurrentMap("Assult");

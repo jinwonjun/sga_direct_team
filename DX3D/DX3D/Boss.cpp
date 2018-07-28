@@ -59,6 +59,7 @@ Boss::~Boss()
 
 void Boss::Init()
 {
+	g_pObjMgr->AddToTagList(TAG_BOSS, this);
 	m_pBox = new BoundingBox(D3DXVECTOR3(100.0f, 15.0f, 100.0f), m_pos); m_pBox->Init();
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pFrontSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pBackSphereMesh, NULL);
