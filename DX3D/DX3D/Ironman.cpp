@@ -475,6 +475,7 @@ void Ironman::AnimationKeySetting()
 		{
 			isRun = true;	//顿绰家府
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 10;
@@ -488,6 +489,7 @@ void Ironman::AnimationKeySetting()
 		{
 			isRun = true;	//顿绰家府
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 14;
@@ -501,6 +503,7 @@ void Ironman::AnimationKeySetting()
 		{
 			isRun = true;	//顿绰家府
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 11;
@@ -514,6 +517,7 @@ void Ironman::AnimationKeySetting()
 		{
 			isRun = true;	//顿绰家府
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 12;
@@ -562,6 +566,7 @@ void Ironman::AnimationKeySetting()
 				m_pSkinnedMesh->status = 1;
 			}
 		}
+		
 		if (checkTimer)
 		{
 			timer += 0.001f;
