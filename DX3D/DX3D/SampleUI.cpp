@@ -329,7 +329,7 @@ void SampleUI::Update()
 
 	if (restBullet < 0)
 	{
-		restBullet = 0;
+		
 	}
 	
 

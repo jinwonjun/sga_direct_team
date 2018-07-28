@@ -203,17 +203,16 @@ void Camera::Update()
 
 	//}
 
+	ShowCursor(false);
 
-
-	if (g_pInventory->openInven)
-	{
-		ShowCursor(true);
-	}
-	else
-
-	{
-		ShowCursor(true);
-	}
+	//if (g_pInventory->openInven || g_pShop->ShopOpen || g_pEquip->EquipScreenOn)
+	//{
+	//	MouseCurorOn = true;
+	//}
+	//else
+	//{
+	//	MouseCurorOn = false;
+	//}
 
 	D3DXMatrixLookAtLH(&m_matView, &m_eye, &m_lookAt, &m_up);
 	g_pDevice->SetTransform(D3DTS_VIEW, &m_matView);
@@ -236,7 +235,7 @@ void Camera::Update()
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	//printf("ÀÌÀüxÁÂÇ¥ : %d, ÀÌÀüyÁÂÇ¥ : %d\n", m_ptPrevMouse.x, m_ptPrevMouse.y);
-	if (g_pInventory->openInven)
+	if (g_pInventory->openInven || g_pShop->ShopOpen || g_pEquip->EquipScreenOn)
 	{
 		POINT currPoint;
 		switch (message)
