@@ -7,7 +7,10 @@
 #define INVENCORSS 6
 #define INVENVERTI 7
 #define INVENITEMSTART_X 1000
+
+
 #define INVENITEMSTART_Y 150
+
 #define NumOfItemTextKind 6
 #define g_pInventory  InventoryManager::Get()
 
@@ -91,8 +94,7 @@ private:
 	Inven_UI Inventory;
 	Inven_UI Inventory_Chara;
 	Inven_UI ItemSet;
-	Inven_UI MouseCursor_Normal;
-	Inven_UI MousCursor_ClickedOn;
+
 	Inven_UI Exit_Button;
 
 	//0723 ¡÷ºÆ

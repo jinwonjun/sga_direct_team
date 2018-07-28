@@ -45,7 +45,7 @@ private:
 	bool			isColl;
 
 	//마우스 커서
-	bool			UIopen;
+	bool			MouseCurorOn;
 public:
 
 	float			m_rotX;

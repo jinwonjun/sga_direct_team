@@ -87,11 +87,11 @@ void Application::Render()
 
 	g_pInventory->Render();
 	g_pUIOperator->Render();
-	g_pUIManager->Render();
+
 	g_pShop->Render();
 	g_pEquip->Render();
 //	g_pStatus->Render();
-
+	g_pUIManager->Render();
 	if (GetAsyncKeyState('M') & 0x0001)
 	{
 		Debug->ShowMessageBox();

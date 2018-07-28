@@ -92,6 +92,23 @@ void InventoryManager::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&Inventory.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
+
+	//D3DXCreateTextureFromFileEx(
+	//	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+	//	_T("resources/images/inventory/Inven_temp_2.png"),   //LPCTSTR pSrcFile,
+	//	D3DX_DEFAULT_NONPOW2,   //UINT Width,
+	//	D3DX_DEFAULT_NONPOW2,   //UINT Height,
+	//	D3DX_DEFAULT,      //UINT MipLevels,
+	//	0,               //DWORD Usage,
+	//	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+	//	D3DPOOL_MANAGED,   //D3DPOOL Pool
+	//	D3DX_FILTER_NONE,   //DWORD Filter
+	//	D3DX_DEFAULT,      //DWORD MipFilter
+	//	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+	//	&Inventory_Chara.m_image,   //D3DXIMAGE_INFO *pSrcInfo
+	//	NULL,         //PALETTEENTRY *pPalette
+	//	&Inventory_Chara.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 		_T("resources/images/inventory/Inven_temp_4.png"),   //LPCTSTR pSrcFile,
@@ -109,37 +126,8 @@ void InventoryManager::Init()
 		&Inventory_Chara.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 
-	D3DXCreateTextureFromFileEx(
-		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/Cursor_Normal.png"),   //LPCTSTR pSrcFile,
-		D3DX_DEFAULT_NONPOW2,   //UINT Width,
-		D3DX_DEFAULT_NONPOW2,   //UINT Height,
-		D3DX_DEFAULT,      //UINT MipLevels,
-		0,               //DWORD Usage,
-		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-		D3DPOOL_MANAGED,   //D3DPOOL Pool
-		D3DX_FILTER_NONE,   //DWORD Filter
-		D3DX_DEFAULT,      //DWORD MipFilter
-		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&MouseCursor_Normal.m_image,   //D3DXIMAGE_INFO *pSrcInfo
-		NULL,         //PALETTEENTRY *pPalette
-		&MouseCursor_Normal.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-	D3DXCreateTextureFromFileEx(
-		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/Cursor_Clicked.png"),   //LPCTSTR pSrcFile,
-		D3DX_DEFAULT_NONPOW2,   //UINT Width,
-		D3DX_DEFAULT_NONPOW2,   //UINT Height,
-		D3DX_DEFAULT,      //UINT MipLevels,
-		0,               //DWORD Usage,
-		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
-		D3DPOOL_MANAGED,   //D3DPOOL Pool
-		D3DX_FILTER_NONE,   //DWORD Filter
-		D3DX_DEFAULT,      //DWORD MipFilter
-		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
-		&MousCursor_ClickedOn.m_image,   //D3DXIMAGE_INFO *pSrcInfo
-		NULL,         //PALETTEENTRY *pPalette
-		&MousCursor_ClickedOn.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+	
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -864,8 +852,11 @@ void InventoryManager::Render()
 				&Inventory_Chara.m_rc,
 				&D3DXVECTOR3(0, 0, 0),
 				&D3DXVECTOR3(0, 0, 0),
-				WHITE);
+
+				D3DCOLOR_ARGB(255, 255, 255, 255));
 			m_pSprite->End();
+
+	
 
 			SetRect(&Exit_Button.m_rc, 0, 0, Exit_Button.m_image.Width, Exit_Button.m_image.Height);
 
@@ -931,51 +922,7 @@ void InventoryManager::Render()
 			// Equip 한번 가보자으아아아아 
 			for (int i = 0; i < 6; i++)
 			{
-				if (g_pMouse->ButtonPress(Mouse::LBUTTON))
-				{
-					D3DXMatrixRotationZ(&matR, fAngle);
-					D3DXMatrixIdentity(&matT);
-					D3DXMatrixTranslation(&matT, mousePoint.x, mousePoint.y, 0);
-					D3DXMatrixScaling(&matS, 1.f, 1.f, 1);
-					matWorld[matWorld_MouseCursor] = matS * matR * matT;
-
-					//m_pSprite->SetTransform(&matWorld[matWorld_MouseCursor]);
-
-					SetRect(&MousCursor_ClickedOn.m_rc, 0, 0, MousCursor_ClickedOn.m_image.Width, MousCursor_ClickedOn.m_image.Height);
-
-
-					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-					m_pSprite->SetTransform(&matWorld[matWorld_MouseCursor]);
-					m_pSprite->Draw(
-						MousCursor_ClickedOn.m_pTex,
-						&MousCursor_ClickedOn.m_rc,
-						&D3DXVECTOR3(0, 0, 0),
-						&D3DXVECTOR3(0, 0, 0),
-						WHITE);
-					m_pSprite->End();
-				}
-
-				else
-				{
-					D3DXMatrixRotationZ(&matR, fAngle);
-					D3DXMatrixIdentity(&matT);
-					D3DXMatrixTranslation(&matT, mousePoint.x, mousePoint.y, 0);
-					D3DXMatrixScaling(&matS, 1.f, 1.f, 1);
-					matWorld[matWorld_MouseCursor] = matS * matR * matT;
-					//m_pSprite->SetTransform(&matWorld[matWorld_MouseCursor]);
-
-					SetRect(&MouseCursor_Normal.m_rc, 0, 0, MouseCursor_Normal.m_image.Width, MouseCursor_Normal.m_image.Height);
-
-					m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-					m_pSprite->SetTransform(&matWorld[matWorld_MouseCursor]);
-					m_pSprite->Draw(
-						MouseCursor_Normal.m_pTex,
-						&MouseCursor_Normal.m_rc,
-						&D3DXVECTOR3(0, 0, 0),
-						&D3DXVECTOR3(0, 0, 0),
-						WHITE);
-					m_pSprite->End();
-				}
+				
 				for (int j = 0; j < INVENVERTI; j++)
 				{
 
