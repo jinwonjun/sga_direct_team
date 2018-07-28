@@ -178,57 +178,21 @@ void SceneGrid::Update()
 
 void SceneGrid::Render()
 {
-	//그릴 도형의 타입, 도형의 갯수, 정점 정보의 시작 주소, 정점의 크기
-	//그라데이션 형식으로 그려짐.
-	//g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size() / 3,&m_vecVertex[0],sizeof(VERTEX_PC));
-
-	//기본 렌더 셋팅인데 이것때문에 이상하게 그려지는거 같음
-	//D3DXMATRIXA16 mat;
-	//D3DXMatrixIdentity(&mat);
-	//g_pDevice->SetTransform(D3DTS_WORLD, &mat);
-	//g_pDevice->SetFVF(VERTEX_PT::FVF);
-	//g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
-	//g_pDevice->SetTexture(0, tex);
-	//g_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, vecPTVertex.size() / 3, &vecPTVertex[0], sizeof(VERTEX_PT));
-	//g_pDevice->SetTexture(0, NULL);
-
 	//스카이박스!!!
 	m_pSky->Render();
 
-	//큐브 그리기
-	//pCube->Render();
-	//그리드 그리기
-	//SAFE_RENDER(m_pGrid);
-
-	//SAFE_RENDER(m_pCubeman);
-	//조명에 따른 벽 그려보기
-	//SAFE_RENDER(m_pWalls);
-
-	//SAFE_RENDER(m_pHexagon);
-
-	//SAFE_RENDER(m_pActionCube);
-
-	//SAFE_RENDER(m_pFrustum);
-
-	//IScene상속 받는 애들 전부 렌더하기
-	//SAFE_RENDER(m_pHeightMap);
 	SAFE_RENDER(m_pEm);
-
 
 	OnRenderIScene();
 }
 
 void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	//SAFE_WNDPROC(m_pHeightMap);
+
 }
 
 void SceneGrid::BoundingCheck()
 {
-
-	//Ironman* PlayerObj = static_cast <Ironman *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER));
-	//EnemyManager* EnemyObj = static_cast <EnemyManager *>(g_pObjMgr->FindObjectByTag(TAG_ENEMY));
-
 	for (auto p : m_pEm->GetVecEnemy())
 	{
 		//BoundingBox* pEnemyBox = p->GetBoundingBox();
@@ -247,7 +211,8 @@ void SceneGrid::BoundingCheck()
 	{
 		//보스맵으로 변경
 		static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->Init_cs_assault();
-		static_cast <Ironman*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetPosition(&D3DXVECTOR3(0, 0, 0));
+		static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->SetMapChangeSignal(true);
+		m_pCharacter->SetPosition(&D3DXVECTOR3(0, 0, 0));
 	}
 
 }
