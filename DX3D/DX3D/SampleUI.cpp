@@ -801,7 +801,7 @@ void SampleUI::Render()
 	//미니맵 캐릭터 표시
 	SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
 
-	D3DXMatrixRotationZ(&matR, D3DX_PI/-2 + Rotscale * (-1));
+	D3DXMatrixRotationZ(&matR, D3DX_PI/-2 + Rotscale);
 	D3DXMatrixIdentity(&matT);
 	//D3DXMatrixTranslation(&matT, 10, 10, 0);
 	D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width /2) + ((CalPlayerPos._43 / 8.f)*(-1)) +180 , (MiniCHAR.m_imageInfo.Height / 2) +(CalPlayerPos._41 / 6.f) +90, 0);

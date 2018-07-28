@@ -21,7 +21,7 @@ void EnemyManager::Init(void)
 	AddEnemy(D3DXVECTOR3(45, 0, 20), "resources/zealot/", "zealot.X", 1);
 	AddEnemy(D3DXVECTOR3(100, 0, 70), "resources/zealot/", "zealot.X",2);
 	AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X", 3);
-	AddEnemy(D3DXVECTOR3(145, 0, 30), "resources/Boss_test/", "Mutant.X", 4);
+	//AddEnemy(D3DXVECTOR3(145, 0, 30), "resources/Boss_test/", "Mutant.X", 4);
 
 	g_pObjMgr->AddToTagList(TAG_ENEMY, this);
 }
