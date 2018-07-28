@@ -141,6 +141,11 @@ void SubMonster::Init()
 	//공격 체크 변수 초기화
 	AtkTimer = 0.0f;
 	AtkCheck = false;
+
+	//공격 애니메이션 초기화할 변수
+	m_isAniAttack = false;
+	//공격 애니메이션 소리 낼 조건을 위한 변수
+	m_isAniSoundAttack = false;
 }
 
 void SubMonster::Update()
@@ -208,7 +213,10 @@ void SubMonster::Hit()
 	{
 		for (auto p : ironman_vec->GetVecBoundary())
 		{
-			if (SphereCollideCheck(*m_vecBoundary[i], *p) == true)
+			if (SphereCollideCheck(*m_vecBoundary[i], *p) == true
+				
+				//질럿 손 공격 후 원상태로 돌아갈때 피격안되게 하기
+				&& m_pSkinnedMesh->GetCurAnimTime(1) < 1.0f)
 			{
 				p->isPicked = true;
 				p->isDamaged = true;
@@ -263,6 +271,7 @@ void SubMonster::UpdatePosition()
 	//공격 범위 까지 왔다면 공격
 	if (MoveDist <= MOVE_STOP_DISTANCE && MoveDist > D3DX_16F_EPSILON && m_isMoving)
 	{
+		EnemyAttackSound();
 		m_pSkinnedMesh->status = 1; //어택
 		//캐릭터 히트 판정 함수
 		Hit();
@@ -274,6 +283,10 @@ void SubMonster::UpdatePosition()
 	else if (m_isMoving == false && isDamage == false)
 	{
 		m_pSkinnedMesh->status = 4;//멈춤
+	}
+	else
+	{
+		m_isAniAttack = false;
 	}
 	//쫄 어택 시간 타이머 체크하기
 
@@ -679,4 +692,47 @@ void SubMonster::RenderUseShader_0()
 void SubMonster::RenderUseShader_1()
 {
 	m_pSkinnedMesh->RenderUseShader_1();
+}
+
+void SubMonster::EnemyAttackSound()
+{
+	if (m_isAniAttack == false)
+	{
+		// 공격했다가 다른 상태로 전이되었을 시
+		// 재생되어있는 애니메이션 다시 공격으로 했을 때
+		// 0부터 시작해야되기 때문에 한번 초기화해줌
+		m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
+	}
+	/*
+	LPD3DXANIMATIONSET pAnimSet = NULL;	//1번은 공격
+	D3DXTRACK_DESC track;				//시간 가져올 DESC
+	m_pSkinnedMesh->GetAnimationController()->GetAnimationSet(1, &pAnimSet);
+	m_pSkinnedMesh->GetAnimationController()->GetTrackDesc(1, &track);	//DESC 초기화(1번이 공격이라)
+	pAnimSet->GetPeriodicPosition(track.Position);		//DESC의 position으로 현재 애니메이션 time 가져옴
+
+	//현재 재생되는 공격 애니메이션이 0일때 공격 소리재생
+
+	//Debug->AddText("현재 시간 : ");
+	//Debug->AddText(track.Position);
+
+
+
+	//현재 재생하는 애니메이션의 PeriodicPosition이 0.1f 이하이면
+	//zealot의 공격 사운드를 재생시킨 후
+	//m_isSoundAttack을 true로 만들어, 공격 사운드 한번만 재생
+	//0.1f 이상이 되면 m_isSoundAttack을 다시 false로 만들어서 다음에 또 0.1f 이하이면 또 다시 재생되도록!
+	*/
+	//if (track.Position <= 0.1f)
+	//GetCurAnimTime은 SkinnedMesh 함수에 넣어둠...
+	if (m_pSkinnedMesh->GetCurAnimTime(1) <= 0.1f)
+	{
+		if (m_isAniSoundAttack == false) g_pSoundManager->Play("zealot_attack", 0.5f);
+		m_isAniSoundAttack = true;
+	}
+	else
+	{
+		m_isAniSoundAttack = false;
+	}
+
+	m_isAniAttack = true;
 }
