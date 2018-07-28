@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  stdafx.cpp
 d:\_포폴\git\dx3d\dx3d\cubeman_head.h(8): warning C4584: 'Cubeman_Head': 'BaseObject' 기본 클래스가 이미 'Cube'의 기본 클래스입니다.
   d:\_포폴\git\dx3d\dx3d\baseobject.h(3): note: 'BaseObject' 선언을 참조하십시오.
@@ -375,3 +376,14 @@ d:\_포폴\git\dx3d\dx3d\equip.cpp(306): warning C4244: '초기화 중': 'double
 d:\_포폴\git\dx3d\dx3d\equip.cpp(307): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\_포폴\git\dx3d\dx3d\equip.cpp(311): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
   DX3D.vcxproj -> D:\_포폴\Git\DX3D\Debug\DX3D.exe
+=======
+﻿  SceneGrid.cpp
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(85): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(89): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(109): warning C4316: 'Ironman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(113): warning C4316: 'Gun': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(141): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(145): warning C4316: 'PortalEffect': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)
+>>>>>>> 7aa4ed0421fb5eb52cd33721d77dbaa1580d434e

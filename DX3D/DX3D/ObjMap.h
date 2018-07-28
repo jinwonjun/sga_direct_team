@@ -19,6 +19,7 @@ private:
 	Walls * m_pWalls;
 	BoundingBox * m_pBox;
 	
+	bool MapChangeSignal;
 
 public:
 	ObjMap();
@@ -30,7 +31,10 @@ public:
 	virtual void Render() override;
 	virtual bool GetHeight(OUT float & height, const D3DXVECTOR3 & pos) override;
 
+	bool GetMapChangeSignal() { return MapChangeSignal; }
+	void SetMapChangeSignal(bool Condition) { MapChangeSignal = Condition; }
 	void SetRayDistance(float rayDistance) { m_rayOffsetY = rayDistance; }
+	
 
 	void RenderMesh();
 	void RenderDrawingGroup();

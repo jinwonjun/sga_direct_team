@@ -5,6 +5,8 @@
 #include "Gun.h"
 #include <cstring>
 
+//맵변환 상태 체크용
+#include "ObjMap.h"
 enum
 {
 	UITAG_TEXTVIEW,
@@ -175,7 +177,7 @@ void SampleUI::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&Character_HP_Loss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-	 // 미니맵
+	// 미니맵-쫄몹
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 		_T("resources/images/minimap/MiniMap_.png"),   //LPCTSTR pSrcFile,
@@ -191,7 +193,23 @@ void SampleUI::Init()
 		&Minimap.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&Minimap.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
-	
+	//미니맵-보스
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/minimap/Boss_Minimap.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Mini_Boss.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Mini_Boss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 	//미니맵의 캐릭터 표시 그리기
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -578,12 +596,6 @@ void SampleUI::Render()
 	m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
 
-
-
-
-
-
-
 	 // 회전중점, 위치이동 따로따로 있따.  체력 남은 양
 	SetRect(&Character_HP_Remain.m_Image_rc, 0, 0, Character_HP_Remain.m_imageInfo.Width * PercentOfHp, Character_HP_Remain.m_imageInfo.Height);
 
@@ -608,29 +620,56 @@ void SampleUI::Render()
 		WHITE);
 	m_pSprite->End();
 
-	//미니맵 그리기
-	SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
+	//미니맵 그리기- 어떤 맵을 뿌려주는 지에 대해서 조건값 필요함
+	if (static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->GetMapChangeSignal() == false)
+	{
+		SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
+		D3DXMatrixRotationZ(&matR, 0);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, Minimap.m_imageInfo.Width / 4, Minimap.m_imageInfo.Height / 4, 0);
+		//250, 850, 0
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+		matWorld = matS* matR * matT;
 
-	D3DXMatrixRotationZ(&matR, 0);
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, Minimap.m_imageInfo.Width / 4, Minimap.m_imageInfo.Height / 4, 0);
-	//250, 850, 0
-	D3DXMatrixScaling(&matS, .5f, .5f, 1);
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			Minimap.m_pTex,
+			&Minimap.m_Image_rc,
+			&D3DXVECTOR3(Minimap.m_imageInfo.Width / 2, Minimap.m_imageInfo.Height / 2, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
+	}
+	else//보스맵 미니맵 그려주기
+	{
+		//미니맵 그리기- 어떤 맵을 뿌려주는 지에 대해서 조건값 필요함
+		SetRect(&Mini_Boss.m_Image_rc, 0, 0, Mini_Boss.m_imageInfo.Width, Mini_Boss.m_imageInfo.Height);
 
-	matWorld = matS* matR * matT;
+		D3DXMatrixRotationZ(&matR, 0);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, Mini_Boss.m_imageInfo.Width / 4, Mini_Boss.m_imageInfo.Height / 4, 0);
+		//250, 850, 0
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
 
-	//D3DXSPRITE_ALPHABLEND
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(
-		Minimap.m_pTex,
-		&Minimap.m_Image_rc,
-		&D3DXVECTOR3(Minimap.m_imageInfo.Width/2, Minimap.m_imageInfo.Height/2, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
-	m_pSprite->End();
+		matWorld = matS* matR * matT;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			Mini_Boss.m_pTex,
+			&Mini_Boss.m_Image_rc,
+			&D3DXVECTOR3(Mini_Boss.m_imageInfo.Width / 2, Mini_Boss.m_imageInfo.Height / 2, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
+	}
 
 	//fAngle -= 0.01;
 	float Rotscale = g_pCamera->m_rotY;

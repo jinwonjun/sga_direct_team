@@ -46,7 +46,7 @@ void PortalEffect::Init()
 
 	//생성 위치 조절
 	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, 50, 0, 10);
+	D3DXMatrixTranslation(&matT, 0, 0, 10);
 
 	D3DXVec3TransformCoord(&m_pos, &m_pos, &matT);
 

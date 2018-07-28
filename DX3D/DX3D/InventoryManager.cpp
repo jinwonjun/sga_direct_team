@@ -92,6 +92,7 @@ void InventoryManager::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&Inventory.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
+<<<<<<< HEAD
 	//D3DXCreateTextureFromFileEx(
 	//	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 	//	_T("resources/images/inventory/Inven_temp_2.png"),   //LPCTSTR pSrcFile,
@@ -107,6 +108,23 @@ void InventoryManager::Init()
 	//	&Inventory_Chara.m_image,   //D3DXIMAGE_INFO *pSrcInfo
 	//	NULL,         //PALETTEENTRY *pPalette
 	//	&Inventory_Chara.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+=======
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/inventory/Inven_temp_4.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Inventory_Chara.m_image,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Inventory_Chara.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+>>>>>>> 7aa4ed0421fb5eb52cd33721d77dbaa1580d434e
 
 
 	D3DXCreateTextureFromFileEx(
@@ -864,8 +882,13 @@ void InventoryManager::Render()
 				&Inventory_Chara.m_rc,
 				&D3DXVECTOR3(0, 0, 0),
 				&D3DXVECTOR3(0, 0, 0),
+<<<<<<< HEAD
 				D3DCOLOR_ARGB(50, 255, 255, 255));
 			m_pSprite->End();*/
+=======
+				WHITE);
+			m_pSprite->End();
+>>>>>>> 7aa4ed0421fb5eb52cd33721d77dbaa1580d434e
 
 			SetRect(&Exit_Button.m_rc, 0, 0, Exit_Button.m_image.Width, Exit_Button.m_image.Height);
 
