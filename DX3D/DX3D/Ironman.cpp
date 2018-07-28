@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "BloodEffect.h"
 
+
 //무기의 장착 상태 가져오는 용도
 #include "Gun.h"
 
@@ -97,6 +98,8 @@ void Ironman::Init()
 	shootTime = 0;
 	endTime = 10;
 	recoilPower = 0.02f;
+
+	srand(time(NULL));
 }
 
 void Ironman::Update()
@@ -106,8 +109,7 @@ void Ironman::Update()
 		DamageFontNum = 0;
 	}
 
-	if (!g_pInventory->openInven)
-	{
+	
 		IUnitObject::UpdateKeyboardState();
 		IUnitObject::UpdatePosition();
 
@@ -129,7 +131,7 @@ void Ironman::Update()
 			RightHand._22 = 0;
 			RightHand._33 = 0;
 		}
-	}
+	
 
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
@@ -148,8 +150,9 @@ void Ironman::Update()
 	//무기 들었을때
 	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
 	{
-		Shoot();
-
+		
+			Shoot();
+		
 		if (shootTime > endTime) isShoot = false;
 
 		if (isShoot)
@@ -223,8 +226,7 @@ void Ironman::Shoot()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
-		if (!g_pInventory->openInven
-			&& (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 1))
+		if ( (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 1))
 			g_pSoundManager->Play("m4al_1", 0.3f);
 
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
@@ -269,8 +271,13 @@ void Ironman::Shoot()
 		if (tempEnemy != NULL)
 		{
 			g_pItem->MonsterDamaged(DamageFontNum);
+			g_pUIOperator->BattleOn_Zealot = true;
 
-
+			if (tempEnemy->GetEnemyNum() == 4)
+			{
+				g_pUIOperator->BattleOn_Mutant = true;
+			}
+			
 			DamageFontNum++;
 
 			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
@@ -332,6 +339,8 @@ void Ironman::Hit()
 		if (tempEnemy != NULL)
 		{
 			g_pItem->MonsterDamaged(DamageFontNum);
+					
+		
 
 			DamageFontNum++;
 
@@ -451,8 +460,7 @@ void Ironman::AnimationKeySetting()
 	맨손일때는 리로드 애니가 없음!
 	*/
 
-	if (!g_pInventory->openInven)
-	{
+	
 		if (Keyboard::Get()->KeyPress('W'))
 		{
 			isRun = true;	//뛰는소리
@@ -564,7 +572,7 @@ void Ironman::AnimationKeySetting()
 				m_pSkinnedMesh->status = 0;
 			}
 		}
-	}
+	
 }
 
 void Ironman::SoundSetting()

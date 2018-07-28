@@ -39,7 +39,7 @@ void EnemyManager::Update(void)
 			{
 				g_pItem->getMonsterXY(e->ScreenX, e->ScreenY);
 
-				g_pItem->ItemGet(e->GetEnemyNum());
+			//	g_pItem->ItemGet(e->GetEnemyNum());
 
 				e->m_ItemDrop = true;
 			}
@@ -56,6 +56,7 @@ void EnemyManager::Update(void)
 		{
 			g_pSoundManager->Play("zealot_death", 1.0f);
 			Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
+			g_pInventory->addIndex(g_pItem->Items[GetRandomInt(15)]);
 			m_vecEnemy.erase(m_vecEnemy.begin() + i);
 		}
 	}

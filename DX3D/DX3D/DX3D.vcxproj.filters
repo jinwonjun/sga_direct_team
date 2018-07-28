@@ -414,9 +414,6 @@
     <ClInclude Include="ItemManager.h">
       <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClInclude>
-    <ClInclude Include="Equip.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClInclude>
@@ -425,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="PortalEffect.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Equip.h">
+      <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -686,9 +686,6 @@
     <ClCompile Include="ItemManager.cpp">
       <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClCompile>
-    <ClCompile Include="Equip.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClCompile>
@@ -697,6 +694,9 @@
     </ClCompile>
     <ClCompile Include="PortalEffect.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Equip.cpp">
+      <Filter>소스 파일\UI_CLASS\ITEM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

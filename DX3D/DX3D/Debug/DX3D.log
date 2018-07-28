@@ -1,13 +1,14 @@
-﻿  SceneGrid.cpp
-d:\sga\pp\dx3d\dx3d\scenegrid.cpp(85): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga\pp\dx3d\dx3d\scenegrid.cpp(89): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga\pp\dx3d\dx3d\scenegrid.cpp(109): warning C4316: 'Ironman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga\pp\dx3d\dx3d\scenegrid.cpp(113): warning C4316: 'Gun': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga\pp\dx3d\dx3d\scenegrid.cpp(141): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga\pp\dx3d\dx3d\scenegrid.cpp(145): warning C4316: 'PortalEffect': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  BoundingBox.cpp
-  코드를 생성하고 있습니다...
-  건너뛰고 있습니다... (관련된 변경 내용 없음)
-  PortalEffect.cpp
-  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
-  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)
+﻿  UIOperator.cpp
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(14): warning C4316: 'UIOperator': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(193): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(198): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(279): warning C4244: '=': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(280): warning C4244: '=': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(282): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(283): warning C4244: '=': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(363): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(418): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(421): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(439): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\_포폴\git\dx3d\dx3d\uioperator.cpp(474): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  DX3D.vcxproj -> D:\_포폴\Git\DX3D\Debug\DX3D.exe

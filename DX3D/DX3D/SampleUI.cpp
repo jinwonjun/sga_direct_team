@@ -372,8 +372,14 @@ void SampleUI::Update()
 	//==========================================
 	if (spaceOn && contorller == 1)
 	{
-		restBullet--;
-		spaceOn = false;
+		if (g_pInventory->Equip[1].index != 0 &&
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0)
+		{
+			restBullet--;
+			spaceOn = false;
+		}
 	}
 
 
@@ -605,27 +611,31 @@ void SampleUI::Render()
 
 
 	// 회전중점, 위치이동 따로따로 있따.  총
-	SetRect(&Gun.m_Image_rc, 0, 0, Gun.m_imageInfo.Width, Gun.m_imageInfo.Height);
+		if (g_pInventory->Equip[Weapon_Type_MainWeapons].index != 0)
 
-	D3DXMatrixRotationZ(&matR, fAngle);
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, ((clientRect.right - Gun.m_imageInfo.Width)/40)*39, clientRect.bottom/1.5, 0);
-	D3DXMatrixScaling(&matS, 1.f, .8f, 1);
-	//1325 0  -> 1325 -150
-	matWorld = matS* matR * matT;
+		{
+			SetRect(&Gun.m_Image_rc, 0, 0, Gun.m_imageInfo.Width, Gun.m_imageInfo.Height);
 
-	//D3DXSPRITE_ALPHABLEND
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(
-		Gun.m_pTex,
-		&Gun.m_Image_rc,
-		&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
-	m_pSprite->End();
+			D3DXMatrixRotationZ(&matR, fAngle);
+			D3DXMatrixIdentity(&matT);
+			D3DXMatrixTranslation(&matT, ((clientRect.right - Gun.m_imageInfo.Width) / 40) * 39, clientRect.bottom / 1.5, 0);
+			D3DXMatrixScaling(&matS, 1.f, .8f, 1);
+			//1325 0  -> 1325 -150
+			matWorld = matS* matR * matT;
+
+			//D3DXSPRITE_ALPHABLEND
+			m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+			m_pSprite->SetTransform(&matWorld);
+			m_pSprite->Draw(
+				Gun.m_pTex,
+				&Gun.m_Image_rc,
+				&D3DXVECTOR3(0, 0, 0),
+				//&D3DXVECTOR3(0, 0, 0),
+				//&D3DXVECTOR3(0, 0, 0),
+				&D3DXVECTOR3(0, 0, 0),
+				WHITE);
+			m_pSprite->End();
+		}
 	//m_pSprite->SetTransform(&m_matWorld);
 
 	//m_pSprite->SetTransform(&matWorld);

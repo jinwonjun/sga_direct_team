@@ -83,6 +83,10 @@ void Shop::Update()
 		g_pEquip->EquipScreenOn = false;
 		ShopOpen = !ShopOpen;
 	}
+	if (g_pKeyboard->KeyDown(VK_ESCAPE))
+	{
+		ShopOpen = false;
+	}
 
 	if (ShopOpen == false)
 	{

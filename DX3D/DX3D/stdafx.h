@@ -25,6 +25,7 @@
 #include <set>
 #include <list>
 #include <fstream>
+#include <time.h> // ·£´ý°ª
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
