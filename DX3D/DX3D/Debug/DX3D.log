@@ -1,9 +1,36 @@
-﻿  SceneGrid.cpp
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(85): warning C4316: 'SampleUI': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(89): warning C4316: 'EnemyManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(109): warning C4316: 'Ironman': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(113): warning C4316: 'Gun': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(141): warning C4316: 'ObjMap': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\sga_direct_team\dx3d\dx3d\scenegrid.cpp(145): warning C4316: 'PortalEffect': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+﻿  SampleUI.cpp
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(62): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(66): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(73): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(82): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(87): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(54): warning C4101: 'c_int' :참조되지 않은 지역 변수입니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(509): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(514): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(542): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(639): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(639): warning C4244: '인수': 'unsigned long'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(669): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(669): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(701): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(724): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(728): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(753): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(764): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(778): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(790): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(812): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(813): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(821): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(886): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(904): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(933): warning C4316: 'UIText': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(962): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(963): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(989): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga_direct_team\dx3d\dx3d\sampleui.cpp(990): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  ObjMap.cpp
+  코드를 생성하고 있습니다...
+cl : 명령줄 warning D9028: 최소 다시 빌드에 실패했습니다. 정상 빌드로 되돌립니다.
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> D:\sga_direct_team\DX3D\Debug\DX3D.pdb (Full PDB)

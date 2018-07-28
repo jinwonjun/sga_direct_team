@@ -42,8 +42,6 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-
-
 	BoundingBox*	m_pBox;
 
 	SkinnedMesh * m_pSkinnedMesh;

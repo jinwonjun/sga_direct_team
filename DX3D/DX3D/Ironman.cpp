@@ -110,29 +110,28 @@ void Ironman::Update()
 	}
 
 	
-		IUnitObject::UpdateKeyboardState();
-		IUnitObject::UpdatePosition();
+	IUnitObject::UpdateKeyboardState();
+	IUnitObject::UpdatePosition();
 
-		AnimationModify();
-		AnimationKeySetting();
-		SoundSetting();
-		SAFE_UPDATE(m_pSkinnedMesh);
+	AnimationModify();
+	AnimationKeySetting();
+	SoundSetting();
+	SAFE_UPDATE(m_pSkinnedMesh);
 
-		//오른손 좌표 가져오기 - 무기를 착용할때만 돌리기
-		if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
-		{
-			RightHand = m_pSkinnedMesh->GetHandMatrix();
-		}
-		//임시 방편의 산물!, 크기를 없애서 안보이게 만든다!
-		else
-		{
-			D3DXMatrixIdentity(&RightHand);
-			RightHand._11 = 0;
-			RightHand._22 = 0;
-			RightHand._33 = 0;
-		}
+	//오른손 좌표 가져오기 - 무기를 착용할때만 돌리기
+	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+	{
+		RightHand = m_pSkinnedMesh->GetHandMatrix();
+	}
+	//임시 방편의 산물!, 크기를 없애서 안보이게 만든다!
+	else
+	{
+		D3DXMatrixIdentity(&RightHand);
+		RightHand._11 = 0;
+		RightHand._22 = 0;
+		RightHand._33 = 0;
+	}
 	
-
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
 

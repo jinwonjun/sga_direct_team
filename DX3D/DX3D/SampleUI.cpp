@@ -301,7 +301,7 @@ void SampleUI::Init()
 	//¹Ì´Ï¸Ê-º¸½º
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/minimap/Boss_Minimap.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/minimap/Boss_Minimap_.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
