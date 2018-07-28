@@ -1,6 +1,7 @@
 #pragma once
 #include "IScene.h"
 
+class ObjMap;
 class TeachGrid;
 class Cube;
 class Cubeman;
@@ -71,10 +72,11 @@ public:
 	IDisplayObject *m_Inventory;
 	// 이거 바꿀수 있을까?
 
+	ObjMap* pMap;
+
 	Ironman * m_pCharacter;
 	Gun * m_pGun;
 
 	PortalEffect * m_pPortalEffect;
-
 };
 
