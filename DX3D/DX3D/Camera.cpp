@@ -60,8 +60,8 @@ void Camera::Init()
 	mCenter = { clientRect.right / 2 , clientRect.bottom / 2 };
 
 	//현재 화면보다 살짝 작게
-	mLimitX = clientRect.right / 2 - 10;
-	mLimitY = clientRect.bottom / 2 - 10;
+	mLimitX = clientRect.right / 2 - 100;
+	mLimitY = clientRect.bottom / 2 - 50;
 	mRCCollCheck = false;
 	//마우스 이동 제한 할 렉트
 	mRc = { mCenter.x - (LONG)mLimitX, mCenter.y - (LONG)mLimitY, mCenter.x + (LONG)mLimitX, mCenter.y + (LONG)mLimitY };

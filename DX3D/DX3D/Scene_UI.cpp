@@ -6,6 +6,7 @@
 #include "ObjMap.h"
 #include "Ironman.h"
 
+#include "BoundingBox.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
 

@@ -14,6 +14,7 @@ class EnemyManager;
 class Ironman;
 class Gun;
 class UIOperator;
+class PortalEffect;
 
 class SceneGrid : public IScene
 {
@@ -72,5 +73,8 @@ public:
 
 	Ironman * m_pCharacter;
 	Gun * m_pGun;
+
+	PortalEffect * m_pPortalEffect;
+
 };
 

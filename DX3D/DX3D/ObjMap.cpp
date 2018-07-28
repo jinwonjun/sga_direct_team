@@ -34,8 +34,17 @@ void ObjMap::Init()
 	//Init_float_city();
 	//OBJ맵 적용하기
 
+<<<<<<< HEAD
 	//g_pMapManager->AddMap("ObjMap", this);
 	//g_pMapManager->SetCurrentMap("ObjMap");
+=======
+	//m_pWalls = new Walls;
+	//m_pWalls->Init();
+	//m_pBox = new BoundingBox(D3DXVECTOR3(3.0f, 15.0f, 3.0f), m_pos); m_pBox->Init();
+
+	g_pMapManager->AddMap("ObjMap", this);
+	g_pMapManager->SetCurrentMap("ObjMap");
+>>>>>>> 5600d35d15cb8a7a43c93db7c56b75a1634ac8d8
 
 	m_renderMode = RenderMode_ShadowMapping;
 	m_specular = 0.0f;
@@ -60,6 +69,12 @@ void ObjMap::Update()
 	Debug->AddText((int)m_vecVertex.size());
 	Debug->EndLine();
 	Debug->EndLine();
+<<<<<<< HEAD
+=======
+
+	//m_pBox->Update();
+	//m_pBox->SetPosition(&m_pos);
+>>>>>>> 5600d35d15cb8a7a43c93db7c56b75a1634ac8d8
 }
 
 void ObjMap::Render()
@@ -71,6 +86,13 @@ void ObjMap::Render()
 	//RenderDrawingGroup();
 	//매쉬 함수
 	RenderMesh();
+<<<<<<< HEAD
+=======
+
+	//m_pWalls->Render();
+	//m_pBox->Render();
+
+>>>>>>> 5600d35d15cb8a7a43c93db7c56b75a1634ac8d8
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
 }
 

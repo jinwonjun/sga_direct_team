@@ -217,6 +217,7 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="ObjMap.h" />
+    <ClInclude Include="PortalEffect.h" />
     <ClInclude Include="SubMonster.h" />
     <ClInclude Include="UIOperator.h" />
     <ClInclude Include="ParticleTest.h" />
@@ -314,6 +315,7 @@
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="ObjMap.cpp" />
+    <ClCompile Include="PortalEffect.cpp" />
     <ClCompile Include="SubMonster.cpp" />
     <ClCompile Include="UIOperator.cpp" />
     <ClCompile Include="ParticleTest.cpp" />

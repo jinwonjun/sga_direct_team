@@ -49,7 +49,7 @@ void BoundingBox::InitVertex()
 void BoundingBox::SetVertex(vector<VERTEX_PC>& vecVertexOut, vector<WORD>& vecIndexOut, vector<D3DXVECTOR3> vecPos)
 {
 	for (int i = 0; i < 8; i++)
-		vecVertexOut.push_back(VERTEX_PC(vecPos[i], YELLOW));
+		vecVertexOut.push_back(VERTEX_PC(vecPos[i], WHITE));
 
 	for (size_t i = 0; i < CUBE_INDEX_SIZE; i++)
 	{
@@ -93,8 +93,8 @@ void BoundingBox::Update()
 
 void BoundingBox::Render()
 {
-	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetTexture(0, NULL);
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetMaterial(&DXUtil::YELLOW_MTRL);
 
 	g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
