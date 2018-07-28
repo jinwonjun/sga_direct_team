@@ -66,9 +66,9 @@ void Ironman::Init()
 	keyPress = false;
 
 	//시작위치 조정
-	m_pos.y = 10;
-	m_pos.x = 0;
-	m_pos.z = 0;
+	m_pos.y = 0;
+	m_pos.x = -100;
+	m_pos.z = 50;
 
 	m_Hp = 100;
 	m_MaxHp = 100;
