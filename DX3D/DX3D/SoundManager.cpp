@@ -31,7 +31,7 @@ HRESULT SoundManager::Init(void)
 	//												-> 기본으로 false, false
 	//BGM
 	AddSound("gameScene", "resources/sound/warFrame.mp3", true, true);
-
+	AddSound("bossScene", "resources/sound/boss_theme.mp3", true, true);
 
 
 
@@ -49,6 +49,7 @@ HRESULT SoundManager::Init(void)
 	AddSound("laser_gun", "resources/sound/laser2.mp3", false, false);
 
 	AddSound("footstep", "resources/sound/footstep.mp3", false, false);
+	AddSound("teleport", "resources/sound/teleport.mp3", false, false);
 
 	AddSound("clothEquip_inventory", "resources/sound/clothEquip_inventory.mp3", false, false);
 	AddSound("buyItem_inventory", "resources/sound/buyItem_inventory.mp3", false, false);

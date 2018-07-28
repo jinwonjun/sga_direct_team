@@ -210,6 +210,9 @@ void SceneGrid::BoundingCheck()
 	{
 		if (m_pCharacter->GetBoundingBox()->IsIntersected(*(m_pPortalEffect->GetBoundingBox())))
 		{
+			g_pSoundManager->Play("teleport", 0.8f);
+			g_pSoundManager->Stop("gameScene");
+			g_pSoundManager->Play("bossScene", 0.5f);
 			//보스맵으로 변경
 			static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->Init_old_town();
 			static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->SetMapChangeSignal(true);
