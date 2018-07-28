@@ -42,6 +42,8 @@ private:
 	HUD_Ui Mini_Boss;
 
 	HUD_Ui Notice_Msg;
+	
+
 
 	UIButton * BulletNum;
 	UIButton * GetItems;

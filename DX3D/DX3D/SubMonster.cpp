@@ -225,7 +225,10 @@ void SubMonster::Hit()
 		{
 			//피통 줄이는거 ui 접근
 			static_cast<SampleUI *>(g_pObjMgr->FindObjectByTag(TAG_UI))->CurrHp -= 1;
+			g_pUIOperator->ScreenEffectOn = true;
 			p->isDamaged = false;
+		
+
 		}
 	}
 }
@@ -265,6 +268,7 @@ void SubMonster::UpdatePosition()
 	{
 		m_pSkinnedMesh->status = 1; //어택
 		//캐릭터 히트 판정 함수
+		
 		Hit();
 		//거리는 계속 따라오는데, 공격모션 하면 공격 모션을 하고나서 따라와야되는데, 공격 도중에 거리가 벌어지면,
 		//그 거리를 좁히기 위해 공격 모션을 씹고 움직인다는 건데, 공격 모션을 다 하고 나서 움직여야되는거지?
