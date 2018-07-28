@@ -35,7 +35,11 @@ void EnemyManager::Update(void)
 			if (e->m_ItemDrop == false)
 			{
 				g_pItem->getMonsterXY(e->ScreenX, e->ScreenY);
-				g_pItem->ItemGet(e->GetEnemyNum());
+
+
+			//	g_pItem->ItemGet(e->GetEnemyNum());
+
+
 				e->m_ItemDrop = true;
 			}
 			continue;
@@ -48,6 +52,8 @@ void EnemyManager::Update(void)
 	{
 		if (m_vecEnemy[i]->m_Hp <= 0)
 		{
+
+
 			//º¸½º
 			if (m_vecEnemy[i]->GetEnemyNum() == 4)
 			{

@@ -33,3 +33,14 @@ float GetRandomFloat(float lowBound, float highBound)
 
 	return (f*(highBound - lowBound)) + lowBound;
 }
+
+int GetRandomInt(int maxNum)
+{
+	int a;
+	
+	a = (rand() % maxNum);
+	
+
+	return a+1;
+
+}

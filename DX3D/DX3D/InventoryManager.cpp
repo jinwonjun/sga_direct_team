@@ -94,7 +94,7 @@ void InventoryManager::Init()
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/inventory/Inven_temp_2.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/inventory/Inven_temp_4.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -864,7 +864,7 @@ void InventoryManager::Render()
 				&Inventory_Chara.m_rc,
 				&D3DXVECTOR3(0, 0, 0),
 				&D3DXVECTOR3(0, 0, 0),
-				D3DCOLOR_ARGB(50, 255, 255, 255));
+				WHITE);
 			m_pSprite->End();
 
 			SetRect(&Exit_Button.m_rc, 0, 0, Exit_Button.m_image.Width, Exit_Button.m_image.Height);

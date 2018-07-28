@@ -5,9 +5,9 @@
 #include "UIButton.h"
 
 #define INVENCORSS 6
-#define INVENVERTI 4
+#define INVENVERTI 7
 #define INVENITEMSTART_X 1000
-#define INVENITEMSTART_Y 420
+#define INVENITEMSTART_Y 150
 #define NumOfItemTextKind 6
 #define g_pInventory  InventoryManager::Get()
 

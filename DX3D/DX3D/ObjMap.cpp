@@ -26,12 +26,16 @@ void ObjMap::Init()
 	Init_old_town();
 	//Init_cs_italy();
 	//돌격
-	Init_cs_assault();
+	//Init_cs_assault();
 	//폐허가된 마을?
 	//Init_cs_havana();
 	//원형경기장
 	//Init_pk_stadium();
 	//시가전 느낌
+<<<<<<< HEAD
+=======
+	//Init_old_town();
+>>>>>>> 275996127800454ca9f703f3a8eb452b15539536
 	
 	//g_pMapManager->AddMap("ObjMap", this);
 	//g_pMapManager->SetCurrentMap("ObjMap");

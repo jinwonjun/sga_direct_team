@@ -47,7 +47,19 @@ void UIOperator::Init()
 	TextBar_Rendering = false;
 
 	Mutant.ScreenOn = false;
-	
+	OperatorTimer_Tutorial = 0;
+	OperatorTimer_Tutorial_Text2 = 0;
+	OperatorTimer_Tutorial_Text2_1 = 0;
+
+	OperatorTrigger_Tutorial_Move_valkire = false;
+	OperatorTrigger_Tutorial_Move_Mutant = false;
+	OperatorTrigger_Tutorial_Move_zealot = false;
+	BattleOn_Zealot = false;
+
+	TimerOnValikre = false;
+	ValkireTimer = 0;
+	MutantTimer = 0;
+	ZealotTimer = 0;
 }
 
 void UIOperator::Update()
@@ -55,46 +67,78 @@ void UIOperator::Update()
 	GetCursorPos(&mousePoint);
 	ScreenToClient(g_hWnd, &mousePoint);
 
-	if (g_pKeyboard->KeyDown('C'))
-	{
-		TextBar_Rendering = true;
-		CrossHeadMoving = true;
-		Text_Bar_Frame.Str_ = L"이동을 위해서 \n W A S D 를 눌러보세요";
-	}
-	if (CrossHeadMoving)
-	{
-		CrossHeadMovingFunction(Zealot);
-	}
+		if (g_pKeyboard->KeyDown('C'))
+		{
+			TextBar_Rendering = true;
+			OperatorTrigger_Tutorial_Move_valkire = true;
+			Text_Bar_Frame.Str_ = L"적을 섬멸하라. \n 너는 반드시 생존해야한다.";
+			TimerOnValikre = true;
+		}
 
-	if (g_pKeyboard->KeyDown('V'))
-	{
-		TextBar_Rendering = true;
-		ScaleHeadMoving = true;
-		Text_Bar_Frame.Str_ = L"적을 소멸시켜라!";
-	}
+		if (ValkireTimer > 200)
+		{
+			ValkireTimer = 201;
+			TextBar_Rendering = false;
+			OperatorTrigger_Tutorial_Move_valkire = false;
+			ShutDownSacleHeadMovingFunction(Valkire);
+		}
 
-	if (g_pKeyboard->KeyDown('B'))
-	{
-		Mutant.ScreenOn = !Mutant.ScreenOn;
-	}
-	if (ScaleHeadMoving)
+		if (BattleOn_Zealot)
+		{
+			ZealotTimer++;
+			Text_Bar_Frame.Str_ = L"My Life for Auir!!!";
+			TextBar_Rendering = true;
+			OperatorTrigger_Tutorial_Move_zealot = true;
+		}
+
+		if (ZealotTimer > 200)
+		{
+			ZealotTimer = 201;
+			TextBar_Rendering = false;
+			OperatorTrigger_Tutorial_Move_zealot = false;
+			ShutDownCrossHeadMovingFunction(Zealot);
+		}
+
+		if (BattleOn_Mutant)
+		{
+			MutantTimer++;
+			Text_Bar_Frame.Str_ = L"Grrrrrrr....";
+			TextBar_Rendering = true;
+			OperatorTrigger_Tutorial_Move_Mutant = true;
+		}
+		if (MutantTimer > 200)
+		{
+			MutantTimer = 201;
+			TextBar_Rendering = false;
+			OperatorTrigger_Tutorial_Move_Mutant = false;
+			ShutDownCrossHeadMovingFunction(Mutant);
+		}
+
+
+		if (TimerOnValikre)
+		{
+			ValkireTimer++;
+		}
+
+
+
+
+
+
+
+
+	if (OperatorTrigger_Tutorial_Move_valkire)
 	{
 		SacleHeadMovingFunction(Valkire);
 	}
-	//if (HeadMoving && Valkire.ScaleY < 1.0f)
-			
-	if (Valkire.ScreenOn)
+	if (OperatorTrigger_Tutorial_Move_zealot)
 	{
-		ShutDownSacleHeadMovingFunction(Valkire);
+		CrossHeadMovingFunction(Zealot);
 	}
-	
-	if (Zealot.ScreenOn)
+	if (OperatorTrigger_Tutorial_Move_Mutant)
 	{
-
-		ShutDownCrossHeadMovingFunction(Zealot);
+		CrossHeadMovingFunction(Mutant);
 	}
-	
-	SAFE_UPDATE(Text_Bar_Frame.m_pRootUI);
 
 }
 
@@ -111,7 +155,7 @@ void UIOperator::Render()
 
 	DrawValkire();
 	DrawZealot();
-
+	DrawMutant();
 	if (Mutant.ScreenOn)
 	{
 		DrawMutant();
@@ -178,8 +222,7 @@ void UIOperator::SacleHeadMovingFunction(Draw_UI_ & Chara)
 
 void UIOperator::ShutDownCrossHeadMovingFunction(Draw_UI_ & Chara)
 {
-	if (Chara.timer > 10)
-	{
+
 		Chara.PointX -= 10.f;
 
 		if (Chara.PointX < -SizeofImage_Width)
@@ -190,21 +233,13 @@ void UIOperator::ShutDownCrossHeadMovingFunction(Draw_UI_ & Chara)
 			TextBar_Rendering = false;
 			return;
 		}
-	}
-
-	else
-	{
-		Chara.timer++;
-	}
-
 }
 
 void UIOperator::ShutDownSacleHeadMovingFunction(Draw_UI_ & Chara)
 {
 
-	if (Chara.timer > 10)
-	{
-		Chara.ScaleY -= 0.05f;
+
+		
 
 		if (Chara.ScaleY <= 0.0f)
 		{
@@ -213,12 +248,9 @@ void UIOperator::ShutDownSacleHeadMovingFunction(Draw_UI_ & Chara)
 			TextBar_Rendering = false;
 			return;
 		}
-	}
+		Chara.ScaleY -= 0.05f;
+		
 
-	else
-	{
-		Chara.timer++;
-	}
 }
 
 void UIOperator::InitValkire()
@@ -306,8 +338,8 @@ void UIOperator::InitMutant()
 		NULL,         //PALETTEENTRY *pPalette
 		&Mutant.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-	Mutant.PointX = clientRect.right * 0.02 + (SizeofImage_Width/2);
-	Mutant.PointY = OriginY / 2 + SizeofImage_Height / 2;
+	Mutant.PointX = -SizeofImage_Width;
+	Mutant.PointY = OriginY / 2;
 	Mutant.ScaleX = 1.0f;
 	Mutant.ScaleY = 1.0f;
 
@@ -372,7 +404,7 @@ void UIOperator::DrawMutant()
 	pSprite->Draw(
 		Mutant.m_pTex,
 		&Mutant.m_Image_rc,
-		&D3DXVECTOR3(Mutant.m_imageInfo.Width / 2, Mutant.m_imageInfo.Height / 2, 0),
+		&D3DXVECTOR3(0,0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 	pSprite->End();

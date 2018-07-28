@@ -96,6 +96,23 @@ public:
 
 	Draw_UI_ Text_Bar_BackGround;
 
+	int OperatorTimer_Tutorial;
+	int OperatorTimer_Tutorial_Text2;
+	int OperatorTimer_Tutorial_Text2_1;
+
+	bool OperatorTrigger_Tutorial_Move_valkire;
+	bool OperatorTrigger_Tutorial_Move_zealot;
+	bool OperatorTrigger_Tutorial_Move_Mutant;
+
+	bool BattleOn_Zealot;
+	bool BattleOn_Mutant;
+
+	
+	bool TimerOnValikre;
+	int ValkireTimer;
+	int ZealotTimer;
+	int MutantTimer;
+
 	void CrossHeadMovingFunction(Draw_UI_ &Chara);
 	void SacleHeadMovingFunction(Draw_UI_ &Chara);
 	

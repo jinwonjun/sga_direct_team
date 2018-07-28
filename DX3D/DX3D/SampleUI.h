@@ -93,6 +93,8 @@ public:
 	int contorller;
 
 
+
+
 	int MaxHp;
 	int CurrHp;
 	float PercentOfHp;

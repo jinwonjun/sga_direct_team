@@ -24,10 +24,11 @@ public:\
 #define SAFE_RELEASE(p) if(p) { (p)->Release(); (p) = NULL;}
 #define SAFE_DELETE(p) if(p) { delete (p); (p) = NULL;}
 #define SAFE_DELETE_ARRAY(p) if(p) {delete [] (p); (p) = NULL;}
-
 #define SCREEN_POINT(lParam) LOWORD(lParam), HIWORD(lParam)
 
 #define METHOD_WNDPROC(method) void method(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+
+
 
 //#define WINSIZEX 1760
 //#define WINSIZEY 990
@@ -215,7 +216,7 @@ struct VERTEX_RHWC
 DWORD FtoDw(float f);
 //랜덤 함수 만들기
 float GetRandomFloat(float lowBound, float highBound);
-
+int GetRandomInt(int maxNum);
 
 inline RECT RectMake(int x, int y, int width, int height)
 {
