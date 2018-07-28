@@ -232,17 +232,15 @@ void SubMonster::Hit()
 		if (p->isDamaged == true && p->isPicked == true)
 		{
 			//피통 줄이는거 ui 접근
-			static_cast<SampleUI *>(g_pObjMgr->FindObjectByTag(TAG_UI))->CurrHp -= 1;
-<<<<<<< HEAD
+			static_cast<SampleUI *>(g_pObjMgr->FindObjectByTag(TAG_UI))->CurrHp -= MOB_DAMAGE;
+
 			int temp;
 			temp = static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetHp();
-			static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetHp(temp-1);
-=======
-			g_pUIOperator->ScreenEffectOn = true;
->>>>>>> b99a5ca301d68709044b19b3fafec9b947752287
-			p->isDamaged = false;
-		
+			static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetHp(temp- MOB_DAMAGE);
 
+			g_pUIOperator->ScreenEffectOn = true;
+
+			p->isDamaged = false;
 		}
 	}
 
