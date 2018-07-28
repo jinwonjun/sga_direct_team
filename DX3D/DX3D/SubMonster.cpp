@@ -225,9 +225,17 @@ void SubMonster::Hit()
 		{
 			//피통 줄이는거 ui 접근
 			static_cast<SampleUI *>(g_pObjMgr->FindObjectByTag(TAG_UI))->CurrHp -= 1;
+			int temp;
+			temp = static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetHp();
+			static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetHp(temp-1);
 			p->isDamaged = false;
 		}
 	}
+
+	Debug->AddText("플레이어 체력 : ");
+	Debug->AddText(static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetHp());
+	Debug->EndLine();
+	Debug->EndLine();
 }
 
 void SubMonster::UpdatePosition()
@@ -463,23 +471,6 @@ void SubMonster::WorldToVP()
 	//스크린좌표 가져오기
 	ScreenX = (v.x * 0.5f + 0.5f) * vp.Width;
 	ScreenY = ((-1)*v.y * 0.5f + 0.5f) * vp.Height;
-
-	//스크린좌표 구했으니까 피통 UI를 머리 위로 올려!
-	//Debug->EndLine();
-	//Debug->EndLine();
-	//Debug->AddText("스크린상좌표 X : ");
-	//Debug->AddText(g_pCamera->GetMCenter().x);
-	//Debug->AddText("  Y : ");
-	//Debug->AddText(g_pCamera->GetMCenter().y);
-	//Debug->EndLine();
-	//Debug->EndLine();
-
-	//Debug->AddText("몹 스크린상좌표 X : ");
-	//Debug->AddText(ScreenX);
-	//Debug->AddText("  Y : ");
-	//Debug->AddText(ScreenY);
-	//Debug->EndLine();
-	//Debug->EndLine();
 }
 
 void SubMonster::UpdateFrameMatrix()

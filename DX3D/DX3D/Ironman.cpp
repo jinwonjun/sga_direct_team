@@ -456,10 +456,10 @@ void Ironman::AnimationKeySetting()
 	no_right = 13;
 	no_jump = 14;
 	no_back = 15;
+	no_death = 16;
+	death = 17;
 	맨손일때는 리로드 애니가 없음!
 	*/
-
-	
 		if (Keyboard::Get()->KeyPress('W'))
 		{
 			isRun = true;	//뛰는소리
