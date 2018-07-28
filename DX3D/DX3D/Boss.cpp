@@ -20,10 +20,16 @@ Boss::Boss(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 	m_path = path;			// "resources/zealot/";
 	m_filename = fileName;	// "combine_test.X";
 
+	/*
 	m_radius = 1.7f;
 	m_HeadRadius = 0.5f;
-	m_CollRadius = 30.f;
+	m_CollRadius = 10.f;
 	m_SphereHeight = 7.0f;
+	*/
+	m_radius = 5.1f;
+	m_HeadRadius = 1.5f;
+	m_CollRadius = 30.f;
+	m_SphereHeight = 10.0f;
 	m_enemyNum = enemyNum;
 
 	//충돌처리
@@ -53,7 +59,7 @@ Boss::~Boss()
 
 void Boss::Init()
 {
-	m_pBox = new BoundingBox(D3DXVECTOR3(50.0f, 15.0f, 50.0f), m_pos); m_pBox->Init();
+	m_pBox = new BoundingBox(D3DXVECTOR3(100.0f, 15.0f, 100.0f), m_pos); m_pBox->Init();
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pFrontSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_HeadRadius, 10, 10, &m_pBackSphereMesh, NULL);
 	D3DXCreateSphere(g_pDevice, m_CollRadius, 10, 10, &m_pCollSphereMesh, NULL);
@@ -216,7 +222,7 @@ void Boss::UpdatePosition()
 
 		else if (m_isMoving == false && isDamage)
 		{
-			if (MoveDist <= MOVE_STOP_DISTANCE)
+			if (MoveDist <= MOVE_STOP_DISTANCE_BOSS)
 			{
 				isDamage = false;
 			}
@@ -224,7 +230,7 @@ void Boss::UpdatePosition()
 	}
 
 	//공격 범위 까지 왔다면 공격
-	if (MoveDist <= MOVE_STOP_DISTANCE && MoveDist > D3DX_16F_EPSILON && m_isMoving)
+	if (MoveDist <= MOVE_STOP_DISTANCE_BOSS && MoveDist > D3DX_16F_EPSILON && m_isMoving)
 	{
 		m_pSkinnedMesh->status = 2;
 		m_isMoving = false;
@@ -247,14 +253,14 @@ void Boss::UpdatePosition()
 	if (DeathCheck)
 	{
 		DeathTimer += 0.001f;
-		if (DeathTimer > 0.160f)
+		if (DeathTimer > 0.150f)
 		{
 			m_isDead = true;
-			if (m_isDead)
-			{
-				DeathCheck = false;
-				DeathTimer = 0;
-			}
+			//if (m_isDead)
+			//{
+			//	DeathCheck = false;
+			//	DeathTimer = 0;
+			//}
 		}
 	}
 	//enum4(이동) 랑 5(멈춤)로 컨트롤중
@@ -361,8 +367,8 @@ void Boss::UpdatePosition()
 	m_matWorld = matS * matR * matT;
 
 	//충돌 헤드 계산
-	m_frontHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
-	m_backHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD * 0.5f + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
+	m_frontHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD_BOSS + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
+	m_backHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD_BOSS * 0.5f + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
 
 	//높이 계산
 	float height = 0;

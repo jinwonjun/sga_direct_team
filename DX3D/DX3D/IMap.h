@@ -45,5 +45,4 @@ public:
 	void SetFilename(LPCTSTR filepath, LPCTSTR mapFilename, LPCTSTR surfaceFilename) {
 		m_filepath = filepath; m_mapFilename = mapFilename; m_surfaceFilename = surfaceFilename;
 	}
-
 };
