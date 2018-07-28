@@ -770,13 +770,10 @@ void SampleUI::Render()
 		m_pSprite->End();
 	}
 
-<<<<<<< HEAD
 
 
+	//int a = clientRect.right;
 
-	int a = clientRect.right;
-=======
->>>>>>> f9de2e93f25afc9201a4c4f939a719b721ea0169
 
 
 	//SAFE_RENDER(m_pRootUI_Def);
