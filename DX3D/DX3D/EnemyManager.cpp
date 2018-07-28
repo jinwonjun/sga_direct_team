@@ -23,8 +23,6 @@ void EnemyManager::Init(void)
 	AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X", 3);
 	AddEnemy(D3DXVECTOR3(145, 0, 30), "resources/Boss_test/", "Mutant.X", 4);
 
-	//AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X");
-
 	g_pObjMgr->AddToTagList(TAG_ENEMY, this);
 }
 
@@ -32,14 +30,15 @@ void EnemyManager::Update(void)
 {
 	for each(Enemy* e in m_vecEnemy)
 	{
-		//e->m_HP <= 0
 		if (e->m_isDead)
 		{
 			if (e->m_ItemDrop == false)
 			{
 				g_pItem->getMonsterXY(e->ScreenX, e->ScreenY);
 
+
 			//	g_pItem->ItemGet(e->GetEnemyNum());
+
 
 				e->m_ItemDrop = true;
 			}
@@ -48,16 +47,29 @@ void EnemyManager::Update(void)
 		e->Update();
 	}
 	CollisionCheck();
-	//erase¸¦ ¸·¾Æ¾ßÇØ!
+
 	for (int i = 0; i < m_vecEnemy.size(); i++)
 	{
-		//&& m_vecEnemy[i]->m_isDead
 		if (m_vecEnemy[i]->m_Hp <= 0)
 		{
-			g_pSoundManager->Play("zealot_death", 1.0f);
-			Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
-			g_pInventory->addIndex(g_pItem->Items[GetRandomInt(15)]);
-			m_vecEnemy.erase(m_vecEnemy.begin() + i);
+
+
+			//º¸½º
+			if (m_vecEnemy[i]->GetEnemyNum() == 4)
+			{
+				if (m_vecEnemy[i]->m_isDead)
+				{
+					g_pSoundManager->Play("zealot_death", 1.0f);
+					Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
+					m_vecEnemy.erase(m_vecEnemy.begin() + i);
+				}
+			}
+			else//ÂÌ¸÷
+			{
+				g_pSoundManager->Play("zealot_death", 1.0f);
+				Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
+				m_vecEnemy.erase(m_vecEnemy.begin() + i);
+			}
 		}
 	}
 }

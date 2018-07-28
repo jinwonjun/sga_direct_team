@@ -1,10 +1,7 @@
 #include "stdafx.h"
 #include "ObjMap.h"
 #include "DrawingGroup.h"
-//#include "ObjLoader.h"
 
-#include "Walls.h"
-#include "BoundingBox.h"
 
 ObjMap::ObjMap()
 {
@@ -23,6 +20,9 @@ ObjMap::~ObjMap()
 void ObjMap::Init()
 {
 	surfaceMode = false;
+
+	g_pObjMgr->AddToTagList(TAG_OBJMAP, this);
+
 	Init_cs_italy();
 	//돌격
 	//Init_cs_assault();
@@ -33,16 +33,16 @@ void ObjMap::Init()
 	//시가전 느낌
 	//Init_old_town();
 	
-	//이 맵은 봉인, 프레임 드랍 심각함
-	//Init_float_city();
-	//OBJ맵 적용하기
+
+	//g_pMapManager->AddMap("ObjMap", this);
+	//g_pMapManager->SetCurrentMap("ObjMap");
 
 	//m_pWalls = new Walls;
 	//m_pWalls->Init();
 	//m_pBox = new BoundingBox(D3DXVECTOR3(3.0f, 15.0f, 3.0f), m_pos); m_pBox->Init();
 
-	g_pMapManager->AddMap("ObjMap", this);
-	g_pMapManager->SetCurrentMap("ObjMap");
+	//g_pMapManager->AddMap("ObjMap", this);
+	//g_pMapManager->SetCurrentMap("ObjMap");
 
 	m_renderMode = RenderMode_ShadowMapping;
 	m_specular = 0.0f;
@@ -63,11 +63,11 @@ void ObjMap::Update()
 	}
 	if (g_pKeyboard->KeyDown('2'))
 	{
-		Init_cs_havana();
+		Init_cs_assault();
 	}
 	if (g_pKeyboard->KeyDown('3'))
 	{
-		Init_cs_assault();
+		Init_cs_havana();
 	}
 	if (g_pKeyboard->KeyDown('4'))
 	{
@@ -77,11 +77,15 @@ void ObjMap::Update()
 	{
 		Init_old_town();
 	}
+
+
+
 	Debug->EndLine();
 	Debug->AddText("렉의 이유1 : ");
 	Debug->AddText((int)m_vecVertex.size());
 	Debug->EndLine();
 	Debug->EndLine();
+
 
 	//m_pBox->Update();
 	//m_pBox->SetPosition(&m_pos);
@@ -96,6 +100,7 @@ void ObjMap::Render()
 	//RenderDrawingGroup();
 	//매쉬 함수
 	RenderMesh();
+
 
 	//m_pWalls->Render();
 	//m_pBox->Render();
@@ -181,16 +186,18 @@ void ObjMap::Init_cs_italy()
 	D3DXMatrixTranslation(&matT, 0, -250, 0);
 	localMatrix = matS * matRY * matT;
 
-	ObjLoader loader;
-	m_pMeshMap = loader.LoadMesh("resources/Maps/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
-
 	//서피스 그리기 전에 이전 정보 싹지우기
 	m_vecVertex.clear();
 
+	ObjLoader loader;
+	m_pMeshMap = loader.LoadMesh("resources/Maps/cs_italy", "cs_italy.obj", &localMatrix, m_vecMtlTex);
+
 	loader.CreateSurface(m_vecVertex);//정점 정보들을 가지고 바닥 생성
 
-	g_pMapManager->AddMap("ObjMap", this);
-	g_pMapManager->SetCurrentMap("ObjMap");
+	g_pMapManager->AddMap("Italy", this);
+	g_pMapManager->SetCurrentMap("Italy");
+
+	g_pMapManager->GetCurrentMap();
 }
 
 void ObjMap::Init_cs_assault()
@@ -201,15 +208,15 @@ void ObjMap::Init_cs_assault()
 	D3DXMatrixTranslation(&matT, 0, -700, 0);
 	localMatrix = matS * matRY * matT;
 
+	m_vecVertex.clear();
+
 	ObjLoader loader;
 	m_pMeshMap = loader.LoadMesh("resources/Maps/cs_assault", "cs_assault.obj", &localMatrix, m_vecMtlTex);
 
-	m_vecVertex.clear();
-
 	loader.CreateSurface(m_vecVertex);
 
-	g_pMapManager->AddMap("ObjMap", this);
-	g_pMapManager->SetCurrentMap("ObjMap");
+	g_pMapManager->AddMap("Assult", this);
+	g_pMapManager->SetCurrentMap("Assult");
 }
 
 void ObjMap::Init_cs_havana()
@@ -227,8 +234,8 @@ void ObjMap::Init_cs_havana()
 
 	loader.CreateSurface(m_vecVertex);
 
-	g_pMapManager->AddMap("ObjMap", this);
-	g_pMapManager->SetCurrentMap("ObjMap");
+	g_pMapManager->AddMap("Havana", this);
+	g_pMapManager->SetCurrentMap("Havana");
 }
 
 void ObjMap::Init_pk_stadium()
@@ -265,8 +272,8 @@ void ObjMap::Init_pk_stadium()
 	g_pDevice->LightEnable(9, true);
 	g_pDevice->LightEnable(10, true);
 
-	g_pMapManager->AddMap("ObjMap", this);
-	g_pMapManager->SetCurrentMap("ObjMap");
+	g_pMapManager->AddMap("Stadium", this);
+	g_pMapManager->SetCurrentMap("Stadium");
 }
 
 //일단 봉인
@@ -287,16 +294,16 @@ void ObjMap::Init_float_city()
 
 	loader.CreateSurface(m_vecVertex);
 
-	g_pMapManager->AddMap("ObjMap", this);
-	g_pMapManager->SetCurrentMap("ObjMap");
+	//g_pMapManager->AddMap("ObjMap", this);
+	//g_pMapManager->SetCurrentMap("ObjMap");
 }
 
 void ObjMap::Init_old_town()
 {
 	D3DXMATRIXA16 matS, matRY, matT, localMatrix;
-	D3DXMatrixScaling(&matS, 0.08f, 0.08f, 0.08f);
+	D3DXMatrixScaling(&matS, 0.03f, 0.03f, 0.03f);
 	D3DXMatrixRotationY(&matRY, D3DX_PI / 2.0f);
-	D3DXMatrixTranslation(&matT, 0, -500, 0);
+	D3DXMatrixTranslation(&matT, 0, -100, 0);
 	localMatrix = matS * matRY * matT;
 	ObjLoader loader;
 	m_pMeshMap = loader.LoadMesh("resources/Maps/oldTown", "oldTown.obj", &localMatrix, m_vecMtlTex);
@@ -306,8 +313,8 @@ void ObjMap::Init_old_town()
 
 	loader.CreateSurface(m_vecVertex);
 
-	g_pMapManager->AddMap("ObjMap", this);
-	g_pMapManager->SetCurrentMap("ObjMap");
+	g_pMapManager->AddMap("Town", this);
+	g_pMapManager->SetCurrentMap("Town");
 }
 
 

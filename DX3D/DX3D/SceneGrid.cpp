@@ -138,7 +138,7 @@ void SceneGrid::Init()
 
 
 	//obj∏  ±Ú±‚
-	ObjMap* pMap = new ObjMap();
+	pMap = new ObjMap();
 	pMap->Init();
 	AddSimpleDisplayObj((pMap));
 
@@ -246,6 +246,20 @@ void SceneGrid::BoundingCheck()
 	if (m_pCharacter->GetBoundingBox()->IsIntersected(*(m_pPortalEffect->GetBoundingBox())))
 	{
 		//∫∏Ω∫∏ ¿∏∑Œ ∫Ø∞Ê
+		static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->Init_cs_assault();
+		static_cast <Ironman*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetPosition(&D3DXVECTOR3(0, 0, 0));
 	}
 
 }
+
+//g_pMapManager->SetCurrentMap("Assult");
+//g_pMapManager->GetMapList();
+//map<string, IMap*>::iterator itMap;
+//map<string, IMap*> temp = g_pMapManager->GetMapList();
+//for (itMap = temp.begin(); itMap != temp.end(); itMap++)
+//{
+//	if (temp.count("Assult") == 1)
+//	{
+//		g_pCurrentMap->SetMesh(temp["Assult"]->GetMesh());
+//	}
+//}

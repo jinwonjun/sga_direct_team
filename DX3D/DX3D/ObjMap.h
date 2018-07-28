@@ -18,6 +18,7 @@ private:
 
 	Walls * m_pWalls;
 	BoundingBox * m_pBox;
+	
 
 public:
 	ObjMap();

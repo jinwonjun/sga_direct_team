@@ -27,12 +27,17 @@ protected:
 	IMap() { m_pAStar = NULL; }
 
 public:
+
 	virtual ~IMap() {}
 	virtual bool GetHeight(OUT float & height, const D3DXVECTOR3 & pos) = 0;
 	virtual bool CalcPickedPosition(D3DXVECTOR3 &vOut,WORD screenX, WORD screenY) = 0;
 
 	const vector<D3DXVECTOR3>& GetVertex() { return m_vecVertex; }
+
+	void SetMesh(LPD3DXMESH MeshMap) { m_pMeshMap = MeshMap; }
+	LPD3DXMESH GetMesh() { return m_pMeshMap; }
 	void SetVertex(vector<D3DXVECTOR3> vertex) { m_vecVertex = vertex; }
+
 
 	void SetDimension(size_t dimension)
 	{
@@ -45,5 +50,4 @@ public:
 	void SetFilename(LPCTSTR filepath, LPCTSTR mapFilename, LPCTSTR surfaceFilename) {
 		m_filepath = filepath; m_mapFilename = mapFilename; m_surfaceFilename = surfaceFilename;
 	}
-
 };
