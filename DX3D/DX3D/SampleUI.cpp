@@ -196,7 +196,7 @@ void SampleUI::Init()
 	//미니맵-보스
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/minimap/Boss_Minimap.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/minimap/Boss_Minimap_.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -677,7 +677,7 @@ void SampleUI::Render()
 	//미니맵 캐릭터 표시
 	SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
 
-	D3DXMatrixRotationZ(&matR, D3DX_PI/-2 + Rotscale * (-1));
+	D3DXMatrixRotationZ(&matR, D3DX_PI/-2 + Rotscale);
 	D3DXMatrixIdentity(&matT);
 	//D3DXMatrixTranslation(&matT, 10, 10, 0);
 	D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width /2) + ((CalPlayerPos._43 / 8.f)*(-1)) +180 , (MiniCHAR.m_imageInfo.Height / 2) +(CalPlayerPos._41 / 6.f) +90, 0);

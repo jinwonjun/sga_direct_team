@@ -347,7 +347,6 @@ void ObjMap::RenderUseShader_1()
 //loader.LoadNoneMtl("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
 //m_pMeshMap = loader.LoadMesh("resources/obj", "UED_SCV_V1.obj", &matWorld, m_vecMtlTex);
 
-
 //m_vecVertex
 //함수 호출시 좌표 3개 찍어주고 그 것들로 삼각형을 만들어줌. rayPos(좌표)지점에서 rayDir(방향)으로 광선을 쏜다
 //	D3DXIntersectTri(position0, position1, position2, rayPos, rayDir, 0, 0, distance);

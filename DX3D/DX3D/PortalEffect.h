@@ -16,7 +16,9 @@ public:
 	~PortalEffect();
 
 	void Release();
-	
+	bool isPortal;
+
+
 	BoundingBox*	GetBoundingBox() { return m_pBox; }
 
 	// IDisplayObject을(를) 통해 상속됨
