@@ -39,7 +39,9 @@ private:
 	HUD_Ui Character_HP_Remain;
 	HUD_Ui Minimap;
 	HUD_Ui MiniCHAR;
+	HUD_Ui MiniBoss;
 	HUD_Ui Mini_Boss;
+
 
 	HUD_Ui Notice_Msg;
 
@@ -91,8 +93,6 @@ public:
 	int restBullet;
 	bool spaceOn;
 	int contorller;
-
-
 
 
 	int MaxHp;

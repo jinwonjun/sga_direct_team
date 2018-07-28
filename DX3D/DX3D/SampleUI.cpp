@@ -7,6 +7,8 @@
 
 //맵변환 상태 체크용
 #include "ObjMap.h"
+//보스위치값 받아노는 용도
+#include "Boss.h"
 enum
 {
 	UITAG_TEXTVIEW,
@@ -229,6 +231,22 @@ void SampleUI::Init()
 	//플레이어 위치랑 연동시킬 행렬값 초기화
 	D3DXMatrixIdentity(&CalPlayerPos);
 
+	//미니맵의 보스 표시 그리기
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/minimap/Boss_Minimap_Icon.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&MiniBoss.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&MiniBoss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -699,11 +717,35 @@ void SampleUI::Render()
 			WHITE);
 		m_pSprite->End();
 
+		//미니맵 보스 표시, 보스 이동 업데이트
+		D3DXVECTOR3 BossTempPosition = static_cast <Boss *>(g_pObjMgr->FindObjectByTag(TAG_BOSS))->GetPosition();
+		SetRect(&MiniBoss.m_Image_rc, 0, 0, MiniBoss.m_imageInfo.Width, MiniBoss.m_imageInfo.Height);
+
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, (MiniBoss.m_imageInfo.Width / 2) + BossTempPosition.x / 3.f + 90,
+			(MiniBoss.m_imageInfo.Height / 2) + (BossTempPosition.z / 3.f)*(-1) + 80, 0);
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+		matWorld = matS * matT;
+
+		//MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.3f;
+		//MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.3f;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			MiniBoss.m_pTex,
+			&MiniBoss.m_Image_rc,
+			&D3DXVECTOR3(MiniBoss.m_imageInfo.Width / 2, MiniBoss.m_imageInfo.Height*(0.75f), 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
+
+		//미니맵 캐릭터 표시
 		D3DXMATRIXA16 matRZ, matRY;
 		D3DXMatrixIdentity(&matRZ);
 		float Rotscale = g_pCamera->m_rotY;
-		//미니맵 캐릭터 표시
-
 		SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
 
 		D3DXMatrixRotationZ(&matRZ, Rotscale);
@@ -716,7 +758,6 @@ void SampleUI::Render()
 		//MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.3f;
 		//MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.3f;
 
-		//D3DXSPRITE_ALPHABLEND
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		m_pSprite->SetTransform(&matWorld);
 		m_pSprite->Draw(
@@ -804,7 +845,6 @@ void SampleUI::FontInit2()
 	BulletNum = new UIButton(this, m_pSprite_Bullet, UITAG_BUTTON4);
 	BulletNum->SetPosition(&D3DXVECTOR3(((WINSIZEX / 5) * 4)  , ((WINSIZEY / 32) * 25) , 0));
 
-
 	BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 		"resources/ui/btn-med-up.png.png",
 		"resources/ui/btn-med-up.png.png");
@@ -812,14 +852,10 @@ void SampleUI::FontInit2()
 	temp = std::to_wstring(restBullet) + L" / 30";
 	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str(), WHITE);
 	m_pRootUI_Bullet->AddChild(BulletNum);
-
-
 }
 
 void SampleUI::FontInit3()
 {
-
-
 	ScaleX_BulletNum = 1.f;
 	ScaleY_BulletNum = 1.f;
 	D3DXMATRIXA16 matS;
