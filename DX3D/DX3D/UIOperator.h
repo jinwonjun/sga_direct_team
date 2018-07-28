@@ -48,6 +48,8 @@ struct Button_UI_
 	bool ScreenOn = false;
 };
 
+
+
 class UIOperator 
 {
 private:
@@ -90,6 +92,17 @@ public:
 	Draw_UI_ Valkire;
 	Draw_UI_ Zealot;
 	Draw_UI_ Mutant;
+	Draw_UI_ RedScreen;
+	Draw_UI_ RedScreen2;
+
+	Draw_UI_ ShotEffetc; 
+
+	int RedScreen_Alpha1;
+	int RedScreen_Alpha2;
+	int RedScreen_Alpha3;
+
+	bool ScreenEffectOn;
+
 
 	Button_UI_ Text_Bar_Frame;
 	IUIButtonDelegate * Text_Bar_Frame_Dele;

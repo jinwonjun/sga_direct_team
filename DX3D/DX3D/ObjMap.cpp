@@ -339,10 +339,26 @@ void ObjMap::RenderUseShader_1()
 	{
 		for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
 		{
+			
+
 			Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
 			Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
 			Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
 			Shaders::Get()->GetCurrentShader()->Commit();
+
+			if (MapChangeSignal)
+			{
+				//안개
+				g_pDevice->SetRenderState(D3DRS_FOGENABLE, true);
+				g_pDevice->SetRenderState(D3DRS_FOGCOLOR, 0xffbbbbbb);
+				g_pDevice->SetRenderState(D3DRS_FOGDENSITY, FtoDw(0.001f)); //강도 0~1
+																			//안개 적용되는 최소 거리
+				g_pDevice->SetRenderState(D3DRS_FOGSTART, FtoDw(100.f));
+				//안개 최대치 적용 거리
+				g_pDevice->SetRenderState(D3DRS_FOGEND, FtoDw(300.f));
+				g_pDevice->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);
+			}
+
 			m_pMeshMap->DrawSubset(i);
 		}
 	}

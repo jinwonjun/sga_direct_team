@@ -76,6 +76,24 @@ public:
 	vector<D3DXMATRIXA16> GetBossMatrix() { return m_Boss_FrameMatrix; }
 	vector<D3DXMATRIXA16> GetSubMobMatrix() { return m_Sub_FrameMatrix; }
 	vector<D3DXMATRIXA16> GetPlayerMatrix() { return m_Player_FrameMatrix; }
+
+	double GetCurAnimTime(UINT index)
+	{
+		LPD3DXANIMATIONSET pAnimSet = NULL;
+		D3DXTRACK_DESC track;
+		m_pAnimController->GetAnimationSet(index, &pAnimSet);
+		m_pAnimController->GetTrackDesc(index, &track);
+
+		return pAnimSet->GetPeriodicPosition(track.Position);
+	}
+
+	double GetCurAnimTotalTime(UINT index)
+	{
+		LPD3DXANIMATIONSET pAnimSet = NULL;
+		D3DXTRACK_DESC track;
+		m_pAnimController->GetAnimationSet(index, &pAnimSet);
+		return pAnimSet->GetPeriod();
+	}
 };
 
 // OnInit

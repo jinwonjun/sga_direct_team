@@ -44,6 +44,8 @@ private:
 
 
 	HUD_Ui Notice_Msg;
+	
+
 
 	UIButton * BulletNum;
 	UIButton * GetItems;

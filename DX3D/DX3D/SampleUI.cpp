@@ -268,6 +268,7 @@ void SampleUI::Init()
 
 
 
+
 	GetClientRect(g_hWnd, &clientRect);
 
 	FontInit();
@@ -485,11 +486,11 @@ void SampleUI::Render()
 		Debug->AddText(g_pItem->timer);
 	}
 
-	SAFE_RENDER(m_pRootUI_Bullet);
+	if (g_pInventory->Equip[1].index != 0)
+	{
+		SAFE_RENDER(m_pRootUI_Bullet);
+	}
 
-	/*if (PreFontNum != g_pItem->FontNum)
-	{*/
-		
 		
 
 
@@ -770,6 +771,10 @@ void SampleUI::Render()
 			WHITE);
 		m_pSprite->End();
 	}
+
+
+
+	//int a = clientRect.right;
 
 
 

@@ -59,7 +59,7 @@ void EnemyManager::Update(void)
 			{
 				if (m_vecEnemy[i]->m_isDead)
 				{
-					g_pSoundManager->Play("zealot_death", 1.0f);
+					g_pSoundManager->Play("boss_death", 1.0f);
 					Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
 					m_vecEnemy.erase(m_vecEnemy.begin() + i);
 				}
