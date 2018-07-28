@@ -86,111 +86,6 @@ void SampleUI::Init()
 		m_pRootUI_Def = pImage;
 	}
 
-
-
-	//버튼1
-	{
-		//UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON1);
-		//m_pRootUI->AddChild(pButton);
-		//pButton->SetPosition(&D3DXVECTOR3(WINSIZEX+100, WINSIZEY, 0));
-		//pButton->SetTexture("resources/ui/btn-med-up.png.png",
-		//	"resources/ui/btn-med-over.png.png",
-		//	"resources/ui/btn-med-down.png.png");
-		//
-		//
-
-		////wchar_t * td;
-		//string example = "example";
-
-
-
-
-		/*	AfxMessageBox(tes);*/
-
-		//// 2nd trial
-		//string txt = "df";
-		//itoa(restBullet, c_int, 10);
-
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T(temp.c_str()));  // itoa(restBullet, c_int, 10)
-
-		//		std::string newString("wibble");
-
-
-		//	_itoa_s(restBullet, c_int, 10);		
-
-		//	wchar_t ch[] = _T("asdsd");
-		//wchar_t ch[10] = { 0, };
-		//_itow_s(a3, ch, 2);
-
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST),tes);
-
-
-
-		//pButton->SetTextW(g_pFontMgr->GetFont(FONT::QUEST), t.c_str());
-		// 명형 say -> cmp 깊은 복사?   wstring to lpctstr
-
-	}
-	////버튼2
-	//{
-
-
-	//	D3DXMATRIXA16 matS;
-	//	D3DXMatrixScaling(&matS, 1.f, 1.5f, 1);
-	//	D3DXMATRIXA16 matT;
-	//	D3DXMatrixTranslation(&matT, 0, 0, 0);
-	//	m_matWorld = matS * matT;
-
-	//	UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON2);
-	//	m_pRootUI->AddChild(pButton);
-	//	pButton->SetPosition(&D3DXVECTOR3(0,00, 0));
-	//	pButton->SetTexture("resources/ui/btn-med-up.png.png",
-	//		"resources/ui/btn-med-over.png.png",
-	//		"resources/ui/btn-med-down.png.png");
-	//	pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Button2"));
-	//}
-
-	////버튼3
-	//{
-
-
-
-
-
-
-	//}
-
-	//내가 만들어 본 것
-	{
-
-
-
-		//int restBullet = 10;
-		//CString tes;
-		//tes.Format(L"%d", restBullet);
-
-
-
-		/*	printf("%d\n", restBullet);
-		printf("%s\n", tes);*/
-
-		//printf("깨짐? : %c", temp);
-		//size_t cn;
-		//char *str = "기억나";
-		//wchar_t warr[100] = L"";
-		//setlocale(LC_ALL, "Korean");//로케일 설정
-		//mbstowcs_s(&cn, warr, 100, str, 100);
-		//wprintf(L"%s\n", warr);//유니코드 문자열 출력
-		//const char * t = str;
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), warr);
-
-		//CA2T wt(i.c_str());
-
-		//	pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), wt);
-
-
-	}
-	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/Gun.png"), &m_pTex);
-
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 		_T("resources/images/Gun_.png"),   //LPCTSTR pSrcFile,
@@ -333,26 +228,7 @@ void SampleUI::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&Notice_Msg.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-	{
-		//D3DXMATRIXA16 matS;
-		//D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
-		//D3DXMATRIXA16 matT;
-		//D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
-		////D3DXMatrixTranslation(&matT, 500, 500, 0);
-		//m_matWorld = matS * matT;
 
-		////m_pSprite_2->SetTransform(&m_matWorld);
-
-		//UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON1);
-
-		//pButton->SetPosition(&D3DXVECTOR3(0, -200, 0));
-		//pButton->SetTexture("resources/ui/back.png",
-		//	"resources/ui/back.png",
-		//	"resources/ui/back.png");
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
-
-		//m_pRootUI->AddChild3(pButton);
-	}
 
 	GetClientRect(g_hWnd, &clientRect);
 

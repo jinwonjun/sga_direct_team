@@ -7,7 +7,7 @@
 #define INVENCORSS 6
 #define INVENVERTI 4
 #define INVENITEMSTART_X 1000
-#define INVENITEMSTART_Y 420
+#define INVENITEMSTART_Y 200
 #define NumOfItemTextKind 6
 #define g_pInventory  InventoryManager::Get()
 
