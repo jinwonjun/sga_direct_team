@@ -17,14 +17,14 @@ private:
 
 public:
 
-	int IronMan_Atk;
-	int IronMan_Def;
+
 
 	static UIManager* Get();
 	static void Delete();
 
 	int AnswerDmg;
-	
+	int IronMan_Atk;
+	int IronMan_Def;
 	void Get_IronManAtk(int atk) { IronMan_Atk = atk; }
 	void Get_IronManDef(int def) { IronMan_Def = def; }
 
