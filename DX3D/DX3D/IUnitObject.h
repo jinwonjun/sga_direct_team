@@ -53,6 +53,7 @@ public:
 	void UpdatePosition();
 
 	void DamageCalcul(int Atk);
+	int DamagedCalcul(int Atk);
 
 	void AttackCalcultate(IUnitObject * DamagedUnit);
 	

@@ -59,6 +59,7 @@ void IntroUI::Init()
 	QuitButtonInit();
 	IntroPage.m_Color = WHITE;
 
+
 	D3DXCreateSprite(g_pDevice, &pSprite);
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -91,6 +92,7 @@ void IntroUI::Init()
 		&MousCursor_ClickedOn.m_image,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&MousCursor_ClickedOn.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 }
 
 void IntroUI::Update()
@@ -121,27 +123,7 @@ void IntroUI::Update()
 			DestroyWindow(g_hWnd);
 		}
 	}
-	//Debug->AddText("Left¿Í Top");
 
-	//Debug->AddText(PlayButton.rect.left);
-
-	//Debug->AddText(" , ");
-	//Debug->AddText(PlayButton.rect.top);
-
-	//Debug->AddText("Right¿Í Bottom");
-	//Debug->AddText(PlayButton.rect.right);
-	//Debug->AddText(" , ");
-	//Debug->AddText(PlayButton.rect.bottom);
-
-	//Debug->EndLine();
-	//Debug->AddText("X¿Í Y");
-
-	//Debug->AddText(mousePoint.x);
-
-	//Debug->AddText(" , ");
-	//Debug->AddText(mousePoint.y);
-
-	//Debug->EndLine();
 
 
 	SAFE_UPDATE(PlayButton.m_pRootUI);
@@ -149,7 +131,7 @@ void IntroUI::Update()
 	SAFE_UPDATE(QuitButton.m_pRootUI);
 
 
-
+	
 
 }
 
@@ -158,7 +140,7 @@ void IntroUI::Render()
 	g_pDevice->SetTexture(0, NULL);
 	D3DXMATRIXA16 matR, matT;
 	D3DXMATRIXA16 matS;
-
+	
 
 	SetRect(&IntroPage.m_Image_rc, 0, 0, IntroPage.m_imageInfo.Width, IntroPage.m_imageInfo.Height);
 	IntroPage.ScaleX = clientRect.right/ OriginX;
@@ -195,6 +177,7 @@ void IntroUI::Render()
 	PlayButton.m_pSprite->End();
 
 	SAFE_RENDER(IntroPage.m_pRootUI);
+
 
 	if (g_pMouse->ButtonPress(Mouse::LBUTTON))
 	{

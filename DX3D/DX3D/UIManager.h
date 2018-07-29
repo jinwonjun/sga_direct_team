@@ -19,6 +19,7 @@ public:
 	RECT clientRect;
 	POINT mousePoint;
 
+
 	Inven_UI MouseCursor_Normal;
 	Inven_UI MousCursor_ClickedOn;
 	D3DXMATRIXA16 matR, matT, matS;
@@ -38,12 +39,19 @@ public:
 	}
 	void Get_IronManDef(int def) { IronMan_Def = def; }
 
+	
 
 	static UIManager* Get();
 	static void Delete();
 
-	
-	
+
+	//int AnswerDmg;
+	//int IronMan_Atk;
+	//int IronMan_Def;
+	//void Get_IronManAtk(int atk) { IronMan_Atk = atk; }
+	//void Get_IronManDef(int def) { IronMan_Def = def; }
+
+	//
 
 	void Init();
 	void Update();

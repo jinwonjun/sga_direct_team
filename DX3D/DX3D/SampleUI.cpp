@@ -320,8 +320,8 @@ void SampleUI::Update()
 
 	temp = std::to_wstring(restBullet) + L" / 30";
 
-	GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((30-g_pItem->timer)), 0));
-	
+	//GetItems->SetPosition(&D3DXVECTOR3((MobX - Notice_Msg.m_imageInfo.Width/2) / ScaleX_GetItems, ((MobY- Notice_Msg.m_imageInfo.Height-50) / ScaleY_GetItems) - ((30-g_pItem->timer)), 0));
+	GetItems->SetPosition(&D3DXVECTOR3((MobX - 50), ((MobY - 100)) - ((30 - g_pItem->timer)), 0));
 
 	// 십의 자리 숫자로 맞추기 위해서 사용
 	if (g_pUIManager->IronMan_Atk < 10)
@@ -485,6 +485,7 @@ void SampleUI::Render()
 	m_pSprite_Def->SetTransform(&m_matWorld_StatDef);
 	SAFE_RENDER(m_pRootUI_Def);
 	m_pSprite_Def->End();
+
 
 
 

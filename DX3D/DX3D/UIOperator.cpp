@@ -62,6 +62,11 @@ void UIOperator::Init()
     ZealotTimer = 0;
     RedScreen_Alpha1 = 0;
 	RedScreen_Alpha2 = 0;
+	GameScreen_Alpha1 = 0;
+	GameOverScreen_AlPha1 = 0;
+
+	countText = 0;
+	countTextisOK = false;
 
 	ScreenEffectOn = false;
 
@@ -100,6 +105,41 @@ D3DXCreateTextureFromFileEx(
 	NULL,         //PALETTEENTRY *pPalette
 	&RedScreen2.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
+
+
+D3DXCreateTextureFromFileEx(
+	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+	_T("resources/images/Screen/LoadingScene.png"),   //LPCTSTR pSrcFile,
+	D3DX_DEFAULT_NONPOW2,   //UINT Width,
+	D3DX_DEFAULT_NONPOW2,   //UINT Height,
+	D3DX_DEFAULT,      //UINT MipLevels,
+	0,               //DWORD Usage,
+	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+	D3DPOOL_MANAGED,   //D3DPOOL Pool
+	D3DX_FILTER_NONE,   //DWORD Filter
+	D3DX_DEFAULT,      //DWORD MipFilter
+	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+	&LoadingScene.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+	NULL,         //PALETTEENTRY *pPalette
+	&LoadingScene.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
+D3DXCreateTextureFromFileEx(
+	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+	_T("resources/images/Screen/GameOver.png"),   //LPCTSTR pSrcFile,
+	D3DX_DEFAULT_NONPOW2,   //UINT Width,
+	D3DX_DEFAULT_NONPOW2,   //UINT Height,
+	D3DX_DEFAULT,      //UINT MipLevels,
+	0,               //DWORD Usage,
+	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+	D3DPOOL_MANAGED,   //D3DPOOL Pool
+	D3DX_FILTER_NONE,   //DWORD Filter
+	D3DX_DEFAULT,      //DWORD MipFilter
+	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+	&GameOverScene.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+	NULL,         //PALETTEENTRY *pPalette
+	&GameOverScene.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 //D3DXCreateTextureFromFileEx(
 //	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 //	_T("resources/images/ShotEffect/ShotEffect.png"),   //LPCTSTR pSrcFile,
@@ -115,7 +155,7 @@ D3DXCreateTextureFromFileEx(
 //	&ShotEffetc.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 //	NULL,         //PALETTEENTRY *pPalette
 //	&ShotEffetc.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
-
+LoadingScene.ScreenOn = false;
 }
 
 void UIOperator::Update()
@@ -135,8 +175,30 @@ void UIOperator::Update()
 
 	if (g_pKeyboard->KeyDown('C'))
 	{
+		GameOverScene.ScreenOn = true;
 		countText++;
 		countTextisOK = true;
+	}
+
+
+
+	if (GameScreen_Alpha1 + .1f >= 255.f)
+	{
+		GameScreen_Alpha1 = 255.f;
+	}
+
+	else if (GameScreen_Alpha1 >= 255.f)
+	{
+		GameScreen_Alpha1 == 255.f;
+
+	}
+
+	else if (GameOverScene.ScreenOn)
+	{
+		if (g_pSoundManager->IsPlaySound("gameScene")) g_pSoundManager->Stop("gameScene");
+		if (g_pSoundManager->IsPlaySound("bossScene")) g_pSoundManager->Stop("bossScene");
+		GameScreen_Alpha1 += 1.f;
+		GameOverScreen_AlPha1 = GameScreen_Alpha1;
 	}
 
 	if (countText == 1 && countTextisOK == true)
@@ -261,18 +323,7 @@ void UIOperator::Update()
 		RedScreen_Alpha2 -= 20;
 	}
 
-	//if (RedScreen_Alpha3 == 0)
-	//{
-	//	RedScreen_Alpha3 = 0;
-	//}
-	//else if (RedScreen_Alpha3 - 30 <= 0)
-	//{
-	//	RedScreen_Alpha3 = 0;
-	//}
-	//else if (RedScreen_Alpha3 > 0)
-	//{
-	//	RedScreen_Alpha3 -= 30;
-	//}
+
 
 }
 
@@ -344,29 +395,23 @@ void UIOperator::Render()
 	pSprite->End();
 
 
-	SetRect(&ShotEffetc.m_Image_rc, 0, 0, ShotEffetc.m_imageInfo.Width, ShotEffetc.m_imageInfo.Height);
+
+	SetRect(&GameOverScene.m_Image_rc, 0, 0, GameOverScene.m_imageInfo.Width, GameOverScene.m_imageInfo.Height);
 
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, clientRect.right*0.4f, clientRect.bottom*0.45f, -1.0f);
-	D3DXMatrixScaling(&matS, .5f, .5f, 1);
-	ShotEffetc.matWorld = matS * matT;
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
+	GameOverScene.matWorld = matS * matT;
 	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	pSprite->SetTransform(&ShotEffetc.matWorld);
+	pSprite->SetTransform(&GameOverScene.matWorld);
 	pSprite->Draw(
-		ShotEffetc.m_pTex,
-		&ShotEffetc.m_Image_rc,
+		GameOverScene.m_pTex,
+		&GameOverScene.m_Image_rc,
 		&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
+		D3DCOLOR_ARGB(GameOverScreen_AlPha1, 255, 255, 255));
 
 	pSprite->End();
-
-	//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-
-	
-
-	//pSprite->End();
-
 }
 
 //void UIOperator::OnClick(UIButton * pSender)
@@ -533,6 +578,10 @@ void UIOperator::InitMutant()
 
 }
 
+void UIOperator::InitLoading()
+{
+}
+
 void UIOperator::DrawValkire()
 {
 
@@ -593,6 +642,29 @@ void UIOperator::DrawMutant()
 		Mutant.m_pTex,
 		&Mutant.m_Image_rc,
 		&D3DXVECTOR3(0,0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+	pSprite->End();
+
+}
+
+void UIOperator::DrawLoading()
+{
+
+
+	SetRect(&Valkire.m_Image_rc, 0, 0, Valkire.m_imageInfo.Width, Valkire.m_imageInfo.Height);
+
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT,WINSIZEX/2, WINSIZEY/2, 0);
+	D3DXMatrixScaling(&matS, Valkire.ScaleX, Valkire.ScaleY, 1);
+	Valkire.matWorld = matS * matT;
+
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	pSprite->SetTransform(&Valkire.matWorld);
+	pSprite->Draw(
+		Valkire.m_pTex,
+		&Valkire.m_Image_rc,
+		&D3DXVECTOR3(Valkire.m_imageInfo.Width / 2, Valkire.m_imageInfo.Height / 2, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		WHITE);
 	pSprite->End();

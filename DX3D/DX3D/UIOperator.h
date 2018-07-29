@@ -75,9 +75,13 @@ private:
 	void InitValkire();
 	void InitZealot();
 	void InitMutant();
+	void InitLoading();
+
 	void DrawValkire();
 	void DrawZealot();
 	void DrawMutant();
+	void DrawLoading();
+
 	void Init_TextBar_Frame();
 	void Init_TextBar_Background();
 	void Draw_TextBar_Background();
@@ -88,12 +92,18 @@ public:
 	static UIOperator* Get();
 	static void Delete();
 
-
+	void DrawSomething() { DrawLoading(); };
 	Draw_UI_ Valkire;
 	Draw_UI_ Zealot;
 	Draw_UI_ Mutant;
 	Draw_UI_ RedScreen;
 	Draw_UI_ RedScreen2;
+
+	Draw_UI_ LoadingScene;
+
+	Draw_UI_ GameOverScene;
+	float GameScreen_Alpha1;
+	int GameOverScreen_AlPha1;
 
 	Draw_UI_ ShotEffetc; 
 
@@ -120,7 +130,12 @@ public:
 	bool BattleOn_Zealot;
 	bool BattleOn_Mutant;
 
-	
+
+	int countText;
+	bool countTextisOK;
+
+
+
 	bool TimerOnValikre;
 	int ValkireTimer;
 	int ZealotTimer;
@@ -133,10 +148,10 @@ public:
 	void ShutDownCrossHeadMovingFunction(Draw_UI_ &Chara);
 	void ShutDownSacleHeadMovingFunction(Draw_UI_ &Chara);
 
-	int countText;
-	bool countTextisOK;
+	//int countText;
+	//bool countTextisOK;
 
-
+	void GetIronHp(int HP) { if (HP <= 0) { GameOverScene.ScreenOn = true; } }
 
 	// IDisplayObject을(를) 통해 상속됨
 	void Init();

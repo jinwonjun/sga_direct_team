@@ -162,6 +162,28 @@ void SceneGrid::Init()
 	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 
 	g_pSoundManager->Play("gameScene", 1.0f);
+
+
+	//D3DXCreateSprite(g_pDevice, &LoadingScreen.m_pSprite);
+	//GetClientRect(g_hWnd, &clientRect);
+
+	//D3DXCreateTextureFromFileEx(
+	//	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+	//	_T("resources/images/Screen/LoadingScene.png"),   //LPCTSTR pSrcFile,
+	//	D3DX_DEFAULT_NONPOW2,   //UINT Width,
+	//	D3DX_DEFAULT_NONPOW2,   //UINT Height,
+	//	D3DX_DEFAULT,      //UINT MipLevels,
+	//	0,               //DWORD Usage,
+	//	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+	//	D3DPOOL_MANAGED,   //D3DPOOL Pool
+	//	D3DX_FILTER_NONE,   //DWORD Filter
+	//	D3DX_DEFAULT,      //DWORD MipFilter
+	//	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+	//	&LoadingScreen.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+	//	NULL,         //PALETTEENTRY *pPalette
+	//	&LoadingScreen.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
+
 }
 
 void SceneGrid::Update()
@@ -187,6 +209,8 @@ void SceneGrid::Render()
 	SAFE_RENDER(m_pEm);
 
 	OnRenderIScene();
+
+	//g_pUIOperator->DrawSomething();
 }
 
 void SceneGrid::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -215,12 +239,35 @@ void SceneGrid::BoundingCheck()
 
 	if (m_pPortalEffect->isPortal)
 	{
+
+	
 		if (m_pCharacter->GetBoundingBox()->IsIntersected(*(m_pPortalEffect->GetBoundingBox())))
 		{
 			g_pSoundManager->Play("teleport", 0.8f);
 			g_pSoundManager->Stop("gameScene");
 			g_pSoundManager->Play("bossScene", 0.5f);
 			//보스맵으로 변경
+
+			LoadingScreen.ScreenOn = true;
+			//SetRect(&LoadingScreen.m_Image_rc, 0, 0, LoadingScreen.m_imageInfo.Width, LoadingScreen.m_imageInfo.Height);
+
+			//D3DXMatrixIdentity(&matT);
+			//D3DXMatrixTranslation(&matT, 0, 0, 0);
+			//D3DXMatrixScaling(&matS, 1.2f, 1.0f, 1);
+			//LoadingScreen.matWorld = matS * matT;
+			//LoadingScreen.m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+			//LoadingScreen.m_pSprite->SetTransform(&LoadingScreen.matWorld);
+			//LoadingScreen.m_pSprite->Draw(
+			//	LoadingScreen.m_pTex,
+			//	&LoadingScreen.m_Image_rc,
+			//	&D3DXVECTOR3(0, 0, 0),
+			//	&D3DXVECTOR3(0, 0, 0),
+			//	WHITE);
+
+
+			//LoadingScreen.m_pSprite->End();
+
+
 			static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->Init_old_town();
 			static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->SetMapChangeSignal(true);
 

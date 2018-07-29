@@ -137,10 +137,17 @@ void Ironman::Update()
 	//임시 방편의 산물!, 크기를 없애서 안보이게 만든다!
 	else
 	{
-		D3DXMatrixIdentity(&RightHand);
-		RightHand._11 = 0;
-		RightHand._22 = 0;
-		RightHand._33 = 0;
+
+	/*	if (g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == true)
+		{*/
+			D3DXMatrixIdentity(&RightHand);
+			RightHand._11 = 0;
+			RightHand._22 = 0;
+			RightHand._33 = 0;
+		
 	}
 	
 	m_pBox->Update();
@@ -261,6 +268,7 @@ void Ironman::Shoot()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
+
 		if (g_pInventory->Equip[1].index != 0 &&
 			g_pEquip->EquipScreenOn == 0 &&
 			g_pInventory->openInven == 0 &&
@@ -268,7 +276,6 @@ void Ironman::Shoot()
 			g_pEquip->FireAvaliable == false)
 		{
 			g_pSoundManager->Play("No_Ammo", .5f);
-			//g_pSoundManager->Play("laser_gun", 0.5f);
 		}
 
 
@@ -287,81 +294,82 @@ void Ironman::Shoot()
 			case 3:g_pSoundManager->Play("zod_gun", 0.3f);
 				break;
 			}
-		
-		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
-		BoundingSphere* sphere = NULL;
-		float minDistance = FLT_MAX;
-		float intersectionDistance;
-		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
-		BoundingSphere* temp = NULL;
-		Enemy* tempEnemy = NULL;
+			Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
-		for (auto p : em->GetVecEnemy())
-		{
-			if (p->GetHP() <= 0) continue;
-			//temp = p->GetSphere();
-			//보스체크 일단 해보기
-			
-			for (int i = 0; i < p->GetSphereVector().size(); i++)
+			BoundingSphere* sphere = NULL;
+			float minDistance = FLT_MAX;
+			float intersectionDistance;
+			EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+			BoundingSphere* temp = NULL;
+			Enemy* tempEnemy = NULL;
+
+			for (auto p : em->GetVecEnemy())
 			{
-				temp = (p->GetSphereVector())[i];
+				if (p->GetHP() <= 0) continue;
+				//temp = p->GetSphere();
+				//보스체크 일단 해보기
 
-				if (r.CalcIntersectSphere(temp) == true)
+				for (int i = 0; i < p->GetSphereVector().size(); i++)
 				{
-					intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
-					//최소거리
-					if (intersectionDistance < minDistance)
+					temp = (p->GetSphereVector())[i];
+
+					if (r.CalcIntersectSphere(temp) == true)
 					{
-						minDistance = intersectionDistance;
-						//sphere = temp;
-						tempEnemy = p;
-						//맞으면 플레이어 위치 목적지로 입력
-						p->SetDestPos(m_pos);
-						
-						if (p->isTest == true)
+						intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
+						//최소거리
+						if (intersectionDistance < minDistance)
 						{
-							//맞았다 체크
-							p->SetDamage(true);
+							minDistance = intersectionDistance;
+							//sphere = temp;
+							tempEnemy = p;
+							//맞으면 플레이어 위치 목적지로 입력
+							p->SetDestPos(m_pos);
+
+							if (p->isTest == true)
+							{
+								//맞았다 체크
+								p->SetDamage(true);
+							}
+
 						}
-					
+						//거리 보정 위치값 찾기
+						BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 					}
-					//거리 보정 위치값 찾기
-					BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 				}
+
+				if (tempEnemy != NULL)
+				{
+					g_pItem->MonsterDamaged(DamageFontNum);
+					if (g_pUIOperator->BattleOn_Zealot == false) g_pSoundManager->Play("zealot_apply", 1.0f);
+					g_pUIOperator->BattleOn_Zealot = true;
+
+					if (tempEnemy->GetEnemyNum() == 4)
+					{
+						if (g_pUIOperator->BattleOn_Mutant == false) g_pSoundManager->Play("boss_apply", 1.0f);
+						g_pUIOperator->BattleOn_Mutant = true;
+					}
+
+					DamageFontNum++;
+
+					g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
+
+					//tempEnemy->MinusHP();
+					AttackCalcultate(tempEnemy);
+
+					m_pBlood->Fire(BloodCalPos, -m_forward);
+					//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
+					//break;
+				}
+
+				//총 반동 온
+				isShoot = true;
+				shootTime = 0;
+
+
+
 			}
 		}
-		
-		if (tempEnemy != NULL)
-		{
-			g_pItem->MonsterDamaged(DamageFontNum);
-			if (g_pUIOperator->BattleOn_Zealot == false) g_pSoundManager->Play("zealot_apply", 1.0f);
-			g_pUIOperator->BattleOn_Zealot = true;
-
-			if (tempEnemy->GetEnemyNum() == 4)
-			{
-				if (g_pUIOperator->BattleOn_Mutant == false) g_pSoundManager->Play("boss_apply", 1.0f);
-				g_pUIOperator->BattleOn_Mutant = true;
-			}
-
-			DamageFontNum++;
-
-			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
-			
-			//tempEnemy->MinusHP();
-			AttackCalcultate(tempEnemy);
-
-			m_pBlood->Fire(BloodCalPos, -m_forward);
-			//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
-			//break;
-		}
-
-		//총 반동 온
-		isShoot = true;
-		shootTime = 0;
-	}
-
-		
 	}
 }
 //피통 0일때 애니매이션 값 돌리기 및 체크, 라이플 들었을 때, 아닐 때 체크
@@ -407,57 +415,63 @@ void Ironman::Hit()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
-		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
-		float minDistance = FLT_MAX;
-		EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
-		BoundingSphere* temp = NULL;
-		Enemy* tempEnemy = NULL;
+		if (g_pInventory->Equip[1].index == 0 &&
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0)
+		{
+			Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
+			float minDistance = FLT_MAX;
+			EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+			BoundingSphere* temp = NULL;
+			Enemy* tempEnemy = NULL;
 
-		//오른손만 돌리자!
-		for(int i = 28; i < 44;i++)
-		{ 
-			for (auto p : em->GetVecEnemy())
+			//오른손만 돌리자!
+			for (int i = 28; i < 44; i++)
 			{
-				if (p->GetHP() <= 0) continue;
-
-				for (int i = 0; i < p->GetSphereVector().size(); i++)
+				for (auto p : em->GetVecEnemy())
 				{
-					//적 임시 변수
-					temp = (p->GetSphereVector())[i];
+					if (p->GetHP() <= 0) continue;
 
-					if (SphereCollideCheck(*m_vecBoundary[i], *temp) == true)
+					for (int i = 0; i < p->GetSphereVector().size(); i++)
 					{
-						tempEnemy = p;
-						//맞으면 플레이어 위치 목적지로 입력
-						p->SetDestPos(m_pos);
-						//맞았다 체크
-						p->SetDamage(true);
+						//적 임시 변수
+						temp = (p->GetSphereVector())[i];
 
-						temp->isPicked = true;
+						if (SphereCollideCheck(*m_vecBoundary[i], *temp) == true)
+						{
+							tempEnemy = p;
+							//맞으면 플레이어 위치 목적지로 입력
+							p->SetDestPos(m_pos);
+							//맞았다 체크
+							p->SetDamage(true);
+
+							temp->isPicked = true;
+						}
+						//거리 보정 위치값 찾기
+						BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 					}
-					//거리 보정 위치값 찾기
-					BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 				}
 			}
-		}
-		
 
-		if (tempEnemy != NULL)
-		{
-			g_pItem->MonsterDamaged(DamageFontNum);
-					
-		
 
-			DamageFontNum++;
+			if (tempEnemy != NULL)
+			{
+				g_pItem->MonsterDamaged(DamageFontNum);
 
-			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
 
-			//tempEnemy->MinusHP();
-			AttackCalcultate(tempEnemy);
 
-			m_pBlood->Fire(BloodCalPos, -m_forward);
-			//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
-			//break;
+				DamageFontNum++;
+
+				g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
+
+				//tempEnemy->MinusHP();
+				AttackCalcultate(tempEnemy);
+
+				m_pBlood->Fire(BloodCalPos, -m_forward);
+				//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
+				//break;
+			}
 		}
 	}
 }
@@ -659,6 +673,11 @@ void Ironman::AnimationKeySetting()
 		}
 		else if (Mouse::Get()->ButtonDown(Mouse::Get()->LBUTTON))
 		{
+			if (g_pInventory->Equip[1].index != 0 &&
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0 )
+			{
 			checkTimer = true;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
@@ -671,6 +690,7 @@ void Ironman::AnimationKeySetting()
 			{
 				timer = 0.015f;
 				m_pSkinnedMesh->status = 1;
+			}
 			}
 		}
 		

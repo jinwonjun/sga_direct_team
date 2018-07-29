@@ -17,6 +17,9 @@ class Gun;
 class UIOperator;
 class PortalEffect;
 
+
+
+
 class SceneGrid : public IScene
 {
 	//각 정점의 칼라값까지 넣어줄 수도 있는 기능을 한다.
@@ -41,6 +44,9 @@ public:
 
 	void BoundingCheck();
 
+	RECT clientRect;
+	Draw_UI_ LoadingScreen;
+	D3DXMATRIXA16 matT, matS;
 	//큐브 동적 생성
 	Cube * pCube;
 	Grid * pGrid;

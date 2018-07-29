@@ -72,6 +72,7 @@ void UIManager::Update()
 	{
 		//beforeCheat = IronMan_Atk;
 		IronMan_Atk = 99;
+		IronMan_Def = 99;
 	}
 	
 }

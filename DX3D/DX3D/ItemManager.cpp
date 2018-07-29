@@ -73,6 +73,7 @@ void ItemManager::init()
 	{
 		g_pInventory->addIndex(Items[i]);
 	}
+
 }
 
 void ItemManager::ItemTable()
