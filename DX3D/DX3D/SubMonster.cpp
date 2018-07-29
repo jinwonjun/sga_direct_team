@@ -162,10 +162,6 @@ void SubMonster::Update()
 			testNum = 0;
 	}
 
-	if (g_pKeyboard->KeyDown(VK_F5))
-	{
-		isTest = !isTest;
-	}
 
 	Debug->AddText(isTest);
 	Debug->EndLine();

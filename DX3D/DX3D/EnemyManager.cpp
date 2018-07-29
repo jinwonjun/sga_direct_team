@@ -73,6 +73,15 @@ void EnemyManager::Update(void)
 			}
 		}
 	}
+
+
+	if (g_pKeyboard->KeyDown(VK_F5))
+	{
+		for each(Enemy* e in m_vecEnemy)
+		{
+			e->isTest = !e->isTest;
+		}
+	}
 }
 
 void EnemyManager::Render(void)

@@ -151,6 +151,8 @@ void Boss::Init()
 	AtkTimer = 0.0f;
 	AtkCheck = false;
 
+	isTest = false;
+
 	//공격 애니메이션 초기화할 변수
 	m_isAniAttack = false;
 	//공격 애니메이션 소리 낼 조건을 위한 변수
@@ -167,10 +169,7 @@ void Boss::Update()
 			testNum = 0;
 	}
 
-	if (g_pKeyboard->KeyDown(VK_F5))
-	{
-		isTest = !isTest;
-	}
+	
 
 	UpdatePosition();
 
@@ -311,21 +310,33 @@ void Boss::UpdatePosition()
 			DeathCheck = true;
 			m_pSkinnedMesh->status = 3;//사망 모션
 		}
+
+		
 		if (DeathCheck)
 		{
-			DeathTimer += 0.001f;
-			if (DeathTimer > 0.180f)
-			{
+			if (m_pSkinnedMesh->GetCurAnimTime() > m_pSkinnedMesh->GetCurAnimTotalTime(3) - 0.05f)
+		//	DeathTimer += 0.001f;
+		//	if (DeathTimer > 0.180f)
+		//	{
 				m_isDead = true;
 				//if (m_isDead)
 				//{
 				//	DeathCheck = false;
 				//	DeathTimer = 0;
 				//}
-			}
 		}
+		//}
 		//enum4(이동) 랑 5(멈춤)로 컨트롤중
 		//보스기준 enum4 가 사망 enum3이 공격 enum2가 달리기 enum1이 대기
+
+		Debug->AddText("total death : ");
+		Debug->AddText(m_pSkinnedMesh->GetCurAnimTotalTime(3));
+
+		Debug->EndLine();
+
+		Debug->AddText("cur Death : ");
+		Debug->AddText(m_pSkinnedMesh->GetCurAnimTime());
+
 
 		//충돌 해서 밀어낼 벡터 받아왔다면 방향 받고 정규화
 		if (m_avoid != D3DXVECTOR3(0, 0, 0))

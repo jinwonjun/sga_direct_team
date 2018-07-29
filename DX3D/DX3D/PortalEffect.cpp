@@ -54,7 +54,7 @@ void PortalEffect::Init()
 
 	m_matPortal = matT * m_matWorld;
 	m_pBox = new BoundingBox(D3DXVECTOR3(radius, 15.0f, radius), m_pos); m_pBox->Init();
-	isPortal = false;
+	isPortal = true;
 }
 
 void PortalEffect::Update()

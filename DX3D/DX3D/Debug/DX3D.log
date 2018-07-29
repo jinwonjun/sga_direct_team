@@ -1,2 +1,16 @@
-﻿  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.exe
+﻿  EnemyManager.cpp
+c:\project\dx3d\dx3d\boss.h(41): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\boss.h(42): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\submonster.h(43): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\submonster.h(44): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(37): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(51): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(103): warning C4316: 'SubMonster': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\enemymanager.cpp(108): warning C4316: 'Boss': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\enemymanager.cpp(115): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(120): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Enemy.cpp
+c:\project\dx3d\dx3d\skinnedmesh.h(93): warning C4101: 'track' :참조되지 않은 지역 변수입니다.
+  코드를 생성하고 있습니다...
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.exe
   DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.pdb (Full PDB)
