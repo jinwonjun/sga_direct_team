@@ -191,7 +191,23 @@ void Ironman::Update()
 		tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 	}
 
-
+	//Debug->AddText("specular : ");
+	//Debug->AddText(m_specular);
+	//Specular 조정
+	if (g_pKeyboard->KeyPress('8'))
+	{
+		m_specular -= 0.1f;
+		if (m_specular <= 0.0f) m_specular = 0.0f;
+	}
+	if (g_pKeyboard->KeyPress('9'))
+	{
+		m_specular += 0.1f;
+		if (m_specular >= 15.0f) m_specular = 15.0f;
+	}
+	if (g_pKeyboard->KeyDown('0'))
+	{
+		m_specular = 10.0f;
+	}
 }
 
 void Ironman::Render()
