@@ -17,6 +17,7 @@ SubMonster::SubMonster(D3DXVECTOR3 & pos, CString path, CString fileName, int en
 	m_isMoving = false;
 	m_Hp = MOB_FULL_HP;//갱신되는 몹의 체력을 매크로에서 받아오기
 	m_ItemDrop = false;
+	m_Atk = MOB_DAMAGE;
 
 	m_path = path;			// "resources/zealot/";
 	m_filename = fileName;	// "combine_test.X";
@@ -182,6 +183,9 @@ void SubMonster::Update()
 	AnimationModify();
 	SAFE_UPDATE(m_pSkinnedMesh);
 
+	Debug->AddText(m_pSkinnedMesh->GetCurAnimTime());
+	Debug->EndLine();
+
 	//월드 좌표를 뷰포트로 가져오기
 	WorldToVP();
 	//몹의 행렬 업데이트
@@ -219,14 +223,30 @@ void SubMonster::Hit()
 	//오른손만 돌리자!
 	//피통 감소를 한번만 해줘야함!!!!
 	//true일때 피통 까이는거 계속 걸림!!!
-	for (int i = 15; i < 24; i++)
-	{
+	//for (int i = 15; i < 25; i++)
+	//{
+	//	for (auto p : ironman_vec->GetVecBoundary())
+	//	{
+	//		if (SphereCollideCheck(*m_vecBoundary[i], *p) == true
+	//			
+	//			//질럿 손 공격 후 원상태로 돌아갈때 피격안되게 하기
+	//			&& m_pSkinnedMesh->GetCurAnimTime() < 0.8f)
+	//		{
+	//			p->isPicked = true;
+	//			p->isDamaged = true;
+	//			break;
+	//		}
+	//		//거리 보정 위치값 찾기
+	//		//BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+	//	}
+	//}
+
+	//for (int i = 15; i < 25; i++)
+	//{
 		for (auto p : ironman_vec->GetVecBoundary())
 		{
-			if (SphereCollideCheck(*m_vecBoundary[i], *p) == true
-				
-				//질럿 손 공격 후 원상태로 돌아갈때 피격안되게 하기
-				&& m_pSkinnedMesh->GetCurAnimTime() < 0.8f)
+			if ((SphereCollideCheck(*m_vecBoundary[16], *p) == true && m_pSkinnedMesh->GetCurAnimTime() < 0.8f)
+				|| (SphereCollideCheck(*m_vecBoundary[23], *p) == true && m_pSkinnedMesh->GetCurAnimTime() < 0.8f))
 			{
 				p->isPicked = true;
 				p->isDamaged = true;
@@ -235,7 +255,7 @@ void SubMonster::Hit()
 			//거리 보정 위치값 찾기
 			//BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
 		}
-	}
+	//}
 
 	for (auto p : ironman_vec->GetVecBoundary())
 	{
@@ -268,6 +288,8 @@ void SubMonster::Hit()
 		}
 		
 	}
+
+	
 
 	Debug->AddText("플레이어 체력 : ");
 	Debug->AddText(static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetHp());

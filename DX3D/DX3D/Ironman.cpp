@@ -39,7 +39,7 @@ void Ironman::Init()
 
 	//매쉬 캐릭터 올리기
 	m_pSkinnedMesh = new SkinnedMesh;
-	m_pSkinnedMesh->SetRadius(0.5f);
+	m_pSkinnedMesh->SetRadius(1.5f);
 	m_pSkinnedMesh->Init(); 
 	m_pSkinnedMesh->SetRenderMode(m_renderMode);
 	
@@ -47,6 +47,8 @@ void Ironman::Init()
 	D3DXCreateSphere(g_pDevice, m_pSkinnedMesh->GetRadius(), 10, 10, &m_pSphereMesh, NULL);
 	for (int k = 0; k < (m_pSkinnedMesh->GetPlayerMatrix()).size(); k++)
 	{
+		float temp = m_pSkinnedMesh->GetRadius();
+
 		BoundingSphere* s = new BoundingSphere(D3DXVECTOR3(k, k, k), m_pSkinnedMesh->GetRadius());
 		s->isDamaged = false;
 		m_vecBoundary.push_back(s);

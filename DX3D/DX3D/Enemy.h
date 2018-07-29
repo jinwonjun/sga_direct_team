@@ -6,7 +6,7 @@
 #define MAX_SEE_HEAD 10
 #define MAX_SEE_HEAD_BOSS 30
 #define MAX_AVOID_FORCE 0.5
-#define MOVE_STOP_DISTANCE 10
+#define MOVE_STOP_DISTANCE 15
 #define MOVE_STOP_DISTANCE_BOSS 50
 #define MOB_SCALE 15.00f
 #define MOB_FULL_HP 99//몹의 전체 피통
