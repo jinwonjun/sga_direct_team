@@ -44,5 +44,7 @@ public:
 	BoundingSphere*	GetSphere() { return m_pBounidngSphere; }
 	vector<BoundingSphere*> GetSphereVector() { return m_vecBoundary; }
 	int GetEnemyNum() { return m_enemyNum; }
+
+	void EnemyAttackSound();
 };
 

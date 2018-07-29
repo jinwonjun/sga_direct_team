@@ -3,6 +3,7 @@
 #include "BoundingBox.h"
 #include "SkinnedMesh.h"
 #include "Ray.h"
+#include "Ironman.h"
 
 Boss::Boss(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 :Enemy(pos,path, fileName, enemyNum)
@@ -149,6 +150,11 @@ void Boss::Init()
 	//공격 체크 변수 초기화
 	AtkTimer = 0.0f;
 	AtkCheck = false;
+
+	//공격 애니메이션 초기화할 변수
+	m_isAniAttack = false;
+	//공격 애니메이션 소리 낼 조건을 위한 변수
+	m_isAniSoundAttack = false;
 }
 
 void Boss::Update()
@@ -159,6 +165,11 @@ void Boss::Update()
 
 		if (testNum > 4)
 			testNum = 0;
+	}
+
+	if (g_pKeyboard->KeyDown(VK_F5))
+	{
+		isTest = !isTest;
 	}
 
 	UpdatePosition();
@@ -203,7 +214,43 @@ void Boss::Render()
 
 void Boss::Hit()
 {
+	Ironman* ironman_vec = static_cast <Ironman *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER));
 
+	//왼발 돌리자!
+	//피통 감소를 한번만 해줘야함!!!!
+	//true일때 피통 까이는거 계속 걸림!!!
+	for (int i = 5; i < 13; i++)
+	{
+		for (auto p : ironman_vec->GetVecBoundary())
+		{
+			if (SphereCollideCheck(*m_vecBoundary[i], *p) == true
+
+				&& m_pSkinnedMesh->GetCurAnimTime() > 1.0f
+				&& m_pSkinnedMesh->GetCurAnimTime() < 1.4f)
+			{
+				p->isPicked = true;
+				p->isDamaged = true;
+				break;
+			}
+		}
+	}
+
+	for (auto p : ironman_vec->GetVecBoundary())
+	{
+		if (p->isDamaged == true && p->isPicked == true)
+		{
+			//피통 줄이는거 ui 접근
+			static_cast<SampleUI *>(g_pObjMgr->FindObjectByTag(TAG_UI))->CurrHp -= BOSS_MOB_DAMAGE;
+
+			int temp;
+			temp = static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetHp();
+			static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetHp(temp - BOSS_MOB_DAMAGE);
+
+			g_pUIOperator->ScreenEffectOn = true;
+
+			p->isDamaged = false;
+		}
+	}
 }
 
 void Boss::UpdatePosition()
@@ -213,173 +260,187 @@ void Boss::UpdatePosition()
 	//이동 목적지와 몬스터의 거리
 	float MoveDist = D3DXVec3Length(&(m_destPos - m_pos));
 
-	////바운딩 박스에 닿았거나 총에 맞았다면 이동
-	if (m_isMoving == true || isDamage == true)
-	{
-		m_pSkinnedMesh->status = 1;
-		//박스 안에 있다면 총에 맞은거 끔 : 총맞고 벗어 났을경우 위해
-		if (m_isMoving)
-			isDamage = false;
-
-		else if (m_isMoving == false && isDamage)
-		{
-			if (MoveDist <= MOVE_STOP_DISTANCE_BOSS)
-			{
-				isDamage = false;
-			}
-		}
-	}
-
-	//공격 범위 까지 왔다면 공격
-	if (MoveDist <= MOVE_STOP_DISTANCE_BOSS && MoveDist > D3DX_16F_EPSILON && m_isMoving)
-	{
-		m_pSkinnedMesh->status = 2;
-		m_isMoving = false;
-	}
-	//바운딩박스 밖이고 총에 맞은것도 아니라면
-	else if (m_isMoving == false && isDamage == false)
+	if (static_cast<Ironman*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetCheckDeathTimer() == true
+		|| (static_cast<Ironman*>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetIsDead() == true))
 	{
 		m_pSkinnedMesh->status = 0;
 	}
-
-	//사망모션 타이머 표현
-	if (m_Hp <= 0)
+	else
 	{
-		//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
-		m_isMoving = false;
-		isDamage = false;
-		DeathCheck = true;
-		m_pSkinnedMesh->status = 3;//사망 모션
-	}
-	if (DeathCheck)
-	{
-		DeathTimer += 0.001f;
-		if (DeathTimer > 0.150f)
+		////바운딩 박스에 닿았거나 총에 맞았다면 이동
+		if (m_isMoving == true || isDamage == true)
 		{
-			m_isDead = true;
-			//if (m_isDead)
-			//{
-			//	DeathCheck = false;
-			//	DeathTimer = 0;
-			//}
+			m_pSkinnedMesh->status = 1;
+			//박스 안에 있다면 총에 맞은거 끔 : 총맞고 벗어 났을경우 위해
+			if (m_isMoving)
+				isDamage = false;
+
+			else if (m_isMoving == false && isDamage)
+			{
+				if (MoveDist <= MOVE_STOP_DISTANCE_BOSS)
+				{
+					isDamage = false;
+				}
+			}
 		}
-	}
-	//enum4(이동) 랑 5(멈춤)로 컨트롤중
-	//보스기준 enum4 가 사망 enum3이 공격 enum2가 달리기 enum1이 대기
 
-	//충돌 해서 밀어낼 벡터 받아왔다면 방향 받고 정규화
-	if (m_avoid != D3DXVECTOR3(0, 0, 0))
-	{
-		D3DXVec3Normalize(&m_avoid, &m_avoid);
-	}
-
-	if (m_isMoving || isDamage)
-	{
-		D3DXVECTOR3 forward = D3DXVECTOR3(m_destPos.x - m_pos.x, 0, m_destPos.z - m_pos.z);
-		D3DXVECTOR3 forwardNormalized;
-		D3DXVec3Normalize(&forwardNormalized, &forward);
-
-		D3DXMATRIXA16 matRotY;
-		D3DXMatrixRotationY(&matRotY, m_rot.y);
-		//정면 방향 벡터 가져오자
-		D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRotY);
-
-		float dot;		//내적의 값
-		float radian;	//내적의 값을 역코사인 해서 구한 최종 각도
-
-		dot = D3DXVec3Dot(&m_forward, &forwardNormalized);
-
-		if (dot > 1.f) dot = 1.f;
-		else if (dot < -1.f) dot = -1.f;
-
-		radian = (float)acos(dot);
-
-		//Debug->AddText("Radian : " + to_string(radian));
-		//Debug->EndLine();
-
-		//Debug->AddText("m_forward: " + to_string(m_forward.x) + ", " + to_string(m_forward.y) + ", " + to_string(m_forward.z));
-		//Debug->EndLine();
-
-		D3DXVECTOR3 rightDir;	//우향벡터
-		D3DXVec3Cross(&rightDir, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &m_forward);
-
-		//우향벡터와 바라보는 벡터의 내적이 0보다 크면 오른쪽
-		if (D3DXVec3Dot(&rightDir, &forwardNormalized) > 0)
+		//공격 범위 까지 왔다면 공격
+		if (MoveDist <= MOVE_STOP_DISTANCE_BOSS && MoveDist > D3DX_16F_EPSILON && m_isMoving)
 		{
-			//오른쪽			
-			m_rot.y += radian * m_rotationSpeed;
+			EnemyAttackSound();
+			m_pSkinnedMesh->status = 2;
+			Hit();
+			m_isMoving = false;
+		}
+		//바운딩박스 밖이고 총에 맞은것도 아니라면
+		else if (m_isMoving == false && isDamage == false)
+		{
+			m_pSkinnedMesh->status = 0;
 		}
 		else
 		{
-			//왼쪽
-			m_rot.y -= radian * m_rotationSpeed;
+			m_isAniAttack = false;
 		}
 
-		//Debug->AddText("m_rot.y : " + to_string(m_rot.y));
-		//Debug->EndLine();
-
-		D3DXMatrixRotationY(&matR, m_rot.y);
-
-		//거의 일직선 상이라면 
-		if (D3DXVec3Dot(&m_forward, &m_avoid) < -.959f)
+		//사망모션 타이머 표현
+		if (m_Hp <= 0)
 		{
-			D3DXMATRIXA16 tempRotY;
-
-			//왼쪽으로 밀리는거면 더 돌림
-			if (D3DXVec3Dot(&rightDir, &m_avoid) > 0)
+			//슬금슬금 기어오는데 죽은 자리에 멈추게 하는법?
+			m_isMoving = false;
+			isDamage = false;
+			DeathCheck = true;
+			m_pSkinnedMesh->status = 3;//사망 모션
+		}
+		if (DeathCheck)
+		{
+			DeathTimer += 0.001f;
+			if (DeathTimer > 0.180f)
 			{
-				D3DXMatrixRotationY(&tempRotY, -D3DX_PI / 2);
+				m_isDead = true;
+				//if (m_isDead)
+				//{
+				//	DeathCheck = false;
+				//	DeathTimer = 0;
+				//}
+			}
+		}
+		//enum4(이동) 랑 5(멈춤)로 컨트롤중
+		//보스기준 enum4 가 사망 enum3이 공격 enum2가 달리기 enum1이 대기
+
+		//충돌 해서 밀어낼 벡터 받아왔다면 방향 받고 정규화
+		if (m_avoid != D3DXVECTOR3(0, 0, 0))
+		{
+			D3DXVec3Normalize(&m_avoid, &m_avoid);
+		}
+
+		if (m_isMoving || isDamage)
+		{
+			D3DXVECTOR3 forward = D3DXVECTOR3(m_destPos.x - m_pos.x, 0, m_destPos.z - m_pos.z);
+			D3DXVECTOR3 forwardNormalized;
+			D3DXVec3Normalize(&forwardNormalized, &forward);
+
+			D3DXMATRIXA16 matRotY;
+			D3DXMatrixRotationY(&matRotY, m_rot.y);
+			//정면 방향 벡터 가져오자
+			D3DXVec3TransformNormal(&m_forward, &D3DXVECTOR3(0, 0, 1), &matRotY);
+
+			float dot;		//내적의 값
+			float radian;	//내적의 값을 역코사인 해서 구한 최종 각도
+
+			dot = D3DXVec3Dot(&m_forward, &forwardNormalized);
+
+			if (dot > 1.f) dot = 1.f;
+			else if (dot < -1.f) dot = -1.f;
+
+			radian = (float)acos(dot);
+
+			//Debug->AddText("Radian : " + to_string(radian));
+			//Debug->EndLine();
+
+			//Debug->AddText("m_forward: " + to_string(m_forward.x) + ", " + to_string(m_forward.y) + ", " + to_string(m_forward.z));
+			//Debug->EndLine();
+
+			D3DXVECTOR3 rightDir;	//우향벡터
+			D3DXVec3Cross(&rightDir, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &m_forward);
+
+			//우향벡터와 바라보는 벡터의 내적이 0보다 크면 오른쪽
+			if (D3DXVec3Dot(&rightDir, &forwardNormalized) > 0)
+			{
+				//오른쪽			
+				m_rot.y += radian * m_rotationSpeed;
 			}
 			else
 			{
-				D3DXMatrixRotationY(&tempRotY, D3DX_PI / 2);
+				//왼쪽
+				m_rot.y -= radian * m_rotationSpeed;
 			}
 
-			D3DXVec3TransformNormal(&m_avoid, &m_avoid, &tempRotY);
-		}
+			//Debug->AddText("m_rot.y : " + to_string(m_rot.y));
+			//Debug->EndLine();
 
-		//몬스터 최종 속도
-		velocity = m_forward * m_moveSpeed + m_avoid * MAX_AVOID_FORCE;
+			D3DXMatrixRotationY(&matR, m_rot.y);
 
-		//충돌하고 밀려서 빨라지는거 막기
-		if (D3DXVec3Length(&velocity) > m_moveSpeed)
+			//거의 일직선 상이라면 
+			if (D3DXVec3Dot(&m_forward, &m_avoid) < -.959f)
+			{
+				D3DXMATRIXA16 tempRotY;
+
+				//왼쪽으로 밀리는거면 더 돌림
+				if (D3DXVec3Dot(&rightDir, &m_avoid) > 0)
+				{
+					D3DXMatrixRotationY(&tempRotY, -D3DX_PI / 2);
+				}
+				else
+				{
+					D3DXMatrixRotationY(&tempRotY, D3DX_PI / 2);
+				}
+
+				D3DXVec3TransformNormal(&m_avoid, &m_avoid, &tempRotY);
+			}
+
+			//몬스터 최종 속도
+			velocity = m_forward * m_moveSpeed + m_avoid * MAX_AVOID_FORCE;
+
+			//충돌하고 밀려서 빨라지는거 막기
+			if (D3DXVec3Length(&velocity) > m_moveSpeed)
+			{
+				D3DXVECTOR3 nomVel;
+				D3DXVec3Normalize(&nomVel, &velocity);
+				velocity = nomVel * m_moveSpeed;
+			}
+
+			//부딪혔을때 속도 비율로 줄이기
+			m_dynamicLength = D3DXVec3Length(&velocity) / m_moveSpeed;
+
+			//최종 이동
+			m_pos = m_pos + velocity * m_dynamicLength;
+			//m_pos = m_pos + m_forward * m_moveSpeed + m_avoid * MAX_AVOID_FORCE;
+
+			D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
+		}//m_isMoving || isDamage
+		else
 		{
-			D3DXVECTOR3 nomVel;
-			D3DXVec3Normalize(&nomVel, &velocity);
-			velocity = nomVel * m_moveSpeed;
+			velocity = D3DXVECTOR3(0, 0, 0);
+			m_destPos.y = m_pos.y;
+			//D3DXMatrixIdentity(&matR);
 		}
 
-		//부딪혔을때 속도 비율로 줄이기
-		m_dynamicLength = D3DXVec3Length(&velocity) / m_moveSpeed;
+		m_matWorld = matS * matR * matT;
 
-		//최종 이동
-		m_pos = m_pos + velocity * m_dynamicLength;
-		//m_pos = m_pos + m_forward * m_moveSpeed + m_avoid * MAX_AVOID_FORCE;
+		//충돌 헤드 계산
+		m_frontHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD_BOSS + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
+		m_backHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD_BOSS * 0.5f + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
 
-		D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
-	}//m_isMoving || isDamage
-	else
-	{
-		velocity = D3DXVECTOR3(0, 0, 0);
-		m_destPos.y = m_pos.y;
-		//D3DXMatrixIdentity(&matR);
+		//높이 계산
+		float height = 0;
+
+		targetPos = m_pos + m_forward  * m_moveSpeed;
+
+		if (g_pCurrentMap != NULL)
+			g_pCurrentMap->GetHeight(height, targetPos);
+
+		m_pos.y = height; //+ 5.0f;
 	}
-
-	m_matWorld = matS * matR * matT;
-
-	//충돌 헤드 계산
-	m_frontHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD_BOSS + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
-	m_backHead = D3DXVECTOR3(m_pos.x, m_pos.y + m_SphereHeight, m_pos.z) + (m_forward * MAX_SEE_HEAD_BOSS * 0.5f + m_avoid * MAX_AVOID_FORCE) * m_dynamicLength;
-
-	//높이 계산
-	float height = 0;
-
-	targetPos = m_pos + m_forward  * m_moveSpeed;
-
-	if (g_pCurrentMap != NULL)
-		g_pCurrentMap->GetHeight(height, targetPos);
-
-	m_pos.y = height; //+ 5.0f;
 }
 
 void Boss::AnimationModify()
@@ -631,4 +692,24 @@ void Boss::RenderUseShader_0()
 void Boss::RenderUseShader_1()
 {
 	m_pSkinnedMesh->RenderUseShader_1();
+}
+
+void Boss::EnemyAttackSound()
+{
+	if (m_isAniAttack == false)
+	{
+		m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
+	}
+
+	if (m_pSkinnedMesh->GetCurAnimTime() <= 0.1f)
+	{
+		if (m_isAniSoundAttack == false) g_pSoundManager->Play("boss_attack", 1.0f);
+		m_isAniSoundAttack = true;
+	}
+	else
+	{
+		m_isAniSoundAttack = false;
+	}
+
+	m_isAniAttack = true;
 }

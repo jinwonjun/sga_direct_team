@@ -220,8 +220,6 @@ void SubMonster::Hit()
 	BoundingSphere* temp = NULL;
 	Enemy* tempEnemy = NULL;
 
-	Debug->AddText("공격 시간 : ");
-	Debug->AddText(m_pSkinnedMesh->GetCurAnimTime(1));
 	//오른손만 돌리자!
 	//피통 감소를 한번만 해줘야함!!!!
 	//true일때 피통 까이는거 계속 걸림!!!
@@ -232,7 +230,7 @@ void SubMonster::Hit()
 			if (SphereCollideCheck(*m_vecBoundary[i], *p) == true
 				
 				//질럿 손 공격 후 원상태로 돌아갈때 피격안되게 하기
-				&& m_pSkinnedMesh->GetCurAnimTime(1) < 0.8f)
+				&& m_pSkinnedMesh->GetCurAnimTime() < 0.8f)
 			{
 				p->isPicked = true;
 				p->isDamaged = true;
@@ -761,7 +759,7 @@ void SubMonster::EnemyAttackSound()
 	*/
 	//if (track.Position <= 0.1f)
 	//GetCurAnimTime은 SkinnedMesh 함수에 넣어둠...
-	if (m_pSkinnedMesh->GetCurAnimTime(1) <= 0.1f)
+	if (m_pSkinnedMesh->GetCurAnimTime() <= 0.1f)
 	{
 		if (m_isAniSoundAttack == false) g_pSoundManager->Play("zealot_attack", 0.5f);
 		m_isAniSoundAttack = true;

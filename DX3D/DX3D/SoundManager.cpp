@@ -66,6 +66,7 @@ HRESULT SoundManager::Init(void)
 
 
 	AddSound("boss_apply", "resources/sound/boss_apply.mp3", false, false);
+	AddSound("boss_attack", "resources/sound/boss_attack.mp3", false, false);
 	AddSound("boss_death", "resources/sound/Zealot_Death04.mp3", false, false);
 	return S_OK;
 }

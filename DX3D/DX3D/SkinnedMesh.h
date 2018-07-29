@@ -77,12 +77,12 @@ public:
 	vector<D3DXMATRIXA16> GetSubMobMatrix() { return m_Sub_FrameMatrix; }
 	vector<D3DXMATRIXA16> GetPlayerMatrix() { return m_Player_FrameMatrix; }
 
-	double GetCurAnimTime(UINT index)
+	double& GetCurAnimTime()
 	{
 		LPD3DXANIMATIONSET pAnimSet = NULL;
 		D3DXTRACK_DESC track;
-		m_pAnimController->GetAnimationSet(index, &pAnimSet);
-		m_pAnimController->GetTrackDesc(index, &track);
+		m_pAnimController->GetAnimationSet(0, &pAnimSet);
+		m_pAnimController->GetTrackDesc(0, &track);
 		pAnimSet->GetPeriodicPosition(track.Position);
 		return track.Position;
 	}
