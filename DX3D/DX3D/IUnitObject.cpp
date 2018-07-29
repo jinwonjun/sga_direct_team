@@ -351,6 +351,25 @@ void IUnitObject::DamageCalcul(int Atk)
 	
 }
 
+//int IUnitObject::DamagedCalcul(int Atk)
+//{
+//	if (m_Def >= Atk)
+//	{
+//		m_Hp--;
+//		g_pUIManager->AnswerDmg = 1;
+//
+//
+//	}
+//
+//	else
+//	{
+//		m_Hp = m_Hp - (Atk - m_Def);
+//		//m_Hp -= 5;
+//		g_pUIManager->AnswerDmg = (Atk - m_Def);
+//	}
+//
+//}
+
 void IUnitObject::AttackCalcultate(IUnitObject * DamagedUnit)
 {
 

@@ -36,8 +36,8 @@ void EnemyManager::Update(void)
 			{
 				g_pItem->getMonsterXY(e->ScreenX, e->ScreenY);
 
-
-			//	g_pItem->ItemGet(e->GetEnemyNum());
+				
+		
 
 
 				e->m_ItemDrop = true;
@@ -66,6 +66,7 @@ void EnemyManager::Update(void)
 			}
 			else//бл╦В
 			{
+				g_pItem->ItemGet(GetRandomInt(15));
 				g_pSoundManager->Play("zealot_death", 1.0f);
 				Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
 				m_vecEnemy.erase(m_vecEnemy.begin() + i);

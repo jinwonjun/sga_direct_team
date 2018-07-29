@@ -63,6 +63,9 @@ void UIOperator::Init()
     RedScreen_Alpha1 = 0;
 	RedScreen_Alpha2 = 0;
 
+	countText = 0;
+	countTextisOK = false;
+
 	ScreenEffectOn = false;
 
 D3DXCreateTextureFromFileEx(
@@ -97,6 +100,24 @@ D3DXCreateTextureFromFileEx(
 	NULL,         //PALETTEENTRY *pPalette
 	&RedScreen2.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
+
+
+D3DXCreateTextureFromFileEx(
+	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+	_T("resources/images/Screen/LoadingScene.png"),   //LPCTSTR pSrcFile,
+	D3DX_DEFAULT_NONPOW2,   //UINT Width,
+	D3DX_DEFAULT_NONPOW2,   //UINT Height,
+	D3DX_DEFAULT,      //UINT MipLevels,
+	0,               //DWORD Usage,
+	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+	D3DPOOL_MANAGED,   //D3DPOOL Pool
+	D3DX_FILTER_NONE,   //DWORD Filter
+	D3DX_DEFAULT,      //DWORD MipFilter
+	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+	&LoadingScene.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+	NULL,         //PALETTEENTRY *pPalette
+	&LoadingScene.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 //D3DXCreateTextureFromFileEx(
 //	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 //	_T("resources/images/ShotEffect/ShotEffect.png"),   //LPCTSTR pSrcFile,
@@ -112,7 +133,7 @@ D3DXCreateTextureFromFileEx(
 //	&ShotEffetc.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 //	NULL,         //PALETTEENTRY *pPalette
 //	&ShotEffetc.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
-
+LoadingScene.ScreenOn = false;
 }
 
 void UIOperator::Update()
@@ -132,9 +153,37 @@ void UIOperator::Update()
 
 	if (g_pKeyboard->KeyDown('C'))
 	{
+		countText++;
+		countTextisOK = true;
+	}
+
+	if (countText ==1 && countTextisOK == true)
+	{
+		countTextisOK = false;
+		ValkireTimer = 0;
 		TextBar_Rendering = true;
 		OperatorTrigger_Tutorial_Move_valkire = true;
-		Text_Bar_Frame.Str_ = L"적을 섬멸하라. \n 너는 반드시 생존해야한다.";
+		Text_Bar_Frame.Str_ = L"WASD를 눌러 이동이 가능하다.\n 이동 해 보도록!";
+		TimerOnValikre = true;
+	}
+
+	if (countText == 2 && countTextisOK == true)
+	{
+		countTextisOK = false;
+		ValkireTimer = 0;
+		TextBar_Rendering = true;
+		OperatorTrigger_Tutorial_Move_valkire = true;
+		Text_Bar_Frame.Str_ = L"잘 했다.\n SpaceBar를 누르면 \n 점프가 가능하다.";
+		TimerOnValikre = true;
+	}
+
+	if (countText == 3 && countTextisOK == true)
+	{
+		countTextisOK = false;
+		ValkireTimer = 0;
+		TextBar_Rendering = true;
+		OperatorTrigger_Tutorial_Move_valkire = true;
+		Text_Bar_Frame.Str_ = L"모든 이동기를 마스터했다. \n 적을 섬멸하라. \n \n 너는 반드시 생존해야한다.";
 		TimerOnValikre = true;
 	}
 
@@ -230,18 +279,7 @@ void UIOperator::Update()
 		RedScreen_Alpha2 -= 20;
 	}
 
-	//if (RedScreen_Alpha3 == 0)
-	//{
-	//	RedScreen_Alpha3 = 0;
-	//}
-	//else if (RedScreen_Alpha3 - 30 <= 0)
-	//{
-	//	RedScreen_Alpha3 = 0;
-	//}
-	//else if (RedScreen_Alpha3 > 0)
-	//{
-	//	RedScreen_Alpha3 -= 30;
-	//}
+
 
 }
 
@@ -313,22 +351,25 @@ void UIOperator::Render()
 	pSprite->End();
 
 
-	SetRect(&ShotEffetc.m_Image_rc, 0, 0, ShotEffetc.m_imageInfo.Width, ShotEffetc.m_imageInfo.Height);
+	//if (LoadingScene.ScreenOn)
+	//{
+	//	SetRect(&LoadingScene.m_Image_rc, 0, 0, LoadingScene.m_imageInfo.Width, LoadingScene.m_imageInfo.Height);
 
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, clientRect.right*0.4f, clientRect.bottom*0.45f, -1.0f);
-	D3DXMatrixScaling(&matS, .5f, .5f, 1);
-	ShotEffetc.matWorld = matS * matT;
-	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	pSprite->SetTransform(&ShotEffetc.matWorld);
-	pSprite->Draw(
-		ShotEffetc.m_pTex,
-		&ShotEffetc.m_Image_rc,
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
+	//	D3DXMatrixIdentity(&matT);
+	//	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	//	D3DXMatrixScaling(&matS, 1.2f, 1.0f, 1);
+	//	LoadingScene.matWorld = matS * matT;
+	//	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	//	pSprite->SetTransform(&LoadingScene.matWorld);
+	//	pSprite->Draw(
+	//		LoadingScene.m_pTex,
+	//		&LoadingScene.m_Image_rc,
+	//		&D3DXVECTOR3(0, 0, 0),
+	//		&D3DXVECTOR3(0, 0, 0),
+	//		D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	pSprite->End();
+	//	pSprite->End();
+	//}
 
 	//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 
@@ -502,6 +543,10 @@ void UIOperator::InitMutant()
 
 }
 
+void UIOperator::InitLoading()
+{
+}
+
 void UIOperator::DrawValkire()
 {
 
@@ -568,6 +613,29 @@ void UIOperator::DrawMutant()
 
 }
 
+void UIOperator::DrawLoading()
+{
+
+
+	SetRect(&Valkire.m_Image_rc, 0, 0, Valkire.m_imageInfo.Width, Valkire.m_imageInfo.Height);
+
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT,WINSIZEX/2, WINSIZEY/2, 0);
+	D3DXMatrixScaling(&matS, Valkire.ScaleX, Valkire.ScaleY, 1);
+	Valkire.matWorld = matS * matT;
+
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	pSprite->SetTransform(&Valkire.matWorld);
+	pSprite->Draw(
+		Valkire.m_pTex,
+		&Valkire.m_Image_rc,
+		&D3DXVECTOR3(Valkire.m_imageInfo.Width / 2, Valkire.m_imageInfo.Height / 2, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		WHITE);
+	pSprite->End();
+
+}
+
 void UIOperator::Init_TextBar_Frame()
 {
 	D3DXCreateSprite(g_pDevice, &Text_Bar_Frame.m_pSprite);
@@ -583,7 +651,7 @@ void UIOperator::Init_TextBar_Frame()
 		"resources/images/Operator/Text_Bar1.png",
 		"resources/images/Operator/Text_Bar1.png");
 
-	Text_Bar_Frame.Str_ = L"초기화를 위한 \n 입력입니다. 0000000000000000";
+	Text_Bar_Frame.Str_ = L"초기화를 위한0000000 \n 입력입니다. 0000000000000\n00000000000000000000000";
 	//Text_Bar_Frame.Str_ = std::to_wstring(g_pUIManager->IronMan_Def);
 
 	Text_Bar_Frame.m_pButton->SetText(g_pFontMgr->GetFont(FONT::NORMAL), Text_Bar_Frame.Str_.c_str(), WHITE);
