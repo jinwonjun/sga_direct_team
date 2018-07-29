@@ -25,6 +25,9 @@ private:
 	IShader* m_pCurrentShader;
 	GlobalData m_globalData;
 
+	float lightOffsetX;
+	float lightOffsetY;
+	float lightOffsetZ;
 public:
 	void Init();
 	void Render();

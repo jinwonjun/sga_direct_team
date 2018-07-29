@@ -29,6 +29,9 @@ protected:
 
 	RenderMode				m_renderMode;
 	float					m_specular;
+
+	//Frustum Culling을 해서 육면체 밖에있으면 렌더링x, 육면체 안에있으면 렌더링 o
+	bool					m_isFrustumRender;
 public:
 	IDisplayObject();
 	virtual ~IDisplayObject();
@@ -56,5 +59,7 @@ public:
 	vector<VERTEX_PC> GetCubeVertex() { return m_vecVertex; }
 
 	float			GetSpecular() { return m_specular; }
+	void			SetFrustumRender(bool value) { m_isFrustumRender = value; }
+	bool			GetFrustumRender() { return m_isFrustumRender; }
 };
 

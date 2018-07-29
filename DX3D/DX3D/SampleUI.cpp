@@ -7,8 +7,10 @@
 
 //맵변환 상태 체크용
 #include "ObjMap.h"
-//보스위치값 받아노는 용도
+//보스위치값 받아오는 용도
 #include "Boss.h"
+//플레이어 체력 받아오는 용도
+#include "IUnitObject.h"
 enum
 {
 	UITAG_TEXTVIEW,
@@ -55,9 +57,9 @@ void SampleUI::Init()
 	contorller = 0;
 	char c_int[10];
 	MaxHp = 100;
-	CurrHp = 100;
 
-	
+	CurrHp = 100;
+		
 	LifeLoss = 100;
 
 	{

@@ -142,6 +142,9 @@ void SceneGrid::Init()
 	pMap->Init();
 	AddSimpleDisplayObj((pMap));
 
+	m_pFrustum = new Frustum();
+	m_pFrustum->Init();
+
 	m_pPortalEffect = new PortalEffect();
 	m_pPortalEffect->Init();
 	AddSimpleDisplayObj(m_pPortalEffect);
@@ -171,7 +174,7 @@ void SceneGrid::Update()
 	BoundingCheck();
 
 	SAFE_UPDATE(m_pEm);
-
+	m_pFrustum->Update();
 	//SAFE_UPDATE(pCube_head);
 	OnUpdateIScene();
 }

@@ -10,6 +10,8 @@
 #define MOVE_STOP_DISTANCE_BOSS 50
 #define MOB_SCALE 15.00f
 #define MOB_FULL_HP 100//¸÷ÀÇ ÀüÃ¼ ÇÇÅë
+#define MOB_DAMAGE 5//¸÷ÀÌ ÁÖ´Â µ¥¹ÌÁö
+#define BOSS_MOB_DAMAGE 50//¸÷ÀÌ ÁÖ´Â µ¥¹ÌÁö
 
 class BoundingBox;
 class SkinnedMesh;
