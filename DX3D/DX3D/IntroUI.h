@@ -58,22 +58,13 @@ private:
 
 	Draw_UI LoadingPage;//로딩씬 준비!
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> d4677358d2b331e7698c58ee49c63fa348e6c60a
 	Inven_UI MouseCursor_Normal;
 	Inven_UI MousCursor_ClickedOn;
 	D3DXMATRIXA16 matT, matS, matWorld;
 	LPD3DXSPRITE pSprite;
 
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> d4677358d2b331e7698c58ee49c63fa348e6c60a
 	bool gameStartCheck;//게임 스타트 체크 신호!
 
 public:

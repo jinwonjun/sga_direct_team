@@ -146,8 +146,8 @@ public:
 	void ShutDownCrossHeadMovingFunction(Draw_UI_ &Chara);
 	void ShutDownSacleHeadMovingFunction(Draw_UI_ &Chara);
 
-	int countText;
-	bool countTextisOK;
+	//int countText;
+	//bool countTextisOK;
 
 
 

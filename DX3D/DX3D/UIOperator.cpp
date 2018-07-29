@@ -160,11 +160,8 @@ void UIOperator::Update()
 		countTextisOK = true;
 	}
 
-<<<<<<< HEAD
-	if (countText ==1 && countTextisOK == true)
-=======
+
 	if (countText == 1 && countTextisOK == true)
->>>>>>> d4677358d2b331e7698c58ee49c63fa348e6c60a
 	{
 		countTextisOK = false;
 		ValkireTimer = 0;

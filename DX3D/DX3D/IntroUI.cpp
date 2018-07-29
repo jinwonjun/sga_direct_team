@@ -59,10 +59,7 @@ void IntroUI::Init()
 	QuitButtonInit();
 	IntroPage.m_Color = WHITE;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d4677358d2b331e7698c58ee49c63fa348e6c60a
 	D3DXCreateSprite(g_pDevice, &pSprite);
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -95,10 +92,7 @@ void IntroUI::Init()
 		&MousCursor_ClickedOn.m_image,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&MousCursor_ClickedOn.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
-<<<<<<< HEAD
 
-=======
->>>>>>> d4677358d2b331e7698c58ee49c63fa348e6c60a
 }
 
 void IntroUI::Update()
@@ -184,10 +178,7 @@ void IntroUI::Render()
 
 	SAFE_RENDER(IntroPage.m_pRootUI);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d4677358d2b331e7698c58ee49c63fa348e6c60a
 	if (g_pMouse->ButtonPress(Mouse::LBUTTON))
 	{
 
