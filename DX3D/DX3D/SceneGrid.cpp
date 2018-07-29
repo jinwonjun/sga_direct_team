@@ -264,7 +264,6 @@ void SceneGrid::BoundingCheck()
 			//	&D3DXVECTOR3(0, 0, 0),
 			//	WHITE);
 
-			g_pUIOperator->RedScreen_Alpha1 = 255;
 
 			//LoadingScreen.m_pSprite->End();
 

@@ -150,6 +150,8 @@ void SubMonster::Init()
 	m_isAniSoundAttack = false;
 
 	isTest = false;
+
+	m_Def = 25;
 }
 
 void SubMonster::Update()
@@ -255,12 +257,22 @@ void SubMonster::Hit()
 			int temp;
 			temp = static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetHp();
 			static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetHp(temp - MOB_DAMAGE);
+			
+			int tempHp;
+			tempHp = static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetHp();
+
+			if (tempHp <= 0)
+			{
+				g_pUIOperator->GameOverScene.ScreenOn = true;
+			}
+
 			//static_cast<IUnitObject *>(g_pObjMgr->FindObjectByTag(TAG_PLAYER))->SetHp(temp- g_pUIManager->AnswerDmg);
 
 			g_pUIOperator->ScreenEffectOn = true;
 
 			p->isDamaged = false;
 		}
+		
 	}
 
 	Debug->AddText("플레이어 체력 : ");

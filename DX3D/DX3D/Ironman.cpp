@@ -268,16 +268,16 @@ void Ironman::Shoot()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
-	
+
 		if (g_pInventory->Equip[1].index != 0 &&
-		g_pEquip->EquipScreenOn == 0 &&
-		g_pInventory->openInven == 0 &&
-		g_pShop->ShopOpen == 0 &&
-		g_pEquip->FireAvaliable == false)
-		{		
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == false)
+		{
 			g_pSoundManager->Play("No_Ammo", .5f);
 		}
-	
+
 
 		else if (g_pInventory->Equip[1].index != 0 &&
 			g_pEquip->EquipScreenOn == 0 &&
@@ -316,7 +316,6 @@ void Ironman::Shoot()
 
 					if (r.CalcIntersectSphere(temp) == true)
 					{
-<<<<<<< HEAD
 						intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
 						//최소거리
 						if (intersectionDistance < minDistance)
@@ -326,59 +325,50 @@ void Ironman::Shoot()
 							tempEnemy = p;
 							//맞으면 플레이어 위치 목적지로 입력
 							p->SetDestPos(m_pos);
-							//맞았다 체크
-							p->SetDamage(true);
+
+							if (p->isTest == true)
+							{
+								//맞았다 체크
+								p->SetDamage(true);
+							}
+
 						}
 						//거리 보정 위치값 찾기
 						BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
-=======
-						minDistance = intersectionDistance;
-						//sphere = temp;
-						tempEnemy = p;
-						//맞으면 플레이어 위치 목적지로 입력
-						p->SetDestPos(m_pos);
-						
-						if (p->isTest == true)
-						{
-							//맞았다 체크
-							p->SetDamage(true);
-						}
-					
->>>>>>> 86ef22f2c5a850d5ca8d0af3b91874eff562cd94
 					}
 				}
-			}
 
-			if (tempEnemy != NULL)
-			{
-				g_pItem->MonsterDamaged(DamageFontNum);
-				if (g_pUIOperator->BattleOn_Zealot == false) g_pSoundManager->Play("zealot_apply", 1.0f);
-				g_pUIOperator->BattleOn_Zealot = true;
-
-				if (tempEnemy->GetEnemyNum() == 4)
+				if (tempEnemy != NULL)
 				{
-					if (g_pUIOperator->BattleOn_Mutant == false) g_pSoundManager->Play("boss_apply", 1.0f);
-					g_pUIOperator->BattleOn_Mutant = true;
+					g_pItem->MonsterDamaged(DamageFontNum);
+					if (g_pUIOperator->BattleOn_Zealot == false) g_pSoundManager->Play("zealot_apply", 1.0f);
+					g_pUIOperator->BattleOn_Zealot = true;
+
+					if (tempEnemy->GetEnemyNum() == 4)
+					{
+						if (g_pUIOperator->BattleOn_Mutant == false) g_pSoundManager->Play("boss_apply", 1.0f);
+						g_pUIOperator->BattleOn_Mutant = true;
+					}
+
+					DamageFontNum++;
+
+					g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
+
+					//tempEnemy->MinusHP();
+					AttackCalcultate(tempEnemy);
+
+					m_pBlood->Fire(BloodCalPos, -m_forward);
+					//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
+					//break;
 				}
 
-				DamageFontNum++;
+				//총 반동 온
+				isShoot = true;
+				shootTime = 0;
 
-				g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
 
-				//tempEnemy->MinusHP();
-				AttackCalcultate(tempEnemy);
 
-				m_pBlood->Fire(BloodCalPos, -m_forward);
-				//static_cast<BloodManager*>(g_pObjMgr->FindObjectByTag(TAG_PARTICLE))->Fire();
-				//break;
 			}
-
-			//총 반동 온
-			isShoot = true;
-			shootTime = 0;
-
-
-
 		}
 	}
 }

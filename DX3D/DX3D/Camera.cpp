@@ -60,7 +60,7 @@ void Camera::Init()
 	mCenter = { clientRect.right / 2 , clientRect.bottom / 2 };
 
 	//현재 화면보다 살짝 작게
-	mLimitX = clientRect.right / 2 - 100;
+	mLimitX = clientRect.right / 2 - 50;
 	mLimitY = clientRect.bottom / 2 - 50;
 	mRCCollCheck = false;
 	//마우스 이동 제한 할 렉트
@@ -119,12 +119,20 @@ void Camera::Update()
 	}
 
 	//자유 시점 후 이전 회전값 대입
-	if (m_pTarget && (g_pKeyboard->KeyUp(VK_LSHIFT)))
+	if ((m_pTarget && (g_pKeyboard->KeyUp(VK_LSHIFT))))
 	{
 		m_rotX = tempRotX;
 		m_rotY = tempRotY;
 	}
 	
+	if (((g_pKeyboard->KeyUp('I') || (g_pKeyboard->KeyUp('P'))&&(g_pInventory->openInven == false && g_pShop->ShopOpen == false && g_pEquip->EquipScreenOn == false))))
+	{
+		m_rotX = tempRotX;
+		m_rotY = tempRotY;
+	}
+
+//	|| (g_pInventory->openInven == false && g_pShop->ShopOpen == false && g_pEquip->EquipScreenOn == false)
+
 	Debug->EndLine();
 	Debug->EndLine();
 	Debug->EndLine();
@@ -162,6 +170,7 @@ void Camera::Update()
 
 
 
+
 	if (m_pTarget && (g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
 		m_lookAt = *m_pTarget + m_lookAt;
@@ -169,6 +178,12 @@ void Camera::Update()
 	}
 	else if (m_pTarget && !(g_pKeyboard->KeyPress(VK_LSHIFT)))
 	{
+		if (g_pInventory->openInven || g_pShop->ShopOpen || g_pEquip->EquipScreenOn)
+		{
+			m_lookAt = *m_pTarget + m_lookAt;
+			m_eye = *m_pTarget + m_eye;
+		}
+		
 		//static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward();
 		//Debug->AddText(static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward());
 		//m_lookAt = *m_pTarget;
@@ -178,16 +193,18 @@ void Camera::Update()
 		//temp = (static_cast <IUnitObject *> (g_pObjMgr->FindObjectByTag(TAG_PLAYER))->GetForward()) * distance +  (*m_pTarget);
 		//
 		//m_lookAt = D3DXVECTOR3(temp.x, temp.y + 10, temp.z);
+		else if (g_pInventory->openInven == false && g_pShop->ShopOpen == false && g_pEquip->EquipScreenOn == false)
+		{
+			m_lookAt = *m_pTarget + m_lookAt;
+			m_eye = *m_pTarget + m_eye;
 
-		m_lookAt = *m_pTarget + m_lookAt;
-		m_eye = *m_pTarget + m_eye;
-
-		m_lookatTemp = m_lookAt;
-		m_eyeTemp = m_eye;
+			m_lookatTemp = m_lookAt;
+			m_eyeTemp = m_eye;
 
 		//자유시점전 돌아올 값 갱신
-		tempRotX = m_rotX;
-		tempRotY = m_rotY;
+			tempRotX = m_rotX;
+			tempRotY = m_rotY;
+		}
 	}
 	else
 	{

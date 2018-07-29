@@ -101,7 +101,9 @@ public:
 
 	Draw_UI_ LoadingScene;
 
-	
+	Draw_UI_ GameOverScene;
+	float GameScreen_Alpha1;
+	int GameOverScreen_AlPha1;
 
 	Draw_UI_ ShotEffetc; 
 
@@ -149,7 +151,7 @@ public:
 	//int countText;
 	//bool countTextisOK;
 
-
+	void GetIronHp(int HP) { if (HP <= 0) { GameOverScene.ScreenOn = true; } }
 
 	// IDisplayObject을(를) 통해 상속됨
 	void Init();

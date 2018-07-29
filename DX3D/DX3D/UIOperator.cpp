@@ -62,6 +62,8 @@ void UIOperator::Init()
     ZealotTimer = 0;
     RedScreen_Alpha1 = 0;
 	RedScreen_Alpha2 = 0;
+	GameScreen_Alpha1 = 0;
+	GameOverScreen_AlPha1 = 0;
 
 	countText = 0;
 	countTextisOK = false;
@@ -121,6 +123,23 @@ D3DXCreateTextureFromFileEx(
 	NULL,         //PALETTEENTRY *pPalette
 	&LoadingScene.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
+
+D3DXCreateTextureFromFileEx(
+	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+	_T("resources/images/Screen/GameOver.png"),   //LPCTSTR pSrcFile,
+	D3DX_DEFAULT_NONPOW2,   //UINT Width,
+	D3DX_DEFAULT_NONPOW2,   //UINT Height,
+	D3DX_DEFAULT,      //UINT MipLevels,
+	0,               //DWORD Usage,
+	D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+	D3DPOOL_MANAGED,   //D3DPOOL Pool
+	D3DX_FILTER_NONE,   //DWORD Filter
+	D3DX_DEFAULT,      //DWORD MipFilter
+	D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+	&GameOverScene.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+	NULL,         //PALETTEENTRY *pPalette
+	&GameOverScene.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 //D3DXCreateTextureFromFileEx(
 //	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 //	_T("resources/images/ShotEffect/ShotEffect.png"),   //LPCTSTR pSrcFile,
@@ -156,10 +175,31 @@ void UIOperator::Update()
 
 	if (g_pKeyboard->KeyDown('C'))
 	{
+		GameOverScene.ScreenOn = true;
 		countText++;
 		countTextisOK = true;
 	}
 
+
+
+	if (GameScreen_Alpha1 + .1f >= 255.f)
+	{
+		GameScreen_Alpha1 = 255.f;
+	}
+
+	else if (GameScreen_Alpha1 >= 255.f)
+	{
+		GameScreen_Alpha1 == 255.f;
+
+	}
+
+	else if (GameOverScene.ScreenOn)
+	{
+		if (g_pSoundManager->IsPlaySound("gameScene")) g_pSoundManager->Stop("gameScene");
+		if (g_pSoundManager->IsPlaySound("bossScene")) g_pSoundManager->Stop("bossScene");
+		GameScreen_Alpha1 += 1.f;
+		GameOverScreen_AlPha1 = GameScreen_Alpha1;
+	}
 
 	if (countText == 1 && countTextisOK == true)
 	{
@@ -355,32 +395,23 @@ void UIOperator::Render()
 	pSprite->End();
 
 
-	//if (LoadingScene.ScreenOn)
-	//{
-	//	SetRect(&LoadingScene.m_Image_rc, 0, 0, LoadingScene.m_imageInfo.Width, LoadingScene.m_imageInfo.Height);
 
-	//	D3DXMatrixIdentity(&matT);
-	//	D3DXMatrixTranslation(&matT, 0, 0, 0);
-	//	D3DXMatrixScaling(&matS, 1.2f, 1.0f, 1);
-	//	LoadingScene.matWorld = matS * matT;
-	//	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	//	pSprite->SetTransform(&LoadingScene.matWorld);
-	//	pSprite->Draw(
-	//		LoadingScene.m_pTex,
-	//		&LoadingScene.m_Image_rc,
-	//		&D3DXVECTOR3(0, 0, 0),
-	//		&D3DXVECTOR3(0, 0, 0),
-	//		D3DCOLOR_ARGB(255, 255, 255, 255));
+	SetRect(&GameOverScene.m_Image_rc, 0, 0, GameOverScene.m_imageInfo.Width, GameOverScene.m_imageInfo.Height);
 
-	//	pSprite->End();
-	//}
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	D3DXMatrixScaling(&matS, 1.f, 1.0f, 1);
+	GameOverScene.matWorld = matS * matT;
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	pSprite->SetTransform(&GameOverScene.matWorld);
+	pSprite->Draw(
+		GameOverScene.m_pTex,
+		&GameOverScene.m_Image_rc,
+		&D3DXVECTOR3(0, 0, 0),
+		&D3DXVECTOR3(0, 0, 0),
+		D3DCOLOR_ARGB(GameOverScreen_AlPha1, 255, 255, 255));
 
-	//g_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-
-	
-
-	//pSprite->End();
-
+	pSprite->End();
 }
 
 //void UIOperator::OnClick(UIButton * pSender)
