@@ -58,6 +58,11 @@ private:
 
 	Draw_UI LoadingPage;//로딩씬 준비!
 
+	Inven_UI MouseCursor_Normal;
+	Inven_UI MousCursor_ClickedOn;
+	D3DXMATRIXA16 matT, matS, matWorld;
+	LPD3DXSPRITE pSprite;
+
 	bool gameStartCheck;//게임 스타트 체크 신호!
 
 public:

@@ -69,7 +69,7 @@ void ItemManager::init()
 {
 	ItemTable();
 
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		g_pInventory->addIndex(Items[i]);
 	}

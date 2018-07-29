@@ -108,16 +108,16 @@ void Shaders::RenderShadowMapping()
 	if (g_pKeyboard->KeyPress('6'))
 	{
 		lightOffsetX -= 1;
-		lightOffsetZ -= 1;
-		if (lightOffsetX <= 20) lightOffsetX = 20;
-		if (lightOffsetZ <= 20) lightOffsetZ = 20;
+		//lightOffsetZ -= 1;
+		if (lightOffsetX <= -20) lightOffsetX = -20;
+		//if (lightOffsetZ <= 20) lightOffsetZ = 20;
 	}
 	if (g_pKeyboard->KeyPress('7'))
 	{
 		lightOffsetX += 1;
-		lightOffsetZ += 1;
+		//lightOffsetZ += 1;
 		if (lightOffsetX >= 100) lightOffsetX = 100;
-		if (lightOffsetZ >= 100) lightOffsetZ = 100;
+		//if (lightOffsetZ >= 100) lightOffsetZ = 100;
 	}
 	if (g_pKeyboard->KeyDown('0'))	//shadow / specular √ ±‚»≠
 	{

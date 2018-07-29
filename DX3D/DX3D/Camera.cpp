@@ -124,9 +124,32 @@ void Camera::Update()
 		m_rotX = tempRotX;
 		m_rotY = tempRotY;
 	}
-
-	Debug->AddText("Mouse Sensitivity : " + to_string(sensLevel));
+	
 	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	Debug->EndLine();
+	//Debug->AddText("Mouse Sensitivity : " + to_string(sensLevel));
+
 
 	D3DXMatrixRotationX(&matRotX, m_rotX);
 	D3DXMatrixRotationY(&matRotY, m_rotY);
@@ -228,8 +251,8 @@ void Camera::Update()
 		if (m_distance >= 100) m_distance = 100;
 	}
 
-	Debug->AddText("Camera Distance : " + to_string(m_distance));
-	Debug->EndLine();
+	/*Debug->AddText("Camera Distance : " + to_string(m_distance));
+	Debug->EndLine();*/
 }
 
 void Camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

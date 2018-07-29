@@ -29,8 +29,8 @@ void TimeManager::Update()
 		sumTime = 0;
 	}
 
-	Debug->AddText("FPS : ");
-	Debug->AddText(fps);
-	Debug->EndLine();
+	//Debug->AddText("FPS : ");
+	//Debug->AddText(fps);
+	//Debug->EndLine();
 
 }

@@ -1,13 +1,35 @@
-﻿  EnemyManager.cpp
-c:\project\dx3d\dx3d\boss.h(41): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\project\dx3d\dx3d\boss.h(42): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\project\dx3d\dx3d\submonster.h(42): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\project\dx3d\dx3d\submonster.h(43): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\project\dx3d\dx3d\enemymanager.cpp(37): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\project\dx3d\dx3d\enemymanager.cpp(51): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-c:\project\dx3d\dx3d\enemymanager.cpp(91): warning C4316: 'SubMonster': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-c:\project\dx3d\dx3d\enemymanager.cpp(96): warning C4316: 'Boss': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-c:\project\dx3d\dx3d\enemymanager.cpp(103): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-c:\project\dx3d\dx3d\enemymanager.cpp(108): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.exe
-  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.pdb (Full PDB)
+﻿  SampleUI.cpp
+d:\sga\pp\dx3d\dx3d\boss.h(41): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\boss.h(42): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(66): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(70): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(77): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(86): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(91): warning C4316: 'UIImage': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(58): warning C4101: 'c_int' :참조되지 않은 지역 변수입니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(417): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(422): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(450): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(547): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(547): warning C4244: '인수': 'unsigned long'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(577): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(577): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(609): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(632): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(636): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(661): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(672): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(703): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(715): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(727): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(754): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(780): warning C4244: '인수': 'UINT'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(845): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(863): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(887): warning C4316: 'UIText': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(916): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(917): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(943): warning C4316: 'UIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+d:\sga\pp\dx3d\dx3d\sampleui.cpp(944): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> D:\SGA\pp\DX3D\Debug\DX3D.pdb (Full PDB)

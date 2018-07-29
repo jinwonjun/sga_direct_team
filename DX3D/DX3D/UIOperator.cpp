@@ -65,6 +65,9 @@ void UIOperator::Init()
 
 	ScreenEffectOn = false;
 
+	countText = 0;
+	countTextisOK = false;
+
 D3DXCreateTextureFromFileEx(
 	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 	_T("resources/images/Screen/Red_Screen_2.png"),   //LPCTSTR pSrcFile,
@@ -132,9 +135,37 @@ void UIOperator::Update()
 
 	if (g_pKeyboard->KeyDown('C'))
 	{
+		countText++;
+		countTextisOK = true;
+	}
+
+	if (countText == 1 && countTextisOK == true)
+	{
+		countTextisOK = false;
+		ValkireTimer = 0;
 		TextBar_Rendering = true;
 		OperatorTrigger_Tutorial_Move_valkire = true;
-		Text_Bar_Frame.Str_ = L"적을 섬멸하라. \n 너는 반드시 생존해야한다.";
+		Text_Bar_Frame.Str_ = L"WASD를 눌러 이동이 가능하다.\n 이동 해 보도록!";
+		TimerOnValikre = true;
+	}
+
+	if (countText == 2 && countTextisOK == true)
+	{
+		countTextisOK = false;
+		ValkireTimer = 0;
+		TextBar_Rendering = true;
+		OperatorTrigger_Tutorial_Move_valkire = true;
+		Text_Bar_Frame.Str_ = L"잘 했다.\n SpaceBar를 누르면 \n 점프가 가능하다.";
+		TimerOnValikre = true;
+	}
+
+	if (countText == 3 && countTextisOK == true)
+	{
+		countTextisOK = false;
+		ValkireTimer = 0;
+		TextBar_Rendering = true;
+		OperatorTrigger_Tutorial_Move_valkire = true;
+		Text_Bar_Frame.Str_ = L"모든 이동기를 마스터했다. \n 적을 섬멸하라. \n \n 너는 반드시 생존해야한다.";
 		TimerOnValikre = true;
 	}
 
@@ -583,7 +614,7 @@ void UIOperator::Init_TextBar_Frame()
 		"resources/images/Operator/Text_Bar1.png",
 		"resources/images/Operator/Text_Bar1.png");
 
-	Text_Bar_Frame.Str_ = L"초기화를 위한 \n 입력입니다. 0000000000000000";
+	Text_Bar_Frame.Str_ = L"초기화를 위한0000000 \n 입력입니다. 0000000000000\n00000000000000000000000";
 	//Text_Bar_Frame.Str_ = std::to_wstring(g_pUIManager->IronMan_Def);
 
 	Text_Bar_Frame.m_pButton->SetText(g_pFontMgr->GetFont(FONT::NORMAL), Text_Bar_Frame.Str_.c_str(), WHITE);

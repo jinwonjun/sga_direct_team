@@ -910,11 +910,11 @@ void SampleUI::Font_Stat_Atk()
 	D3DXMATRIXA16 matS;
 	D3DXMatrixScaling(&matS, ScaleX_StatAtk, ScaleY_StatAtk, 1);
 	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, 0,0, 0);
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
 	m_matWorld_StatAtk = matS * matT;
 
 	Stat_Atk = new UIButton(this, m_pSprite_Atk, UITAG_BUTTON4);
-	Stat_Atk->SetPosition(&D3DXVECTOR3(clientRect.right * 0.14, clientRect.bottom *0.9, 0));
+	Stat_Atk->SetPosition(&D3DXVECTOR3(clientRect.right * 0.14 + 280.f, clientRect.bottom *.9f - 52.f, 0));
 
 	//BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 	//	"resources/ui/btn-med-over.png.png",
@@ -941,7 +941,7 @@ void SampleUI::Font_Stat_Def()
 	m_matWorld_StatDef = matS * matT;
 
 	Stat_Def = new UIButton(this, m_pSprite_Def, UITAG_BUTTON4);
-	Stat_Def->SetPosition(&D3DXVECTOR3(clientRect.right * 0.21, clientRect.bottom *0.9, 0));
+	Stat_Def->SetPosition(&D3DXVECTOR3(clientRect.right * 0.21 + 280.f, clientRect.bottom *0.9f - 52.f, 0));
 
 	//BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 	//	"resources/ui/btn-med-over.png.png",

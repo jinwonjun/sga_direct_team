@@ -23,7 +23,7 @@ void ObjMap::Init()
 
 	g_pObjMgr->AddToTagList(TAG_OBJMAP, this);
 
-	Init_old_town();
+	//Init_old_town();
 	//Init_cs_italy();
 	//돌격
 	//Init_cs_assault();
@@ -62,8 +62,8 @@ void ObjMap::Update()
 
 
 	Debug->EndLine();
-	Debug->AddText("렉의 이유1 : ");
-	Debug->AddText((int)m_vecVertex.size());
+	//Debug->AddText("렉의 이유1 : ");
+	//Debug->AddText((int)m_vecVertex.size());
 	Debug->EndLine();
 	Debug->EndLine();
 
