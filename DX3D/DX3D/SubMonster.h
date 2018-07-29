@@ -8,6 +8,7 @@ public:
 	SubMonster(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum);
 	~SubMonster();
 
+
 	void Init();
 	void Update();
 	void Render();

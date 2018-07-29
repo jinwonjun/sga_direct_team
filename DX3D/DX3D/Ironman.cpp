@@ -316,6 +316,7 @@ void Ironman::Shoot()
 
 					if (r.CalcIntersectSphere(temp) == true)
 					{
+<<<<<<< HEAD
 						intersectionDistance = D3DXVec3Length(&(temp->center - r.m_pos));
 						//최소거리
 						if (intersectionDistance < minDistance)
@@ -330,6 +331,20 @@ void Ironman::Shoot()
 						}
 						//거리 보정 위치값 찾기
 						BloodCalPos = r.m_dir * (minDistance - temp->radius) + r.m_pos;
+=======
+						minDistance = intersectionDistance;
+						//sphere = temp;
+						tempEnemy = p;
+						//맞으면 플레이어 위치 목적지로 입력
+						p->SetDestPos(m_pos);
+						
+						if (p->isTest == true)
+						{
+							//맞았다 체크
+							p->SetDamage(true);
+						}
+					
+>>>>>>> 86ef22f2c5a850d5ca8d0af3b91874eff562cd94
 					}
 				}
 			}
@@ -390,8 +405,8 @@ void Ironman::Death()
 	}
 	else
 	{
-		deathTimer += 0.001f;
-		if (deathTimer > 0.08f)
+		deathTimer += 0.005f;
+		if (deathTimer > 0.15f)
 		{
 			m_isDead = true;
 			checkDeathTimer = false;
@@ -399,10 +414,10 @@ void Ironman::Death()
 		}
 	}
 
-	Debug->AddText("타이머 찍어보기 :");
-	Debug->AddText(deathTimer);
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->AddText("타이머 찍어보기 :");
+	//Debug->AddText(deathTimer);
+	//Debug->EndLine();
+	//Debug->EndLine();
 }
 
 //m_vecBoundary 벡터에서 28~43 인덱스 부분이 오른손이야!

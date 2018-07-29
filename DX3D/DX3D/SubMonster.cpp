@@ -40,6 +40,8 @@ SubMonster::SubMonster(D3DXVECTOR3 & pos, CString path, CString fileName, int en
 
 	check = -1;
 	SphereDrawRender = false;
+	isTest = false;
+
 }
 
 SubMonster::~SubMonster()
@@ -146,6 +148,8 @@ void SubMonster::Init()
 	m_isAniAttack = false;
 	//공격 애니메이션 소리 낼 조건을 위한 변수
 	m_isAniSoundAttack = false;
+
+	isTest = false;
 }
 
 void SubMonster::Update()
@@ -157,6 +161,14 @@ void SubMonster::Update()
 		if (testNum > 4)
 			testNum = 0;
 	}
+
+	if (g_pKeyboard->KeyDown(VK_F5))
+	{
+		isTest = !isTest;
+	}
+
+	Debug->AddText(isTest);
+	Debug->EndLine();
 
 	UpdatePosition();
 

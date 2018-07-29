@@ -225,7 +225,11 @@ void SceneGrid::BoundingCheck()
 		if (m_pCharacter->GetBoundingBox()->IsIntersected(*(p->GetBoundingBox())))
 		{
 			p->SetDestPos(m_pCharacter->GetPosition());
-			p->SetIsMove(true);
+			
+			if (p->isTest == true)
+			{
+				p->SetIsMove(true);
+			}
 		}
 		else
 		{
