@@ -78,10 +78,9 @@ extern HWND g_hWnd;
 #include "ItemManager.h"
 #include "InventoryManager.h"
 #include "UIOperator.h"
-#include "UIManager.h"
 #include "Shop.h"
 #include "Equip.h"
-
+#include "UIManager.h"
 //#include "CharacterStatus.h"
 #include "IShader.h"
 #include "Shaders.h"

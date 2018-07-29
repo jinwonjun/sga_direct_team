@@ -18,10 +18,10 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Init(void)
 {
 	AddEnemy(D3DXVECTOR3(20, 0, 30), "resources/zealot/", "zealot.X", 0);
-	AddEnemy(D3DXVECTOR3(45, 0, 20), "resources/zealot/", "zealot.X", 1);
-	AddEnemy(D3DXVECTOR3(100, 0, 70), "resources/zealot/", "zealot.X",2);
-	AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X", 3);
-	AddEnemy(D3DXVECTOR3(145, 0, 30), "resources/Boss_test/", "Mutant.X", 4);
+	//AddEnemy(D3DXVECTOR3(45, 0, 20), "resources/zealot/", "zealot.X", 1);
+	//AddEnemy(D3DXVECTOR3(100, 0, 70), "resources/zealot/", "zealot.X",2);
+	//AddEnemy(D3DXVECTOR3(145, 0, 90), "resources/zealot/", "zealot.X", 3);
+	//AddEnemy(D3DXVECTOR3(145, 0, 30), "resources/Boss_test/", "Mutant.X", 4);
 
 	g_pObjMgr->AddToTagList(TAG_ENEMY, this);
 }
@@ -59,7 +59,7 @@ void EnemyManager::Update(void)
 			{
 				if (m_vecEnemy[i]->m_isDead)
 				{
-					g_pSoundManager->Play("zealot_death", 1.0f);
+					g_pSoundManager->Play("boss_death", 1.0f);
 					Shaders::Get()->RemoveList(m_vecEnemy[i], m_vecEnemy[i]->m_renderMode);
 					m_vecEnemy.erase(m_vecEnemy.begin() + i);
 				}

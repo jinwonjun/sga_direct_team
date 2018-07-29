@@ -353,6 +353,11 @@ void IUnitObject::DamageCalcul(int Atk)
 
 void IUnitObject::AttackCalcultate(IUnitObject * DamagedUnit)
 {
+
+	if (g_pUIManager->cheatKeyAtk)
+	{
+		m_Atk = 99;
+	}
 	DamagedUnit->DamageCalcul(m_Atk);
 	
 }

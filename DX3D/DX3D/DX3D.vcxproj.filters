@@ -420,11 +420,11 @@
     <ClInclude Include="SubMonster.h">
       <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClInclude>
-    <ClInclude Include="PortalEffect.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Equip.h">
       <Filter>소스 파일\UI_CLASS\ITEM</Filter>
+    </ClInclude>
+    <ClInclude Include="PortalEffect.h">
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -692,11 +692,11 @@
     <ClCompile Include="SubMonster.cpp">
       <Filter>소스 파일\CHARACTER&amp;MOB\ENEMYControl_ERASE</Filter>
     </ClCompile>
-    <ClCompile Include="PortalEffect.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Equip.cpp">
       <Filter>소스 파일\UI_CLASS\ITEM</Filter>
+    </ClCompile>
+    <ClCompile Include="PortalEffect.cpp">
+      <Filter>소스 파일\%28E%29PARTICLE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

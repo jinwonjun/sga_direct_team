@@ -37,6 +37,11 @@ void Shaders::Init()
 {
 	m_pShadowMappingShader = new ShadowMappingShader(); m_pShadowMappingShader->Init();
 	m_pLightingShader = new LightingShader(); m_pLightingShader->Init();
+
+	lightOffsetX = 50;
+	lightOffsetY = 50;
+	lightOffsetZ = 50;
+
 }
 
 void Shaders::Render()
@@ -94,8 +99,32 @@ void Shaders::RenderShadowMapping()
 	{
 		pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
 	}
-	float offset = 50;
-	D3DXVECTOR4 lightPos(pos.x - offset, offset + 50, pos.z - offset, 1);
+	//Debug->AddText("lightX : ");
+	//Debug->AddText(lightOffsetX);
+	//Debug->EndLine();
+	//Debug->AddText("lightZ : ");
+	//Debug->AddText(lightOffsetZ);
+
+	if (g_pKeyboard->KeyPress('6'))
+	{
+		lightOffsetX -= 1;
+		lightOffsetZ -= 1;
+		if (lightOffsetX <= 20) lightOffsetX = 20;
+		if (lightOffsetZ <= 20) lightOffsetZ = 20;
+	}
+	if (g_pKeyboard->KeyPress('7'))
+	{
+		lightOffsetX += 1;
+		lightOffsetZ += 1;
+		if (lightOffsetX >= 100) lightOffsetX = 100;
+		if (lightOffsetZ >= 100) lightOffsetZ = 100;
+	}
+	if (g_pKeyboard->KeyDown('0'))	//shadow / specular √ ±‚»≠
+	{
+		lightOffsetX = 50;
+		lightOffsetZ = 50;
+	}
+	D3DXVECTOR4 lightPos(pos.x - lightOffsetX, lightOffsetY + 50, pos.z - lightOffsetZ, 1);
 	info.WorldLightPos = lightPos;
 	//info.WorldLightPos = D3DXVECTOR4(-offset, offset, -offset, 1);
 	info.WorldCamPos = m_globalData.WorldCamPos;

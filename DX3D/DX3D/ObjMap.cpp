@@ -23,7 +23,8 @@ void ObjMap::Init()
 
 	g_pObjMgr->AddToTagList(TAG_OBJMAP, this);
 
-	Init_cs_italy();
+	Init_old_town();
+	//Init_cs_italy();
 	//돌격
 	//Init_cs_assault();
 	//폐허가된 마을?
@@ -32,21 +33,17 @@ void ObjMap::Init()
 	//Init_pk_stadium();
 	//시가전 느낌
 	//Init_old_town();
+
+	Init_cs_assault();
 	
-
-	//g_pMapManager->AddMap("ObjMap", this);
-	//g_pMapManager->SetCurrentMap("ObjMap");
-
-	//m_pWalls = new Walls;
-	//m_pWalls->Init();
-	//m_pBox = new BoundingBox(D3DXVECTOR3(3.0f, 15.0f, 3.0f), m_pos); m_pBox->Init();
-
 	//g_pMapManager->AddMap("ObjMap", this);
 	//g_pMapManager->SetCurrentMap("ObjMap");
 
 	m_renderMode = RenderMode_ShadowMapping;
 	m_specular = 0.0f;
 	Shaders::Get()->AddList(this, m_renderMode);
+
+	MapChangeSignal = false;
 
 }
 
@@ -58,22 +55,6 @@ void ObjMap::Update()
 	}
 	//맵 셀렉트
 	if (g_pKeyboard->KeyDown('1'))
-	{
-		Init_cs_italy();
-	}
-	if (g_pKeyboard->KeyDown('2'))
-	{
-		Init_cs_assault();
-	}
-	if (g_pKeyboard->KeyDown('3'))
-	{
-		Init_cs_havana();
-	}
-	if (g_pKeyboard->KeyDown('4'))
-	{
-		Init_pk_stadium();
-	}
-	if (g_pKeyboard->KeyDown('5'))
 	{
 		Init_old_town();
 	}
@@ -253,24 +234,24 @@ void ObjMap::Init_pk_stadium()
 
 	loader.CreateSurface(m_vecVertex);
 
-	D3DXVECTOR3 dir = D3DXVECTOR3(0, -1, 0);
-	D3DXVECTOR3 dir2 = D3DXVECTOR3(0, 1, 0);
+	//D3DXVECTOR3 dir = D3DXVECTOR3(0, -1, 0);
+	//D3DXVECTOR3 dir2 = D3DXVECTOR3(0, 1, 0);
 
-	D3DXCOLOR c = WHITE;
-	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &c);
-	D3DLIGHT9 light2 = DXUtil::InitDirectional(&dir2, &c);
-	//DXUtil::InitSpot
-	//손전등의 시야각 변경하기
-	//light.Phi = D3DX_PI / 2;
-	//D3DLIGHT9 light = DXUtil::InitPoint(&dir, &c);
+	//D3DXCOLOR c = WHITE;
+	//D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &c);
+	//D3DLIGHT9 light2 = DXUtil::InitDirectional(&dir2, &c);
+	////DXUtil::InitSpot
+	////손전등의 시야각 변경하기
+	////light.Phi = D3DX_PI / 2;
+	////D3DLIGHT9 light = DXUtil::InitPoint(&dir, &c);
 
-	//광원을 만들었으면 세팅을 해주자.
-	//0번 라이트
-	g_pDevice->SetLight(10, &light);
-	g_pDevice->SetLight(9, &light2);
-	//bool 값에 따라서 0번으로 지시한 광원을 껐다 켰다 컨트롤 해보기
-	g_pDevice->LightEnable(9, true);
-	g_pDevice->LightEnable(10, true);
+	////광원을 만들었으면 세팅을 해주자.
+	////0번 라이트
+	//g_pDevice->SetLight(10, &light);
+	//g_pDevice->SetLight(9, &light2);
+	////bool 값에 따라서 0번으로 지시한 광원을 껐다 켰다 컨트롤 해보기
+	//g_pDevice->LightEnable(9, true);
+	//g_pDevice->LightEnable(10, true);
 
 	g_pMapManager->AddMap("Stadium", this);
 	g_pMapManager->SetCurrentMap("Stadium");
@@ -317,6 +298,19 @@ void ObjMap::Init_old_town()
 	g_pMapManager->SetCurrentMap("Town");
 }
 
+//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+//안개를 적용 시키자!!!!
+//g_pDevice->SetRenderState(D3DRS_FOGENABLE, true);
+//g_pDevice->SetRenderState(D3DRS_FOGCOLOR, 0xffbbbbbb);
+//g_pDevice->SetRenderState(D3DRS_FOGDENSITY, FtoDw(0.1f));//강도 0~1f 
+////안개 적용 최소 거리
+//g_pDevice->SetRenderState(D3DRS_FOGSTART, FtoDw(20.0f));
+////안개 최대치로 적용되는거리
+//g_pDevice->SetRenderState(D3DRS_FOGEND, FtoDw(40.0f));
+//g_pDevice->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);
+
+//랜더 끝나면 꺼주기
+//g_pDevice->SetRenderState(D3DRS_FOGENABLE, false);
 
 void ObjMap::RenderUseShader_0()
 {
@@ -345,10 +339,26 @@ void ObjMap::RenderUseShader_1()
 	{
 		for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
 		{
+			
+
 			Shaders::Get()->GetCurrentShader()->SetWorldMatrix(&m_matWorld);
 			Shaders::Get()->GetCurrentShader()->SetTexture(m_vecMtlTex[i]->pTexture);
 			Shaders::Get()->GetCurrentShader()->SetMaterial(&m_vecMtlTex[i]->material);
 			Shaders::Get()->GetCurrentShader()->Commit();
+
+			if (MapChangeSignal)
+			{
+				//안개
+				g_pDevice->SetRenderState(D3DRS_FOGENABLE, true);
+				g_pDevice->SetRenderState(D3DRS_FOGCOLOR, 0xffbbbbbb);
+				g_pDevice->SetRenderState(D3DRS_FOGDENSITY, FtoDw(0.001f)); //강도 0~1
+																			//안개 적용되는 최소 거리
+				g_pDevice->SetRenderState(D3DRS_FOGSTART, FtoDw(100.f));
+				//안개 최대치 적용 거리
+				g_pDevice->SetRenderState(D3DRS_FOGEND, FtoDw(300.f));
+				g_pDevice->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);
+			}
+
 			m_pMeshMap->DrawSubset(i);
 		}
 	}
@@ -365,7 +375,6 @@ void ObjMap::RenderUseShader_1()
 //m_pMeshMap = loader.CreateSurface()
 //loader.LoadNoneMtl("resources/obj", "SCV.obj", &matWorld, m_vecDrawingGroup);
 //m_pMeshMap = loader.LoadMesh("resources/obj", "UED_SCV_V1.obj", &matWorld, m_vecMtlTex);
-
 
 //m_vecVertex
 //함수 호출시 좌표 3개 찍어주고 그 것들로 삼각형을 만들어줌. rayPos(좌표)지점에서 rayDir(방향)으로 광선을 쏜다

@@ -13,7 +13,9 @@ class Ironman :
 
 private:
 	float	timer;
+	float	deathTimer;
 	bool	checkTimer;
+	bool	checkDeathTimer;
 	int		check;		//구체 그리는거 체크용 함수
 
 	//피격 구체 그려주기
@@ -42,8 +44,6 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-
-
 	BoundingBox*	m_pBox;
 
 	SkinnedMesh * m_pSkinnedMesh;
@@ -57,6 +57,7 @@ public:
 	D3DXMATRIXA16 RightHand;
 
 	void Shoot();
+	void Death();
 	void Hit();
 	void Status();
 	bool SphereCollideCheck(BoundingSphere player, BoundingSphere Monster);

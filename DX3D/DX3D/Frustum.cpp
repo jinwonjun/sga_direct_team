@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Frustum.h"
-
+#include "EnemyManager.h"
+#include "Enemy.h"
 
 Frustum::Frustum()
 {
@@ -16,6 +17,7 @@ Frustum::~Frustum()
 
 void Frustum::Init()
 {
+	/*
 	m_vecProjVtx.push_back(D3DXVECTOR3(-1, 1, 1));//좌상후
 	m_vecProjVtx.push_back(D3DXVECTOR3(1, 1, 1));//우상후
 	m_vecProjVtx.push_back(D3DXVECTOR3(-1, 1, 0));//좌상전
@@ -54,8 +56,22 @@ void Frustum::Init()
 			}
 		}
 	}
-
+	
 	UpdateFrustum();
+	*/
+
+	m_vecProjVtx.push_back(D3DXVECTOR3(-1, 1, 1));//좌상후
+	m_vecProjVtx.push_back(D3DXVECTOR3(1, 1, 1));//우상후
+	m_vecProjVtx.push_back(D3DXVECTOR3(-1, 1, 0));//좌상전
+	m_vecProjVtx.push_back(D3DXVECTOR3(1, 1, 0));//우상전
+
+	m_vecProjVtx.push_back(D3DXVECTOR3(-1, -1, 1));//좌하후
+	m_vecProjVtx.push_back(D3DXVECTOR3(1, -1, 1));//우하후
+	m_vecProjVtx.push_back(D3DXVECTOR3(-1, -1, 0));//좌하전
+	m_vecProjVtx.push_back(D3DXVECTOR3(1, -1, 0));//우하전
+
+	m_vecWorldVtx.resize(8);
+	m_vecPlane.resize(6);
 }
 
 void Frustum::Update()
@@ -64,14 +80,34 @@ void Frustum::Update()
 	//{
 	//	UpdateFrustum();
 	//}
+	/*
 	if (GetKeyState(VK_SPACE) & 0x0001)
 	{
 		UpdateFrustum();
+	}
+	*/
+
+	UpdateFrustum();
+
+	EnemyManager* em = static_cast <EnemyManager *> (g_pObjMgr->FindObjectByTag(TAG_ENEMY));
+	for (auto p : em->GetVecEnemy())
+	{
+		BoundingSphere* enemySphere = p->GetSphere();
+		if (IsSphereInsideFrustum(enemySphere))
+		{
+			//FrustumCulling 안에 들어있으면...
+			p->SetFrustumRender(true);
+		}
+		else
+		{
+			p->SetFrustumRender(false);
+		}
 	}
 }
 
 void Frustum::Render()
 {
+	/*
 	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pDevice->SetMaterial(&DXUtil::BLUE_MTRL);
 
@@ -87,7 +123,7 @@ void Frustum::Render()
 
 			m_pMesh->DrawSubset(0);
 		}
-	}
+	}*/
 
 	//위에와 같은거임
 	//for (int i = 0; i < m_vecpBoundary.size(); i++)

@@ -5,6 +5,12 @@
 #include "Gun.h"
 #include <cstring>
 
+//맵변환 상태 체크용
+#include "ObjMap.h"
+//보스위치값 받아오는 용도
+#include "Boss.h"
+//플레이어 체력 받아오는 용도
+#include "IUnitObject.h"
 enum
 {
 	UITAG_TEXTVIEW,
@@ -51,9 +57,9 @@ void SampleUI::Init()
 	contorller = 0;
 	char c_int[10];
 	MaxHp = 100;
-	CurrHp = 100;
 
-	
+	CurrHp = 100;
+		
 	LifeLoss = 100;
 
 	{
@@ -85,111 +91,6 @@ void SampleUI::Init()
 		UIImage * pImage = new UIImage(m_pSprite_Def);
 		m_pRootUI_Def = pImage;
 	}
-
-
-
-	//버튼1
-	{
-		//UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON1);
-		//m_pRootUI->AddChild(pButton);
-		//pButton->SetPosition(&D3DXVECTOR3(WINSIZEX+100, WINSIZEY, 0));
-		//pButton->SetTexture("resources/ui/btn-med-up.png.png",
-		//	"resources/ui/btn-med-over.png.png",
-		//	"resources/ui/btn-med-down.png.png");
-		//
-		//
-
-		////wchar_t * td;
-		//string example = "example";
-
-
-
-
-		/*	AfxMessageBox(tes);*/
-
-		//// 2nd trial
-		//string txt = "df";
-		//itoa(restBullet, c_int, 10);
-
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T(temp.c_str()));  // itoa(restBullet, c_int, 10)
-
-		//		std::string newString("wibble");
-
-
-		//	_itoa_s(restBullet, c_int, 10);		
-
-		//	wchar_t ch[] = _T("asdsd");
-		//wchar_t ch[10] = { 0, };
-		//_itow_s(a3, ch, 2);
-
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST),tes);
-
-
-
-		//pButton->SetTextW(g_pFontMgr->GetFont(FONT::QUEST), t.c_str());
-		// 명형 say -> cmp 깊은 복사?   wstring to lpctstr
-
-	}
-	////버튼2
-	//{
-
-
-	//	D3DXMATRIXA16 matS;
-	//	D3DXMatrixScaling(&matS, 1.f, 1.5f, 1);
-	//	D3DXMATRIXA16 matT;
-	//	D3DXMatrixTranslation(&matT, 0, 0, 0);
-	//	m_matWorld = matS * matT;
-
-	//	UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON2);
-	//	m_pRootUI->AddChild(pButton);
-	//	pButton->SetPosition(&D3DXVECTOR3(0,00, 0));
-	//	pButton->SetTexture("resources/ui/btn-med-up.png.png",
-	//		"resources/ui/btn-med-over.png.png",
-	//		"resources/ui/btn-med-down.png.png");
-	//	pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Button2"));
-	//}
-
-	////버튼3
-	//{
-
-
-
-
-
-
-	//}
-
-	//내가 만들어 본 것
-	{
-
-
-
-		//int restBullet = 10;
-		//CString tes;
-		//tes.Format(L"%d", restBullet);
-
-
-
-		/*	printf("%d\n", restBullet);
-		printf("%s\n", tes);*/
-
-		//printf("깨짐? : %c", temp);
-		//size_t cn;
-		//char *str = "기억나";
-		//wchar_t warr[100] = L"";
-		//setlocale(LC_ALL, "Korean");//로케일 설정
-		//mbstowcs_s(&cn, warr, 100, str, 100);
-		//wprintf(L"%s\n", warr);//유니코드 문자열 출력
-		//const char * t = str;
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), warr);
-
-		//CA2T wt(i.c_str());
-
-		//	pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), wt);
-
-
-	}
-	//D3DXCreateTextureFromFile(g_pDevice, _T("resources/images/Gun.png"), &m_pTex);
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -280,10 +181,10 @@ void SampleUI::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&Character_HP_Loss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-	 // 미니맵
+	// 미니맵-쫄몹
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
-		_T("resources/images/minimap/MiniMap_.png"),   //LPCTSTR pSrcFile,
+		_T("resources/images/minimap/MiniMap__.png"),   //LPCTSTR pSrcFile,
 		D3DX_DEFAULT_NONPOW2,   //UINT Width,
 		D3DX_DEFAULT_NONPOW2,   //UINT Height,
 		D3DX_DEFAULT,      //UINT MipLevels,
@@ -296,7 +197,23 @@ void SampleUI::Init()
 		&Minimap.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
 		NULL,         //PALETTEENTRY *pPalette
 		&Minimap.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
-	
+	//미니맵-보스
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/minimap/Boss_Minimap_.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&Mini_Boss.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&Mini_Boss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
+
 	//미니맵의 캐릭터 표시 그리기
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -316,6 +233,22 @@ void SampleUI::Init()
 	//플레이어 위치랑 연동시킬 행렬값 초기화
 	D3DXMatrixIdentity(&CalPlayerPos);
 
+	//미니맵의 보스 표시 그리기
+	D3DXCreateTextureFromFileEx(
+		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
+		_T("resources/images/minimap/Boss_Minimap_Icon.png"),   //LPCTSTR pSrcFile,
+		D3DX_DEFAULT_NONPOW2,   //UINT Width,
+		D3DX_DEFAULT_NONPOW2,   //UINT Height,
+		D3DX_DEFAULT,      //UINT MipLevels,
+		0,               //DWORD Usage,
+		D3DFMT_UNKNOWN,      //D3DFORMAT Format,
+		D3DPOOL_MANAGED,   //D3DPOOL Pool
+		D3DX_FILTER_NONE,   //DWORD Filter
+		D3DX_DEFAULT,      //DWORD MipFilter
+		D3DCOLOR_XRGB(255, 255, 255),   //D3DCOLOR ColorKey
+		&MiniBoss.m_imageInfo,   //D3DXIMAGE_INFO *pSrcInfo
+		NULL,         //PALETTEENTRY *pPalette
+		&MiniBoss.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
@@ -333,26 +266,8 @@ void SampleUI::Init()
 		NULL,         //PALETTEENTRY *pPalette
 		&Notice_Msg.m_pTex);   //LPDIRECT3DTEXTURE9 *ppTexture
 
-	{
-		//D3DXMATRIXA16 matS;
-		//D3DXMatrixScaling(&matS, 1.f, 1.2f, 1);
-		//D3DXMATRIXA16 matT;
-		//D3DXMatrixTranslation(&matT, (WINSIZEX / 5) * 4, (WINSIZEY / 32) * 20, 0);
-		////D3DXMatrixTranslation(&matT, 500, 500, 0);
-		//m_matWorld = matS * matT;
 
-		////m_pSprite_2->SetTransform(&m_matWorld);
 
-		//UIButton * pButton = new UIButton(this, m_pSprite, UITAG_BUTTON1);
-
-		//pButton->SetPosition(&D3DXVECTOR3(0, -200, 0));
-		//pButton->SetTexture("resources/ui/back.png",
-		//	"resources/ui/back.png",
-		//	"resources/ui/back.png");
-		//pButton->SetText(g_pFontMgr->GetFont(FONT::QUEST), _T("Item Get"));
-
-		//m_pRootUI->AddChild3(pButton);
-	}
 
 	GetClientRect(g_hWnd, &clientRect);
 
@@ -370,12 +285,23 @@ void SampleUI::Update()
 	//총과 총알 	
 	//==========================================
 	//==========================================
+
+	if (restBullet == 0)
+	{
+		g_pEquip->FireAvaliable = false;
+	}
+	else
+	{
+		g_pEquip->FireAvaliable = true;
+	}
+
 	if (spaceOn && contorller == 1)
 	{
 		if (g_pInventory->Equip[1].index != 0 &&
 			g_pEquip->EquipScreenOn == 0 &&
 			g_pInventory->openInven == 0 &&
-			g_pShop->ShopOpen == 0)
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == true)
 		{
 			restBullet--;
 			spaceOn = false;
@@ -435,7 +361,7 @@ void SampleUI::Update()
 
 	if (restBullet < 0)
 	{
-		restBullet = 0;
+		
 	}
 	
 
@@ -571,11 +497,11 @@ void SampleUI::Render()
 		Debug->AddText(g_pItem->timer);
 	}
 
-	SAFE_RENDER(m_pRootUI_Bullet);
+	if (g_pInventory->Equip[1].index != 0)
+	{
+		SAFE_RENDER(m_pRootUI_Bullet);
+	}
 
-	/*if (PreFontNum != g_pItem->FontNum)
-	{*/
-		
 		
 
 
@@ -702,12 +628,6 @@ void SampleUI::Render()
 	m_pSprite->SetTransform(&matWorld);
 	//SAFE_RENDER(m_pRootUI);
 
-
-
-
-
-
-
 	 // 회전중점, 위치이동 따로따로 있따.  체력 남은 양
 	SetRect(&Character_HP_Remain.m_Image_rc, 0, 0, Character_HP_Remain.m_imageInfo.Width * PercentOfHp, Character_HP_Remain.m_imageInfo.Height);
 
@@ -732,63 +652,141 @@ void SampleUI::Render()
 		WHITE);
 	m_pSprite->End();
 
-	//미니맵 그리기
-	SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
+	//미니맵 그리기- 어떤 맵을 뿌려주는 지에 대해서 조건값 필요함
+	if (static_cast <ObjMap *>(g_pObjMgr->FindObjectByTag(TAG_OBJMAP))->GetMapChangeSignal() == false)
+	{
+		SetRect(&Minimap.m_Image_rc, 0, 0, Minimap.m_imageInfo.Width, Minimap.m_imageInfo.Height);
+		D3DXMatrixRotationZ(&matR, 0);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, Minimap.m_imageInfo.Width / 4, Minimap.m_imageInfo.Height / 4, 0);
+		//250, 850, 0
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+		matWorld = matS* matR * matT;
 
-	D3DXMatrixRotationZ(&matR, 0);
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, Minimap.m_imageInfo.Width / 4, Minimap.m_imageInfo.Height / 4, 0);
-	//250, 850, 0
-	D3DXMatrixScaling(&matS, .5f, .5f, 1);
-
-	matWorld = matS* matR * matT;
-
-	//D3DXSPRITE_ALPHABLEND
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(
-		Minimap.m_pTex,
-		&Minimap.m_Image_rc,
-		&D3DXVECTOR3(Minimap.m_imageInfo.Width/2, Minimap.m_imageInfo.Height/2, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
-	m_pSprite->End();
-
-	//fAngle -= 0.01;
-	float Rotscale = g_pCamera->m_rotY;
-
-	//미니맵 캐릭터 표시
-	SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
-
-	D3DXMatrixRotationZ(&matR, D3DX_PI/-2 + Rotscale * (-1));
-	D3DXMatrixIdentity(&matT);
-	//D3DXMatrixTranslation(&matT, 10, 10, 0);
-	D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width /2) + ((CalPlayerPos._43 / 8.f)*(-1)) +180 , (MiniCHAR.m_imageInfo.Height / 2) +(CalPlayerPos._41 / 6.f) +90, 0);
-	D3DXMatrixScaling(&matS, .5f, .5f, 1);
-
-	matWorld = matS* matR * matT;
-
-	MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.5f;
-	MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.5f;
-
-	//D3DXSPRITE_ALPHABLEND
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pSprite->SetTransform(&matWorld);
-	m_pSprite->Draw(
-		MiniCHAR.m_pTex,
-		&MiniCHAR.m_Image_rc,
-		&D3DXVECTOR3(MiniCHAR.m_imageInfo.Width/2, MiniCHAR.m_imageInfo.Height*(0.75f), 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		//&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 0, 0),
-		WHITE);
-	m_pSprite->End();
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			Minimap.m_pTex,
+			&Minimap.m_Image_rc,
+			&D3DXVECTOR3(Minimap.m_imageInfo.Width / 2, Minimap.m_imageInfo.Height / 2, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
 
 
+		D3DXMATRIXA16 matRZ, matRY;
+		D3DXMatrixIdentity(&matRZ);
+		float Rotscale = g_pCamera->m_rotY;
+		//미니맵 캐릭터 표시
 
-	int a = clientRect.right;
+		SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
+
+		D3DXMatrixRotationZ(&matRZ, Rotscale);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width / 2) + ((CalPlayerPos._41 / 9.f)) + 80, (MiniCHAR.m_imageInfo.Height / 2) + (CalPlayerPos._43 / 6.8f)*(-1) + 180, 0);
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+		matWorld = matS * matRZ * matT;
+
+		//MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.3f;
+		//MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.3f;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			MiniCHAR.m_pTex,
+			&MiniCHAR.m_Image_rc,
+			&D3DXVECTOR3(MiniCHAR.m_imageInfo.Width / 2, MiniCHAR.m_imageInfo.Height*(0.75f), 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
+	}
+	else//보스맵 미니맵 그려주기
+	{
+		//미니맵 그리기- 어떤 맵을 뿌려주는 지에 대해서 조건값 필요함
+		SetRect(&Mini_Boss.m_Image_rc, 0, 0, Mini_Boss.m_imageInfo.Width, Mini_Boss.m_imageInfo.Height);
+
+		D3DXMatrixRotationZ(&matR, 0);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, Mini_Boss.m_imageInfo.Width / 4, Mini_Boss.m_imageInfo.Height / 4, 0);
+		//250, 850, 0
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+		matWorld = matS* matR * matT;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			Mini_Boss.m_pTex,
+			&Mini_Boss.m_Image_rc,
+			&D3DXVECTOR3(Mini_Boss.m_imageInfo.Width / 2, Mini_Boss.m_imageInfo.Height / 2, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			//&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
+
+		//미니맵 보스 표시, 보스 이동 업데이트
+		D3DXVECTOR3 BossTempPosition = static_cast <Boss *>(g_pObjMgr->FindObjectByTag(TAG_BOSS))->GetPosition();
+		SetRect(&MiniBoss.m_Image_rc, 0, 0, MiniBoss.m_imageInfo.Width, MiniBoss.m_imageInfo.Height);
+
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, (MiniBoss.m_imageInfo.Width / 2) + BossTempPosition.x / 3.f + 90,
+			(MiniBoss.m_imageInfo.Height / 2) + (BossTempPosition.z / 3.f)*(-1) + 80, 0);
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+		matWorld = matS * matT;
+
+		//MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.3f;
+		//MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.3f;
+
+		//D3DXSPRITE_ALPHABLEND
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			MiniBoss.m_pTex,
+			&MiniBoss.m_Image_rc,
+			&D3DXVECTOR3(MiniBoss.m_imageInfo.Width / 2, MiniBoss.m_imageInfo.Height*(0.75f), 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
+
+		//미니맵 캐릭터 표시
+		D3DXMATRIXA16 matRZ, matRY;
+		D3DXMatrixIdentity(&matRZ);
+		float Rotscale = g_pCamera->m_rotY;
+		SetRect(&MiniCHAR.m_Image_rc, 0, 0, MiniCHAR.m_imageInfo.Width, MiniCHAR.m_imageInfo.Height);
+
+		D3DXMatrixRotationZ(&matRZ, Rotscale);
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, (MiniCHAR.m_imageInfo.Width / 2) + ((CalPlayerPos._41 / 3.f)) + 90, (MiniCHAR.m_imageInfo.Height / 2) + (CalPlayerPos._43 / 3.f)*(-1) + 130, 0);
+		D3DXMatrixScaling(&matS, .5f, .5f, 1);
+
+		matWorld = matS * matRZ * matT;
+
+		//MiniCHAR.m_Sacle_rc.left = (360 + (CalPlayerPos._43 / 8.f *(-1))) *0.3f;
+		//MiniCHAR.m_Sacle_rc.top = (180 + (CalPlayerPos._41 / 6.f))*0.3f;
+
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->SetTransform(&matWorld);
+		m_pSprite->Draw(
+			MiniCHAR.m_pTex,
+			&MiniCHAR.m_Image_rc,
+			&D3DXVECTOR3(MiniCHAR.m_imageInfo.Width / 2, MiniCHAR.m_imageInfo.Height*(0.75f), 0),
+			&D3DXVECTOR3(0, 0, 0),
+			WHITE);
+		m_pSprite->End();
+	}
+
+
+
+	//int a = clientRect.right;
+
 
 
 	//SAFE_RENDER(m_pRootUI_Def);
@@ -865,7 +863,6 @@ void SampleUI::FontInit2()
 	BulletNum = new UIButton(this, m_pSprite_Bullet, UITAG_BUTTON4);
 	BulletNum->SetPosition(&D3DXVECTOR3(((WINSIZEX / 5) * 4)  , ((WINSIZEY / 32) * 25) , 0));
 
-
 	BulletNum->SetTexture("resources/ui/btn-med-up.png.png",
 		"resources/ui/btn-med-up.png.png",
 		"resources/ui/btn-med-up.png.png");
@@ -873,14 +870,10 @@ void SampleUI::FontInit2()
 	temp = std::to_wstring(restBullet) + L" / 30";
 	BulletNum->SetText(g_pFontMgr->GetFont(FONT::NORMAL), temp.c_str(), WHITE);
 	m_pRootUI_Bullet->AddChild(BulletNum);
-
-
 }
 
 void SampleUI::FontInit3()
 {
-
-
 	ScaleX_BulletNum = 1.f;
 	ScaleY_BulletNum = 1.f;
 	D3DXMATRIXA16 matS;

@@ -66,15 +66,16 @@ void Ironman::Init()
 	keyPress = false;
 
 	//시작위치 조정
-	m_pos.y = 10;
-	m_pos.x = 0;
-	m_pos.z = 0;
+	m_pos.y = 0;
+	m_pos.x = -100;
+	m_pos.z = 50;
 
 	m_Hp = 100;
 	m_MaxHp = 100;
 	m_Def = 5;
 	m_Atk = 5;
 	
+	m_isDead = false;
 
 	D3DXMatrixIdentity(&matRotY);
 	D3DXMatrixIdentity(&matRotX);
@@ -87,6 +88,8 @@ void Ironman::Init()
 
 	timer = 0;//체크 타이머 초기화
 	checkTimer = false;
+	deathTimer = 0;
+	checkDeathTimer = false;
 	check = -1;
 	SphereDrawRender = false;
 
@@ -110,37 +113,51 @@ void Ironman::Update()
 	}
 
 	
-		IUnitObject::UpdateKeyboardState();
-		IUnitObject::UpdatePosition();
+	IUnitObject::UpdateKeyboardState();
+	IUnitObject::UpdatePosition();
 
-		AnimationModify();
+	AnimationModify();
+	//AnimationKeySetting();
+	SoundSetting();
+	if (m_Hp<=0 && m_isDead==false)
+	{
+		Death();
+	}
+	else
+	{
 		AnimationKeySetting();
-		SoundSetting();
-		SAFE_UPDATE(m_pSkinnedMesh);
+	}
+	SAFE_UPDATE(m_pSkinnedMesh);
 
-		//오른손 좌표 가져오기 - 무기를 착용할때만 돌리기
-		if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
-		{
-			RightHand = m_pSkinnedMesh->GetHandMatrix();
-		}
-		//임시 방편의 산물!, 크기를 없애서 안보이게 만든다!
-		else
-		{
-			D3DXMatrixIdentity(&RightHand);
-			RightHand._11 = 0;
-			RightHand._22 = 0;
-			RightHand._33 = 0;
-		}
+	//오른손 좌표 가져오기 - 무기를 착용할때만 돌리기
+	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+	{
+		RightHand = m_pSkinnedMesh->GetHandMatrix();
+	}
+	//임시 방편의 산물!, 크기를 없애서 안보이게 만든다!
+	else
+	{
+		D3DXMatrixIdentity(&RightHand);
+		RightHand._11 = 0;
+		RightHand._22 = 0;
+		RightHand._33 = 0;
+	}
 	
-
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
+	if (g_pKeyboard->KeyDown('O') && g_pUIManager->cheatKeyAtk == true)
+	{
+		Status();
+
+		g_pUIManager->Get_IronManAtk(m_Atk);
+		g_pUIManager->Get_IronManDef(m_Def);
+	}
 
 	// 아이템을착용하면 스텟이 변해야지
 	if (g_pInventory->isEquipItemChanged)
 	{
 		Status();
-
+		
 		g_pUIManager->Get_IronManAtk(m_Atk);
 		g_pUIManager->Get_IronManDef(m_Def);
 
@@ -181,12 +198,30 @@ void Ironman::Update()
 		tempCenter = D3DXVECTOR3(0, 0, 0);//다썼으면 초기화
 	}
 
-
+	//Debug->AddText("specular : ");
+	//Debug->AddText(m_specular);
+	//Specular 조정
+	if (g_pKeyboard->KeyPress('8'))
+	{
+		m_specular -= 0.1f;
+		if (m_specular <= 0.0f) m_specular = 0.0f;
+	}
+	if (g_pKeyboard->KeyPress('9'))
+	{
+		m_specular += 0.1f;
+		if (m_specular >= 15.0f) m_specular = 15.0f;
+	}
+	if (g_pKeyboard->KeyDown('0'))
+	{
+		m_specular = 10.0f;
+	}
 }
 
 void Ironman::Render()
 {
+	//셰이더로 그리고 있어서 안씀!
 	SAFE_RENDER(m_pSkinnedMesh);
+
 	//m_pSkinnedMesh->DrawSphereMatrix(m_pSkinnedMesh->GetRootFrame(), NULL);
 	SAFE_RENDER(m_pBlood);
 
@@ -226,9 +261,33 @@ void Ironman::Shoot()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
-		if ( (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 1))
-			g_pSoundManager->Play("m4al_1", 0.3f);
+		if (g_pInventory->Equip[1].index != 0 &&
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == false)
+		{
+			g_pSoundManager->Play("No_Ammo", .5f);
+			//g_pSoundManager->Play("laser_gun", 0.5f);
+		}
 
+
+		else if (g_pInventory->Equip[1].index != 0 &&
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == true)
+		{
+			switch (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus())
+			{
+			case 1: g_pSoundManager->Play("m4al_1", 0.3f);
+				break;
+			case 2:  g_pSoundManager->Play("laser_gun", 0.5f);
+				break;
+			case 3:g_pSoundManager->Play("zod_gun", 0.3f);
+				break;
+			}
+		
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
 		BoundingSphere* sphere = NULL;
@@ -267,17 +326,19 @@ void Ironman::Shoot()
 				}
 			}
 		}
-
+		
 		if (tempEnemy != NULL)
 		{
 			g_pItem->MonsterDamaged(DamageFontNum);
+			if (g_pUIOperator->BattleOn_Zealot == false) g_pSoundManager->Play("zealot_apply", 1.0f);
 			g_pUIOperator->BattleOn_Zealot = true;
 
 			if (tempEnemy->GetEnemyNum() == 4)
 			{
+				if (g_pUIOperator->BattleOn_Mutant == false) g_pSoundManager->Play("boss_apply", 1.0f);
 				g_pUIOperator->BattleOn_Mutant = true;
 			}
-			
+
 			DamageFontNum++;
 
 			g_pItem->getMonsterXY(tempEnemy->GetMonsterX(), tempEnemy->GetMonsterY());
@@ -294,6 +355,45 @@ void Ironman::Shoot()
 		isShoot = true;
 		shootTime = 0;
 	}
+
+		
+	}
+}
+//피통 0일때 애니매이션 값 돌리기 및 체크, 라이플 들었을 때, 아닐 때 체크
+void Ironman::Death()
+{
+	//m_pSkinnedMesh->GetAnimationController()->SetTrackPosition(0, 0);
+	//무기 들려있을 때
+	
+	if (checkDeathTimer == false)
+	{
+		if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+		{
+			checkDeathTimer = true;
+			deathTimer = -0.2f;
+			m_pSkinnedMesh->status = 16;
+		}
+		else
+		{
+			checkDeathTimer = true;
+			deathTimer = 0.0f;
+			m_pSkinnedMesh->status = 15;
+		}
+	}
+	else
+	{
+		deathTimer += 0.001f;
+		if (deathTimer > 0.15f)
+		{
+			m_isDead = true;
+			checkDeathTimer = false;
+		}
+	}
+
+	Debug->AddText("타이머 찍어보기 :");
+	Debug->AddText(deathTimer);
+	Debug->EndLine();
+	Debug->EndLine();
 }
 
 //m_vecBoundary 벡터에서 28~43 인덱스 부분이 오른손이야!
@@ -410,13 +510,24 @@ void Ironman::AnimationModify()
 	D3DXVECTOR3 m_pos = g_pObjMgr->FindObjectByTag(TAG_PLAYER)->GetPosition();
 	D3DXMatrixTranslation(&matT, m_pos.x, m_pos.y, m_pos.z);
 
-	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+	if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0 && (m_pSkinnedMesh->status != 15)&&(m_pSkinnedMesh->status != 16))
 	{
 		D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
 	}
-	else
+	else if((static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0) && (m_pSkinnedMesh->status != 15) && (m_pSkinnedMesh->status != 16))
 	{
 		D3DXMatrixScaling(&matS, 0.25f, 0.25f, 0.25f);
+	}
+	else//사망 모션 스케일
+	{
+		if (m_pSkinnedMesh->status == 15)//맨손 죽기
+		{
+			D3DXMatrixScaling(&matS, 0.103f, 0.103f, 0.103f);
+		}
+		else if(m_pSkinnedMesh->status == 16)//총들고 죽기
+		{
+			D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
+		}
 	}
 
 	//카메라 고도 경사를 어떻게 해야되나!
@@ -457,14 +568,15 @@ void Ironman::AnimationKeySetting()
 	no_right = 13;
 	no_jump = 14;
 	no_back = 15;
+	no_death = 16;
+	death = 17;
 	맨손일때는 리로드 애니가 없음!
 	*/
-
-	
 		if (Keyboard::Get()->KeyPress('W'))
 		{
 			isRun = true;	//뛰는소리
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 10;
@@ -478,6 +590,7 @@ void Ironman::AnimationKeySetting()
 		{
 			isRun = true;	//뛰는소리
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 14;
@@ -491,6 +604,7 @@ void Ironman::AnimationKeySetting()
 		{
 			isRun = true;	//뛰는소리
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 11;
@@ -504,6 +618,7 @@ void Ironman::AnimationKeySetting()
 		{
 			isRun = true;	//뛰는소리
 			checkTimer = true;
+			timer = 0.17f;
 			if (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() == 0)
 			{
 				m_pSkinnedMesh->status = 12;
@@ -513,7 +628,7 @@ void Ironman::AnimationKeySetting()
 				m_pSkinnedMesh->status = 4;
 			}
 		}
-		else if (Keyboard::Get()->KeyPress('R') && static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
+		else if (Keyboard::Get()->KeyDown('R') && static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus() != 0)
 		{
 			g_pSoundManager->Play("m4a1_reload", 0.3f);
 			checkTimer = true;
@@ -552,6 +667,7 @@ void Ironman::AnimationKeySetting()
 				m_pSkinnedMesh->status = 1;
 			}
 		}
+		
 		if (checkTimer)
 		{
 			timer += 0.001f;
@@ -572,7 +688,6 @@ void Ironman::AnimationKeySetting()
 				m_pSkinnedMesh->status = 0;
 			}
 		}
-	
 }
 
 void Ironman::SoundSetting()
@@ -603,6 +718,7 @@ void Ironman::RenderUseShader_0()
 
 void Ironman::RenderUseShader_1()
 {
+	if(m_isDead ==false)
 	m_pSkinnedMesh->RenderUseShader_1();
 }
 
