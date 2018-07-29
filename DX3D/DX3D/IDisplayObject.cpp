@@ -8,6 +8,9 @@ IDisplayObject::IDisplayObject()
 	D3DXMatrixIdentity(&m_matWorld);
 	m_renderMode = RenderMode_Default;
 	m_specular = 1.0f;
+
+	//기본 설정은 전부 렌더링 함. Frustum class에서 렌더링 안해줄 객체를 계산해서 false로 만들어주자
+	m_isFrustumRender = true;
 }
 
 

@@ -84,7 +84,10 @@ void ShadowMappingShader::Render()
 		m_pCreateEffect->BeginPass(i);
 		for (auto p : m_pList)
 		{
-			p->RenderUseShader_0();
+			if (p->GetFrustumRender() == true)
+			{
+				p->RenderUseShader_0();
+			}
 		}
 
 		m_pCreateEffect->EndPass();
@@ -117,8 +120,11 @@ void ShadowMappingShader::Render()
 
 		for (auto p : m_pList)
 		{
+			if (p->GetFrustumRender() == true)
+			{
 			Shaders::Get()->GetCurrentShader()->SetSpecularConst(p->GetSpecular());
 			p->RenderUseShader_1();
+			}
 		}
 
 		m_pApplyEffect->EndPass();
