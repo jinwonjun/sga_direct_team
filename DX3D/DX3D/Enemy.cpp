@@ -14,6 +14,7 @@
 
 Enemy::Enemy(D3DXVECTOR3& pos, CString path, CString fileName, int enemyNum)
 {
+	isTest = false;
 }
 
 
@@ -27,6 +28,7 @@ void Enemy::Init()
 
 void Enemy::Update()
 {
+
 }
 
 void Enemy::Render()
