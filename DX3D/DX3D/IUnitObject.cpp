@@ -353,6 +353,8 @@ void IUnitObject::DamageCalcul(int Atk)
 
 void IUnitObject::AttackCalcultate(IUnitObject * DamagedUnit)
 {
+
+
 	DamagedUnit->DamageCalcul(m_Atk);
 	
 }

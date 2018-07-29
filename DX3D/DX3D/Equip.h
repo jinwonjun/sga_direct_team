@@ -46,7 +46,7 @@ public:
 	vector<items> EuipeedIted;
 	void Weapon_Equip_Text();
 	bool EquipScreenOn;
-
+	bool FireAvaliable;
 
 	void Init();
 	void Update();

@@ -23,6 +23,7 @@ void Equip::Init()
 	D3DXCreateSprite(g_pDevice, &m_pSprite);
 	GetClientRect(g_hWnd, &clientRect);
 
+	FireAvaliable = true;
 	EquipScreenOn = false;
 	for (int i = 0; i < 6; i++)
 	{

@@ -25,7 +25,7 @@ public:
 	D3DXMATRIXA16 matWorld;
 
 	LPD3DXSPRITE pSprite;
-	
+	bool cheatKeyAtk;
 
 	int AnswerDmg;
 	int IronMan_Atk;

@@ -24,7 +24,7 @@ void UIManager::Init()
 {
 	GetClientRect(g_hWnd, &clientRect);
 	D3DXCreateSprite(g_pDevice, &pSprite);
-
+	cheatKeyAtk = false;
 	D3DXCreateTextureFromFileEx(
 		g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 		_T("resources/images/Cursor_Normal.png"),   //LPCTSTR pSrcFile,
@@ -62,6 +62,17 @@ void UIManager::Update()
 {
 	GetCursorPos(&mousePoint);
 	ScreenToClient(g_hWnd, &mousePoint);
+
+	//if (g_pKeyboard->KeyDown('O'))
+	//{
+	//	cheatKeyAtk = !cheatKeyAtk;
+	//}
+
+	//if (cheatKeyAtk)
+	//{
+	//	IronMan_Atk = 200;
+	//}
+
 }
 
 void UIManager::Render()

@@ -225,7 +225,22 @@ void Ironman::Shoot()
 {
 	if (g_pMouse->ButtonDown(Mouse::LBUTTON))
 	{
-		if (!g_pInventory->openInven)
+		if (g_pInventory->Equip[1].index != 0 &&
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == false)
+		{
+			g_pSoundManager->Play("No_Ammo", .5f);
+			//g_pSoundManager->Play("laser_gun", 0.5f);
+		}
+
+
+		else if (g_pInventory->Equip[1].index != 0 &&
+			g_pEquip->EquipScreenOn == 0 &&
+			g_pInventory->openInven == 0 &&
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == true)
 		{
 			switch (static_cast <Gun *>(g_pObjMgr->FindObjectByTag(TAG_GUN))->GetWeaponStatus())
 			{
@@ -236,7 +251,7 @@ void Ironman::Shoot()
 			case 3:g_pSoundManager->Play("zod_gun", 0.3f);
 				break;
 			}
-		}
+		
 		Ray r = Ray::RayAtWorldSpace(g_pCamera->GetMCenter().x, g_pCamera->GetMCenter().y);
 
 		BoundingSphere* sphere = NULL;
@@ -275,7 +290,7 @@ void Ironman::Shoot()
 				}
 			}
 		}
-
+		
 		if (tempEnemy != NULL)
 		{
 			g_pItem->MonsterDamaged(DamageFontNum);
@@ -303,6 +318,9 @@ void Ironman::Shoot()
 		//ÃÑ ¹Ýµ¿ ¿Â
 		isShoot = true;
 		shootTime = 0;
+	}
+
+		
 	}
 }
 

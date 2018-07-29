@@ -283,12 +283,23 @@ void SampleUI::Update()
 	//ÃÑ°ú ÃÑ¾Ë 	
 	//==========================================
 	//==========================================
+
+	if (restBullet == 0)
+	{
+		g_pEquip->FireAvaliable = false;
+	}
+	else
+	{
+		g_pEquip->FireAvaliable = true;
+	}
+
 	if (spaceOn && contorller == 1)
 	{
 		if (g_pInventory->Equip[1].index != 0 &&
 			g_pEquip->EquipScreenOn == 0 &&
 			g_pInventory->openInven == 0 &&
-			g_pShop->ShopOpen == 0)
+			g_pShop->ShopOpen == 0 &&
+			g_pEquip->FireAvaliable == true)
 		{
 			restBullet--;
 			spaceOn = false;
