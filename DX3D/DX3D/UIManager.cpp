@@ -63,16 +63,17 @@ void UIManager::Update()
 	GetCursorPos(&mousePoint);
 	ScreenToClient(g_hWnd, &mousePoint);
 
-	//if (g_pKeyboard->KeyDown('O'))
-	//{
-	//	cheatKeyAtk = !cheatKeyAtk;
-	//}
+	if (g_pKeyboard->KeyDown('O'))
+	{
+		cheatKeyAtk = !cheatKeyAtk;
+	}
 
-	//if (cheatKeyAtk)
-	//{
-	//	IronMan_Atk = 200;
-	//}
-
+	if (cheatKeyAtk)
+	{
+		//beforeCheat = IronMan_Atk;
+		IronMan_Atk = 99;
+	}
+	
 }
 
 void UIManager::Render()

@@ -145,12 +145,19 @@ void Ironman::Update()
 	
 	m_pBox->Update();
 	m_pBox->SetPosition(&m_pos);
+	if (g_pKeyboard->KeyDown('O') && g_pUIManager->cheatKeyAtk == true)
+	{
+		Status();
+
+		g_pUIManager->Get_IronManAtk(m_Atk);
+		g_pUIManager->Get_IronManDef(m_Def);
+	}
 
 	// 아이템을착용하면 스텟이 변해야지
 	if (g_pInventory->isEquipItemChanged)
 	{
 		Status();
-
+		
 		g_pUIManager->Get_IronManAtk(m_Atk);
 		g_pUIManager->Get_IronManDef(m_Def);
 

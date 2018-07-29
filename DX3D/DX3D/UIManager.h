@@ -29,8 +29,13 @@ public:
 
 	int AnswerDmg;
 	int IronMan_Atk;
+	//int beforeCheat;
 	int IronMan_Def;
-	void Get_IronManAtk(int atk) { IronMan_Atk = atk; }
+	
+	void Get_IronManAtk(int atk) {
+		IronMan_Atk = atk; 
+	
+	}
 	void Get_IronManDef(int def) { IronMan_Def = def; }
 
 
