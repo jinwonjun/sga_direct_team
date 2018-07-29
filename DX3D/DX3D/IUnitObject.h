@@ -63,5 +63,7 @@ public:
 	void SetMoveStatus(bool moving) { m_isMoving = moving; }
 	int GetHp() { return m_Hp; }
 	void SetHp(int hp) { m_Hp = hp; }
+
+	bool GetIsDead() { return m_isDead; }
 };
 

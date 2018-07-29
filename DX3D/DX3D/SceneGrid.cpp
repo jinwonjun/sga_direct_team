@@ -273,10 +273,10 @@ void SceneGrid::BoundingCheck()
 			m_pEm->AddEnemy(D3DXVECTOR3(270, 0, 0), "resources/Boss_test/", "Mutant.X", 4);
 		}
 	}
-	Debug->AddText("캐릭터 위치 : ");
-	Debug->AddText(m_pCharacter->GetPosition());
-	Debug->EndLine();
-	Debug->EndLine();
+	//Debug->AddText("캐릭터 위치 : ");
+	//Debug->AddText(m_pCharacter->GetPosition());
+	//Debug->EndLine();
+	//Debug->EndLine();
 }
 
 //g_pMapManager->SetCurrentMap("Assult");

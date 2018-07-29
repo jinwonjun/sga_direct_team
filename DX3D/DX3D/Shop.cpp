@@ -102,6 +102,7 @@ void Shop::Update()
 			{
 				if (g_pMouse->ButtonDown(Mouse::RBUTTON))
 				{
+					g_pSoundManager->Play("clothEquip_inventory", 1.0f);
 					g_pInventory->addIndex(Shop_Items[i]);
 					buyItems = true;
 				}

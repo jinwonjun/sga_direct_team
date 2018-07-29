@@ -68,6 +68,9 @@ void UIOperator::Init()
 
 	ScreenEffectOn = false;
 
+	countText = 0;
+	countTextisOK = false;
+
 D3DXCreateTextureFromFileEx(
 	g_pDevice,            //LPDIRECT3DDEVICE9 pDevice,
 	_T("resources/images/Screen/Red_Screen_2.png"),   //LPCTSTR pSrcFile,
@@ -157,7 +160,11 @@ void UIOperator::Update()
 		countTextisOK = true;
 	}
 
+<<<<<<< HEAD
 	if (countText ==1 && countTextisOK == true)
+=======
+	if (countText == 1 && countTextisOK == true)
+>>>>>>> d4677358d2b331e7698c58ee49c63fa348e6c60a
 	{
 		countTextisOK = false;
 		ValkireTimer = 0;

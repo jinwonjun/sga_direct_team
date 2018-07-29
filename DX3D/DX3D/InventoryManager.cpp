@@ -450,6 +450,7 @@ void InventoryManager::Update()
 					&& Equip[i].isEquiped
 					&&alreadyWorkedRbutton == false)
 				{
+					g_pSoundManager->Play("clothEquip_inventory", 1.0f);
 					addIndex(Equip[i]);
 
 					Equip[i] = Void_Item[0][0];
