@@ -82,4 +82,6 @@ public:
 
 	void RenderUseShader_0();
 	void RenderUseShader_1();
+
+	bool GetCheckDeathTimer() { return checkDeathTimer; }
 };

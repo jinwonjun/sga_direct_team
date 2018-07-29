@@ -83,8 +83,8 @@ public:
 		D3DXTRACK_DESC track;
 		m_pAnimController->GetAnimationSet(index, &pAnimSet);
 		m_pAnimController->GetTrackDesc(index, &track);
-
-		return pAnimSet->GetPeriodicPosition(track.Position);
+		pAnimSet->GetPeriodicPosition(track.Position);
+		return track.Position;
 	}
 
 	double GetCurAnimTotalTime(UINT index)

@@ -383,10 +383,11 @@ void Ironman::Death()
 	else
 	{
 		deathTimer += 0.001f;
-		if (deathTimer > 0.15f)
+		if (deathTimer > 0.08f)
 		{
 			m_isDead = true;
 			checkDeathTimer = false;
+			Shaders::Get()->RemoveList(this, m_renderMode);
 		}
 	}
 
@@ -718,7 +719,7 @@ void Ironman::RenderUseShader_0()
 
 void Ironman::RenderUseShader_1()
 {
-	if(m_isDead ==false)
+	if(m_isDead == false)
 	m_pSkinnedMesh->RenderUseShader_1();
 }
 

@@ -1,12 +1,13 @@
-﻿  Ironman.cpp
-d:\_포폴\git\dx3d\dx3d\skinnedmesh.h(93): warning C4101: 'track' :참조되지 않은 지역 변수입니다.
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(41): warning C4316: 'SkinnedMesh': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(48): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(50): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(60): warning C4316: 'BoundingBox': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(62): warning C4316: 'BloodEffect': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(105): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(193): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(306): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\_포폴\git\dx3d\dx3d\ironman.cpp(417): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  DX3D.vcxproj -> D:\_포폴\Git\DX3D\Debug\DX3D.exe
+﻿  EnemyManager.cpp
+c:\project\dx3d\dx3d\boss.h(41): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\boss.h(42): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\submonster.h(42): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\submonster.h(43): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(37): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(51): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(91): warning C4316: 'SubMonster': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\enemymanager.cpp(96): warning C4316: 'Boss': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\project\dx3d\dx3d\enemymanager.cpp(103): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\project\dx3d\dx3d\enemymanager.cpp(108): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.exe
+  DX3D.vcxproj -> C:\project\DX3D\Debug\DX3D.pdb (Full PDB)
